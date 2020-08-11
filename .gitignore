@@ -1,0 +1,5 @@
+.idea/
+.scratch/
+venv/
+rsc/
+__pycache__/

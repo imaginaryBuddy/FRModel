@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from enum import Enum
 from dataclasses import dataclass
 import numpy as np
 from PIL import Image as PImage  # To avoid conflict.
@@ -18,14 +19,41 @@ class Image:
 
     img: PImage.Image
 
+    class PartitionMethod(Enum):
+        PAD = 0,
+        CROP = 1,
+        REMOVE = 2
+
     def partition(self,
                   window: Tuple = (100, 100),
-                  stride: Tuple = (50, 50)) -> array[Image]:
+                  stride: Tuple = (50, 50),
+                  edge_method: PartitionMethod = PartitionMethod.PAD
+                  ) -> array[Image]:
+        """ Partitions the image into fixed sizes, with definable stride
+
+        For example, if we have window = (100, 100), stride = (50, 50),
+        the algorithm will move a 100x100px window along the image, extracting images
+
+        :param edge_method: Defines the method to use to account for windows that exceed edges
+        :param window: A Tuple of (x-axis, y-axis) size in px
+        :param stride: A Tuple of (x-axis, y-axis) stride size in px
+        """
         width = self.width()
         height = self.height()
-        return [self.crop(w, h, min(w + window[0], width), min(h + window[1], height))
-                for w in range(0, width - stride[0], stride[0])
-                for h in range(0, height - stride[1], stride[1])]
+        if edge_method == Image.PartitionMethod.PAD:
+            # Default method of the cropping
+            return [self.crop(w, h, w + window[0], h + window[1])
+                    for w in range(0, width - stride[0], stride[0])
+                    for h in range(0, height - stride[1], stride[1])]
+        elif edge_method == Image.PartitionMethod.CROP:
+            # Crops it further without the padding.
+            return [self.crop(w, h, min(w + window[0], width), min(h + window[1], height))
+                    for w in range(0, width - stride[0], stride[0])
+                    for h in range(0, height - stride[1], stride[1])]
+        elif edge_method == Image.PartitionMethod.REMOVE:
+            return [self.crop(w, h, min(w + window[0], width), min(h + window[1], height))
+                    for w in range(0, width - stride[0], stride[0])
+                    for h in range(0, height - stride[1], stride[1])]
 
     def crop(self, left, upper, right, lower) -> Image:
         """ This crops the image, note the coordinate system starts from the top left."""
