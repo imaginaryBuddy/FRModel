@@ -3,3 +3,6 @@
 venv/
 rsc/
 __pycache__/
+venv2/
+sphinx/build/
+
