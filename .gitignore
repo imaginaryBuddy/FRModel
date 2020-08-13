@@ -1,8 +1,16 @@
+# PyCharm
 .idea/
-.scratch/
 venv/
-rsc/
 __pycache__/
-venv2/
+
+# Scratch File
+.scratch/
+
+# Raw Video Files (Large)
+rsc/raws/videos/*
+
+# Sphinx Build files
 sphinx/build/
 
+# Don't ignore any READMEs
+!README.md
