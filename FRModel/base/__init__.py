@@ -25,3 +25,8 @@ E.g.
     We cover a lot of these ugly code behind the interface to make way for plug-and-play programmers
 
 """
+
+from FRModel.base.image import Image
+from FRModel.base.video import Video
+
+__all__ = ['Image', 'Video']

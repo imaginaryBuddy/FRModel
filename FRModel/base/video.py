@@ -1,7 +1,7 @@
 from __future__ import annotations
 import cv2
 from typing import List
-from FRModel.base.image.image import Image
+from FRModel.base.image import Image
 from dataclasses import dataclass
 
 
