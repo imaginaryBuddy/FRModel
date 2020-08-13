@@ -14,3 +14,4 @@ sphinx/build/
 
 # Don't ignore any READMEs
 !README.md
+*.pyd
