@@ -20,6 +20,13 @@ class Image:
     img: PImage.Image
 
     class PartitionMethod(Enum):
+        """ Different ways to treat edge cases.
+
+        PAD: Add black padding to the edges.
+        CROP: Crop out edges, will cause inconsistent sizes
+        REMOVE: Remove anything that crosses an edge.
+        """
+
         PAD = 0,
         CROP = 1,
         REMOVE = 2
@@ -51,9 +58,11 @@ class Image:
                     for w in range(0, width - stride[0], stride[0])
                     for h in range(0, height - stride[1], stride[1])]
         elif edge_method == Image.PartitionMethod.REMOVE:
-            return [self.crop(w, h, min(w + window[0], width), min(h + window[1], height))
+            # Drops the partition entirely
+            return [self.crop(w, h, w + window[0], h + window[1])
                     for w in range(0, width - stride[0], stride[0])
-                    for h in range(0, height - stride[1], stride[1])]
+                    for h in range(0, height - stride[1], stride[1])
+                    if w + window[0] < width and h + window[1] < height]
 
     def crop(self, left, upper, right, lower) -> Image:
         """ This crops the image, note the coordinate system starts from the top left."""
@@ -63,6 +72,11 @@ class Image:
     def from_image(file_path: str) -> Image:
         """ Creates an instance using the file path. """
         return Image(PImage.open(file_path))
+
+    @staticmethod
+    def from_array(obj, mode=None) -> Image:
+        """ Creates the image from an array """
+        return Image(PImage.fromarray(obj, mode))
 
     def to_numpy(self) -> np.ndarray:
         """ Converts the current image to a numpy ndarray"""
