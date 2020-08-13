@@ -1,11 +1,11 @@
-##########
-Components
-##########
+######
+Layers
+######
 
 The project will host 3 levels. Separated so we can focus on achieving goals independently without overlap.
 
 ==============
-Back (Level 0)
+Back (Layer 0)
 ==============
 
 Essentially anything in the `FRModel` package, will house the python OOP implementation,
@@ -14,26 +14,26 @@ opening only important front-end functions to those who will be meddling with th
 Making messing with the data in Jupyter-Notebook accessible without having to rewrite multiple
 boilercode mess.
 
-Goal: Make sure that **Level 1** doesn't write any OOP, only functional code.
+Goal: Make sure that **Layer 1** doesn't write any OOP, only functional code.
 
 Focal Directories
 - ``FRModel``: Base Code implementation
 
 ================
-Middle (Level 1)
+Middle (Layer 1)
 ================
 
 The middle here is mainly pointing to users, like data scientists, focus more on the theoretical
 knowledge in implementing clear-cut instructions instead of having to do low-end algorithmic
 code.
 
-Goal: Make sure that **Level 2** only needs minimal code.
+Goal: Make sure that **Layer 2** only needs minimal code.
 
 Focal Directories
 - ``nbs``: Notebook/Scratches
 
 ===============
-Front (Level 2)
+Front (Layer 2)
 ===============
 
 This is where all the UI, front-facing implementation will be done.
