@@ -1,7 +1,7 @@
 """ Implementation for extract_run
 """
 
-from FRModel.base.video.video import Video
+from FRModel.base.video import Video
 import os
 import numpy as np
 from pathlib import Path
