@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Image &mdash; FRModel 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Video" href="video.html" />
+    <link rel="prev" title="Base Classes" href="../base.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> FRModel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../base.html#purpose">Purpose</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"> Image</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-FRModel.base.image">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="video.html"> Video</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">FRModel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../base.html">Base Classes</a> &raquo;</li>
+        
+      <li>Image</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/FRModel/base/image.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="image">
+<h1>Image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-FRModel.base.image">
+<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-FRModel.base.image" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="FRModel.base.image.Image">
+<em class="property">class </em><code class="sig-prename descclassname">FRModel.base.image.</code><code class="sig-name descname">Image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img</span><span class="p">:</span> <span class="n">PIL.Image.Image</span></em><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.image.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class will hold information about the image being used.</p>
+<p>Use from_image to read an image.</p>
+<p>This encapsulates the Pillow Image class to provide the required interfaces only.</p>
+<dl class="py class">
+<dt id="FRModel.base.image.Image.PartitionMethod">
+<em class="property">class </em><code class="sig-name descname">PartitionMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.image.Image.PartitionMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Different ways to treat edge cases.</p>
+<p>PAD: Add black padding to the edges.
+CROP: Crop out edges, will cause inconsistent sizes
+REMOVE: Remove anything that crosses an edge.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.channel_blue">
+<code class="sig-name descname">channel_blue</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#FRModel.base.image.Image" title="FRModel.base.image.Image">FRModel.base.image.Image</a><a class="headerlink" href="#FRModel.base.image.Image.channel_blue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the blue channel of the Image</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.channel_green">
+<code class="sig-name descname">channel_green</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#FRModel.base.image.Image" title="FRModel.base.image.Image">FRModel.base.image.Image</a><a class="headerlink" href="#FRModel.base.image.Image.channel_green" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the green channel of the Image</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.channel_red">
+<code class="sig-name descname">channel_red</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#FRModel.base.image.Image" title="FRModel.base.image.Image">FRModel.base.image.Image</a><a class="headerlink" href="#FRModel.base.image.Image.channel_red" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the red channel of the Image</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.channels">
+<code class="sig-name descname">channels</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span><a class="reference internal" href="#FRModel.base.image.Image" title="FRModel.base.image.Image">FRModel.base.image.Image</a><span class="p">]</span><a class="headerlink" href="#FRModel.base.image.Image.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the image into RGB Channels as a 3-size Tuple</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.crop">
+<code class="sig-name descname">crop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">left</span></em>, <em class="sig-param"><span class="n">upper</span></em>, <em class="sig-param"><span class="n">right</span></em>, <em class="sig-param"><span class="n">lower</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#FRModel.base.image.Image" title="FRModel.base.image.Image">FRModel.base.image.Image</a><a class="headerlink" href="#FRModel.base.image.Image.crop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This crops the image, note the coordinate system starts from the top left.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.from_array">
+<em class="property">static </em><code class="sig-name descname">from_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#FRModel.base.image.Image" title="FRModel.base.image.Image">FRModel.base.image.Image</a><a class="headerlink" href="#FRModel.base.image.Image.from_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the image from an array</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.from_image">
+<em class="property">static </em><code class="sig-name descname">from_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#FRModel.base.image.Image" title="FRModel.base.image.Image">FRModel.base.image.Image</a><a class="headerlink" href="#FRModel.base.image.Image.from_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance using the file path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.partition">
+<code class="sig-name descname">partition</code><span class="sig-paren">(</span><em class="sig-param">window: Tuple = (100</em>, <em class="sig-param">100)</em>, <em class="sig-param">stride: Tuple = (50</em>, <em class="sig-param">50)</em>, <em class="sig-param">edge_method: PartitionMethod = &lt;PartitionMethod.PAD: (0</em>, <em class="sig-param">)&gt;</em><span class="sig-paren">)</span> &#x2192; array<span class="p">[</span><a class="reference internal" href="#FRModel.base.image.Image" title="FRModel.base.image.Image">Image</a><span class="p">]</span><a class="headerlink" href="#FRModel.base.image.Image.partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partitions the image into fixed sizes, with definable stride</p>
+<p>For example, if we have window = (100, 100), stride = (50, 50),
+the algorithm will move a 100x100px window along the image, extracting images</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edge_method</strong> – Defines the method to use to account for windows that exceed edges</p></li>
+<li><p><strong>window</strong> – A Tuple of (x-axis, y-axis) size in px</p></li>
+<li><p><strong>stride</strong> – A Tuple of (x-axis, y-axis) stride size in px</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#FRModel.base.image.Image.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the current image file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.size">
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#FRModel.base.image.Image.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the size of the image as a tuple of (Width, Height)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.image.Image.to_numpy">
+<code class="sig-name descname">to_numpy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#FRModel.base.image.Image.to_numpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the current image to a numpy ndarray</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="video.html" class="btn btn-neutral float-right" title="Video" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../base.html" class="btn btn-neutral float-left" title="Base Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
