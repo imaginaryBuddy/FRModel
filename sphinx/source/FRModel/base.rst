@@ -2,6 +2,12 @@
 Base Classes
 ############
 
+.. toctree::
+   :maxdepth: 2
+
+    Image <base/image>
+    Video <base/video>
+
 =======
 Purpose
 =======
@@ -30,8 +36,3 @@ We can likely create an interface that's just.::
 
 We cover a lot of these ugly code behind the interface.
 
-.. toctree::
-   :maxdepth: 2
-
-    Image <base/image>
-    Video <base/video>
