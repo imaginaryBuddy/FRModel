@@ -8,6 +8,7 @@ from dataclasses import dataclass
 @dataclass
 class Video:
     """ This class holds the data as OpenCV2.VideoCapture.
+
     Extract the actual Capture with .vid property
     """
 
@@ -28,7 +29,7 @@ class Video:
 
         :param offsets_msec: The timestamps to extract images from.
         :param failure_default: Value to default to on failure on offset read.
-        :returns: List[Image]
+        :returns: List of Images
         """
 
         # Correct it as a List if int

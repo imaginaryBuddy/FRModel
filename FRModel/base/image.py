@@ -106,7 +106,7 @@ class Image:
     def channel_blue(self) -> Image:
         """ Gets the blue channel of the Image """
         return Image(self.img.getchannel("B"))
-    def channels(self):
-        """ Splits the image into RGB Channels as a 3-size Tuple"""
-        return (Image(i) for i in self.img.split())
+    def channels(self) -> Tuple[Image]:
+        """ Splits the image into RGB Channels as a 3-size Tuple """
+        return tuple(Image(i) for i in self.img.split())
 
