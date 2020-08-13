@@ -4,7 +4,7 @@ Forest Recovery Model Research Project
 
 # Required Packages
 
-**Python >= 3.8**
+**Python >= 3.7**
 
 ```
 PIL (Pillow)
