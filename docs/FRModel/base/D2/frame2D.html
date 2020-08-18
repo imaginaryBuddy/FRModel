@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Frame &mdash; FRModel 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Video" href="video2D.html" />
+    <link rel="prev" title="2D Classes" href="D2.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> FRModel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"> Frame2D</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#module-FRModel.base.D2.frame2D">Module Info</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html"> Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="channel2D.html"> Channel2D</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">FRModel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+          <li><a href="D2.html">2D Classes</a> &raquo;</li>
+        
+      <li>Frame</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/FRModel/base/D2/frame2D.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="frame">
+<h1>Frame<a class="headerlink" href="#frame" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>We can load a frame from an image like so.
+We can then grab the np.ndarray using <code class="docutils literal notranslate"><span class="pre">.data</span></code>.</p>
+<p><em>Note that all classes have a data property to grab the underlying data representation.</em></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+<div class="section" id="module-FRModel.base.D2.frame2D">
+<span id="module-info"></span><h3>Module Info<a class="headerlink" href="#module-FRModel.base.D2.frame2D" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="FRModel.base.D2.frame2D.Frame2D">
+<em class="property">class </em><code class="sig-prename descclassname">FRModel.base.D2.frame2D.</code><code class="sig-name descname">Frame2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A Frame is an alias to an Frame, however, it holds more than just the XYRGB Channels.</p>
+<p>Note that due to the nature of np arrays, it cannot be any irregular shape.
+The structure is very simple, it’s a 4D object always. That is, the X, Y, Z, ?.</p>
+<p>Because X, Y, Z are directional, we can place it logically it in an array index.
+However, RGB(and other spectral ranges) are not directional, and are dependent on the XYZ.</p>
+<p>Hence they are placed in a structured array.</p>
+<dl class="py method">
+<dt id="FRModel.base.D2.frame2D.Frame2D.channel">
+<code class="sig-name descname">channel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">channel</span><span class="p">:</span> <span class="n">FRModel.base.consts.CONSTS.CHANNEL</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="channel2D.html#FRModel.base.D2.channel2D.Channel2D" title="FRModel.base.D2.channel2D.Channel2D">FRModel.base.D2.channel2D.Channel2D</a><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the red channel of the Frame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.D2.frame2D.Frame2D.from_image">
+<em class="property">static </em><code class="sig-name descname">from_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#FRModel.base.D2.frame2D.Frame2D" title="FRModel.base.D2.frame2D.Frame2D">FRModel.base.D2.frame2D.Frame2D</a><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.from_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance using the file path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.D2.frame2D.Frame2D.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the current Frame file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.D2.frame2D.Frame2D.size">
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of pixels</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.D2.frame2D.Frame2D.split">
+<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">axis</span><span class="p">:</span> <span class="n">CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#FRModel.base.D2.frame2D.Frame2D" title="FRModel.base.D2.frame2D.Frame2D">Frame2D</a><span class="p">]</span><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the current Frame into windows of specified size.</p>
+<p>E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+    <span class="n">by</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">CONSTS</span><span class="o">.</span><span class="n">AXIS</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
+    <span class="n">method</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">SplitMethod</span><span class="o">.</span><span class="n">DROP</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Will slice the images vertically, drops the last slice if it’s not perfectly divisible.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="FRModel.base.D2.frame2D.Frame2D.split_xy">
+<code class="sig-name descname">split_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.split_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short hand for splitting by both axes.</p>
+<p>Splits by X first, then Y.</p>
+<p>E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="mi">11</span> <span class="o">|</span> <span class="mi">16</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="mi">12</span> <span class="o">|</span> <span class="mi">17</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="mi">13</span> <span class="o">|</span> <span class="mi">18</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="mi">14</span> <span class="o">|</span> <span class="mi">19</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span> <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">15</span> <span class="o">|</span> <span class="mi">20</span> <span class="o">|</span>
+
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="video2D.html" class="btn btn-neutral float-right" title="Video" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="D2.html" class="btn btn-neutral float-left" title="2D Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
