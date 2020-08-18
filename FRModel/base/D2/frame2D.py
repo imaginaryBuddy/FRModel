@@ -33,11 +33,24 @@ class Frame2D:
         CROP = 1
 
         # Require to support padding? Not implemented yet.
-
     def split_xy(self,
                  by: int,
                  method: SplitMethod = SplitMethod.DROP):
-        """ Short hand for splitting by both axes """
+        """ Short hand for splitting by both axes.
+
+        Splits by X first, then Y.
+
+        E.g.::
+
+            | 1 | 6  | 11 | 16 |
+            | 2 | 7  | 12 | 17 |
+            | 3 | 8  | 13 | 18 |
+            | 4 | 9  | 14 | 19 |
+            | 5 | 10 | 15 | 20 |
+
+            [[1,2,3,4,5],[6,7,8,...], ...]
+
+        """
         return [f.split(by, axis=CONSTS.AXIS.Y, method=method)
                 for f in self.split(by, axis=CONSTS.AXIS.X, method=method)]
 
@@ -107,5 +120,3 @@ class Frame2D:
         """ Gets the red channel of the Frame """
         return Channel2D(self.data[channel]
                              .reshape(self.shape()[0:2]))
-
-

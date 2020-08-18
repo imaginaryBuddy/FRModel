@@ -4,7 +4,6 @@ from dataclasses import dataclass
 import numpy as np
 from PIL import Image
 from FRModel.base.consts import CONSTS
-from typing import Tuple
 from FRModel.base.D2.glcm2D import GLCM2D
 
 
@@ -21,10 +20,6 @@ class Channel2D:
     def save(self, file_path: str, **kwargs) -> None:
         """ Saves the current Frame file"""
         Image.fromarray(self.data.view(np.uint8)).save(file_path, **kwargs)
-
-    def size(self):
-        """ Returns the size of the Frame as a tuple of (Width, Height) """
-        return self.data.size
 
     def glcm(self,
              by: int = 1,
