@@ -1,7 +1,7 @@
 """ Implementation for extract_run
 """
 
-from FRModel.base.video import Video
+from FRModel.base.D2.video2D import Video2D
 import os
 import numpy as np
 from pathlib import Path
@@ -32,6 +32,6 @@ def extract(file_path,
         if return_on_exist: return
 
     # Load video and extract images
-    v = Video.from_video(file_path)
+    v = Video2D.from_video(file_path)
     for e, img in enumerate(v.to_images(np.arange(start, end, interval))):
         img.save(f"{dir_name}/frame{e * interval}ms.jpg")
