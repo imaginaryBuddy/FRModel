@@ -5,8 +5,7 @@ Base Classes
 .. toctree::
    :maxdepth: 2
 
-    Image <base/image>
-    Video <base/video>
+    2D Classes <base/D2/D2>
 
 =======
 Purpose
