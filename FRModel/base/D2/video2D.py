@@ -1,12 +1,13 @@
 from __future__ import annotations
+
 import cv2
 from typing import List
-from FRModel.base.image import Image
+from FRModel.base.D2.frame2D import Frame2D
 from dataclasses import dataclass
 
 
 @dataclass
-class Video:
+class Video2D:
     """ This class holds the data as OpenCV2.VideoCapture.
 
     Extract the actual Capture with .vid property
@@ -15,14 +16,14 @@ class Video:
     vid: cv2.VideoCapture
 
     @staticmethod
-    def from_video(file_path: str) -> Video:
+    def from_video(file_path: str) -> Video2D:
         """ Creates an instance using the file path. """
-        return Video(cv2.VideoCapture(file_path))
+        return Video2D(cv2.VideoCapture(file_path))
 
     def to_images(self,
                   offsets_msec: List[int] or int,
                   failure_default: None = None
-                  ) -> List[Image]:
+                  ) -> List[Frame2D]:
         """ Extracts images from the video.
 
         Returns FRModel.Image
@@ -44,7 +45,7 @@ class Video:
             if success:
                 # CV2 uses BGR, we swap the channels here
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                img_list.append(Image.from_array(image))
+                img_list.append(Frame2D(image))
             else:
                 img_list.append(failure_default)
 

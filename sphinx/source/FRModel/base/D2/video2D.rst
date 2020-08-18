@@ -1,9 +1,9 @@
 #####
-Image
+Video
 #####
 
 ***********
 Module Info
 ***********
 
-.. automodule:: FRModel.base.image
+.. automodule:: FRModel.base.D2.video2D
