@@ -13,5 +13,5 @@ rsc/_raws/videos/*
 sphinx/build/
 
 # Don't ignore any READMEs
-!src/README.md
+!README.md
 *.pyd
