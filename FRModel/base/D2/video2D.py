@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import cv2
 from typing import List
-from FRModel.base.D2.frame2D import Frame2D
+from PIL import Image
+from FRModel.base.D2.frame2D import Frame2D, D_TYPE
 from dataclasses import dataclass
 
 
@@ -45,7 +46,7 @@ class Video2D:
             if success:
                 # CV2 uses BGR, we swap the channels here
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                img_list.append(Frame2D(image))
+                img_list.append(Frame2D(image.view(D_TYPE)))
             else:
                 img_list.append(failure_default)
 
