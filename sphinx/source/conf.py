@@ -20,7 +20,7 @@ print(os.path.abspath('../../'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'FRModel'
+project = 'frmodel'
 copyright = '2020, Eve-ning'
 author = 'Eve-ning'
 

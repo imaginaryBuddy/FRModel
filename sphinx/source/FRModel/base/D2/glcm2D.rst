@@ -18,8 +18,8 @@ Example
 
 .. code-block:: python
 
-    from FRModel.base.consts import CONSTS
-    from FRModel.base.D2.frame2D import Frame2D
+    from frmodel.base.consts import CONSTS
+    from frmodel.base.D2.frame2D import Frame2D
 
     frame = Frame2D.from_image("path/to/file.jpg")
 
@@ -37,4 +37,4 @@ Example
 Module Info
 ***********
 
-.. automodule:: FRModel.base.D2.glcm2D
+.. automodule:: frmodel.base.D2.glcm2D

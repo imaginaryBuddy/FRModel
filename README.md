@@ -1,4 +1,4 @@
-# FRModel
+# frmodel
 
 Forest Recovery Model Research Project
 

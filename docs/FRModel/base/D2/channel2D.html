@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Channel &mdash; FRModel 0.0.1 documentation</title>
+  <title>Channel &mdash; frmodel 0.0.1 documentation</title>
   
 
   
@@ -49,7 +49,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> FRModel
+            <a href="../../../index.html" class="icon icon-home"> frmodel
           
 
           
@@ -87,7 +87,7 @@
 <li class="toctree-l3"><a class="reference internal" href="video2D.html"> Video2D</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#"> Channel2D</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#example">Example</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#module-FRModel.base.D2.channel2D">Module Info</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.channel2D">Module Info</a></li>
 </ul>
 </li>
 </ul>
@@ -111,7 +111,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">FRModel</a>
+          <a href="../../../index.html">frmodel</a>
         
       </nav>
 
@@ -152,7 +152,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/FRModel/base/D2/channel2D.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/frmodel/base/D2/channel2D.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -176,29 +176,29 @@ For every channel, we can save it as an image.</p>
 <span class="n">channel_red</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;path/to/file_red.jpg&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="module-FRModel.base.D2.channel2D">
-<span id="module-info"></span><h3>Module Info<a class="headerlink" href="#module-FRModel.base.D2.channel2D" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-frmodel.base.D2.channel2D">
+<span id="module-info"></span><h3>Module Info<a class="headerlink" href="#module-frmodel.base.D2.channel2D" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
-<dt id="FRModel.base.D2.channel2D.Channel2D">
-<em class="property">class </em><code class="sig-prename descclassname">FRModel.base.D2.channel2D.</code><code class="sig-name descname">Channel2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.D2.channel2D.Channel2D" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.channel2D.Channel2D">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.channel2D.</code><code class="sig-name descname">Channel2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.channel2D.Channel2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A Channel is a slice of the frame, a layer.</p>
 <p>The channel still holds the X, Y data.</p>
 <dl class="py method">
-<dt id="FRModel.base.D2.channel2D.Channel2D.glcm">
-<code class="sig-name descname">glcm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">axis</span><span class="p">:</span> <span class="n">FRModel.base.consts.CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="glcm2D.html#FRModel.base.D2.glcm2D.GLCM2D" title="FRModel.base.D2.glcm2D.GLCM2D">FRModel.base.D2.glcm2D.GLCM2D</a><a class="headerlink" href="#FRModel.base.D2.channel2D.Channel2D.glcm" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.channel2D.Channel2D.glcm">
+<code class="sig-name descname">glcm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">axis</span><span class="p">:</span> <span class="n">frmodel.base.consts.CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="glcm2D.html#frmodel.base.D2.glcm2D.GLCM2D" title="frmodel.base.D2.glcm2D.GLCM2D">frmodel.base.D2.glcm2D.GLCM2D</a><a class="headerlink" href="#frmodel.base.D2.channel2D.Channel2D.glcm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gray-level co-occurrence matrix.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="FRModel.base.D2.channel2D.Channel2D.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#FRModel.base.D2.channel2D.Channel2D.save" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.channel2D.Channel2D.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#frmodel.base.D2.channel2D.Channel2D.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the current Frame file</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="FRModel.base.D2.channel2D.Channel2D.size">
-<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.D2.channel2D.Channel2D.size" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.channel2D.Channel2D.size">
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.channel2D.Channel2D.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the size of the Frame as a tuple of (Width, Height)</p>
 </dd></dl>
 

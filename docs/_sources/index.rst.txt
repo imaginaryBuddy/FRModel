@@ -5,5 +5,5 @@ Forest Recovery Modelling
    :maxdepth: 2
 
    Information <info>
-   Base <FRModel/base>
+   Base <frmodel/base>
 

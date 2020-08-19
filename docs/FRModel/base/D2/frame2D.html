@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frame &mdash; FRModel 0.0.1 documentation</title>
+  <title>Frame &mdash; frmodel 0.0.1 documentation</title>
   
 
   
@@ -50,7 +50,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> FRModel
+            <a href="../../../index.html" class="icon icon-home"> frmodel
           
 
           
@@ -86,7 +86,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#"> Frame2D</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#example">Example</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#module-FRModel.base.D2.frame2D">Module Info</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.frame2D">Module Info</a></li>
 </ul>
 </li>
 </ul>
@@ -112,7 +112,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">FRModel</a>
+          <a href="../../../index.html">frmodel</a>
         
       </nav>
 
@@ -153,7 +153,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/FRModel/base/D2/frame2D.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/frmodel/base/D2/frame2D.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -177,11 +177,11 @@ We can then grab the np.ndarray using <code class="docutils literal notranslate"
 <span class="n">d</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 </div>
-<div class="section" id="module-FRModel.base.D2.frame2D">
-<span id="module-info"></span><h3>Module Info<a class="headerlink" href="#module-FRModel.base.D2.frame2D" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-frmodel.base.D2.frame2D">
+<span id="module-info"></span><h3>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame2D" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
-<dt id="FRModel.base.D2.frame2D.Frame2D">
-<em class="property">class </em><code class="sig-prename descclassname">FRModel.base.D2.frame2D.</code><code class="sig-name descname">Frame2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.frame2D.Frame2D">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame2D.</code><code class="sig-name descname">Frame2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A Frame is an alias to an Frame, however, it holds more than just the XYRGB Channels.</p>
 <p>Note that due to the nature of np arrays, it cannot be any irregular shape.
@@ -190,32 +190,32 @@ The structure is very simple, it’s a 4D object always. That is, the X, Y, Z, ?
 However, RGB(and other spectral ranges) are not directional, and are dependent on the XYZ.</p>
 <p>Hence they are placed in a structured array.</p>
 <dl class="py method">
-<dt id="FRModel.base.D2.frame2D.Frame2D.channel">
-<code class="sig-name descname">channel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">channel</span><span class="p">:</span> <span class="n">FRModel.base.consts.CONSTS.CHANNEL</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="channel2D.html#FRModel.base.D2.channel2D.Channel2D" title="FRModel.base.D2.channel2D.Channel2D">FRModel.base.D2.channel2D.Channel2D</a><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.channel" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.frame2D.Frame2D.channel">
+<code class="sig-name descname">channel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">channel</span><span class="p">:</span> <span class="n">frmodel.base.consts.CONSTS.CHANNEL</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="channel2D.html#frmodel.base.D2.channel2D.Channel2D" title="frmodel.base.D2.channel2D.Channel2D">frmodel.base.D2.channel2D.Channel2D</a><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.channel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the red channel of the Frame</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="FRModel.base.D2.frame2D.Frame2D.from_image">
-<em class="property">static </em><code class="sig-name descname">from_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#FRModel.base.D2.frame2D.Frame2D" title="FRModel.base.D2.frame2D.Frame2D">FRModel.base.D2.frame2D.Frame2D</a><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.from_image" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.frame2D.Frame2D.from_image">
+<em class="property">static </em><code class="sig-name descname">from_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.from_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an instance using the file path.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="FRModel.base.D2.frame2D.Frame2D.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.save" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.frame2D.Frame2D.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the current Frame file</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="FRModel.base.D2.frame2D.Frame2D.size">
-<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.size" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.frame2D.Frame2D.size">
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of pixels</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="FRModel.base.D2.frame2D.Frame2D.split">
-<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">axis</span><span class="p">:</span> <span class="n">CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#FRModel.base.D2.frame2D.Frame2D" title="FRModel.base.D2.frame2D.Frame2D">Frame2D</a><span class="p">]</span><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.split" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.frame2D.Frame2D.split">
+<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">axis</span><span class="p">:</span> <span class="n">CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">Frame2D</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Splits the current Frame into windows of specified size.</p>
 <p>E.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
@@ -229,8 +229,8 @@ However, RGB(and other spectral ranges) are not directional, and are dependent o
 </dd></dl>
 
 <dl class="py method">
-<dt id="FRModel.base.D2.frame2D.Frame2D.split_xy">
-<code class="sig-name descname">split_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.D2.frame2D.Frame2D.split_xy" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.frame2D.Frame2D.split_xy">
+<code class="sig-name descname">split_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.split_xy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Short hand for splitting by both axes.</p>
 <p>Splits by X first, then Y.</p>
 <p>E.g.:</p>
