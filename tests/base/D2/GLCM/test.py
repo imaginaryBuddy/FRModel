@@ -1,6 +1,6 @@
 import unittest
 
-from FRModel.base.consts import CONSTS
+from frmodel.base import CONSTS
 from rsc.samples.frames import chestnut_0
 
 

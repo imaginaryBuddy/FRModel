@@ -8,7 +8,7 @@ The project will host 3 levels. Separated so we can focus on achieving goals ind
 Back (Level 0)
 ==============
 
-Essentially anything in the `FRModel` package, will house the python OOP implementation,
+Essentially anything in the `frmodel` package, will house the python OOP implementation,
 opening only important front-end functions to those who will be meddling with the data.
 
 Making messing with the data in Jupyter-Notebook accessible without having to rewrite multiple
@@ -17,7 +17,7 @@ boilercode mess.
 Goal: Make sure that **Level 1** doesn't write any OOP, only functional code.
 
 Focal Directories
-- ``FRModel``: Base Code implementation
+- ``frmodel``: Base Code implementation
 
 ================
 Middle (Level 1)

@@ -6,4 +6,4 @@ Image
 Module Info
 ***********
 
-.. automodule:: FRModel.base.image
+.. automodule:: frmodel.base.image

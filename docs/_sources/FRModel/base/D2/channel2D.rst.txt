@@ -19,4 +19,4 @@ For every channel, we can save it as an image.
 Module Info
 ***********
 
-.. automodule:: FRModel.base.D2.channel2D
+.. automodule:: frmodel.base.D2.channel2D

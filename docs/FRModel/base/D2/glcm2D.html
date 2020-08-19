@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Gray Level Co-occurrence Matrix &mdash; FRModel 0.0.1 documentation</title>
+  <title>Gray Level Co-occurrence Matrix &mdash; frmodel 0.0.1 documentation</title>
   
 
   
@@ -48,7 +48,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> FRModel
+            <a href="../../../index.html" class="icon icon-home"> frmodel
           
 
           
@@ -95,7 +95,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">FRModel</a>
+          <a href="../../../index.html">frmodel</a>
         
       </nav>
 
@@ -132,7 +132,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/FRModel/base/D2/glcm2D.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/frmodel/base/D2/glcm2D.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -156,8 +156,8 @@
 <li><p>Create the GLCM</p></li>
 <li><p>Calculate all available statistics</p></li>
 </ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">FRModel.base.consts</span> <span class="kn">import</span> <span class="n">CONSTS</span>
-<span class="kn">from</span> <span class="nn">FRModel.base.D2.frame2D</span> <span class="kn">import</span> <span class="n">Frame2D</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">frmodel.base.consts</span> <span class="kn">import</span> <span class="n">CONSTS</span>
+<span class="kn">from</span> <span class="nn">frmodel.base.D2.frame2D</span> <span class="kn">import</span> <span class="n">Frame2D</span>
 
 <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
 
@@ -172,11 +172,11 @@
         <span class="n">glcm</span><span class="o">.</span><span class="n">entropy</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="section" id="module-FRModel.base.D2.glcm2D">
-<span id="module-info"></span><h3>Module Info<a class="headerlink" href="#module-FRModel.base.D2.glcm2D" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-frmodel.base.D2.glcm2D">
+<span id="module-info"></span><h3>Module Info<a class="headerlink" href="#module-frmodel.base.D2.glcm2D" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
-<dt id="FRModel.base.D2.glcm2D.GLCM2D">
-<em class="property">class </em><code class="sig-prename descclassname">FRModel.base.D2.glcm2D.</code><code class="sig-name descname">GLCM2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data0</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">data1</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#FRModel.base.D2.glcm2D.GLCM2D" title="Permalink to this definition">¶</a></dt>
+<dt id="frmodel.base.D2.glcm2D.GLCM2D">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.glcm2D.</code><code class="sig-name descname">GLCM2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data0</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">data1</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.glcm2D.GLCM2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 

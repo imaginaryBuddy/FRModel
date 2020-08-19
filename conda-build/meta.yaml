@@ -1,0 +1,30 @@
+package:
+  name: "frmodel"
+  version: "0.0.1"
+
+source:
+  path: ../src
+
+build:
+  script: python setup.py install
+
+requirements:
+  build:
+    - pillow
+    - opencv
+    - pandas
+    - numpy
+    - python
+  run:
+    - pillow
+    - opencv
+    - pandas
+    - numpy
+    - python
+
+about:
+  home: "https://github.com/Eve-ning/frmodel"
+  summary: "Forest Recovery Modelling base library"
+  doc_url: https://eve-ning.github.io/frmodel/
+  dev_url: https://github.com/Eve-ning
+

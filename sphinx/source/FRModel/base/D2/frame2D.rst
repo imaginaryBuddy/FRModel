@@ -20,4 +20,4 @@ We can then grab the np.ndarray using ``.data``.
 Module Info
 ***********
 
-.. automodule:: FRModel.base.D2.frame2D
+.. automodule:: frmodel.base.D2.frame2D

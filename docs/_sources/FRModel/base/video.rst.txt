@@ -6,4 +6,4 @@ Video
 Module Info
 ***********
 
-.. automodule:: FRModel.base.video
+.. automodule:: frmodel.base.video

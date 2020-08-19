@@ -5,7 +5,7 @@ from typing import List
 
 import cv2
 
-from FRModel.base.D2.frame2D import Frame2D, D_TYPE
+from frmodel.base.D2 import Frame2D, D_TYPE
 
 
 @dataclass
@@ -28,7 +28,7 @@ class Video2D:
                   ) -> List[Frame2D]:
         """ Extracts images from the video.
 
-        Returns FRModel.Image
+        Returns frmodel.Image
 
         :param offsets_msec: The timestamps to extract images from.
         :param failure_default: Value to default to on failure on offset read.
