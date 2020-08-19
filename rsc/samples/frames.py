@@ -5,7 +5,7 @@ import os
 
 _RSC = os.path.dirname(os.path.realpath(__file__))
 
-def chestnut_0(index: int):
+def chestnut_0(index: int = 0):
     """ Gets Frame (index * 10s) of the chestnut_0 video
 
     :param index: an integer between 0 - 11, inclusive.
