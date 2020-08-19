@@ -2,7 +2,7 @@ import os
 
 _RSC = os.path.dirname(os.path.realpath(__file__)) + "/../rsc/"
 
-_RAW = _RSC + ".raws/"
+_RAW = _RSC + "_raws/"
 
 _RAW_VIDS = _RAW + "videos/"
 
