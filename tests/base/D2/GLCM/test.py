@@ -1,13 +1,15 @@
 import unittest
 
-from rsc.rsc_paths import *
+from rsc.samples.frames import chestnut_0
 from FRModel.base.consts import CONSTS
 from FRModel.base.D2.frame2D import Frame2D
 
+
 class GLCMTest(unittest.TestCase):
+
     def test(self):
 
-        frame = Frame2D.from_image(SAMPLE_CHESTNUT_0S_IMG)
+        frame = chestnut_0(0)
         frames = frame.split_xy(100)
 
         for xframes in frames:
