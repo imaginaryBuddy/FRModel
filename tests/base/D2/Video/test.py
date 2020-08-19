@@ -1,9 +1,5 @@
 import unittest
 
-from rsc.samples.frames import chestnut_0
-from FRModel.base.consts import CONSTS
-from FRModel.base.D2.video2D import Video2D
-
 
 class VideoTest(unittest.TestCase):
 

@@ -1,10 +1,9 @@
 import unittest
 
-from rsc.rsc_paths import *
-from rsc.samples.frames import chestnut_0
-from FRModel.base.consts import CONSTS
-from FRModel.base.D2.frame2D import Frame2D
 import numpy as np
+
+from FRModel.base.consts import CONSTS
+from rsc.samples.frames import chestnut_0
 
 
 class ChannelTest(unittest.TestCase):
