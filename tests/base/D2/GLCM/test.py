@@ -1,7 +1,7 @@
 import unittest
 
-from rsc.samples.frames import chestnut_0
 from FRModel.base.consts import CONSTS
+from rsc.samples.frames import chestnut_0
 
 
 class GLCMTest(unittest.TestCase):

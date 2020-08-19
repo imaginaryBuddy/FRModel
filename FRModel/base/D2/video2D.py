@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-import cv2
-from typing import List
-from PIL import Image
-from FRModel.base.D2.frame2D import Frame2D, D_TYPE
 from dataclasses import dataclass
+from typing import List
+
+import cv2
+
+from FRModel.base.D2.frame2D import Frame2D, D_TYPE
 
 
 @dataclass

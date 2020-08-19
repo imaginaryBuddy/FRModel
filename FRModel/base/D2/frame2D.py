@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-from typing import List
 from dataclasses import dataclass
+from typing import List
+
 import numpy as np
 from PIL import Image
+
 from FRModel.base.D2.channel2D import Channel2D
 from FRModel.base.consts import CONSTS
 
