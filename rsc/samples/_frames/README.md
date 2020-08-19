@@ -1,7 +1,9 @@
 # Image Extracts
 
-Extracts images from ``raws`` videos, see python files for details.
+These are custom extracts of raw videos.
 
-`extract.py`. Code implementation for `extract_run.py`
+## Extraction Scripts
 
-Execute `extract_run.py` to extract images to subfolder
+To reduce clutter in samples, the extraction script has been removed and hidden.
+
+This is also to ensure that the samples used are consistent.

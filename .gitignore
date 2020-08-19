@@ -7,7 +7,7 @@ __pycache__/
 .scratch/
 
 # Raw Video Files (Large)
-rsc/raws/videos/*
+rsc/.raws/videos/*
 
 # Sphinx Build files
 sphinx/build/
