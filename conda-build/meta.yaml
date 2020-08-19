@@ -2,6 +2,12 @@ package:
   name: "frmodel"
   version: "0.0.1"
 
+source:
+  path: ../src
+
+build:
+  script: python setup.py install
+
 requirements:
   build:
     - pillow

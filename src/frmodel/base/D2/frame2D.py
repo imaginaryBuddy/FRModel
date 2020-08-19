@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image
 
 from frmodel.base.D2.channel2D import Channel2D
-from frmodel.base.consts import CONSTS
+from frmodel.base import CONSTS
 
 D_TYPE: np.dtype = \
         np.dtype([(CONSTS.CHANNEL.RED,   'u1'),   # 0 - 255
