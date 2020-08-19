@@ -6,6 +6,7 @@ import os
 import numpy as np
 from pathlib import Path
 
+
 def extract(file_path,
             start:int = 0,
             end:int = 120000,
@@ -34,4 +35,4 @@ def extract(file_path,
     # Load video and extract images
     v = Video2D.from_video(file_path)
     for e, img in enumerate(v.to_images(np.arange(start, end, interval))):
-        img.save(f"{dir_name}/frame{e * interval}ms.jpg")
+        img.save(f"{dir_name}/{e * interval}ms.jpg")
