@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-import cv2
-from typing import List
-from FRModel.base.D2.frame2D import Frame2D
 from dataclasses import dataclass
+from typing import List
+
+import cv2
+
+from FRModel.base.D2.frame2D import Frame2D, D_TYPE
 
 
 @dataclass
@@ -20,7 +22,7 @@ class Video2D:
         """ Creates an instance using the file path. """
         return Video2D(cv2.VideoCapture(file_path))
 
-    def to_images(self,
+    def to_frames(self,
                   offsets_msec: List[int] or int,
                   failure_default: None = None
                   ) -> List[Frame2D]:
@@ -45,7 +47,7 @@ class Video2D:
             if success:
                 # CV2 uses BGR, we swap the channels here
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                img_list.append(Frame2D(image))
+                img_list.append(Frame2D(image.view(D_TYPE)))
             else:
                 img_list.append(failure_default)
 

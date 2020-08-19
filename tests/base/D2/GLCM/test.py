@@ -1,19 +1,29 @@
 import unittest
 
-from rsc.rsc_paths import *
 from FRModel.base.consts import CONSTS
-from FRModel.base.D2.frame2D import Frame2D
+from rsc.samples.frames import chestnut_0
+
 
 class GLCMTest(unittest.TestCase):
+
     def test(self):
 
-        frame = Frame2D.from_image(SAMPLE_CHESTNUT_0S_IMG)
+        # Load in sample
+        frame = chestnut_0(0)
+
+        # Create 2-deep nested list of 100x100 frames
         frames = frame.split_xy(100)
 
+        # Loop through the list
         for xframes in frames:
             for frame in xframes:
+                # Grab red channel
                 frame_red = frame.channel(CONSTS.CHANNEL.RED)
+
+                # Create the pseudo-matrix with .glcm
                 glcm = frame_red.glcm(by=1, axis=CONSTS.AXIS.Y)
+
+                # Extract statistics of each window
                 glcm.contrast()
                 glcm.correlation()
                 glcm.entropy()

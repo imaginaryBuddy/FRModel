@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+
 import numpy as np
 from PIL import Image
-from FRModel.base.consts import CONSTS
+
 from FRModel.base.D2.glcm2D import GLCM2D
+from FRModel.base.consts import CONSTS
 
 
 @dataclass
