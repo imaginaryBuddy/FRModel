@@ -21,7 +21,7 @@ class Video2D:
         """ Creates an instance using the file path. """
         return Video2D(cv2.VideoCapture(file_path))
 
-    def to_images(self,
+    def to_frames(self,
                   offsets_msec: List[int] or int,
                   failure_default: None = None
                   ) -> List[Frame2D]:
