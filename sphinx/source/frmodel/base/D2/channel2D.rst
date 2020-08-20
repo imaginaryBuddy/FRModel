@@ -15,8 +15,6 @@ For every channel, we can save it as an image.
     channel_red = frame.channel(CONSTS.CHANNEL.RED)
     channel_red.save("path/to/file_red.jpg")
 
-***********
+===========
 Module Info
-***********
-
-.. automodule:: frmodel.frmodel.base.D2.channel2D
+===========

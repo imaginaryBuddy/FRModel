@@ -16,8 +16,6 @@ We can then grab the np.ndarray using ``.data``.
     frame = Frame2D.from_image("path/to/file.jpg")
     d = frame.data
 
-***********
+===========
 Module Info
-***********
-
-.. automodule:: frmodel.frmodel.base.D2.frame2D
+===========

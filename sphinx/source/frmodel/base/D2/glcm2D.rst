@@ -72,8 +72,6 @@ Example
             glcm.correlation()
             glcm.entropy()
 
-***********
+===========
 Module Info
-***********
-
-.. automodule:: frmodel.frmodel.base.D2.glcm2D
+===========
