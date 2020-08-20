@@ -2,6 +2,8 @@
 Channel
 #######
 
+This is simply a *layer* of **Frame2D**.
+
 =======
 Example
 =======
@@ -15,8 +17,10 @@ For every channel, we can save it as an image.
     channel_red = frame.channel(CONSTS.CHANNEL.RED)
     channel_red.save("path/to/file_red.jpg")
 
-***********
-Module Info
-***********
+====
+GLCM
+====
 
-.. automodule:: frmodel.base.D2.channel2D
+The GLCM2D instance can be grabbed by just calling the ``.glcm()`` method.
+
+More details on :doc:`GLCM <glcm2D>`'s documentation

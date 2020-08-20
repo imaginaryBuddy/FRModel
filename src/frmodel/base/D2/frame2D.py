@@ -19,9 +19,9 @@ class Frame2D:
     """ A Frame is an alias to an Frame, however, it holds more than just the XYRGB Channels.
 
     Note that due to the nature of np arrays, it cannot be any irregular shape.
-    The structure is very simple, it's a 4D object always. That is, the X, Y, Z, ?.
+    The structure is very simple, it's a 3D object always. That is, the X, Y, ?.
 
-    Because X, Y, Z are directional, we can place it logically it in an array index.
+    Because X, Y are directional, we can place it logically it in an array index.
     However, RGB(and other spectral ranges) are not directional, and are dependent on the XYZ.
 
     Hence they are placed in a structured array.

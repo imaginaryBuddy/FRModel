@@ -25,6 +25,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -84,10 +85,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> 2D Classes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="frame2D.html"> Frame2D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="video2D.html"> Video2D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="channel2D.html"> Channel2D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="glcm2D.html"> GLCM2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="channel2D.html">Channel2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glcm2D.html">GLCM2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-representation">Data Representation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#intuition">Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#details">Details</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#loading">Loading</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
@@ -164,23 +171,60 @@
 <p>These are the 2-Dimensional Classes.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="frame2D.html"> Frame2D</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="frame2D.html#example">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel2D.html">Channel2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glcm2D.html">GLCM2D</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="video2D.html"> Video2D</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="video2D.html#module-frmodel.base.D2.video2D">Module Info</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="channel2D.html"> Channel2D</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="channel2D.html#example">Example</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="glcm2D.html"> GLCM2D</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="glcm2D.html#example">Example</a></li>
-</ul>
-</li>
-</ul>
+</div>
+<div class="section" id="data-representation">
+<h2>Data Representation<a class="headerlink" href="#data-representation" title="Permalink to this headline">¶</a></h2>
+<p>Data is always represented as an <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>. The dimensions of the array is always 2D.
+Each channel is slotted into a “parameter” in each cell.</p>
+<div class="section" id="intuition">
+<h3>Intuition<a class="headerlink" href="#intuition" title="Permalink to this headline">¶</a></h3>
+<p>We can think of this representation like a layered cake:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Side</span> <span class="n">View</span>            <span class="n">Bird</span> <span class="n">Eye</span> <span class="n">View</span>
+                      <span class="p">(</span><span class="mi">1</span><span class="n">st</span> <span class="n">Layer</span><span class="p">)</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">Layer</span> <span class="mi">1</span><span class="p">)</span>    <span class="p">[</span><span class="n">A</span><span class="p">][</span><span class="n">B</span><span class="p">][</span><span class="n">C</span><span class="p">]</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">Layer</span> <span class="mi">2</span><span class="p">)</span>    <span class="p">[</span><span class="n">B</span><span class="p">][</span><span class="n">A</span><span class="p">][</span><span class="n">D</span><span class="p">]</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">Layer</span> <span class="mi">3</span><span class="p">)</span>    <span class="p">[</span><span class="n">A</span><span class="p">][</span><span class="n">B</span><span class="p">][</span><span class="n">C</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Each layer is like a channel in the image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Side</span> <span class="n">View</span>            <span class="n">Bird</span> <span class="n">Eye</span> <span class="n">View</span>
+                      <span class="p">(</span><span class="mi">1</span><span class="n">st</span> <span class="n">Layer</span><span class="p">)</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">RED</span><span class="p">)</span>     <span class="p">[</span><span class="mi">010</span><span class="p">][</span><span class="mi">100</span><span class="p">][</span><span class="mi">075</span><span class="p">]</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">GREEN</span><span class="p">)</span>   <span class="p">[</span><span class="mi">120</span><span class="p">][</span><span class="mi">200</span><span class="p">][</span><span class="mi">100</span><span class="p">]</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">BLUE</span><span class="p">)</span>    <span class="p">[</span><span class="mi">200</span><span class="p">][</span><span class="mi">050</span><span class="p">][</span><span class="mi">000</span><span class="p">]</span>
+
+                 <span class="p">[</span><span class="n">All</span> <span class="n">values</span> <span class="n">are</span> <span class="mi">0</span><span class="o">-</span><span class="mi">255</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>If we were to add more layers, we can just append it as a new layer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Side</span> <span class="n">View</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">RED</span><span class="p">)</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">GREEN</span><span class="p">)</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">BLUE</span><span class="p">)</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">SPECTRAL_0</span><span class="p">)</span>
+<span class="o">|-------|</span> <span class="p">(</span><span class="n">SPECTRAL_1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Hence, the data can be imagined as a 3-dimensional object regardless of how many channels we add.</p>
+</div>
+<div class="section" id="details">
+<h3>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h3>
+<p>We can do this because of <a class="reference external" href="https://numpy.org/doc/stable/user/basics.rec.html">Structured Arrays</a>.
+Each cell/entry has a predefined <strong>C-struct</strong> like definition. E.g. A <strong>red channel</strong> from RGB would use <code class="docutils literal notranslate"><span class="pre">'u8'</span></code> dtype
+because it only ranges from 0 - 255.</p>
+<p>Hence if we construct the RGB structured array, we can use <code class="docutils literal notranslate"><span class="pre">[('R',</span> <span class="pre">'u8'),</span> <span class="pre">('G',</span> <span class="pre">'u8'),</span> <span class="pre">('B',</span> <span class="pre">'u8')]</span></code> as the dtype.</p>
+<p>This will make numpy make each cell hold that specific array of data.</p>
+</div>
+</div>
+<div class="section" id="loading">
+<h2>Loading<a class="headerlink" href="#loading" title="Permalink to this headline">¶</a></h2>
+<p>If you’re attempting to load in an image, use the <a class="reference internal" href="frame2D.html"><span class="doc">Frame2D</span></a> class.</p>
+<p>For videos, use <a class="reference internal" href="video2D.html"><span class="doc">Video2D</span></a></p>
 </div>
 </div>
 

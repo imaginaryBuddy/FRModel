@@ -25,6 +25,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -35,6 +36,7 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Gray Level Co-occurrence Matrix" href="glcm2D.html" />
     <link rel="prev" title="Video" href="video2D.html" /> 
 </head>
 
@@ -83,15 +85,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="frame2D.html"> Frame2D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="video2D.html"> Video2D</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#"> Channel2D</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#example">Example</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.channel2D">Module Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Channel2D</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#glcm">GLCM</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="glcm2D.html">GLCM2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
@@ -167,6 +170,7 @@
             
   <div class="section" id="channel">
 <h1>Channel<a class="headerlink" href="#channel" title="Permalink to this headline">¶</a></h1>
+<p>This is simply a <em>layer</em> of <strong>Frame2D</strong>.</p>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>In this example, we load a frame from an image, then get the red channel.
@@ -176,35 +180,11 @@ For every channel, we can save it as an image.</p>
 <span class="n">channel_red</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;path/to/file_red.jpg&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="module-frmodel.base.D2.channel2D">
-<span id="module-info"></span><h3>Module Info<a class="headerlink" href="#module-frmodel.base.D2.channel2D" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
-<dt id="frmodel.base.D2.channel2D.Channel2D">
-<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.channel2D.</code><code class="sig-name descname">Channel2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.channel2D.Channel2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A Channel is a slice of the frame, a layer.</p>
-<p>The channel still holds the X, Y data.</p>
-<dl class="py method">
-<dt id="frmodel.base.D2.channel2D.Channel2D.glcm">
-<code class="sig-name descname">glcm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">axis</span><span class="p">:</span> <span class="n">frmodel.base.consts.CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="glcm2D.html#frmodel.base.D2.glcm2D.GLCM2D" title="frmodel.base.D2.glcm2D.GLCM2D">frmodel.base.D2.glcm2D.GLCM2D</a><a class="headerlink" href="#frmodel.base.D2.channel2D.Channel2D.glcm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gray-level co-occurrence matrix.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.channel2D.Channel2D.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#frmodel.base.D2.channel2D.Channel2D.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves the current Frame file</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.channel2D.Channel2D.size">
-<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.channel2D.Channel2D.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the size of the Frame as a tuple of (Width, Height)</p>
-</dd></dl>
-
-</dd></dl>
-
 </div>
+<div class="section" id="glcm">
+<h2>GLCM<a class="headerlink" href="#glcm" title="Permalink to this headline">¶</a></h2>
+<p>The GLCM2D instance can be grabbed by just calling the <code class="docutils literal notranslate"><span class="pre">.glcm()</span></code> method.</p>
+<p>More details on <a class="reference internal" href="glcm2D.html"><span class="doc">GLCM</span></a>’s documentation</p>
 </div>
 </div>
 
@@ -215,6 +195,8 @@ For every channel, we can save it as an image.</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="glcm2D.html" class="btn btn-neutral float-right" title="Gray Level Co-occurrence Matrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="video2D.html" class="btn btn-neutral float-left" title="Video" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

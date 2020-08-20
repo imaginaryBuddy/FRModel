@@ -25,6 +25,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -84,15 +85,21 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#"> Frame2D</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#example">Example</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.frame2D">Module Info</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Frame2D</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#intuition">Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splitting">Splitting</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="#channels">Channels</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="video2D.html"> Video2D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="channel2D.html"> Channel2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="channel2D.html">Channel2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glcm2D.html">GLCM2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
@@ -168,86 +175,52 @@
             
   <div class="section" id="frame">
 <h1>Frame<a class="headerlink" href="#frame" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intuition">
+<h2>Intuition<a class="headerlink" href="#intuition" title="Permalink to this headline">¶</a></h2>
+<p>For an intuition on how this works, look at <a class="reference internal" href="D2.html"><span class="doc">2 Dimensional Classes</span></a> documentation.</p>
+</div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>We can load a frame from an image like so.
 We can then grab the np.ndarray using <code class="docutils literal notranslate"><span class="pre">.data</span></code>.</p>
-<p><em>Note that all classes have a data property to grab the underlying data representation.</em></p>
+<p><em>Note that most classes have a data property to grab the underlying data representation.</em></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 </div>
-<div class="section" id="module-frmodel.base.D2.frame2D">
-<span id="module-info"></span><h3>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame2D" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
-<dt id="frmodel.base.D2.frame2D.Frame2D">
-<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame2D.</code><code class="sig-name descname">Frame2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A Frame is an alias to an Frame, however, it holds more than just the XYRGB Channels.</p>
-<p>Note that due to the nature of np arrays, it cannot be any irregular shape.
-The structure is very simple, it’s a 4D object always. That is, the X, Y, Z, ?.</p>
-<p>Because X, Y, Z are directional, we can place it logically it in an array index.
-However, RGB(and other spectral ranges) are not directional, and are dependent on the XYZ.</p>
-<p>Hence they are placed in a structured array.</p>
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D.channel">
-<code class="sig-name descname">channel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">channel</span><span class="p">:</span> <span class="n">frmodel.base.consts.CONSTS.CHANNEL</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="channel2D.html#frmodel.base.D2.channel2D.Channel2D" title="frmodel.base.D2.channel2D.Channel2D">frmodel.base.D2.channel2D.Channel2D</a><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.channel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the red channel of the Frame</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D.from_image">
-<em class="property">static </em><code class="sig-name descname">from_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.from_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates an instance using the file path.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves the current Frame file</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D.size">
-<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of pixels</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D.split">
-<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">axis</span><span class="p">:</span> <span class="n">CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">Frame2D</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.split" title="Permalink to this definition">¶</a></dt>
-<dd><p>Splits the current Frame into windows of specified size.</p>
-<p>E.g.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+</div>
+<div class="section" id="splitting">
+<h2>Splitting<a class="headerlink" href="#splitting" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Frame2D</span></code> provides a quick way to create windows</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
     <span class="n">by</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
     <span class="n">axis</span> <span class="o">=</span> <span class="n">CONSTS</span><span class="o">.</span><span class="n">AXIS</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
     <span class="n">method</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">SplitMethod</span><span class="o">.</span><span class="n">DROP</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Will slice the images vertically, drops the last slice if it’s not perfectly divisible.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D.split_xy">
-<code class="sig-name descname">split_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.split_xy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Short hand for splitting by both axes.</p>
-<p>Splits by X first, then Y.</p>
-<p>E.g.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="mi">11</span> <span class="o">|</span> <span class="mi">16</span> <span class="o">|</span>
-<span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="mi">12</span> <span class="o">|</span> <span class="mi">17</span> <span class="o">|</span>
-<span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="mi">13</span> <span class="o">|</span> <span class="mi">18</span> <span class="o">|</span>
-<span class="o">|</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="mi">14</span> <span class="o">|</span> <span class="mi">19</span> <span class="o">|</span>
-<span class="o">|</span> <span class="mi">5</span> <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">15</span> <span class="o">|</span> <span class="mi">20</span> <span class="o">|</span>
-
-<span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span>
+<p>This splits the current frame into 50px-wide frames. If you specify <code class="docutils literal notranslate"><span class="pre">CONSTS.AXIS.Y</span></code> it’ll split into 50px-tall ones.</p>
+<p><code class="docutils literal notranslate"><span class="pre">split_xy</span></code> is a shortcut for splitting on both axes with the same <code class="docutils literal notranslate"><span class="pre">by</span></code> and <code class="docutils literal notranslate"><span class="pre">method</span></code> arguments.</p>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<p>In order to deal with irregular splitting on the edges (e.g. 1920 can’t be split perfectly into 50s),
+we can specify to either <code class="docutils literal notranslate"><span class="pre">DROP</span></code> or <code class="docutils literal notranslate"><span class="pre">CROP</span></code>.</p>
+<ul class="simple">
+<li><p><strong>DROP</strong> just omits that split from the result, creating a <code class="docutils literal notranslate"><span class="pre">list</span></code> of consistently sized <strong>Frames</strong>.</p></li>
+<li><p><strong>CROP</strong> crops out the edge, preserving all pixels but with irregular edge <code class="docutils literal notranslate"><span class="pre">list</span></code> elements.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="channels">
+<h2>Channels<a class="headerlink" href="#channels" title="Permalink to this headline">¶</a></h2>
+<p>In each frame, there will be <strong>channel layers</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">frmodel.base.consts</span> <span class="kn">import</span> <span class="n">CONSTS</span>
+<span class="n">red_channel</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">channel</span><span class="p">(</span><span class="n">CONSTS</span><span class="o">.</span><span class="n">CHANNEL</span><span class="o">.</span><span class="n">RED</span><span class="p">)</span>
+<span class="n">green_channel</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">channel</span><span class="p">(</span><span class="n">CONSTS</span><span class="o">.</span><span class="n">CHANNEL</span><span class="o">.</span><span class="n">GREEN</span><span class="p">)</span>
+<span class="n">blue_channel</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">channel</span><span class="p">(</span><span class="n">CONSTS</span><span class="o">.</span><span class="n">CHANNEL</span><span class="o">.</span><span class="n">BLUE</span><span class="p">)</span>
 </pre></div>
 </div>
-</dd></dl>
-
-</dd></dl>
-
-</div>
+<p>You can grab the channels like so. Each of these will create a separate <a class="reference internal" href="channel2D.html"><span class="doc">Channel2D</span></a> class instance.</p>
 </div>
 </div>
 
