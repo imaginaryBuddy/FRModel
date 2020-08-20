@@ -14,4 +14,7 @@ sphinx/build/
 
 # Don't ignore any READMEs
 !README.md
+# Except for this one. This is just to link the setup to the README as a long desc. Not sure if it's required.
+/src/README.md
+
 *.pyd
