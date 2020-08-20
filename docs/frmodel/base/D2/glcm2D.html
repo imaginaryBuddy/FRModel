@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Gray Level Co-occurrence Matrix &mdash; frmodel 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="Channel" href="channel2D.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="channel2D.html">Channel2D</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">GLCM2D</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#underlying-representation">Underlying Representation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#creation-from-channel2d">Creation from Channel2D</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#statistics">Statistics</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#contrast">Contrast</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#correlation">Correlation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#entropy">Entropy</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+          <li><a href="D2.html">2D Classes</a> &raquo;</li>
+        
+      <li>Gray Level Co-occurrence Matrix</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/frmodel/base/D2/glcm2D.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gray-level-co-occurrence-matrix">
+<h1>Gray Level Co-occurrence Matrix<a class="headerlink" href="#gray-level-co-occurrence-matrix" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="underlying-representation">
+<h2>Underlying Representation<a class="headerlink" href="#underlying-representation" title="Permalink to this headline">¶</a></h2>
+<p>The data stored isn’t actually a co-occurrence matrix, instead 2 <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code></p>
+<p>These 2 arrays can be created manually or from <a class="reference internal" href="channel2D.html"><span class="doc">Channel2D</span></a>.</p>
+<div class="section" id="creation-from-channel2d">
+<h3>Creation from Channel2D<a class="headerlink" href="#creation-from-channel2d" title="Permalink to this headline">¶</a></h3>
+<p>Consider the following.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-------+</span>                     <span class="o">+-------+</span>   <span class="n">data1</span>
+<span class="o">|</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="o">|</span>                     <span class="o">|</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="o">|</span> <span class="o">+-------+</span>
+<span class="o">|</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="o">|</span>        <span class="o">.</span><span class="n">glcm</span>        <span class="o">|</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="o">|</span> <span class="o">|</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">|</span> <span class="o">--</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span><span class="o">--&gt;</span> <span class="o">|</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">|</span> <span class="o">|</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">2</span> <span class="o">|</span>                     <span class="o">|</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">2</span> <span class="o">|</span> <span class="o">|</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">2</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="o">|</span>                     <span class="o">+-------+</span> <span class="o">|</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="o">|</span>
+<span class="o">+-------+</span>                       <span class="n">data0</span>   <span class="o">+-------+</span>
+ <span class="n">Frame2D</span>
+</pre></div>
+</div>
+<p>Notice that they have the same size, this allows us to use common <code class="docutils literal notranslate"><span class="pre">numpy</span></code> operations on it.</p>
+</div>
+</div>
+<div class="section" id="statistics">
+<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
+<p>Because of how GLCM holds data, some equations may be slightly different.</p>
+<p>This is to allow efficient processing of arrays.</p>
+<ul class="simple">
+<li><p><em>a</em> is data0 (array 0)</p></li>
+<li><p><em>b</em> is data1 (array 1)</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\sum_{x=0}^{x_n} \sum_{y=0}^{y_n} a_{xy} * b_{xy}\]</div>
+<p>Means to loop through both arrays, for each index, multiply with each other and add to the sum.</p>
+<div class="section" id="contrast">
+<h3>Contrast<a class="headerlink" href="#contrast" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[Con = \sum_{x=0}^{x_n} \sum_{y=0}^{y_n} (a_{x,y} - b_{x,y})^2\]</div>
+</div>
+<div class="section" id="correlation">
+<h3>Correlation<a class="headerlink" href="#correlation" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}mean_{a,b} &amp;= mean(a) - mean(b) \\
+std_{a,b} &amp;= std(a) * std(b) \\
+Corr &amp;= \sum_{x=0}^{x_n} \sum_{y=0}^{y_n}
+        \frac{a_{x,y} * b_{x,y} - {mean_{a,b}}}
+             {std_{a,b}}\end{split}\]</div>
+</div>
+<div class="section" id="entropy">
+<h3>Entropy<a class="headerlink" href="#entropy" title="Permalink to this headline">¶</a></h3>
+<p>Note that we cannot directly use element wise operations here.</p>
+<p>The algorithm has to count the pairs and square them.</p>
+<p><strong>i</strong> and <strong>j</strong> represent the co-occurrence matrix indexes</p>
+<div class="math notranslate nohighlight">
+\[Con = \sum_{i=0}^{i_n} \sum_{j=0}^{j_n} GLCM_{(i,j)}^2\]</div>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Create the GLCM from a channel then calculate all available statistics</p>
+<p><code class="docutils literal notranslate"><span class="pre">frame</span></code> is a <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code> object instance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">frmodel.base.consts</span> <span class="kn">import</span> <span class="n">CONSTS</span>\
+
+<span class="n">frame_red</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">channel</span><span class="p">(</span><span class="n">CONSTS</span><span class="o">.</span><span class="n">CHANNEL</span><span class="o">.</span><span class="n">RED</span><span class="p">)</span>
+<span class="n">glcm</span> <span class="o">=</span> <span class="n">frame_red</span><span class="o">.</span><span class="n">glcm</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">CONSTS</span><span class="o">.</span><span class="n">AXIS</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span>
+<span class="n">glcm</span><span class="o">.</span><span class="n">contrast</span><span class="p">()</span>
+<span class="n">glcm</span><span class="o">.</span><span class="n">correlation</span><span class="p">()</span>
+<span class="n">glcm</span><span class="o">.</span><span class="n">entropy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="channel2D.html" class="btn btn-neutral float-left" title="Channel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
