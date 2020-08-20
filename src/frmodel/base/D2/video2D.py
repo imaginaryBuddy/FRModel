@@ -5,8 +5,7 @@ from typing import List
 
 import cv2
 
-from frmodel.base.D2 import Frame2D
-from frmodel.base.D2.frame2D import D_TYPE
+from frmodel.base.D2.frame2D import Frame2D, D_TYPE
 
 
 @dataclass
