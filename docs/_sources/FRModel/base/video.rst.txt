@@ -1,9 +1,0 @@
-#####
-Video
-#####
-
-***********
-Module Info
-***********
-
-.. automodule:: frmodel.base.video

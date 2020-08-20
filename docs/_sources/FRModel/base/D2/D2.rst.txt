@@ -5,9 +5,70 @@
 These are the 2-Dimensional Classes.
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 1
 
     Frame2D <frame2D>
     Video2D <video2D>
     Channel2D <channel2D>
     GLCM2D <glcm2D>
+
+===================
+Data Representation
+===================
+
+Data is always represented as an ``np.ndarray``. The dimensions of the array is always 2D.
+Each channel is slotted into a "parameter" in each cell.
+
+---------
+Intuition
+---------
+
+We can think of this representation like a layered cake::
+
+    Side View            Bird Eye View
+                          (1st Layer)
+    |-------| (Layer 1)    [A][B][C]
+    |-------| (Layer 2)    [B][A][D]
+    |-------| (Layer 3)    [A][B][C]
+
+Each layer is like a channel in the image::
+
+    Side View            Bird Eye View
+                          (1st Layer)
+    |-------| (RED)     [010][100][075]
+    |-------| (GREEN)   [120][200][100]
+    |-------| (BLUE)    [200][050][000]
+
+                     [All values are 0-255]
+
+If we were to add more layers, we can just append it as a new layer::
+
+    Side View
+    |-------| (RED)
+    |-------| (GREEN)
+    |-------| (BLUE)
+    |-------| (SPECTRAL_0)
+    |-------| (SPECTRAL_1)
+
+Hence, the data can be imagined as a 3-dimensional object regardless of how many channels we add.
+
+-------
+Details
+-------
+
+We can do this because of `Structured Arrays <https://numpy.org/doc/stable/user/basics.rec.html>`_.
+Each cell/entry has a predefined **C-struct** like definition. E.g. A **red channel** from RGB would use ``'u8'`` dtype
+because it only ranges from 0 - 255.
+
+Hence if we construct the RGB structured array, we can use ``[('R', 'u8'), ('G', 'u8'), ('B', 'u8')]`` as the dtype.
+
+This will make numpy make each cell hold that specific array of data.
+
+=======
+Loading
+=======
+
+If you're attempting to load in an image, use the :doc:`Frame2D <frame2D>` class.
+
+For videos, use :doc:`Video2D <video2D>`
+

@@ -1,9 +1,0 @@
-#####
-Image
-#####
-
-***********
-Module Info
-***********
-
-.. automodule:: frmodel.base.image

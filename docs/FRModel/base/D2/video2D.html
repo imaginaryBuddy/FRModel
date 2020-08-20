@@ -25,6 +25,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -84,12 +85,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="frame2D.html"> Frame2D</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#"> Video2D</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-frmodel.base.D2.video2D">Module Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Video2D</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grabbing-frames">Grabbing Frames</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#caveats">Caveats</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="channel2D.html"> Channel2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="channel2D.html">Channel2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glcm2D.html">GLCM2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
@@ -165,40 +170,24 @@
             
   <div class="section" id="video">
 <h1>Video<a class="headerlink" href="#video" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-frmodel.base.D2.video2D">
-<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.video2D" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="frmodel.base.D2.video2D.Video2D">
-<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.video2D.</code><code class="sig-name descname">Video2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vid</span><span class="p">:</span> <span class="n">cv2.VideoCapture</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.video2D.Video2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class holds the data as OpenCV2.VideoCapture.</p>
-<p>Extract the actual Capture with .vid property</p>
-<dl class="py method">
-<dt id="frmodel.base.D2.video2D.Video2D.from_video">
-<em class="property">static </em><code class="sig-name descname">from_video</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.video2D.Video2D" title="frmodel.base.D2.video2D.Video2D">frmodel.base.D2.video2D.Video2D</a><a class="headerlink" href="#frmodel.base.D2.video2D.Video2D.from_video" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates an instance using the file path.</p>
-</dd></dl>
+<p>This class is mainly used to extract images from videos.</p>
+<p>The project isn’t pivoting off of video data yet, so it lacks functions.</p>
+<div class="section" id="grabbing-frames">
+<h2>Grabbing Frames<a class="headerlink" href="#grabbing-frames" title="Permalink to this headline">¶</a></h2>
+<p>We can grab <a class="reference internal" href="frame2D.html"><span class="doc">frames</span></a> from a video using anything iterable, like <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code>.</p>
+<p>This grabs the 0s, 50s, 100s frames</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">frmodel.base.D2.video2D</span> <span class="kn">import</span> <span class="n">Video2D</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">frmodel.base.consts</span> <span class="kn">import</span> <span class="n">CONSTS</span>
+<span class="n">vid</span> <span class="o">=</span> <span class="n">Video2D</span><span class="o">.</span><span class="n">from_video</span><span class="p">(</span><span class="s2">&quot;sample.mp4&quot;</span><span class="p">)</span>
 
-<dl class="py method">
-<dt id="frmodel.base.D2.video2D.Video2D.to_images">
-<code class="sig-name descname">to_images</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offsets_msec</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">failure_default</span><span class="p">:</span> <span class="n">None</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.video2D.Video2D.to_images" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extracts images from the video.</p>
-<p>Returns frmodel.Image</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>offsets_msec</strong> – The timestamps to extract images from.</p></li>
-<li><p><strong>failure_default</strong> – Value to default to on failure on offset read.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>List of Images</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+<span class="n">frames</span> <span class="o">=</span> <span class="n">vid</span><span class="o">.</span><span class="n">to_frames</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="caveats">
+<h2>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
+<p>The class doesn’t provide a way to calculate the length of the video.</p>
 </div>
 </div>
 
