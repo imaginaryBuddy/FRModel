@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 
 from frmodel.base.D2.glcm2D import GLCM2D
-from frmodel.base import CONSTS
+from frmodel.base.consts import CONSTS
 
 
 @dataclass
