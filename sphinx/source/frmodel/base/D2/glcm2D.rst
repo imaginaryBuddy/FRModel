@@ -6,7 +6,7 @@ Gray Level Co-occurrence Matrix
 Underlying Representation
 =========================
 
-The data stored isn't actually a co-occurrence matrix, instead 2 ``np.ndarray``s.
+The data stored isn't actually a co-occurrence matrix, instead 2 ``np.ndarray``
 
 These 2 arrays can be created manually or from :doc:`Channel2D <channel2D>`.
 
