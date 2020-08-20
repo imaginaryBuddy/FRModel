@@ -11,3 +11,11 @@ These are the 2-Dimensional Classes.
     Video2D <video2D>
     Channel2D <channel2D>
     GLCM2D <glcm2D>
+
+=======
+Loading
+=======
+
+If you're attempting to load in an image, use the :doc:`Frame2D <frame2D>` class.
+
+For videos, use :doc:`Video2D <video2D>`
