@@ -98,7 +98,7 @@ class Frame2D:
     def data_flatten(self):
         """ Returns the data as a regular numpy array """
         shape = (*self.shape[0:2], -1)
-        return self.data.view(dtype=np.uint8).reshape(shape)
+        return self.data.ravel().view(dtype=np.uint8).reshape(shape)
 
     def save(self, file_path: str, **kwargs) -> None:
         """ Saves the current Frame file"""
