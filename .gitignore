@@ -9,6 +9,9 @@ __pycache__/
 # Raw Video Files (Large)
 rsc/_raws/videos/*
 
+# Journal
+.journal/
+
 # Sphinx Build files
 sphinx/build/
 
