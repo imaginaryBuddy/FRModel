@@ -8,25 +8,29 @@ class GLCMTest(unittest.TestCase):
 
     def test(self):
 
+        WINDOW_SIZE = 100
         # Load in sample
         frame = chestnut_0(0)
 
         # Create 2-deep nested list of 100x100 frames
-        frames = frame.split_xy(100)
+        frames = frame.split_xy(WINDOW_SIZE)
 
-        # Loop through the list
-        for xframes in frames:
-            for frame in xframes:
-                # Grab red channel
-                frame_red = frame.channel(CONSTS.CHANNEL.RED)
+        # Grab red channel from first 100x100
+        frame_red = frames[0][0].channel(CONSTS.CHANNEL.RED)
 
-                # Create the pseudo-matrix with .glcm
-                glcm = frame_red.glcm(by=1, axis=CONSTS.AXIS.Y)
+        GLCM_SHIFT = 1
+        # Create the pseudo-matrix with .glcm. Shift by Y
+        glcm = frame_red.glcm(by=GLCM_SHIFT, axis=CONSTS.AXIS.Y)
 
-                # Extract statistics of each window
-                glcm.contrast()
-                glcm.correlation()
-                glcm.entropy()
+        # Verify Window Size
+        self.assertEqual((WINDOW_SIZE - GLCM_SHIFT, WINDOW_SIZE), glcm.data0.shape)
+        self.assertEqual((WINDOW_SIZE - GLCM_SHIFT, WINDOW_SIZE), glcm.data1.shape)
+
+        # Extract statistics of each window
+        glcm.contrast()
+        glcm.correlation()
+        glcm.entropy()
+
 
 if __name__ == '__main__':
     unittest.main()

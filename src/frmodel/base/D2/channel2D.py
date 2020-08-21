@@ -28,16 +28,16 @@ class Channel2D:
              axis: CONSTS.AXIS = CONSTS.AXIS.X) -> GLCM2D:
         """ Gray-level co-occurrence matrix. """
 
-        w, h = self.data.shape
+        h, w = self.data.shape
 
         if axis == CONSTS.AXIS.X:
             # Int 32 to be used to support 255 * 255 (worst case scenario)
-            b = self.data[:, 0:w - by].ravel().astype(np.int32)
-            c = self.data[:, by:w].ravel().astype(np.int32)
+            b = self.data[:, 0:w - by].ravel().astype(np.int32).reshape([h, -1])
+            c = self.data[:, by:w].ravel().astype(np.int32).reshape([h, -1])
         elif axis == CONSTS.AXIS.Y:
             # Int 32 to be used to support 255 * 255 (worst case scenario)
-            b = self.data[0:h - by, :].ravel().astype(np.int32)
-            c = self.data[by:w, :].ravel().astype(np.int32)
+            b = self.data[0:h - by, :].ravel().astype(np.int32).reshape([-1, w])
+            c = self.data[by:w, :].ravel().astype(np.int32).reshape([-1, w])
         else:
             raise NotImplementedError(f"Invalid Axis {axis}.")
 
