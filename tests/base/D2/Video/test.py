@@ -1,6 +1,6 @@
 import unittest
 
-from frmodel.base.D2.video2D import Video2D
+from src.frmodel.base.D2.video2D import Video2D
 
 
 class VideoTest(unittest.TestCase):

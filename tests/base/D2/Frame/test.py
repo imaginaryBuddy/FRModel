@@ -2,8 +2,8 @@ import unittest
 
 import numpy as np
 
-from frmodel.base import Frame2D
-from frmodel.base import CONSTS
+from src.frmodel.base.D2.frame2D import Frame2D
+from src.frmodel.base.consts import CONSTS
 from rsc.samples.frames import chestnut_0
 
 
