@@ -21,6 +21,18 @@ class FrameTest(TestD2):
 
         self.assertEqual(self.window, frames[0].shape[0])
 
+    def test_slide_xy(self):
+        # Slide by both X and Y
+        frames = self.frame.slide_xy(by=self.window, stride=self.window // 2)
+
+        self.assertEqual((self.window, self.window), frames[0][0].shape)
+
+    def test_slide(self):
+        # Slide by Y Axis only, horizontal slices
+        frames = self.frame.slide(by=self.window, stride=self.window // 2, axis=CONSTS.AXIS.Y)
+
+        self.assertEqual(self.window, frames[0].shape[0])
+
     def test_flatten(self):
         # Test if the flatten shape is correct
         self.assertEqual((*self.frame.shape, self.channels), self.frame.data_unstruct().shape)
