@@ -18,3 +18,5 @@ sphinx/build/
 /src/README.md
 
 *.pyd
+
+*.mp4
