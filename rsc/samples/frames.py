@@ -2,7 +2,7 @@
 
 import os
 
-from frmodel.frmodel.base import Frame2D
+from frmodel.base.D2.frame2D import Frame2D
 
 _RSC = os.path.dirname(os.path.realpath(__file__))
 

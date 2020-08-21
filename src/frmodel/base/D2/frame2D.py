@@ -92,23 +92,29 @@ class Frame2D:
     def from_image(file_path: str) -> Frame2D:
         """ Creates an instance using the file path. """
         img = Image.open(file_path)
-        ar = np.asarray(img)
-        return Frame2D(ar.view(dtype=D_TYPE))
+        ar = np.asarray(img).view(dtype=D_TYPE).squeeze()
+        return Frame2D(ar)
+
+    def data_flatten(self):
+        """ Returns the data as a regular numpy array """
+        shape = (*self.shape[0:2], -1)
+        return self.data.view(dtype=np.uint8).reshape(shape)
 
     def save(self, file_path: str, **kwargs) -> None:
         """ Saves the current Frame file"""
         Image.fromarray(
             self.data            # Grab Data
-                .ravel()         # Flatten
+                .ravel()
                 .view(np.uint8)  # Unwrap structured array
                                  # Reshape as original shape, -1 as last index, for dynamic layer count.
-                .reshape([*self.shape()[0:2], -1]))\
+                .reshape([*self.shape[0:2], -1]))\
             .save(file_path, **kwargs)
 
     def size(self):
         """ Returns the number of pixels """
         return self.data.size
 
+    @property
     def shape(self):
         return self.data.shape
 
@@ -121,4 +127,4 @@ class Frame2D:
     def channel(self, channel: CONSTS.CHANNEL) -> Channel2D:
         """ Gets the red channel of the Frame """
         return Channel2D(self.data[channel]
-                             .reshape(self.shape()[0:2]))
+                             .reshape(self.shape[0:2]))
