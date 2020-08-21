@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List
 from typing import List, Tuple
 
 import numpy as np
@@ -18,7 +17,7 @@ D_TYPE: np.dtype = \
 
 @dataclass
 class Frame2D:
-    """ A Frame is an alias to an Frame, however, it holds more than just the XYRGB Channels.
+    """ A Frame is an alias to an Image.
 
     The underlying representation is a 2D array, each cells holds a structured array, consisting of RGB Channels.
 
