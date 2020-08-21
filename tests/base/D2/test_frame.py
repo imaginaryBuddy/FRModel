@@ -23,7 +23,7 @@ class FrameTest(TestD2):
 
     def test_flatten(self):
         # Test if the flatten shape is correct
-        self.assertEqual((*self.frame.shape, self.channels), self.frame.data_flatten().shape)
+        self.assertEqual((*self.frame.shape, self.channels), self.frame.data_unstruct().shape)
 
     def test_channel(self):
         # Grab the red channel
