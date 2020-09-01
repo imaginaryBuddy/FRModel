@@ -11,3 +11,4 @@ It's still very WIP
 
     Getting Started <info/getting_started>
     Layers <info/layers>
+    Changelog <info/changelog>
