@@ -13,7 +13,7 @@ class FrameTest(TestD2):
         # Split by both X and Y
         frames = self.frame.split_xy(by=self.window, method=Frame2D.SplitMethod.DROP)
 
-        self.assertEqual((self.window, self.window), frames[0][0].shape)
+        self.assertEqual((self.window, self.window, self.channels), frames[0][0].shape)
 
     def test_split(self):
         # Split by Y Axis only, horizontal slices
@@ -25,7 +25,7 @@ class FrameTest(TestD2):
         # Slide by both X and Y
         frames = self.frame.slide_xy(by=self.window, stride=self.window // 2)
 
-        self.assertEqual((self.window, self.window), frames[0][0].shape)
+        self.assertEqual((self.window, self.window, self.channels), frames[0][0].shape)
 
     def test_slide(self):
         # Slide by Y Axis only, horizontal slices
@@ -33,9 +33,6 @@ class FrameTest(TestD2):
 
         self.assertEqual(self.window, frames[0].shape[0])
 
-    def test_flatten(self):
-        # Test if the flatten shape is correct
-        self.assertEqual((*self.frame.shape, self.channels), self.frame.data_unstruct().shape)
 
     def test_channel(self):
         # Grab the red channel

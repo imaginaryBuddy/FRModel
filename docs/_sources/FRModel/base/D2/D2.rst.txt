@@ -16,8 +16,10 @@ These are the 2-Dimensional Classes.
 Data Representation
 ===================
 
-Data is always represented as an ``np.ndarray``. The dimensions of the array is always 2D.
-Each channel is slotted into a "parameter" in each cell.
+Data is always represented as an ``np.ndarray``. The dimensions of the array is always 3D.
+It has the X, Y and "Z" axis. Where the "Z" axis is the layer index.
+
+Despite having a 3D structure, we call it 2D because it's the source dimension.
 
 ---------
 Intuition
@@ -56,13 +58,11 @@ Hence, the data can be imagined as a 3-dimensional object regardless of how many
 Details
 -------
 
-We can do this because of `Structured Arrays <https://numpy.org/doc/stable/user/basics.rec.html>`_.
-Each cell/entry has a predefined **C-struct** like definition. E.g. A **red channel** from RGB would use ``'u8'`` dtype
-because it only ranges from 0 - 255.
+Each cell/entry has a loosely defined channel index. That is, ``[0,255,128]`` can mean RGB, BGR, etc. However, by
+convention, the first 3 indices will always be RGB.
 
-Hence if we construct the RGB structured array, we can use ``[('R', 'u8'), ('G', 'u8'), ('B', 'u8')]`` as the dtype.
-
-This will make numpy make each cell hold that specific array of data.
+Each cell is placed 2 axis deep in an array, where each axis represents its x, y position. ``ar[0][100]`` will get its
+row = 0, col = 100 cell.
 
 =======
 Loading

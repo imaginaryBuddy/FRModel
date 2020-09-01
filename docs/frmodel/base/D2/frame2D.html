@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frame &mdash; frmodel 0.0.1 documentation</title>
+  <title>Frame &mdash; frmodel 0.0.2 documentation</title>
   
 
   
@@ -92,6 +92,9 @@
 <li class="toctree-l5"><a class="reference internal" href="#methods">Methods</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="#sliding">Sliding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#indexes-gets">Indexes / Gets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#normalize">Normalize</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#channels">Channels</a></li>
 </ul>
 </li>
@@ -210,6 +213,79 @@ we can specify to either <code class="docutils literal notranslate"><span class=
 <li><p><strong>CROP</strong> crops out the edge, preserving all pixels but with irregular edge <code class="docutils literal notranslate"><span class="pre">list</span></code> elements.</p></li>
 </ul>
 </div>
+</div>
+<div class="section" id="sliding">
+<h2>Sliding<a class="headerlink" href="#sliding" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Frame2D</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span><span class="o">.</span><span class="n">slide</span><span class="p">(</span>
+    <span class="n">by</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="n">stride</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">CONSTS</span><span class="o">.</span><span class="n">AXIS</span><span class="o">.</span><span class="n">X</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Sliding is different from splitting as it allows for overlapping regions.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">stride</span></code> argument specifies how far the window to shift on that axis.</p>
+<p><code class="docutils literal notranslate"><span class="pre">slide_xy</span></code> is a shortcut for splitting on both axes with the same <code class="docutils literal notranslate"><span class="pre">by</span></code> and <code class="docutils literal notranslate"><span class="pre">stride</span></code> arguments.</p>
+</div>
+<div class="section" id="indexes-gets">
+<h2>Indexes / Gets<a class="headerlink" href="#indexes-gets" title="Permalink to this headline">¶</a></h2>
+<p>As to cater to this research project, index calculations are readily available with <code class="docutils literal notranslate"><span class="pre">get_xx</span></code> named functions.</p>
+<p>Currently, <code class="docutils literal notranslate"><span class="pre">frmodel</span></code> supports the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">layer_count</span></code> represents how many “layers” it will take, similar to the cake analogy.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 46%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>function</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>layer_count</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_hsv</span></code></p></td>
+<td><p>Hue Saturation and Value</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_ex_g(False)</span></code></p></td>
+<td><p>Excess Green</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_ex_g(True)</span></code></p></td>
+<td><p>(Modified) Excess Green</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_ex_gr</span></code></p></td>
+<td><p>Excess Green Minus Red</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_ndi</span></code></p></td>
+<td><p>Normalized Difference Index</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_veg</span></code></p></td>
+<td><p>Vegetative Index</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_xy</span></code></p></td>
+<td><p>X, Y Coordinates</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_all</span></code></p></td>
+<td><p>All Indexes</p></td>
+<td><p>13</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">get_all</span></code> gets all indexes above, the order is as shown above too, i.e. xy will be the last indexes.</p>
+</div>
+<div class="section" id="normalize">
+<h2>Normalize<a class="headerlink" href="#normalize" title="Permalink to this headline">¶</a></h2>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">normalize</span></code> will normalize everything on the last axis using <code class="docutils literal notranslate"><span class="pre">sklearn.preprocessing.normalize</span></code>.</p>
+<p>Note that normalizing will break <code class="docutils literal notranslate"><span class="pre">.save</span></code> unless the data is denormalized manually!</p>
 </div>
 <div class="section" id="channels">
 <h2>Channels<a class="headerlink" href="#channels" title="Permalink to this headline">¶</a></h2>
