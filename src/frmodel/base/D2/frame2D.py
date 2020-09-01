@@ -270,5 +270,4 @@ class Frame2D:
     
     def channel(self, channel: CONSTS.CHANNEL) -> Channel2D:
         """ Gets the channel of the Frame as Channel 2D. """
-        return Channel2D(self.data[channel]
-                         .reshape(self.shape[0:2]))
+        return Channel2D(self.data[..., channel])

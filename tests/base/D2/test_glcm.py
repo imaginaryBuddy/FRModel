@@ -20,9 +20,9 @@ class GLCMTest(TestD2):
         self.assertEqual((self.window - GLCM_SHIFT, self.window), glcm.data1.shape)
 
         # Extract statistics of each window
-        glcm.contrast()
-        glcm.correlation()
-        glcm.entropy()
+        glcm.contrast(True)
+        glcm.correlation(True)
+        glcm.entropy(True)
 
 
 if __name__ == '__main__':
