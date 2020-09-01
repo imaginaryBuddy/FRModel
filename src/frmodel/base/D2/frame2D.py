@@ -148,13 +148,30 @@ class Frame2D:
 
         """
 
-    def data_unstruct(self) -> np.ndarray:
-        """ Returns the data as a regular numpy array """
+    def data_unstruct(self, add_xy: bool = False, dtype: str=np.uint16) -> np.ndarray:
+        """ Returns the data as a regular numpy array
+
+        :param add_xy: Whether to add xy coordinates onto results on the last axis.
+        :param dtype: Type of the output. Only useful if add_xy == True.
+        """
+
         shape = (*self.shape[0:2], -1)
-        return self.data.ravel().view(dtype=np.uint8).reshape(shape)
+        unstr = self.data.ravel().view(dtype=np.uint8).reshape(shape)
+        if add_xy:
+            # We create a new array to copy self over we expand the last axis by 2
+            buffer = np.zeros([*unstr.shape[0:-1], unstr.shape[-1] + 2], dtype=dtype)
+
+            # We copy over all data onto buffer. Note that we need to -2 due to expansion
+            buffer[..., :-2] = unstr
+
+            # Create X & Y then copy over
+            buffer[..., -2] = np.tile(np.arange(0, self.height()), (self.width(), 1)).swapaxes(0, 1)
+            buffer[..., -1] = np.tile(np.arange(0, self.width()), (self.height(), 1))
+            return buffer
+        return unstr
 
     def save(self, file_path: str, **kwargs) -> None:
-        """ Saves the current Frame file"""
+        """ Saves the current Frame file """
         Image.fromarray(
             self.data            # Grab Data
                 .ravel()
