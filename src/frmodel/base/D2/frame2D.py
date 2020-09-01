@@ -135,52 +135,111 @@ class Frame2D:
         ar = np.asarray(img)
         return Frame2D(ar)
 
-    def to_hsv(self) -> np.ndarray:
-        """ Converts to a HSV Array """
-        return rgb2hsv(self.data_unstruct())
+    def get_hsv(self) -> np.ndarray:
+        """ Creates a HSV Array """
+        return rgb2hsv(self.data_rgb())
 
-    def to_ex_g(self, modified=False) -> np.ndarray:
+    def get_ex_g(self, modified=False) -> np.ndarray:
         """ Calculates the excessive green index
 
         Original: 2g - 1r - 1b
         Modified: 1.262G - 0.884r - 0.331b
-        """
 
-    def to_ex_gr(self) -> np.ndarray:
+        :param modified: Whether to use the modified or not. Refer to docstring
+        """
+        
+        if modified:
+            return 1.262 * self.data_r() - 0.884 * self.data_g() - 0.331 * self.data_b()
+
+        else:
+            return 2 * self.data_r() - self.data_g() - self.data_b()
+
+    def get_ex_gr(self) -> np.ndarray:
         """ Calculates the excessive green minus excess red index
 
+        2g - r - b - 1.4r + g = 3g - 2.4r - b
+        """
+        
+        return 3 * self.data_r() - 2.4 * self.data_g() - self.data_b()
+
+    def get_ndi(self):
+        """ Calculates the Normalized Difference Index
+
+        g - r / (g + r)
         """
 
-    def data_unstruct(self, add_xy: bool = False, dtype: str=np.uint16) -> np.ndarray:
-        """ Returns the data as a regular numpy array
+        # for i, (r, g) in enumerate(zip(self.data_r()[0], self.data_g()[0])):
+        #     print(i, r, g, g-r, g+r, (g-r)/(g+r))
 
-        :param add_xy: Whether to add xy coordinates onto results on the last axis.
-        :param dtype: Type of the output. Only useful if add_xy == True.
+        with np.errstate(divide='ignore', invalid='ignore'):
+            x = np.nan_to_num(np.true_divide(self.data_g().astype(np.int) - self.data_r().astype(np.int),
+                                             self.data_g().astype(np.int) + self.data_r().astype(np.int)),
+                              copy=False, nan=0)
+
+        return x
+    
+    def get_veg(self, const_a: float = 0.667):
+        """ Calculates the Vegetative Index
+
+        (g) / r ^ (a) * b ^ (1 - a)
+
+        :param const_a: Constant A depends on the camera used.
         """
 
-        shape = (*self.shape[0:2], -1)
-        unstr = self.data.ravel().view(dtype=np.uint8).reshape(shape)
-        if add_xy:
-            # We create a new array to copy self over we expand the last axis by 2
-            buffer = np.zeros([*unstr.shape[0:-1], unstr.shape[-1] + 2], dtype=dtype)
+        with np.errstate(divide='ignore', invalid='ignore'):
+            x = np.nan_to_num(self.data_g() /
+                              (np.power(self.data_r(), const_a) * np.power(self.data_b(), 1 - const_a)),
+                              copy=False, nan=0)
+        return x
 
-            # We copy over all data onto buffer. Note that we need to -2 due to expansion
-            buffer[..., :-2] = unstr
+    def get_xy(self) -> np.ndarray:
+        """ Creates the XY Coord Array """
 
-            # Create X & Y then copy over
-            buffer[..., -2] = np.tile(np.arange(0, self.height()), (self.width(), 1)).swapaxes(0, 1)
-            buffer[..., -1] = np.tile(np.arange(0, self.width()), (self.height(), 1))
-            return buffer
-        return unstr
+        # We create a new array to copy self over we expand the last axis by 2
+        buffer = np.zeros([*self.data.shape[0:-1], 2])
+
+        # Create X & Y then copy over
+        buffer[..., 0] = np.tile(np.arange(0, self.width()), (self.height(), 1))
+        buffer[..., 1] = np.tile(np.arange(0, self.height()), (self.width(), 1)).swapaxes(0, 1)
+
+        return buffer
+
+    def get_all(self, hsv=True, ex_g=True, mex_g=True, ex_gr=True, ndi=True, veg=True, xy=True) -> Frame2D:
+        """ Gets all implemented features.
+
+        :param hsv: Hue, Saturation, Value
+        :param ex_g: Excess Green
+        :param mex_g: Modified Excess Green
+        :param ex_gr: Excess Green Minus Red
+        :param ndi: Normalized Difference Index
+        :param veg: Vegetative Index
+        :param xy: XY Coordinates
+        """
+
+        features = \
+            [self.data,
+             self.get_hsv()      if hsv else None,
+             self.get_ex_g()     if ex_g else None,
+             self.get_ex_g(True) if mex_g else None,
+             self.get_ex_gr()    if ex_gr else None,
+             self.get_ndi()      if ndi else None,
+             self.get_veg()      if veg else None,
+             self.get_xy()       if xy else None]
+
+        return Frame2D(np.concatenate(features, axis=2))
+
+    def normalize(self):
+        shape = self.data.shape
+        return sk_normalize(self.data.reshape([-1, shape[-1]]), axis=0).reshape(shape)
 
     def save(self, file_path: str, **kwargs) -> None:
         """ Saves the current Frame file """
         Image.fromarray(
-            self.data            # Grab Data
+            self.data  # Grab Data
                 .ravel()
                 .view(np.uint8)  # Unwrap structured array
-                                 # Reshape as original shape, -1 as last index, for dynamic layer count.
-                .reshape([*self.shape[0:2], -1]))\
+                # Reshape as original shape, -1 as last index, for dynamic layer count.
+                .reshape([*self.shape[0:2], -1])) \
             .save(file_path, **kwargs)
 
     def size(self) -> np.ndarray:
@@ -191,13 +250,22 @@ class Frame2D:
     def shape(self) -> Tuple:
         return self.data.shape
 
+    def data_r(self):
+        return self.data[..., [CONSTS.CHANNEL.RED]]
+    def data_g(self):
+        return self.data[..., [CONSTS.CHANNEL.GREEN]]
+    def data_b(self):
+        return self.data[..., [CONSTS.CHANNEL.BLUE]]
+    def data_rgb(self):
+        return self.data[..., [CONSTS.CHANNEL.RED, CONSTS.CHANNEL.GREEN, CONSTS.CHANNEL.BLUE]]
+
     def height(self):
         return self.data.shape[0]
 
     def width(self):
         return self.data.shape[1]
-
+    
     def channel(self, channel: CONSTS.CHANNEL) -> Channel2D:
         """ Gets the red channel of the Frame """
         return Channel2D(self.data[channel]
-                             .reshape(self.shape[0:2]))
+                         .reshape(self.shape[0:2]))
