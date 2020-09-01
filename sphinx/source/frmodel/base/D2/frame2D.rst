@@ -50,6 +50,66 @@ we can specify to either ``DROP`` or ``CROP``.
 - **DROP** just omits that split from the result, creating a ``list`` of consistently sized **Frames**.
 - **CROP** crops out the edge, preserving all pixels but with irregular edge ``list`` elements.
 
+=======
+Sliding
+=======
+
+``Frame2D``
+
+.. code-block:: python
+
+    frame.slide(
+        by = 50,
+        stride = 10,
+        axis = CONSTS.AXIS.X
+    )
+
+Sliding is different from splitting as it allows for overlapping regions.
+
+The ``stride`` argument specifies how far the window to shift on that axis.
+
+``slide_xy`` is a shortcut for splitting on both axes with the same ``by`` and ``stride`` arguments.
+
+==============
+Indexes / Gets
+==============
+
+As to cater to this research project, index calculations are readily available with ``get_xx`` named functions.
+
+Currently, ``frmodel`` supports the following:
+
+``layer_count`` represents how many "layers" it will take, similar to the cake analogy.
+
++---------------------+-----------------------------+-------------+
+| function            | description                 | layer_count |
++=====================+=============================+=============+
+| ``get_hsv``         | Hue Saturation and Value    | 3           |
++---------------------+-----------------------------+-------------+
+| ``get_ex_g(False)`` | Excess Green                | 1           |
++---------------------+-----------------------------+-------------+
+| ``get_ex_g(True)``  | (Modified) Excess Green     | 1           |
++---------------------+-----------------------------+-------------+
+| ``get_ex_gr``       | Excess Green Minus Red      | 1           |
++---------------------+-----------------------------+-------------+
+| ``get_ndi``         | Normalized Difference Index | 1           |
++---------------------+-----------------------------+-------------+
+| ``get_veg``         | Vegetative Index            | 1           |
++---------------------+-----------------------------+-------------+
+| ``get_xy``          | X, Y Coordinates            | 2           |
++---------------------+-----------------------------+-------------+
+| ``get_all``         | All Indexes                 | 13          |
++---------------------+-----------------------------+-------------+
+
+Note that ``get_all`` gets all indexes above, the order is as shown above too, i.e. xy will be the last indexes.
+
+=========
+Normalize
+=========
+
+Calling ``normalize`` will normalize everything on the last axis using ``sklearn.preprocessing.normalize``.
+
+Note that normalizing will break ``.save`` unless the data is denormalized manually!
+
 ========
 Channels
 ========
