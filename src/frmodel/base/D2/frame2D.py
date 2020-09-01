@@ -263,12 +263,12 @@ class Frame2D:
         return self.data[..., [CONSTS.CHANNEL.RED, CONSTS.CHANNEL.GREEN, CONSTS.CHANNEL.BLUE]]
 
     def height(self):
-        return self.data.shape[0]
+        return self.shape[0]
 
     def width(self):
-        return self.data.shape[1]
+        return self.shape[1]
     
     def channel(self, channel: CONSTS.CHANNEL) -> Channel2D:
-        """ Gets the red channel of the Frame """
+        """ Gets the channel of the Frame as Channel 2D. """
         return Channel2D(self.data[channel]
                          .reshape(self.shape[0:2]))
