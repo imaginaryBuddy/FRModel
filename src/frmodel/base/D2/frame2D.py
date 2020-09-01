@@ -246,6 +246,9 @@ class Frame2D:
         """ Returns the number of pixels """
         return self.data.size
 
+    def data_flatten(self) -> np.ndarray:
+        return self.data.reshape([-1, self.shape[-1]])
+
     @property
     def shape(self) -> Tuple:
         return self.data.shape
