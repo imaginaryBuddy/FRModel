@@ -179,8 +179,9 @@
 </div>
 <div class="section" id="data-representation">
 <h2>Data Representation<a class="headerlink" href="#data-representation" title="Permalink to this headline">¶</a></h2>
-<p>Data is always represented as an <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>. The dimensions of the array is always 2D.
-Each channel is slotted into a “parameter” in each cell.</p>
+<p>Data is always represented as an <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>. The dimensions of the array is always 3D.
+It has the X, Y and “Z” axis. Where the “Z” axis is the layer index.</p>
+<p>Despite having a 3D structure, we call it 2D because it’s the source dimension.</p>
 <div class="section" id="intuition">
 <h3>Intuition<a class="headerlink" href="#intuition" title="Permalink to this headline">¶</a></h3>
 <p>We can think of this representation like a layered cake:</p>
@@ -214,11 +215,10 @@ Each channel is slotted into a “parameter” in each cell.</p>
 </div>
 <div class="section" id="details">
 <h3>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h3>
-<p>We can do this because of <a class="reference external" href="https://numpy.org/doc/stable/user/basics.rec.html">Structured Arrays</a>.
-Each cell/entry has a predefined <strong>C-struct</strong> like definition. E.g. A <strong>red channel</strong> from RGB would use <code class="docutils literal notranslate"><span class="pre">'u8'</span></code> dtype
-because it only ranges from 0 - 255.</p>
-<p>Hence if we construct the RGB structured array, we can use <code class="docutils literal notranslate"><span class="pre">[('R',</span> <span class="pre">'u8'),</span> <span class="pre">('G',</span> <span class="pre">'u8'),</span> <span class="pre">('B',</span> <span class="pre">'u8')]</span></code> as the dtype.</p>
-<p>This will make numpy make each cell hold that specific array of data.</p>
+<p>Each cell/entry has a loosely defined channel index. That is, <code class="docutils literal notranslate"><span class="pre">[0,255,128]</span></code> can mean RGB, BGR, etc. However, by
+convention, the first 3 indices will always be RGB.</p>
+<p>Each cell is placed 2 axis deep in an array, where each axis represents its x, y position. <code class="docutils literal notranslate"><span class="pre">ar[0][100]</span></code> will get its
+row = 0, col = 100 cell.</p>
 </div>
 </div>
 <div class="section" id="loading">
