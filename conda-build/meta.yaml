@@ -1,6 +1,6 @@
 package:
   name: "frmodel"
-  version: "0.0.1"
+  version: "0.0.2"
 
 source:
   path: ../src
@@ -15,12 +15,18 @@ requirements:
     - pandas
     - numpy
     - python
+    - scipy
+    - scikit-image
+    - scikit-learn
   run:
     - pillow
     - opencv
     - pandas
     - numpy
     - python
+    - scipy
+    - scikit-image
+    - scikit-learn
 
 about:
   home: "https://github.com/Eve-ning/frmodel"
