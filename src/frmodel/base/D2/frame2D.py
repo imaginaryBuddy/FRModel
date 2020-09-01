@@ -228,19 +228,13 @@ class Frame2D:
 
         return Frame2D(np.concatenate(features, axis=2))
 
-    def normalize(self):
+    def normalize(self) -> Frame2D:
         shape = self.data.shape
-        return sk_normalize(self.data.reshape([-1, shape[-1]]), axis=0).reshape(shape)
+        return Frame2D(sk_normalize(self.data.reshape([-1, shape[-1]]), axis=0).reshape(shape))
 
     def save(self, file_path: str, **kwargs) -> None:
         """ Saves the current Frame file """
-        Image.fromarray(
-            self.data  # Grab Data
-                .ravel()
-                .view(np.uint8)  # Unwrap structured array
-                # Reshape as original shape, -1 as last index, for dynamic layer count.
-                .reshape([*self.shape[0:2], -1])) \
-            .save(file_path, **kwargs)
+        Image.fromarray(self.data_rgb().astype(np.uint8)).save(file_path, **kwargs)
 
     def size(self) -> np.ndarray:
         """ Returns the number of pixels """
