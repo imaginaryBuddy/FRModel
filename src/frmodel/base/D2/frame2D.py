@@ -9,11 +9,10 @@ from PIL import Image
 
 from frmodel.base.D2.channel2D import Channel2D
 from frmodel.base.consts import CONSTS
+from sklearn.preprocessing import normalize as sk_normalize
 
-D_TYPE: np.dtype = \
-        np.dtype([(CONSTS.CHANNEL.RED,   'u1'),   # 0 - 255
-                  (CONSTS.CHANNEL.GREEN, 'u1'),   # 0 - 255
-                  (CONSTS.CHANNEL.BLUE,  'u1')])  # 0 - 255
+DEFAULT_RGB_INDEX = [0, 1, 2]
+
 
 @dataclass
 class Frame2D:
@@ -31,6 +30,7 @@ class Frame2D:
         CROP = 1
 
         # Require to support padding? Not implemented yet.
+
     def split_xy(self,
                  by: int,
                  method: SplitMethod = SplitMethod.DROP):
@@ -74,9 +74,12 @@ class Frame2D:
         # Pre-process by as modified by_
         # np.split_array splits it by the number of slices generated,
         # we need to transform this into the slice locations
-        if    axis == CONSTS.AXIS.X: by_ = np.arange(by, self.width(), by)
-        elif  axis == CONSTS.AXIS.Y: by_ = np.arange(by, self.height(), by)
-        else: raise TypeError(f"Axis {axis} is not recognised. Use CONSTS.AXIS class.")
+        if axis == CONSTS.AXIS.X:
+            by_ = np.arange(by, self.width(), by)
+        elif axis == CONSTS.AXIS.Y:
+            by_ = np.arange(by, self.height(), by)
+        else:
+            raise TypeError(f"Axis {axis} is not recognised. Use CONSTS.AXIS class.")
 
         spl = np.array_split(self.data, by_, axis=axis)
         if method == Frame2D.SplitMethod.CROP:
@@ -129,7 +132,7 @@ class Frame2D:
     def from_image(file_path: str) -> Frame2D:
         """ Creates an instance using the file path. """
         img = Image.open(file_path)
-        ar = np.asarray(img).view(dtype=D_TYPE).squeeze()
+        ar = np.asarray(img)
         return Frame2D(ar)
 
     def to_hsv(self) -> np.ndarray:
