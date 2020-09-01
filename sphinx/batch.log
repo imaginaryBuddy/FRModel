@@ -1,0 +1,21 @@
+Running Sphinx v3.2.0
+C:\Users\johnc\PycharmProjects\FRModel
+loading pickled environment... done
+building [mo]: targets for 0 po files that are out of date
+building [html]: targets for 1 source files that are out of date
+updating environment: 0 added, 1 changed, 0 removed
+reading sources... [100%] frmodel/base/D2/frame2D                              
+looking for now-outdated files... none found
+pickling environment... done
+checking consistency... done
+preparing documents... done
+writing output... [ 33%] frmodel/base/D2/D2                                    writing output... [ 66%] frmodel/base/D2/frame2D                               writing output... [100%] index                                                 
+generating indices...  genindexdone
+writing additional pages...  searchdone
+copying static files... ... done
+copying extra files... done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded.
+
+The HTML pages are in build.
