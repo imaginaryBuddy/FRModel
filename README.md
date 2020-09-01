@@ -19,10 +19,14 @@ Packages should be automatically downloaded. If not downloaded, here are the req
 **Python >= 3.7**
 
 ```
-PIL (Pillow)
-opencv-python
+pillow
+opencv
 pandas
 numpy
+python
+scipy
+scikit-image
+scikit-learn
 ```
 
 # License
