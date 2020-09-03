@@ -24,22 +24,18 @@ class Channel2D:
         Image.fromarray(self.data.view(np.uint8)).save(file_path, **kwargs)
 
     def glcm(self,
-             by: int = 1,
-             axis: CONSTS.AXIS = CONSTS.AXIS.X) -> GLCM2D:
-        """ Gray-level co-occurrence matrix. """
+             by_x: int = 1,
+             by_y: int = 1) -> GLCM2D:
+        """ Gray-level co-occurrence matrix.
 
-        h, w = self.data.shape
+        :param by_x: The number of cells to shift on the x-axis
+        :param by_y: The number of cells to shift on the y-axis
+        """
+        raise DeprecationWarning("glcm() is deprecated for 0.0.3, use Frame2D get_glcm to generate RGB GLCM.")
 
-        if axis == CONSTS.AXIS.X:
-            # Int 32 to be used to support 255 * 255 (worst case scenario)
-            b = self.data[:, 0:w - by].ravel().astype(np.int32).reshape([h, -1])
-            c = self.data[:, by:w].ravel().astype(np.int32).reshape([h, -1])
-        elif axis == CONSTS.AXIS.Y:
-            # Int 32 to be used to support 255 * 255 (worst case scenario)
-            b = self.data[0:h - by, :].ravel().astype(np.int32).reshape([-1, w])
-            c = self.data[by:w, :].ravel().astype(np.int32).reshape([-1, w])
-        else:
-            raise NotImplementedError(f"Invalid Axis {axis}.")
+        # Int 32 to be used to support 255 * 255 (worst case scenario)
+        b = self.data[:-by_y, :-by_x].astype(np.int32)
+        c = self.data[by_y:, by_x:].astype(np.int32)
 
         return GLCM2D(b, c)
 
