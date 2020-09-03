@@ -3,6 +3,11 @@ ChangeLog
 #########
 
 -----
+0.0.3
+-----
+- Implement GLCM with index as a ``get_all`` op or just ``get_glcm``
+
+-----
 0.0.2
 -----
 - Replace structured array with general ``dtyping`` for efficient coding
