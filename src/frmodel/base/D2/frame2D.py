@@ -48,13 +48,13 @@ class Frame2D:
             [[1,2,3,4,5],[6,7,8,...], ...]
 
         """
-        return np.stack([f.split(by, axis=CONSTS.AXIS.Y, method=method)
-                for f in self.split(by, axis=CONSTS.AXIS.X, method=method)])
+        return [f.split(by, axis=CONSTS.AXIS.Y, method=method)
+                for f in self.split(by, axis=CONSTS.AXIS.X, method=method)]
 
     def split(self,
               by: int,
               axis: CONSTS.AXIS = CONSTS.AXIS.X,
-              method: SplitMethod = SplitMethod.DROP) -> np.ndarray[Frame2D]:
+              method: SplitMethod = SplitMethod.DROP) -> List[Frame2D]:
         """ Splits the current Frame into windows of specified size.
 
         This operation is much faster but cannot have overlapping windows
@@ -83,12 +83,12 @@ class Frame2D:
         spl = np.array_split(self.data, by_, axis=axis)
         if method == Frame2D.SplitMethod.CROP:
             # By default, it'll just "crop" the edges
-            return np.stack([s for s in spl])
+            return [Frame2D(s) for s in spl]
         elif method == Frame2D.SplitMethod.DROP:
             # We will use a conditional to drop any images that is "cropped"
-            return np.stack([s for s in spl if s.shape[axis] == by])
+            return [Frame2D(s) for s in spl if s.shape[axis] == by]
 
-    def slide_xy(self, by, stride=1) -> np.ndarray:
+    def slide_xy(self, by, stride=1):
         """ Short hand for sliding by both axes.
 
         Slides by X first, then Y.
@@ -104,10 +104,10 @@ class Frame2D:
             [[1,2,3,4,5],[6,7,8,...], ...]
 
         """
-        return np.stack([f.slide(by=by, stride=stride, axis=CONSTS.AXIS.Y)
-                for f in self.slide(by=by, stride=stride, axis=CONSTS.AXIS.X)])
+        return [f.slide(by=by, stride=stride, axis=CONSTS.AXIS.Y)
+                for f in self.slide(by=by, stride=stride, axis=CONSTS.AXIS.X)]
 
-    def slide(self, by, stride, axis=CONSTS.AXIS.X) -> np.ndarray:
+    def slide(self, by, stride, axis=CONSTS.AXIS.X):
         """ Slides a window along an axis and grabs that window as a new Frame2D
 
         This operation is slower due to looping but allows for overlapping windows
@@ -121,11 +121,11 @@ class Frame2D:
         """
 
         if axis == CONSTS.AXIS.X:
-            return np.stack([self.data[:, i: i + by]
-                    for i in range(0, self.width() - by + 1, stride)])
+            return [Frame2D(self.data[:, i: i + by])
+                    for i in range(0, self.width() - by + 1, stride)]
         elif axis == CONSTS.AXIS.Y:
-            return np.stack([self.data[i: i + by, :]
-                    for i in range(0, self.height() - by + 1, stride)])
+            return [Frame2D(self.data[i: i + by, :])
+                    for i in range(0, self.height() - by + 1, stride)]
 
     @staticmethod
     def from_image(file_path: str) -> Frame2D:
