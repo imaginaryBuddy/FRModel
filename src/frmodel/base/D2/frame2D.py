@@ -11,8 +11,7 @@ from frmodel.base.D2.channel2D import Channel2D
 from frmodel.base.consts import CONSTS
 from sklearn.preprocessing import normalize as sk_normalize
 
-DEFAULT_RGB_INDEX = [0, 1, 2]
-
+MAX_RGB = 255
 
 @dataclass
 class Frame2D:
@@ -174,7 +173,7 @@ class Frame2D:
         with np.errstate(divide='ignore', invalid='ignore'):
             x = np.nan_to_num(np.true_divide(self.data_g().astype(np.int) - self.data_r().astype(np.int),
                                              self.data_g().astype(np.int) + self.data_r().astype(np.int)),
-                              copy=False, nan=0)
+                              copy=False, nan=0, neginf=0, posinf=0)
 
         return x
     
@@ -187,9 +186,10 @@ class Frame2D:
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_g() /
-                              (np.power(self.data_r(), const_a) * np.power(self.data_b(), 1 - const_a)),
-                              copy=False, nan=0)
+            x = np.nan_to_num(self.data_g().astype(np.float) /
+                              (np.power(self.data_r().astype(np.float), const_a) *
+                               np.power(self.data_b().astype(np.float), 1 - const_a)),
+                              copy=False, nan=0, neginf=0, posinf=0)
         return x
 
     def get_xy(self) -> np.ndarray:
@@ -204,8 +204,23 @@ class Frame2D:
 
         return buffer
 
-    def get_all(self, hsv=True, ex_g=True, mex_g=True, ex_gr=True, ndi=True, veg=True, xy=True) -> Frame2D:
+    def get_all(self,
+                hsv=True,
+                ex_g=True,
+                mex_g=True,
+                ex_gr=True,
+                ndi=True,
+                veg=True,
+                veg_a=0.667,
+                xy=True,
+                glcm=True,
+                glcm_by_x=1,
+                glcm_by_y=1,
+                glcm_radius=5
+                ) -> Frame2D:
         """ Gets all implemented features.
+
+        R, G, B, H, S, V, EX_G, MEX_G, EX_GR ,NDI ,VEG ,X ,Y , ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
 
         :param hsv: Hue, Saturation, Value
         :param ex_g: Excess Green
@@ -213,7 +228,12 @@ class Frame2D:
         :param ex_gr: Excess Green Minus Red
         :param ndi: Normalized Difference Index
         :param veg: Vegetative Index
+        :param veg_a: Vegatative Index Const A
         :param xy: XY Coordinates
+        :param glcm: GLCM
+        :param glcm_by_x: GLCM By X Parameter
+        :param glcm_by_y: GLCM By Y Parameter
+        :param glcm_radius: GLCM Radius
         """
 
         features = \
@@ -223,10 +243,130 @@ class Frame2D:
              self.get_ex_g(True) if mex_g else None,
              self.get_ex_gr()    if ex_gr else None,
              self.get_ndi()      if ndi else None,
-             self.get_veg()      if veg else None,
+             self.get_veg(veg_a) if veg else None,
              self.get_xy()       if xy else None]
 
-        return Frame2D(np.concatenate(features, axis=2))
+        frame = Frame2D(np.concatenate([f for f in features if f is not None], axis=2))
+
+        if glcm:
+            # We trim the frame so that the new glcm can fit
+            # We also average the shifted frame with the current
+            frame.data = (frame.data[glcm_by_y:,glcm_by_x:] + frame.data[:-glcm_by_y,:-glcm_by_x]) / 2
+            frame.data = frame.data[glcm_radius:-glcm_radius, glcm_radius: -glcm_radius]
+
+            return Frame2D(np.concatenate([
+                frame.data,
+                self.get_glcm(by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius)], axis=2))
+
+        return frame
+
+    def get_glcm(self,
+                 by_x: int = 1,
+                 by_y: int = 1,
+                 radius: int = 5):
+        """ This will get the GLCM statistics for this window
+
+        In order:
+
+        Contrast_R, Contrast_G, Contrast_B,
+        Correlation_R, Correlation_G, Correlation_B
+        Entropy_R, Entropy_G, Entropy_B
+
+        Note that the larger the GLCM stride, the more edge pixels will be removed.
+
+        There will be edge cropping here, so take note of the following:
+
+        1) Edge will be cropped on GLCM Making (That is shifting the frame with by_x and by_y.
+        2) Edge will be further cropped by GLCM Neighbour convolution.
+
+        If only a specific GLCM is needed, open up an issue on GitHub, I just don't think it's needed right now.
+
+        Consider this::
+
+            1) GLCM Making, by_x = 1, by_y = 1
+            o o o o o       | o o o o |       <B>            | o o o o |
+            o o o o o       | o o o o |   | o o o o |  func  | o o o o |
+            o o o o o  -->  | o o o o | + | o o o o |  --->  | o o o o |
+            o o o o o       | o o o o |   | o o o o |        | o o o o |
+            o o o o o           <A>       | o o o o |            <C>
+
+            2) GLCM Neighbour Summation, radius = 1
+                              o: Centre, +: Neighbour
+            | o o o o |       | + + + x | , | x + + + | , | x x x x | , | x x x x |
+            | o o o o |       | + o + x | , | x + o + | , | x + + + | , | + + + x |
+            | o o o o |  -->  | + + + x | , | x + + + | , | x + o + | , | + o + x |
+            | o o o o |       | x x x x | , | x x x x | , | x + + + | , | + + + x |
+                <C>
+            x x x x x  =>                 Note that it's slightly off centre because of (1)
+            x o o x x  =>  | o o |
+            x o o x x  =>  | o o |
+            x x x x x  =>
+            x x x x x  =>
+            Original       Transformed
+
+            The resultant size, if by_x = by_y
+            frame.size - by - radius * 2
+        """
+
+        glcm_window = radius * 2 + 1
+
+        frames_a = Frame2D(self.data_rgb()[:-by_y, :-by_x].astype(np.int32)).slide_xy(by=glcm_window, stride=1)
+        frames_b = Frame2D(self.data_rgb()[by_y:, by_x:].astype(np.int32)).slide_xy(by=glcm_window, stride=1)
+        out = np.zeros((self.height() - by_y - radius * 2,
+                        self.width() - by_x - radius * 2,
+                        3 * 3))  # RGB * Index count
+
+        for col, (col_a, col_b) in enumerate(zip(frames_a, frames_b)):
+            for row, (cell_a, cell_b) in enumerate(zip(col_a, col_b)):
+
+                # Contrast
+                contrast = np.sum((cell_a.data - cell_b.data) ** 2, axis=(0,1))
+
+                # Correlation
+                mean_x = np.mean(cell_a.data, axis=(0,1))
+                mean_y = np.mean(cell_b.data, axis=(0,1))
+                mean = mean_x - mean_y
+                std_x = np.std(cell_a.data, axis=(0,1))
+                std_y = np.std(cell_b.data, axis=(0,1))
+                std = std_x * std_y
+
+                correlation = np.sum(((cell_a.data * cell_b.data) - mean) / std, axis=(0,1))
+
+                """ Optimized Entropy Calculation
+                
+                This is an abnormal and complicated way to optimize.
+                
+                1) We create c, which is the shape of a or b (they must be the same shape anyways)
+                2) We make c = a + b * 256 (Notice 256 is the max val of RGB + 1).
+                   The reason for this is so that we can represent (x, y) as a singular unique value.
+                   This is a 1 to 1 mapping from a + b -> c, so c -> a + b is possible.
+                   However, the main reason is that so that we can use np.unique without constructing
+                   a tuple hash for each pair!
+                3) After this, we just reshape with [-1, Channels]
+                """
+                c = np.zeros(cell_a.shape)
+                c[:] = cell_a.data + cell_b.data * (MAX_RGB + 1)
+                c = c.reshape([-1, c.shape[-1]])
+
+                """ Entropy is complicated.
+                
+                Problem with unique is that it cannot unique on a certain axis as expected here,
+                it's because of staggering dimension size, so we have to loop with a list comp.
+                
+                We swap axis because we want to loop on the channel instead of the c value.
+                
+                We call unique and grab the 2nd, 4th, ...th element because unique returns 2
+                values here. The 2nd ones are the counts.
+                
+                Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
+                """
+                entropy = np.asarray([np.sum(i ** 2)
+                                      for g in c.swapaxes(0,1)
+                                      for i in np.unique(g, return_counts=True)[1::2]])
+
+                out[row, col, :] = np.concatenate([contrast, correlation, entropy])
+
+        return out
 
     def normalize(self) -> Frame2D:
         shape = self.data.shape

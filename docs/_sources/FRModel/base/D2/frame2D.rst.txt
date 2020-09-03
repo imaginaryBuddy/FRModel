@@ -102,6 +102,16 @@ Currently, ``frmodel`` supports the following:
 
 Note that ``get_all`` gets all indexes above, the order is as shown above too, i.e. xy will be the last indexes.
 
+====
+GLCM
+====
+
+**Pending Encapsulation**
+
+GLCM Calculation is similar to the deprecated :doc:`GLCM2D <glcm2D>` class.
+
+This is moved to Frame2D for efficiency in code.
+
 =========
 Normalize
 =========
