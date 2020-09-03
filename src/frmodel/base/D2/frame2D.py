@@ -173,7 +173,7 @@ class Frame2D:
         with np.errstate(divide='ignore', invalid='ignore'):
             x = np.nan_to_num(np.true_divide(self.data_g().astype(np.int) - self.data_r().astype(np.int),
                                              self.data_g().astype(np.int) + self.data_r().astype(np.int)),
-                              copy=False, nan=0)
+                              copy=False, nan=0, neginf=0, posinf=0)
 
         return x
     
@@ -186,9 +186,10 @@ class Frame2D:
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_g() /
-                              (np.power(self.data_r(), const_a) * np.power(self.data_b(), 1 - const_a)),
-                              copy=False, nan=0)
+            x = np.nan_to_num(self.data_g().astype(np.float) /
+                              (np.power(self.data_r().astype(np.float), const_a) *
+                               np.power(self.data_b().astype(np.float), 1 - const_a)),
+                              copy=False, nan=0, neginf=0, posinf=0)
         return x
 
     def get_xy(self) -> np.ndarray:
