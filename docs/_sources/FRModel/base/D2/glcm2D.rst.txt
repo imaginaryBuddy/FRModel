@@ -2,6 +2,8 @@
 Gray Level Co-occurrence Matrix
 ###############################
 
+**This is deprecated from 0.0.3 onwards, however, the knowledge is still relevant**
+
 =========================
 Underlying Representation
 =========================
