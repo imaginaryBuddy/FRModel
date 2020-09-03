@@ -15,7 +15,9 @@ class ChannelTest(TestD2):
         self.assertIsInstance(green, Channel2D)
 
     def test_glcm(self):
-        self.assertIsInstance(self.frame_window.channel(CONSTS.CHANNEL.RED).glcm(), GLCM2D)
+        pass
+        # Deprecated
+        # self.assertIsInstance(self.frame_window.channel(CONSTS.CHANNEL.RED).glcm(), GLCM2D)
 
 if __name__ == '__main__':
     unittest.main()
