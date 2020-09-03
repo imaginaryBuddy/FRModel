@@ -11,8 +11,7 @@ from frmodel.base.D2.channel2D import Channel2D
 from frmodel.base.consts import CONSTS
 from sklearn.preprocessing import normalize as sk_normalize
 
-DEFAULT_RGB_INDEX = [0, 1, 2]
-
+MAX_RGB = 255
 
 @dataclass
 class Frame2D:
