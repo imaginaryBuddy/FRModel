@@ -2,6 +2,8 @@
 Channel
 #######
 
+**This is deprecated from 0.0.3 onwards, however, the knowledge is still relevant**
+
 This is simply a *layer* of **Frame2D**.
 
 =======

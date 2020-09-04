@@ -502,4 +502,6 @@ class Frame2D:
     
     def channel(self, channel: CONSTS.CHANNEL) -> Channel2D:
         """ Gets the channel of the Frame as Channel 2D. """
+        raise PendingDeprecationWarning("Channel2D will be deprecated soon, it's recommended to work within Frame2D"
+                                        "or slice using np.ndarray.")
         return Channel2D(self.data[..., channel])
