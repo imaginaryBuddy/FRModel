@@ -231,21 +231,16 @@ class Frame2D:
 
         return buffer
 
-    def get_all(self,
-                self_=True,
-                xy=True,
-                hsv=True,
-                ex_g=True,
-                mex_g=True,
-                ex_gr=True,
-                ndi=True,
-                veg=True,
-                veg_a=0.667,
-                glcm=True,
-                glcm_by_x=1,
-                glcm_by_y=1,
-                glcm_radius=5
-                ) -> Frame2D:
+    def get_idxs(self, self_=False, xy=False, hsv=False, ex_g=False,
+                 mex_g=False, ex_gr=False, ndi=False, veg=False,
+                 veg_a=0.667, glcm=False, glcm_by_x=1, glcm_by_y=1,
+                 glcm_radius=5) -> Frame2D:
+        return self.get_all_idxs(self_,xy,hsv,ex_g,mex_g,ex_gr,ndi,
+                                 veg,veg_a,glcm,glcm_by_x,glcm_by_y,glcm_radius)
+
+    def get_all_idxs(self, self_=True, xy=True, hsv=True, ex_g=True, mex_g=True,
+                     ex_gr=True, ndi=True, veg=True, veg_a=0.667, glcm=True,
+                     glcm_by_x=1, glcm_by_y=1, glcm_radius=5) -> Frame2D:
         """ Gets all implemented features.
 
         Order is given by the argument order.
