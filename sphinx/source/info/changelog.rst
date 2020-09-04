@@ -13,6 +13,7 @@ ChangeLog
 - Fix issue with ``X`` and ``Y`` consts being flipped
 - Added simple wrapper for ``sklearn.neighbours.KDTree`` generation from ``Frame2D``.
 - Stage ``Channel2D`` and ``GLCM2D`` for deprecation.
+- Force rename **index** to **channel** for differentiation.
 
 -----
 0.0.2

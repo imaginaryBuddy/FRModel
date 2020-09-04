@@ -23,6 +23,8 @@ For every channel, we can save it as an image.
 GLCM
 ====
 
+**It's recommended to use Frame2D to calculate glcm to get updated.**
+
 The GLCM2D instance can be grabbed by just calling the ``.glcm()`` method.
 
 More details on :doc:`GLCM <glcm2D>`'s documentation

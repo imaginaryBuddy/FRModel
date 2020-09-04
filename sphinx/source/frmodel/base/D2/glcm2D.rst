@@ -2,32 +2,96 @@
 Gray Level Co-occurrence Matrix
 ###############################
 
-**This is deprecated from 0.0.3 onwards, however, the knowledge is still relevant**
+**The ``GLCM2D`` Class is deprecated from 0.0.3 onwards. However, the knowledge is still up-to-date**
 
 =========================
 Underlying Representation
 =========================
 
-The data stored isn't actually a co-occurrence matrix, instead 2 ``np.ndarray``
+The data stored isn't actually a co-occurrence matrix, instead :math:`2 * channels` ``np.ndarray``
 
-These 2 arrays can be created manually or from :doc:`Channel2D <channel2D>`.
+========
+Creation
+========
 
-***********************
-Creation from Channel2D
-***********************
+---------
+1 Channel
+---------
 
 Consider the following. ::
 
-    +-------+                     +-------+   data1
-    | 1 0 1 |                     | 1 0 1 | +-------+
-    | 1 1 1 |        .glcm        | 1 1 1 | | 1 1 1 |
-    | 0 0 0 | --(by=1, axis=Y)--> | 0 0 0 | | 0 0 0 |
-    | 2 1 2 |                     | 2 1 2 | | 2 1 2 |
-    | 0 1 1 |                     +-------+ | 0 1 1 |
-    +-------+                       data0   +-------+
-     Frame2D
+    o o o o o                      | o o o o |       <B>            | o o o o |
+    o o o o o      .get_glcm()     | o o o o |   | o o o o |  func  | o o o o |
+    o o o o o  --(by=1, axis=Y)--> | o o o o | + | o o o o |  --->  | o o o o |
+    o o o o o                      | o o o o |   | o o o o |        | o o o o |
+    o o o o o                          <A>       | o o o o |            <C>
+     Channel
 
 Notice that they have the same size, this allows us to use common ``numpy`` operations on it.
+
+---------
+n Channels
+---------
+
+Imagine the above, but we do that to multiple channels at once in parallel. This helps save a lot of time because
+``numpy`` favors vectorized operations. However, it may limit some calculations.
+
+=====================
+Neighbour Convolution
+=====================
+
+In order to map these values to channels that just rely on a single cell, we have to rely on neighbour's values.
+
+Consider this::
+
+    .                 o: Centre, +: Neighbour
+    | o o o o |       | + + + x | , | x + + + | , | x x x x | , | x x x x |
+    | o o o o |       | + o + x | , | x + o + | , | x + + + | , | + + + x |
+    | o o o o |  -->  | + + + x | , | x + + + | , | x + o + | , | + o + x |
+    | o o o o |       | x x x x | , | x x x x | , | x + + + | , | + + + x |
+        <C>
+    x x x x x  =>                 Note that it's slightly off centre because of (1)
+    x o o x x  =>  | o o |
+    x o o x x  =>  | o o |
+    x x x x x  =>
+    x x x x x  =>
+    Original       Transformed
+
+
+=============
+Edge Cropping
+=============
+
+Note that the larger the GLCM stride, the more edge pixels will be removed.
+
+There will be edge cropping here, so take note of the following:
+
+1) Edge will be cropped on GLCM Making (That is shifting the frame with by_x and by_y).
+2) Edge will be further cropped by GLCM Neighbour convolution.
+
+Going through the example again::
+
+    1) GLCM Making, by_x = 1, by_y = 1
+    o o o o o       | o o o o |       <B>            | o o o o |
+    o o o o o       | o o o o |   | o o o o |  func  | o o o o |
+    o o o o o  -->  | o o o o | + | o o o o |  --->  | o o o o |
+    o o o o o       | o o o o |   | o o o o |        | o o o o |
+    o o o o o           <A>       | o o o o |            <C>
+
+    2) GLCM Neighbour Summation, radius = 1
+                      o: Centre, +: Neighbour
+    | o o o o |       | + + + x | , | x + + + | , | x x x x | , | x x x x |
+    | o o o o |       | + o + x | , | x + o + | , | x + + + | , | + + + x |
+    | o o o o |  -->  | + + + x | , | x + + + | , | x + o + | , | + o + x |
+    | o o o o |       | x x x x | , | x x x x | , | x + + + | , | + + + x |
+        <C>
+    x x x x x  =>                 Note that it's slightly off centre because of (1)
+    x o o x x  =>  | o o |
+    x o o x x  =>  | o o |
+    x x x x x  =>
+    x x x x x  =>
+
+The resultant size, if by_x = by_y, is :math:`frame.size - by - radius * 2`.
 
 ==========
 Statistics
@@ -58,6 +122,8 @@ Contrast
 Correlation
 ***********
 
+*Note: If :math:`std_{a,b} = 0`, then value is 1 or -1 depending on the sign.
+
 .. math::
 
     mean_{a,b} &= mean(a) - mean(b) \\
@@ -80,20 +146,3 @@ The algorithm has to count the pairs and square them.
 
     Con = \sum_{i=0}^{i_n} \sum_{j=0}^{j_n} GLCM_{(i,j)}^2
 
-=======
-Example
-=======
-
-Create the GLCM from a channel then calculate all available statistics
-
-``frame`` is a ``Frame2D`` object instance.
-
-.. code-block:: python
-
-    from frmodel.base.consts import CONSTS\
-
-    frame_red = frame.channel(CONSTS.CHANNEL.RED)
-    glcm = frame_red.glcm(by=1, axis=CONSTS.AXIS.Y)
-    glcm.contrast()
-    glcm.correlation()
-    glcm.entropy()
