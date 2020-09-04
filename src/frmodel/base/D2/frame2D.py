@@ -53,12 +53,12 @@ class Frame2D:
             [[1,2,3,4,5],[6,7,8,...], ...]
 
         """
-        return [f.split(by, axis=CONSTS.AXIS.Y, method=method)
-                for f in self.split(by, axis=CONSTS.AXIS.X, method=method)]
+        return [f.split(by, axis=CONSTS.AXIS.X, method=method)
+                for f in self.split(by, axis=CONSTS.AXIS.Y, method=method)]
 
     def split(self,
               by: int,
-              axis: CONSTS.AXIS = CONSTS.AXIS.X,
+              axis: CONSTS.AXIS = CONSTS.AXIS.Y,
               method: SplitMethod = SplitMethod.DROP) -> List[Frame2D]:
         """ Splits the current Frame into windows of specified size.
 
@@ -68,7 +68,7 @@ class Frame2D:
 
             frame.split(
                 by = 50,
-                axis = CONSTS.AXIS.X,
+                axis = CONSTS.AXIS.Y,
                 method = Frame2D.SplitMethod.DROP
             )
 
@@ -78,9 +78,9 @@ class Frame2D:
         # Pre-process by as modified by_
         # np.split_array splits it by the number of slices generated,
         # we need to transform this into the slice locations
-        if axis == CONSTS.AXIS.X:
+        if axis == CONSTS.AXIS.Y:
             by_ = np.arange(by, self.width(), by)
-        elif axis == CONSTS.AXIS.Y:
+        elif axis == CONSTS.AXIS.X:
             by_ = np.arange(by, self.height(), by)
         else:
             raise TypeError(f"Axis {axis} is not recognised. Use CONSTS.AXIS class.")
@@ -88,10 +88,10 @@ class Frame2D:
         spl = np.array_split(self.data, by_, axis=axis)
         if method == Frame2D.SplitMethod.CROP:
             # By default, it'll just "crop" the edges
-            return [Frame2D(s) for s in spl]
+            return [Frame2D(s, s.indexes) for s in spl]
         elif method == Frame2D.SplitMethod.DROP:
             # We will use a conditional to drop any images that is "cropped"
-            return [Frame2D(s) for s in spl if s.shape[axis] == by]
+            return [Frame2D(s, s.indexes) for s in spl if s.shape[axis] == by]
 
     def slide_xy(self, by, stride=1):
         """ Short hand for sliding by both axes.
@@ -109,10 +109,10 @@ class Frame2D:
             [[1,2,3,4,5],[6,7,8,...], ...]
 
         """
-        return [f.slide(by=by, stride=stride, axis=CONSTS.AXIS.Y)
-                for f in self.slide(by=by, stride=stride, axis=CONSTS.AXIS.X)]
+        return [f.slide(by=by, stride=stride, axis=CONSTS.AXIS.X)
+                for f in self.slide(by=by, stride=stride, axis=CONSTS.AXIS.Y)]
 
-    def slide(self, by, stride, axis=CONSTS.AXIS.X):
+    def slide(self, by, stride, axis=CONSTS.AXIS.Y):
         """ Slides a window along an axis and grabs that window as a new Frame2D
 
         This operation is slower due to looping but allows for overlapping windows
@@ -125,11 +125,11 @@ class Frame2D:
         :return:
         """
 
-        if axis == CONSTS.AXIS.X:
-            return [Frame2D(self.data[:, i: i + by])
+        if axis == CONSTS.AXIS.Y:
+            return [Frame2D(self.data[:, i: i + by], self.indexes)
                     for i in range(0, self.width() - by + 1, stride)]
-        elif axis == CONSTS.AXIS.Y:
-            return [Frame2D(self.data[i: i + by, :])
+        elif axis == CONSTS.AXIS.X:
+            return [Frame2D(self.data[i: i + by, :], self.indexes)
                     for i in range(0, self.height() - by + 1, stride)]
 
     @staticmethod
@@ -137,7 +137,7 @@ class Frame2D:
         """ Creates an instance using the file path. """
         img = Image.open(file_path)
         ar = np.asarray(img)
-        return Frame2D(ar)
+        return Frame2D(ar, [CONSTS.CHANNEL.RED, CONSTS.CHANNEL.GREEN, CONSTS.CHANNEL.BLUE])
 
     @staticmethod
     def from_rgbxy_(ar: np.ndarray, xy_pos=(3,4), width=None, height=None) -> Frame2D:
@@ -159,7 +159,7 @@ class Frame2D:
         fill[ar[:, xy_pos[1]].astype(int),
              ar[:, xy_pos[0]].astype(int)] = ar[:]
 
-        return Frame2D(fill)
+        return Frame2D(fill, ar.indexes)
 
     def get_hsv(self) -> np.ndarray:
         """ Creates a HSV Array """
