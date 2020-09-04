@@ -238,7 +238,7 @@ class Frame2D:
 
         return buffer
 
-    def get_idxs(self, self_=False, xy=False, hsv=False, ex_g=False,
+    def get_chns(self, self_=False, xy=False, hsv=False, ex_g=False,
                  mex_g=False, ex_gr=False, ndi=False, veg=False,
                  veg_a=0.667, glcm=False, glcm_by_x=1, glcm_by_y=1,
                  glcm_radius=5, glcm_verbose=False) -> Frame2D:
@@ -263,10 +263,10 @@ class Frame2D:
         :param glcm_radius: GLCM Radius
         :param glcm_verbose: Whether to have glcm generation give feedback
         """
-        return self.get_all_idxs(self_,xy,hsv,ex_g,mex_g,ex_gr,ndi,
-                                 veg,veg_a,glcm,glcm_by_x,glcm_by_y,glcm_radius,glcm_verbose)
+        return self.get_all_chns(self_, xy, hsv, ex_g, mex_g, ex_gr, ndi,
+                                 veg, veg_a, glcm, glcm_by_x, glcm_by_y, glcm_radius, glcm_verbose)
 
-    def get_all_idxs(self, self_=True, xy=True, hsv=True, ex_g=True, mex_g=True,
+    def get_all_chns(self, self_=True, xy=True, hsv=True, ex_g=True, mex_g=True,
                      ex_gr=True, ndi=True, veg=True, veg_a=0.667, glcm=True,
                      glcm_by_x=1, glcm_by_y=1, glcm_radius=5, glcm_verbose=False) -> Frame2D:
         """ Gets all implemented channels, excluding possible.
