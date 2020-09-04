@@ -229,6 +229,7 @@ class Frame2D:
         return buffer
 
     def get_all(self,
+                self_=True,
                 xy=True,
                 hsv=True,
                 ex_g=True,
@@ -262,7 +263,7 @@ class Frame2D:
         """
 
         features = \
-            [self.data,
+            [self.data           if self_ else None,
              self.get_xy()       if xy else None,
              self.get_hsv()      if hsv else None,
              self.get_ex_g()     if ex_g else None,
@@ -342,6 +343,7 @@ class Frame2D:
                         3 * 3))  # RGB * Index count
 
         for col, (col_a, col_b) in enumerate(zip(frames_a, frames_b)):
+            print(f"Progress {100 * col / len(frames_b):.2f}% [{col} / {len(frames_b)}]")
             for row, (cell_a, cell_b) in enumerate(zip(col_a, col_b)):
 
                 # Contrast
