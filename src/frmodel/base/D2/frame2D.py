@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Tuple
 
 import numpy as np
@@ -27,6 +27,7 @@ class Frame2D:
     """
 
     data: np.ndarray
+    indexes: List = field(default_factory=lambda x: [])
 
     class SplitMethod:
         DROP = 0
