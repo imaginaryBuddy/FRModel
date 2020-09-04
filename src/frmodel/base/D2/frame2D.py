@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Tuple
 
 import numpy as np
@@ -11,7 +11,6 @@ from frmodel.base.D2.channel2D import Channel2D
 from frmodel.base.consts import CONSTS
 from sklearn.preprocessing import normalize as sk_normalize
 from sklearn.preprocessing import minmax_scale as sk_minmax_scale
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 from math import ceil
 
@@ -27,7 +26,6 @@ class Frame2D:
     """
 
     data: np.ndarray
-    indexes: List = field(default_factory=lambda x: [])
 
     class SplitMethod:
         DROP = 0
@@ -88,10 +86,10 @@ class Frame2D:
         spl = np.array_split(self.data, by_, axis=axis)
         if method == Frame2D.SplitMethod.CROP:
             # By default, it'll just "crop" the edges
-            return [Frame2D(s, s.indexes) for s in spl]
+            return [Frame2D(s) for s in spl]
         elif method == Frame2D.SplitMethod.DROP:
             # We will use a conditional to drop any images that is "cropped"
-            return [Frame2D(s, s.indexes) for s in spl if s.shape[axis] == by]
+            return [Frame2D(s) for s in spl if s.shape[axis] == by]
 
     def slide_xy(self, by, stride=1):
         """ Short hand for sliding by both axes.
@@ -126,10 +124,10 @@ class Frame2D:
         """
 
         if axis == CONSTS.AXIS.Y:
-            return [Frame2D(self.data[:, i: i + by], self.indexes)
+            return [Frame2D(self.data[:, i: i + by])
                     for i in range(0, self.width() - by + 1, stride)]
         elif axis == CONSTS.AXIS.X:
-            return [Frame2D(self.data[i: i + by, :], self.indexes)
+            return [Frame2D(self.data[i: i + by, :])
                     for i in range(0, self.height() - by + 1, stride)]
 
     @staticmethod
@@ -137,7 +135,7 @@ class Frame2D:
         """ Creates an instance using the file path. """
         img = Image.open(file_path)
         ar = np.asarray(img)
-        return Frame2D(ar, [CONSTS.CHANNEL.RED, CONSTS.CHANNEL.GREEN, CONSTS.CHANNEL.BLUE])
+        return Frame2D(ar)
 
     @staticmethod
     def from_rgbxy_(ar: np.ndarray, xy_pos=(3,4), width=None, height=None) -> Frame2D:
@@ -149,6 +147,8 @@ class Frame2D:
 
         :param ar: The array to rebuild
         :param xy_pos: The positions of X and Y.
+        :param height: Height of expected image, if None, Max will be used
+        :param width: Width of expected image, if None, Max will be used
         """
         max_y = height if height else np.max(ar[:,xy_pos[1]]) + 1
         max_x = width if width else np.max(ar[:,xy_pos[0]]) + 1
@@ -159,7 +159,7 @@ class Frame2D:
         fill[ar[:, xy_pos[1]].astype(int),
              ar[:, xy_pos[0]].astype(int)] = ar[:]
 
-        return Frame2D(fill, ar.indexes)
+        return Frame2D(fill)
 
     def get_hsv(self) -> np.ndarray:
         """ Creates a HSV Array """
@@ -251,6 +251,7 @@ class Frame2D:
         Order is given by the argument order.
         R, G, B, H, S, V, EX_G, MEX_G, EX_GR ,NDI ,VEG ,X ,Y , ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
 
+        :param self_: Include current frame
         :param xy: XY Coordinates
         :param hsv: Hue, Saturation, Value
         :param ex_g: Excess Green
