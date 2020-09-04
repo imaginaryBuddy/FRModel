@@ -137,10 +137,9 @@ class Frame2D:
         return Frame2D(ar)
 
     @staticmethod
-    def from_rgbxy_(ar: np.ndarray, xy_pos=(0,1)) -> Frame2D:
-        """ Rebuilds the frame with XY values. XY must be of integer values, otherwise, will be casted.
 
-        The grame will be rebuild and all data will be retained, including XY.
+        Note that RGB channels MUST be on index 0, 1, 2 else some functions may break.
+
 
         :param ar: The array to rebuild
         :param xy_pos: The positions of X and Y.
