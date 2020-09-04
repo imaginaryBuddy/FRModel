@@ -58,9 +58,16 @@ Consider this::
     Original       Transformed
 
 
+With a radius 1, we sum all of the neighbour values together to calculate a GLCM at a specific cell.
+
+To further clarify, we do not repeatedly repeat GLCM creation, we create the 2 offset arrays, multiplied by the number
+of GLCM statistics, then do a convolution at each feasible point.
+
 =============
 Edge Cropping
 =============
+
+We will not resort to padding due to difficulty and minimal impact on result (a small amount of pixels removed).
 
 Note that the larger the GLCM stride, the more edge pixels will be removed.
 
