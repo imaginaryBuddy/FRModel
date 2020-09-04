@@ -2,6 +2,8 @@
 Channel
 #######
 
+**This is deprecated from 0.0.3 onwards, however, the knowledge is still relevant**
+
 This is simply a *layer* of **Frame2D**.
 
 =======
@@ -20,6 +22,8 @@ For every channel, we can save it as an image.
 ====
 GLCM
 ====
+
+**It's recommended to use Frame2D to calculate glcm to get updated.**
 
 The GLCM2D instance can be grabbed by just calling the ``.glcm()`` method.
 

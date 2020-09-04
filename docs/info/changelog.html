@@ -165,7 +165,15 @@
 <div class="section" id="id1">
 <h2>0.0.3<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Implement GLCM with index as a <code class="docutils literal notranslate"><span class="pre">get_all</span></code> op or just <code class="docutils literal notranslate"><span class="pre">get_glcm</span></code></p></li>
+<li><p>Implement Index Grabbing with <code class="docutils literal notranslate"><span class="pre">get_xx</span></code> ops.</p></li>
+<li><p>Added shorthand for multiple Index Grabbing with <code class="docutils literal notranslate"><span class="pre">get_idxs</span></code> and <code class="docutils literal notranslate"><span class="pre">get_all_idxs</span></code>.</p></li>
+<li><p><strong>Index</strong> is now a term to represent a generated “channel”. That is it’s calculated from source data.</p></li>
+<li><p>Add from <code class="docutils literal notranslate"><span class="pre">from_rgbxy_</span></code> function to enable generation from RGBXY+ arrays. RGB is optional but recommended to include.</p></li>
+<li><p>Added GLCM calculation within <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code></p></li>
+<li><p>Fix issue with <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code> consts being flipped</p></li>
+<li><p>Added simple wrapper for <code class="docutils literal notranslate"><span class="pre">sklearn.neighbours.KDTree</span></code> generation from <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code>.</p></li>
+<li><p>Stage <code class="docutils literal notranslate"><span class="pre">Channel2D</span></code> and <code class="docutils literal notranslate"><span class="pre">GLCM2D</span></code> for deprecation.</p></li>
+<li><p>Force rename <strong>index</strong> to <strong>channel</strong> for differentiation.</p></li>
 </ul>
 </div>
 <div class="section" id="id2">

@@ -78,11 +78,13 @@ As to cater to this research project, index calculations are readily available w
 
 Currently, ``frmodel`` supports the following:
 
-``layer_count`` represents how many "layers" it will take, similar to the cake analogy.
+``index_count`` represents how many "layers" it will take, similar to the cake analogy.
 
 +---------------------+-----------------------------+-------------+
-| function            | description                 | layer_count |
+| function            | description                 | index_count |
 +=====================+=============================+=============+
+| ``get_xy``          | X, Y Coordinates            | 2           |
++---------------------+-----------------------------+-------------+
 | ``get_hsv``         | Hue Saturation and Value    | 3           |
 +---------------------+-----------------------------+-------------+
 | ``get_ex_g(False)`` | Excess Green                | 1           |
@@ -95,22 +97,19 @@ Currently, ``frmodel`` supports the following:
 +---------------------+-----------------------------+-------------+
 | ``get_veg``         | Vegetative Index            | 1           |
 +---------------------+-----------------------------+-------------+
-| ``get_xy``          | X, Y Coordinates            | 2           |
-+---------------------+-----------------------------+-------------+
-| ``get_all``         | All Indexes                 | 13          |
+| ``get_chn``         | All Indexes                 | 13          |
 +---------------------+-----------------------------+-------------+
 
-Note that ``get_all`` gets all indexes above, the order is as shown above too, i.e. xy will be the last indexes.
+Note that ``get_all_chn`` and ``get_chn`` gets all channels above, the order is as shown above too,
+i.e. xy will be the first 2 indexes.
 
 ====
 GLCM
 ====
 
-**Pending Encapsulation**
-
 GLCM Calculation is similar to the deprecated :doc:`GLCM2D <glcm2D>` class.
 
-This is moved to Frame2D for efficiency in code.
+This is moved to ``Frame2D`` for efficiency in code.
 
 =========
 Normalize
@@ -123,6 +122,10 @@ Note that normalizing will break ``.save`` unless the data is denormalized manua
 ========
 Channels
 ========
+
+**Refer to** :doc:`2 Dimensional Classes <D2>` for information on "Channels".
+
+``Channel2D`` **Deprecated since 0.0.3**
 
 In each frame, there will be **channel layers**.
 

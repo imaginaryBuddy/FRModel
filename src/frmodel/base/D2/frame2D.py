@@ -4,12 +4,21 @@ from dataclasses import dataclass
 from typing import List, Tuple
 
 import numpy as np
+import warnings
+import pandas as pd
 from skimage.color import rgb2hsv
+import seaborn as sns
 from PIL import Image
 
 from frmodel.base.D2.channel2D import Channel2D
 from frmodel.base.consts import CONSTS
 from sklearn.preprocessing import normalize as sk_normalize
+from sklearn.preprocessing import minmax_scale as sk_minmax_scale
+from sklearn.cluster import KMeans
+from sklearn.neighbors import KDTree
+from math import ceil
+
+CHANNEL = CONSTS.CHANNEL
 
 MAX_RGB = 255
 
@@ -17,9 +26,7 @@ MAX_RGB = 255
 class Frame2D:
     """ A Frame is an alias to an Image.
 
-    The underlying representation is a 2D array, each cells holds a structured array, consisting of RGB Channels.
-
-    It's easily extendable for more channels, but for now we only have the RGB.
+    The underlying representation is a 2D array, each cell is a array of channels
     """
 
     data: np.ndarray
@@ -48,12 +55,12 @@ class Frame2D:
             [[1,2,3,4,5],[6,7,8,...], ...]
 
         """
-        return [f.split(by, axis=CONSTS.AXIS.Y, method=method)
-                for f in self.split(by, axis=CONSTS.AXIS.X, method=method)]
+        return [f.split(by, axis=CONSTS.AXIS.X, method=method)
+                for f in self.split(by, axis=CONSTS.AXIS.Y, method=method)]
 
     def split(self,
               by: int,
-              axis: CONSTS.AXIS = CONSTS.AXIS.X,
+              axis: CONSTS.AXIS = CONSTS.AXIS.Y,
               method: SplitMethod = SplitMethod.DROP) -> List[Frame2D]:
         """ Splits the current Frame into windows of specified size.
 
@@ -63,7 +70,7 @@ class Frame2D:
 
             frame.split(
                 by = 50,
-                axis = CONSTS.AXIS.X,
+                axis = CONSTS.AXIS.Y,
                 method = Frame2D.SplitMethod.DROP
             )
 
@@ -73,9 +80,9 @@ class Frame2D:
         # Pre-process by as modified by_
         # np.split_array splits it by the number of slices generated,
         # we need to transform this into the slice locations
-        if axis == CONSTS.AXIS.X:
+        if axis == CONSTS.AXIS.Y:
             by_ = np.arange(by, self.width(), by)
-        elif axis == CONSTS.AXIS.Y:
+        elif axis == CONSTS.AXIS.X:
             by_ = np.arange(by, self.height(), by)
         else:
             raise TypeError(f"Axis {axis} is not recognised. Use CONSTS.AXIS class.")
@@ -104,10 +111,10 @@ class Frame2D:
             [[1,2,3,4,5],[6,7,8,...], ...]
 
         """
-        return [f.slide(by=by, stride=stride, axis=CONSTS.AXIS.Y)
-                for f in self.slide(by=by, stride=stride, axis=CONSTS.AXIS.X)]
+        return [f.slide(by=by, stride=stride, axis=CONSTS.AXIS.X)
+                for f in self.slide(by=by, stride=stride, axis=CONSTS.AXIS.Y)]
 
-    def slide(self, by, stride, axis=CONSTS.AXIS.X):
+    def slide(self, by, stride, axis=CONSTS.AXIS.Y):
         """ Slides a window along an axis and grabs that window as a new Frame2D
 
         This operation is slower due to looping but allows for overlapping windows
@@ -117,13 +124,12 @@ class Frame2D:
         :param by: The size of the window to slide
         :param stride: The stride of the window on specified axis
         :param axis: Axis to slide on
-        :return:
         """
 
-        if axis == CONSTS.AXIS.X:
+        if axis == CONSTS.AXIS.Y:
             return [Frame2D(self.data[:, i: i + by])
                     for i in range(0, self.width() - by + 1, stride)]
-        elif axis == CONSTS.AXIS.Y:
+        elif axis == CONSTS.AXIS.X:
             return [Frame2D(self.data[i: i + by, :])
                     for i in range(0, self.height() - by + 1, stride)]
 
@@ -134,8 +140,32 @@ class Frame2D:
         ar = np.asarray(img)
         return Frame2D(ar)
 
+    @staticmethod
+    def from_rgbxy_(ar: np.ndarray, xy_pos=(3,4), width=None, height=None) -> Frame2D:
+        """ Rebuilds the frame with XY values. XY should be of integer values, otherwise, will be casted.
+
+        Note that RGB channels MUST be on index 0, 1, 2 else some functions may break. However, can be ignored.
+
+        The frame will be rebuild and all data will be retained, including XY.
+
+        :param ar: The array to rebuild
+        :param xy_pos: The positions of X and Y.
+        :param height: Height of expected image, if None, Max will be used
+        :param width: Width of expected image, if None, Max will be used
+        """
+        max_y = height if height else np.max(ar[:,xy_pos[1]]) + 1
+        max_x = width if width else np.max(ar[:,xy_pos[0]]) + 1
+
+        fill = np.zeros(( ceil(max_y), ceil(max_x), ar.shape[-1]), dtype=ar.dtype)
+
+        # Vectorized X, Y <- RGBXY... Assignment
+        fill[ar[:, xy_pos[1]].astype(int),
+             ar[:, xy_pos[0]].astype(int)] = ar[:]
+
+        return Frame2D(fill)
+
     def get_hsv(self) -> np.ndarray:
-        """ Creates a HSV Array """
+        """ Creates a HSV """
         return rgb2hsv(self.data_rgb())
 
     def get_ex_g(self, modified=False) -> np.ndarray:
@@ -148,10 +178,14 @@ class Frame2D:
         """
         
         if modified:
-            return 1.262 * self.data_r() - 0.884 * self.data_g() - 0.331 * self.data_b()
+            return 1.262 * self.data_chn(CHANNEL.RED) - \
+                   0.884 * self.data_chn(CHANNEL.GREEN) - \
+                   0.331 * self.data_chn(CHANNEL.BLUE)
 
         else:
-            return 2 * self.data_r() - self.data_g() - self.data_b()
+            return 2 * self.data_chn(CHANNEL.RED) - \
+                   self.data_chn(CHANNEL.GREEN) - \
+                   self.data_chn(CHANNEL.BLUE)
 
     def get_ex_gr(self) -> np.ndarray:
         """ Calculates the excessive green minus excess red index
@@ -159,7 +193,7 @@ class Frame2D:
         2g - r - b - 1.4r + g = 3g - 2.4r - b
         """
         
-        return 3 * self.data_r() - 2.4 * self.data_g() - self.data_b()
+        return 3 * self.data_chn(CHANNEL.RED) - 2.4 * self.data_chn(CHANNEL.GREEN) - self.data_chn(CHANNEL.BLUE)
 
     def get_ndi(self):
         """ Calculates the Normalized Difference Index
@@ -167,13 +201,13 @@ class Frame2D:
         g - r / (g + r)
         """
 
-        # for i, (r, g) in enumerate(zip(self.data_r()[0], self.data_g()[0])):
-        #     print(i, r, g, g-r, g+r, (g-r)/(g+r))
-
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(np.true_divide(self.data_g().astype(np.int) - self.data_r().astype(np.int),
-                                             self.data_g().astype(np.int) + self.data_r().astype(np.int)),
-                              copy=False, nan=0, neginf=0, posinf=0)
+            x = np.nan_to_num(
+                np.true_divide(self.data_chn(CHANNEL.GREEN).astype(np.int) -
+                               self.data_chn(CHANNEL.RED).astype(np.int),
+                               self.data_chn(CHANNEL.GREEN).astype(np.int) +
+                               self.data_chn(CHANNEL.RED).astype(np.int)),
+                copy=False, nan=0, neginf=0, posinf=0)
 
         return x
     
@@ -186,9 +220,9 @@ class Frame2D:
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_g().astype(np.float) /
-                              (np.power(self.data_r().astype(np.float), const_a) *
-                               np.power(self.data_b().astype(np.float), 1 - const_a)),
+            x = np.nan_to_num(self.data_chn(CHANNEL.GREEN).astype(np.float) /
+                              (np.power(self.data_chn(CHANNEL.RED).astype(np.float), const_a) *
+                               np.power(self.data_chn(CHANNEL.BLUE).astype(np.float), 1 - const_a)),
                               copy=False, nan=0, neginf=0, posinf=0)
         return x
 
@@ -204,24 +238,18 @@ class Frame2D:
 
         return buffer
 
-    def get_all(self,
-                hsv=True,
-                ex_g=True,
-                mex_g=True,
-                ex_gr=True,
-                ndi=True,
-                veg=True,
-                veg_a=0.667,
-                xy=True,
-                glcm=True,
-                glcm_by_x=1,
-                glcm_by_y=1,
-                glcm_radius=5
-                ) -> Frame2D:
-        """ Gets all implemented features.
+    def get_chns(self, self_=False, xy=False, hsv=False, ex_g=False,
+                 mex_g=False, ex_gr=False, ndi=False, veg=False,
+                 veg_a=0.667, glcm=False, glcm_by_x=1, glcm_by_y=1,
+                 glcm_radius=5, glcm_verbose=False) -> Frame2D:
+        """ Gets selected channels
 
-        R, G, B, H, S, V, EX_G, MEX_G, EX_GR ,NDI ,VEG ,X ,Y , ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
+        Order is given by the argument order.
+        R, G, B, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG, X, Y,
+        ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
 
+        :param self_: Include current frame
+        :param xy: XY Coordinates
         :param hsv: Hue, Saturation, Value
         :param ex_g: Excess Green
         :param mex_g: Modified Excess Green
@@ -229,22 +257,49 @@ class Frame2D:
         :param ndi: Normalized Difference Index
         :param veg: Vegetative Index
         :param veg_a: Vegatative Index Const A
-        :param xy: XY Coordinates
         :param glcm: GLCM
         :param glcm_by_x: GLCM By X Parameter
         :param glcm_by_y: GLCM By Y Parameter
         :param glcm_radius: GLCM Radius
+        :param glcm_verbose: Whether to have glcm generation give feedback
+        """
+        return self.get_all_chns(self_, xy, hsv, ex_g, mex_g, ex_gr, ndi,
+                                 veg, veg_a, glcm, glcm_by_x, glcm_by_y, glcm_radius, glcm_verbose)
+
+    def get_all_chns(self, self_=True, xy=True, hsv=True, ex_g=True, mex_g=True,
+                     ex_gr=True, ndi=True, veg=True, veg_a=0.667, glcm=True,
+                     glcm_by_x=1, glcm_by_y=1, glcm_radius=5, glcm_verbose=False) -> Frame2D:
+        """ Gets all implemented channels, excluding possible.
+
+        Order is given by the argument order.
+        R, G, B, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG, X, Y,
+        ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
+
+        :param self_: Include current frame
+        :param xy: XY Coordinates
+        :param hsv: Hue, Saturation, Value
+        :param ex_g: Excess Green
+        :param mex_g: Modified Excess Green
+        :param ex_gr: Excess Green Minus Red
+        :param ndi: Normalized Difference Index
+        :param veg: Vegetative Index
+        :param veg_a: Vegatative Index Const A
+        :param glcm: GLCM
+        :param glcm_by_x: GLCM By X Parameter
+        :param glcm_by_y: GLCM By Y Parameter
+        :param glcm_radius: GLCM Radius
+        :param glcm_verbose: Whether to have glcm generation give feedback
         """
 
         features = \
-            [self.data,
+            [self.data           if self_ else None,
+             self.get_xy()       if xy else None,
              self.get_hsv()      if hsv else None,
              self.get_ex_g()     if ex_g else None,
              self.get_ex_g(True) if mex_g else None,
              self.get_ex_gr()    if ex_gr else None,
              self.get_ndi()      if ndi else None,
-             self.get_veg(veg_a) if veg else None,
-             self.get_xy()       if xy else None]
+             self.get_veg(veg_a) if veg else None]
 
         frame = Frame2D(np.concatenate([f for f in features if f is not None], axis=2))
 
@@ -256,14 +311,16 @@ class Frame2D:
 
             return Frame2D(np.concatenate([
                 frame.data,
-                self.get_glcm(by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius)], axis=2))
+                self.get_glcm(by_x=glcm_by_x, by_y=glcm_by_y,
+                              radius=glcm_radius, verbose=glcm_verbose)], axis=2))
 
         return frame
 
     def get_glcm(self,
                  by_x: int = 1,
                  by_y: int = 1,
-                 radius: int = 5):
+                 radius: int = 5,
+                 verbose: bool = False):
         """ This will get the GLCM statistics for this window
 
         In order:
@@ -314,9 +371,10 @@ class Frame2D:
         frames_b = Frame2D(self.data_rgb()[by_y:, by_x:].astype(np.int32)).slide_xy(by=glcm_window, stride=1)
         out = np.zeros((self.height() - by_y - radius * 2,
                         self.width() - by_x - radius * 2,
-                        3 * 3))  # RGB * Index count
+                        3 * 3))  # RGB * Channel count
 
         for col, (col_a, col_b) in enumerate(zip(frames_a, frames_b)):
+            if verbose: print(f"Progress {100 * col / len(frames_b):.2f}% [{col} / {len(frames_b)}]")
             for row, (cell_a, cell_b) in enumerate(zip(col_a, col_b)):
 
                 # Contrast
@@ -330,7 +388,10 @@ class Frame2D:
                 std_y = np.std(cell_b.data, axis=(0,1))
                 std = std_x * std_y
 
-                correlation = np.sum(((cell_a.data * cell_b.data) - mean) / std, axis=(0,1))
+                with np.errstate(divide='ignore', invalid='ignore'):
+                    correlation = np.sum(
+                        np.nan_to_num(((cell_a.data * cell_b.data) - mean) / std,
+                                      copy=False, nan=0, neginf=-1, posinf=1), axis=(0,1))
 
                 """ Optimized Entropy Calculation
                 
@@ -368,9 +429,70 @@ class Frame2D:
 
         return out
 
+    def kmeans(self,
+               clusters,
+               fit_indexes,
+               sample_weight=None,
+               verbose=False,
+               scaler=sk_normalize,
+               plot_figure=False,
+               xy_indexes=(3,4),
+               scatter_size=0.2
+               ) -> KMeans:
+        """ Fits a KMeans on current frame, on certain axes
+
+        Example::
+
+            frame_idxs = frame.get_idxs(xy=True,hsv=True,veg=True)
+            frame_idxs.kmeans(clusters=5, fit_indexes=[2,3,4,5],
+                              plot_figure=True,xy_indexes=(0,1),scatter_size=1)
+
+        This will firstly get the coordinate, hsv and veg indexes, placing it in a df
+
+        :param clusters: The number of clusters
+        :param fit_indexes: The indexes to .fit()
+        :param sample_weight: The sample weight for each record, if any. Can be None.
+        :param verbose: Whether to print out the KMeans' verbose log
+        :param scaler: The scaler to use, must be a callable(np.ndarray)
+        :param plot_figure: Whether to plot a figure or not, using plt.gcf()
+        :param xy_indexes: The indexes of XY. Must be present for plotting.
+        :param scatter_size: Size of the marker on the scatter plot
+        :return:
+        """
+        flat = self.data_flatten()
+        frame_xy_trans = scaler(flat[:, fit_indexes])
+        km = KMeans(n_clusters=clusters, verbose=verbose) \
+            .fit(frame_xy_trans,
+                 sample_weight=frame_xy_trans[:, sample_weight] if sample_weight else None)
+        if plot_figure:
+            df = pd.DataFrame(np.append(flat, km.labels_[...,np.newaxis],axis=-1))
+            df.columns = [f"c{e}" for e, _ in enumerate(df.columns)]
+            sns.lmplot(data=df,
+                       x=f'c{xy_indexes[0]}',
+                       y=f'c{xy_indexes[1]}',
+                       hue=df.columns[-1],
+                       fit_reg=False,
+                       legend=True,
+                       legend_out=True,
+                       scatter_kws={"s": scatter_size})
+        return km
+
+    def data_kdtree(self, leaf_size=40, metric='minkowski', **kwargs) -> KDTree:
+        """ Constructs a KDTree with current data.
+
+        Uses sklearn.neighbours.KDTree API."""
+        return KDTree(self.data_flatten(),
+                      leaf_size=leaf_size,
+                      metric=metric,
+                      **kwargs)
+
     def normalize(self) -> Frame2D:
         shape = self.data.shape
         return Frame2D(sk_normalize(self.data.reshape([-1, shape[-1]]), axis=0).reshape(shape))
+
+    def minmax_scale(self) -> Frame2D:
+        shape = self.data.shape
+        return Frame2D(sk_minmax_scale(self.data.reshape([-1, shape[-1]]), axis=0).reshape(shape))
 
     def save(self, file_path: str, **kwargs) -> None:
         """ Saves the current Frame file """
@@ -387,21 +509,24 @@ class Frame2D:
     def shape(self) -> Tuple:
         return self.data.shape
 
-    def data_r(self):
-        return self.data[..., [CONSTS.CHANNEL.RED]]
-    def data_g(self):
-        return self.data[..., [CONSTS.CHANNEL.GREEN]]
-    def data_b(self):
-        return self.data[..., [CONSTS.CHANNEL.BLUE]]
-    def data_rgb(self):
-        return self.data[..., [CONSTS.CHANNEL.RED, CONSTS.CHANNEL.GREEN, CONSTS.CHANNEL.BLUE]]
+    def data_chn(self, idx: int or List[int]) -> np.ndarray:
+        """ Gets channels as pure np.ndarray data
 
-    def height(self):
+        :param idx: Can be a single int index or multiple in a List"""
+        if isinstance(idx, int): idx = [idx]
+        return self.data[..., idx]
+
+    def data_rgb(self) -> np.ndarray:
+        return self.data[..., [CHANNEL.RED, CHANNEL.GREEN, CHANNEL.BLUE]]
+
+    def height(self) -> int:
         return self.shape[0]
 
-    def width(self):
+    def width(self) -> int:
         return self.shape[1]
-    
+
     def channel(self, channel: CONSTS.CHANNEL) -> Channel2D:
         """ Gets the channel of the Frame as Channel 2D. """
+        warnings.warn("Channel2D will be deprecated soon, it's recommended to work within Frame2D "
+                      "or slice using np.ndarray.")
         return Channel2D(self.data[..., channel])
