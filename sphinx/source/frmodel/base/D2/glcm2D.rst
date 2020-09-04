@@ -29,9 +29,9 @@ Consider the following. ::
 
 Notice that they have the same size, this allows us to use common ``numpy`` operations on it.
 
----------
+----------
 n Channels
----------
+----------
 
 Imagine the above, but we do that to multiple channels at once in parallel. This helps save a lot of time because
 ``numpy`` favors vectorized operations. However, it may limit some calculations.
@@ -117,19 +117,19 @@ This is to allow efficient processing of arrays.
 
 Means to loop through both arrays, for each index, multiply with each other and add to the sum.
 
-********
+--------
 Contrast
-********
+--------
 
 .. math::
 
     Con = \sum_{x=0}^{x_n} \sum_{y=0}^{y_n} (a_{x,y} - b_{x,y})^2
 
-***********
+-----------
 Correlation
-***********
+-----------
 
-*Note: If :math:`std_{a,b} = 0`, then value is 1 or -1 depending on the sign.
+Note: If :math:`std_{a,b} = 0`, then value is 1 or -1 depending on the sign.
 
 .. math::
 
@@ -139,9 +139,9 @@ Correlation
             \frac{a_{x,y} * b_{x,y} - {mean_{a,b}}}
                  {std_{a,b}}
 
-*******
+-------
 Entropy
-*******
+-------
 
 Note that we cannot directly use element wise operations here.
 
