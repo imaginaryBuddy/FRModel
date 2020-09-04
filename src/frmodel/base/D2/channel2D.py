@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 import numpy as np
 from PIL import Image
+import warnings
 
 from frmodel.base.D2.glcm2D import GLCM2D
 from frmodel.base.consts import CONSTS
@@ -31,7 +32,7 @@ class Channel2D:
         :param by_x: The number of cells to shift on the x-axis
         :param by_y: The number of cells to shift on the y-axis
         """
-        raise DeprecationWarning("glcm() is deprecated for 0.0.3, use Frame2D get_glcm to generate RGB GLCM.")
+        warnings.warn("glcm() is deprecated for 0.0.3, use Frame2D get_glcm to generate RGB GLCM.")
 
         # Int 32 to be used to support 255 * 255 (worst case scenario)
         b = self.data[:-by_y, :-by_x].astype(np.int32)

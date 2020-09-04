@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import List, Tuple
 
 import numpy as np
+import warnings
 import pandas as pd
 from skimage.color import rgb2hsv
 import seaborn as sns
@@ -499,9 +500,9 @@ class Frame2D:
 
     def width(self):
         return self.shape[1]
-    
+
     def channel(self, channel: CONSTS.CHANNEL) -> Channel2D:
         """ Gets the channel of the Frame as Channel 2D. """
-        raise PendingDeprecationWarning("Channel2D will be deprecated soon, it's recommended to work within Frame2D"
-                                        "or slice using np.ndarray.")
+        warnings.warn("Channel2D will be deprecated soon, it's recommended to work within Frame2D "
+                      "or slice using np.ndarray.")
         return Channel2D(self.data[..., channel])
