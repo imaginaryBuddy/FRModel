@@ -14,6 +14,7 @@ from frmodel.base.consts import CONSTS
 from sklearn.preprocessing import normalize as sk_normalize
 from sklearn.preprocessing import minmax_scale as sk_minmax_scale
 from sklearn.cluster import KMeans
+from sklearn.neighbors import KDTree
 from math import ceil
 
 CHANNEL = CONSTS.CHANNEL
@@ -453,6 +454,15 @@ class Frame2D:
                        legend_out=True,
                        scatter_kws={"s": scatter_size})
         return km
+
+    def data_kdtree(self, leaf_size=40, metric='minkowski', **kwargs) -> KDTree:
+        """ Constructs a KDTree with current data.
+
+        Uses sklearn.neighbours.KDTree API."""
+        return KDTree(self.data_flatten(),
+                      leaf_size=leaf_size,
+                      metric=metric,
+                      **kwargs)
 
     def normalize(self) -> Frame2D:
         shape = self.data.shape
