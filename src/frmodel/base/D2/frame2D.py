@@ -26,9 +26,7 @@ MAX_RGB = 255
 class Frame2D:
     """ A Frame is an alias to an Image.
 
-    The underlying representation is a 2D array, each cells holds a structured array, consisting of RGB Channels.
-
-    It's easily extendable for more channels, but for now we only have the RGB.
+    The underlying representation is a 2D array, each cell is a array of channels
     """
 
     data: np.ndarray
@@ -126,7 +124,6 @@ class Frame2D:
         :param by: The size of the window to slide
         :param stride: The stride of the window on specified axis
         :param axis: Axis to slide on
-        :return:
         """
 
         if axis == CONSTS.AXIS.Y:
@@ -168,7 +165,7 @@ class Frame2D:
         return Frame2D(fill)
 
     def get_hsv(self) -> np.ndarray:
-        """ Creates a HSV Array """
+        """ Creates a HSV """
         return rgb2hsv(self.data_rgb())
 
     def get_ex_g(self, modified=False) -> np.ndarray:
@@ -181,14 +178,14 @@ class Frame2D:
         """
         
         if modified:
-            return 1.262 * self.data_idx(CHANNEL.RED) -\
-                   0.884 * self.data_idx(CHANNEL.GREEN) -\
-                   0.331 * self.data_idx(CHANNEL.BLUE)
+            return 1.262 * self.data_chn(CHANNEL.RED) - \
+                   0.884 * self.data_chn(CHANNEL.GREEN) - \
+                   0.331 * self.data_chn(CHANNEL.BLUE)
 
         else:
-            return 2 * self.data_idx(CHANNEL.RED) -\
-                   self.data_idx(CHANNEL.GREEN) -\
-                   self.data_idx(CHANNEL.BLUE)
+            return 2 * self.data_chn(CHANNEL.RED) - \
+                   self.data_chn(CHANNEL.GREEN) - \
+                   self.data_chn(CHANNEL.BLUE)
 
     def get_ex_gr(self) -> np.ndarray:
         """ Calculates the excessive green minus excess red index
@@ -196,7 +193,7 @@ class Frame2D:
         2g - r - b - 1.4r + g = 3g - 2.4r - b
         """
         
-        return 3 * self.data_idx(CHANNEL.RED) - 2.4 * self.data_idx(CHANNEL.GREEN) - self.data_idx(CHANNEL.BLUE)
+        return 3 * self.data_chn(CHANNEL.RED) - 2.4 * self.data_chn(CHANNEL.GREEN) - self.data_chn(CHANNEL.BLUE)
 
     def get_ndi(self):
         """ Calculates the Normalized Difference Index
@@ -206,10 +203,10 @@ class Frame2D:
 
         with np.errstate(divide='ignore', invalid='ignore'):
             x = np.nan_to_num(
-                np.true_divide(self.data_idx(CHANNEL.GREEN).astype(np.int) -
-                               self.data_idx(CHANNEL.RED).astype(np.int),
-                               self.data_idx(CHANNEL.GREEN).astype(np.int) +
-                               self.data_idx(CHANNEL.RED).astype(np.int)),
+                np.true_divide(self.data_chn(CHANNEL.GREEN).astype(np.int) -
+                               self.data_chn(CHANNEL.RED).astype(np.int),
+                               self.data_chn(CHANNEL.GREEN).astype(np.int) +
+                               self.data_chn(CHANNEL.RED).astype(np.int)),
                 copy=False, nan=0, neginf=0, posinf=0)
 
         return x
@@ -223,9 +220,9 @@ class Frame2D:
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_idx(CHANNEL.GREEN).astype(np.float) /
-                              (np.power(self.data_idx(CHANNEL.RED).astype(np.float), const_a) *
-                               np.power(self.data_idx(CHANNEL.BLUE).astype(np.float), 1 - const_a)),
+            x = np.nan_to_num(self.data_chn(CHANNEL.GREEN).astype(np.float) /
+                              (np.power(self.data_chn(CHANNEL.RED).astype(np.float), const_a) *
+                               np.power(self.data_chn(CHANNEL.BLUE).astype(np.float), 1 - const_a)),
                               copy=False, nan=0, neginf=0, posinf=0)
         return x
 
@@ -245,13 +242,34 @@ class Frame2D:
                  mex_g=False, ex_gr=False, ndi=False, veg=False,
                  veg_a=0.667, glcm=False, glcm_by_x=1, glcm_by_y=1,
                  glcm_radius=5, glcm_verbose=False) -> Frame2D:
+        """ Gets selected channels
+
+        Order is given by the argument order.
+        R, G, B, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG, X, Y,
+        ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
+
+        :param self_: Include current frame
+        :param xy: XY Coordinates
+        :param hsv: Hue, Saturation, Value
+        :param ex_g: Excess Green
+        :param mex_g: Modified Excess Green
+        :param ex_gr: Excess Green Minus Red
+        :param ndi: Normalized Difference Index
+        :param veg: Vegetative Index
+        :param veg_a: Vegatative Index Const A
+        :param glcm: GLCM
+        :param glcm_by_x: GLCM By X Parameter
+        :param glcm_by_y: GLCM By Y Parameter
+        :param glcm_radius: GLCM Radius
+        :param glcm_verbose: Whether to have glcm generation give feedback
+        """
         return self.get_all_idxs(self_,xy,hsv,ex_g,mex_g,ex_gr,ndi,
                                  veg,veg_a,glcm,glcm_by_x,glcm_by_y,glcm_radius,glcm_verbose)
 
     def get_all_idxs(self, self_=True, xy=True, hsv=True, ex_g=True, mex_g=True,
                      ex_gr=True, ndi=True, veg=True, veg_a=0.667, glcm=True,
                      glcm_by_x=1, glcm_by_y=1, glcm_radius=5, glcm_verbose=False) -> Frame2D:
-        """ Gets all implemented features.
+        """ Gets all implemented channels, excluding possible.
 
         Order is given by the argument order.
         R, G, B, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG, X, Y,
@@ -353,7 +371,7 @@ class Frame2D:
         frames_b = Frame2D(self.data_rgb()[by_y:, by_x:].astype(np.int32)).slide_xy(by=glcm_window, stride=1)
         out = np.zeros((self.height() - by_y - radius * 2,
                         self.width() - by_x - radius * 2,
-                        3 * 3))  # RGB * Index count
+                        3 * 3))  # RGB * Channel count
 
         for col, (col_a, col_b) in enumerate(zip(frames_a, frames_b)):
             if verbose: print(f"Progress {100 * col / len(frames_b):.2f}% [{col} / {len(frames_b)}]")
@@ -432,7 +450,7 @@ class Frame2D:
         This will firstly get the coordinate, hsv and veg indexes, placing it in a df
 
         :param clusters: The number of clusters
-        :param fit_indexes: The indexes to fit
+        :param fit_indexes: The indexes to .fit()
         :param sample_weight: The sample weight for each record, if any. Can be None.
         :param verbose: Whether to print out the KMeans' verbose log
         :param scaler: The scaler to use, must be a callable(np.ndarray)
@@ -491,17 +509,20 @@ class Frame2D:
     def shape(self) -> Tuple:
         return self.data.shape
 
-    def data_idx(self, idx):
-        return self.data[..., [idx]]
-    def data_idxs(self, idxs):
-        return self.data[..., idxs]
-    def data_rgb(self):
+    def data_chn(self, idx: int or List[int]) -> np.ndarray:
+        """ Gets channels as pure np.ndarray data
+
+        :param idx: Can be a single int index or multiple in a List"""
+        if isinstance(idx, int): idx = [idx]
+        return self.data[..., idx]
+
+    def data_rgb(self) -> np.ndarray:
         return self.data[..., [CHANNEL.RED, CHANNEL.GREEN, CHANNEL.BLUE]]
 
-    def height(self):
+    def height(self) -> int:
         return self.shape[0]
 
-    def width(self):
+    def width(self) -> int:
         return self.shape[1]
 
     def channel(self, channel: CONSTS.CHANNEL) -> Channel2D:
