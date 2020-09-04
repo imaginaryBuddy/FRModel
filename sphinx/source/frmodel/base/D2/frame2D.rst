@@ -124,6 +124,8 @@ Note that normalizing will break ``.save`` unless the data is denormalized manua
 Channels
 ========
 
+**Deprecated since 0.0.3**
+
 In each frame, there will be **channel layers**.
 
 .. code-block:: python
