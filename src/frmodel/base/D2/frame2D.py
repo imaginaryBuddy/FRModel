@@ -11,6 +11,8 @@ from frmodel.base.D2.channel2D import Channel2D
 from frmodel.base.consts import CONSTS
 from sklearn.preprocessing import normalize as sk_normalize
 from sklearn.preprocessing import minmax_scale as sk_minmax_scale
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.cluster import KMeans
 from math import ceil
 
 MAX_RGB = 255
@@ -397,6 +399,14 @@ class Frame2D:
                 out[row, col, :] = np.concatenate([contrast, correlation, entropy])
 
         return out
+
+    def kmeans(self, clusters, verbose=False, scaler=sk_normalize):
+
+        scaler = scaler().fit(self.data_flatten()[:, [5, 6, 7, 8]])
+        frame_xy_trans = scaler.transform(self.data_flatten()[:, [5, 6, 7, 8]])
+
+        return KMeans(n_clusters=clusters, verbose=verbose) \
+            .fit(frame_xy_trans, sample_weight=frame_xy_trans[:, -1])
 
     def normalize(self) -> Frame2D:
         shape = self.data.shape
