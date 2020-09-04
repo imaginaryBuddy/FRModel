@@ -225,6 +225,7 @@ class Frame2D:
         return buffer
 
     def get_all(self,
+                xy=True,
                 hsv=True,
                 ex_g=True,
                 mex_g=True,
@@ -232,7 +233,6 @@ class Frame2D:
                 ndi=True,
                 veg=True,
                 veg_a=0.667,
-                xy=True,
                 glcm=True,
                 glcm_by_x=1,
                 glcm_by_y=1,
@@ -240,8 +240,10 @@ class Frame2D:
                 ) -> Frame2D:
         """ Gets all implemented features.
 
+        Order is given by the argument order.
         R, G, B, H, S, V, EX_G, MEX_G, EX_GR ,NDI ,VEG ,X ,Y , ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
 
+        :param xy: XY Coordinates
         :param hsv: Hue, Saturation, Value
         :param ex_g: Excess Green
         :param mex_g: Modified Excess Green
@@ -249,7 +251,6 @@ class Frame2D:
         :param ndi: Normalized Difference Index
         :param veg: Vegetative Index
         :param veg_a: Vegatative Index Const A
-        :param xy: XY Coordinates
         :param glcm: GLCM
         :param glcm_by_x: GLCM By X Parameter
         :param glcm_by_y: GLCM By Y Parameter
@@ -258,13 +259,13 @@ class Frame2D:
 
         features = \
             [self.data,
+             self.get_xy()       if xy else None,
              self.get_hsv()      if hsv else None,
              self.get_ex_g()     if ex_g else None,
              self.get_ex_g(True) if mex_g else None,
              self.get_ex_gr()    if ex_gr else None,
              self.get_ndi()      if ndi else None,
-             self.get_veg(veg_a) if veg else None,
-             self.get_xy()       if xy else None]
+             self.get_veg(veg_a) if veg else None]
 
         frame = Frame2D(np.concatenate([f for f in features if f is not None], axis=2))
 
