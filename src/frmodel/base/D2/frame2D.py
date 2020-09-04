@@ -10,6 +10,7 @@ from PIL import Image
 from frmodel.base.D2.channel2D import Channel2D
 from frmodel.base.consts import CONSTS
 from sklearn.preprocessing import normalize as sk_normalize
+from math import ceil
 
 MAX_RGB = 255
 
