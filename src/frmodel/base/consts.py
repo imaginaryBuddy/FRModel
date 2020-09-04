@@ -9,10 +9,9 @@ class CONSTS:
         BLUE = 2
 
     class AXIS:
-        X = 0  # Not sure why is it like this, may need to "fix" this.
-        Y = 1  # Images are stored as height x width, e.g. 1080 x 1920.
+        X = 0
+        Y = 1
         Z = 2
-
 
 """ Deprecated D_TYPE on branch destruct
 
