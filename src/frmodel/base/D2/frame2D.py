@@ -10,6 +10,7 @@ from PIL import Image
 from frmodel.base.D2.channel2D import Channel2D
 from frmodel.base.consts import CONSTS
 from sklearn.preprocessing import normalize as sk_normalize
+from sklearn.preprocessing import minmax_scale as sk_minmax_scale
 from math import ceil
 
 MAX_RGB = 255
@@ -393,6 +394,10 @@ class Frame2D:
     def normalize(self) -> Frame2D:
         shape = self.data.shape
         return Frame2D(sk_normalize(self.data.reshape([-1, shape[-1]]), axis=0).reshape(shape))
+
+    def minmax_scale(self) -> Frame2D:
+        shape = self.data.shape
+        return Frame2D(sk_minmax_scale(self.data.reshape([-1, shape[-1]]), axis=0).reshape(shape))
 
     def save(self, file_path: str, **kwargs) -> None:
         """ Saves the current Frame file """
