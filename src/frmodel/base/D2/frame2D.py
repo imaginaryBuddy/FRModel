@@ -357,7 +357,10 @@ class Frame2D:
                 std_y = np.std(cell_b.data, axis=(0,1))
                 std = std_x * std_y
 
-                correlation = np.sum(((cell_a.data * cell_b.data) - mean) / std, axis=(0,1))
+                with np.errstate(divide='ignore', invalid='ignore'):
+                    correlation = np.sum(
+                        np.nan_to_num(((cell_a.data * cell_b.data) - mean) / std,
+                                      copy=False, nan=0, neginf=-1, posinf=1), axis=(0,1))
 
                 """ Optimized Entropy Calculation
                 
