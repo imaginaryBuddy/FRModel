@@ -123,7 +123,7 @@ Note that normalizing will break ``.save`` unless the data is denormalized manua
 Channels
 ========
 
-**Refer to :doc:`2 Dimensional Classes <D2>`** for information on "Channels".
+**Refer to** :doc:`2 Dimensional Classes <D2>` for information on "Channels".
 
 ``Channel2D`` **Deprecated since 0.0.3**
 
