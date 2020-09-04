@@ -244,13 +244,13 @@ class Frame2D:
     def get_idxs(self, self_=False, xy=False, hsv=False, ex_g=False,
                  mex_g=False, ex_gr=False, ndi=False, veg=False,
                  veg_a=0.667, glcm=False, glcm_by_x=1, glcm_by_y=1,
-                 glcm_radius=5) -> Frame2D:
+                 glcm_radius=5, glcm_verbose=False) -> Frame2D:
         return self.get_all_idxs(self_,xy,hsv,ex_g,mex_g,ex_gr,ndi,
-                                 veg,veg_a,glcm,glcm_by_x,glcm_by_y,glcm_radius)
+                                 veg,veg_a,glcm,glcm_by_x,glcm_by_y,glcm_radius,glcm_verbose)
 
     def get_all_idxs(self, self_=True, xy=True, hsv=True, ex_g=True, mex_g=True,
                      ex_gr=True, ndi=True, veg=True, veg_a=0.667, glcm=True,
-                     glcm_by_x=1, glcm_by_y=1, glcm_radius=5) -> Frame2D:
+                     glcm_by_x=1, glcm_by_y=1, glcm_radius=5, glcm_verbose=False) -> Frame2D:
         """ Gets all implemented features.
 
         Order is given by the argument order.
@@ -270,6 +270,7 @@ class Frame2D:
         :param glcm_by_x: GLCM By X Parameter
         :param glcm_by_y: GLCM By Y Parameter
         :param glcm_radius: GLCM Radius
+        :param glcm_verbose: Whether to have glcm generation give feedback
         """
 
         features = \
@@ -292,14 +293,16 @@ class Frame2D:
 
             return Frame2D(np.concatenate([
                 frame.data,
-                self.get_glcm(by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius)], axis=2))
+                self.get_glcm(by_x=glcm_by_x, by_y=glcm_by_y,
+                              radius=glcm_radius, verbose=glcm_verbose)], axis=2))
 
         return frame
 
     def get_glcm(self,
                  by_x: int = 1,
                  by_y: int = 1,
-                 radius: int = 5):
+                 radius: int = 5,
+                 verbose: bool = False):
         """ This will get the GLCM statistics for this window
 
         In order:
@@ -353,7 +356,7 @@ class Frame2D:
                         3 * 3))  # RGB * Index count
 
         for col, (col_a, col_b) in enumerate(zip(frames_a, frames_b)):
-            print(f"Progress {100 * col / len(frames_b):.2f}% [{col} / {len(frames_b)}]")
+            if verbose: print(f"Progress {100 * col / len(frames_b):.2f}% [{col} / {len(frames_b)}]")
             for row, (cell_a, cell_b) in enumerate(zip(col_a, col_b)):
 
                 # Contrast
