@@ -11,7 +11,6 @@ from frmodel.base.D2.channel2D import Channel2D
 from frmodel.base.consts import CONSTS
 from sklearn.preprocessing import normalize as sk_normalize
 from sklearn.preprocessing import minmax_scale as sk_minmax_scale
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 from math import ceil
 
@@ -52,12 +51,12 @@ class Frame2D:
             [[1,2,3,4,5],[6,7,8,...], ...]
 
         """
-        return [f.split(by, axis=CONSTS.AXIS.Y, method=method)
-                for f in self.split(by, axis=CONSTS.AXIS.X, method=method)]
+        return [f.split(by, axis=CONSTS.AXIS.X, method=method)
+                for f in self.split(by, axis=CONSTS.AXIS.Y, method=method)]
 
     def split(self,
               by: int,
-              axis: CONSTS.AXIS = CONSTS.AXIS.X,
+              axis: CONSTS.AXIS = CONSTS.AXIS.Y,
               method: SplitMethod = SplitMethod.DROP) -> List[Frame2D]:
         """ Splits the current Frame into windows of specified size.
 
@@ -67,7 +66,7 @@ class Frame2D:
 
             frame.split(
                 by = 50,
-                axis = CONSTS.AXIS.X,
+                axis = CONSTS.AXIS.Y,
                 method = Frame2D.SplitMethod.DROP
             )
 
@@ -77,9 +76,9 @@ class Frame2D:
         # Pre-process by as modified by_
         # np.split_array splits it by the number of slices generated,
         # we need to transform this into the slice locations
-        if axis == CONSTS.AXIS.X:
+        if axis == CONSTS.AXIS.Y:
             by_ = np.arange(by, self.width(), by)
-        elif axis == CONSTS.AXIS.Y:
+        elif axis == CONSTS.AXIS.X:
             by_ = np.arange(by, self.height(), by)
         else:
             raise TypeError(f"Axis {axis} is not recognised. Use CONSTS.AXIS class.")
@@ -108,10 +107,10 @@ class Frame2D:
             [[1,2,3,4,5],[6,7,8,...], ...]
 
         """
-        return [f.slide(by=by, stride=stride, axis=CONSTS.AXIS.Y)
-                for f in self.slide(by=by, stride=stride, axis=CONSTS.AXIS.X)]
+        return [f.slide(by=by, stride=stride, axis=CONSTS.AXIS.X)
+                for f in self.slide(by=by, stride=stride, axis=CONSTS.AXIS.Y)]
 
-    def slide(self, by, stride, axis=CONSTS.AXIS.X):
+    def slide(self, by, stride, axis=CONSTS.AXIS.Y):
         """ Slides a window along an axis and grabs that window as a new Frame2D
 
         This operation is slower due to looping but allows for overlapping windows
@@ -124,10 +123,10 @@ class Frame2D:
         :return:
         """
 
-        if axis == CONSTS.AXIS.X:
+        if axis == CONSTS.AXIS.Y:
             return [Frame2D(self.data[:, i: i + by])
                     for i in range(0, self.width() - by + 1, stride)]
-        elif axis == CONSTS.AXIS.Y:
+        elif axis == CONSTS.AXIS.X:
             return [Frame2D(self.data[i: i + by, :])
                     for i in range(0, self.height() - by + 1, stride)]
 
@@ -148,6 +147,8 @@ class Frame2D:
 
         :param ar: The array to rebuild
         :param xy_pos: The positions of X and Y.
+        :param height: Height of expected image, if None, Max will be used
+        :param width: Width of expected image, if None, Max will be used
         """
         max_y = height if height else np.max(ar[:,xy_pos[1]]) + 1
         max_x = width if width else np.max(ar[:,xy_pos[0]]) + 1
@@ -250,6 +251,7 @@ class Frame2D:
         Order is given by the argument order.
         R, G, B, H, S, V, EX_G, MEX_G, EX_GR ,NDI ,VEG ,X ,Y , ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
 
+        :param self_: Include current frame
         :param xy: XY Coordinates
         :param hsv: Hue, Saturation, Value
         :param ex_g: Excess Green
