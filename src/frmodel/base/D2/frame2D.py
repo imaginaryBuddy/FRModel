@@ -16,6 +16,8 @@ from sklearn.preprocessing import minmax_scale as sk_minmax_scale
 from sklearn.cluster import KMeans
 from math import ceil
 
+CHANNEL = CONSTS.CHANNEL
+
 MAX_RGB = 255
 
 @dataclass
@@ -143,7 +145,7 @@ class Frame2D:
     def from_rgbxy_(ar: np.ndarray, xy_pos=(3,4), width=None, height=None) -> Frame2D:
         """ Rebuilds the frame with XY values. XY should be of integer values, otherwise, will be casted.
 
-        Note that RGB channels MUST be on index 0, 1, 2 else some functions may break.
+        Note that RGB channels MUST be on index 0, 1, 2 else some functions may break. However, can be ignored.
 
         The frame will be rebuild and all data will be retained, including XY.
 
@@ -177,10 +179,14 @@ class Frame2D:
         """
         
         if modified:
-            return 1.262 * self.data_r() - 0.884 * self.data_g() - 0.331 * self.data_b()
+            return 1.262 * self.data_idx(CHANNEL.RED) -\
+                   0.884 * self.data_idx(CHANNEL.GREEN) -\
+                   0.331 * self.data_idx(CHANNEL.BLUE)
 
         else:
-            return 2 * self.data_r() - self.data_g() - self.data_b()
+            return 2 * self.data_idx(CHANNEL.RED) -\
+                   self.data_idx(CHANNEL.GREEN) -\
+                   self.data_idx(CHANNEL.BLUE)
 
     def get_ex_gr(self) -> np.ndarray:
         """ Calculates the excessive green minus excess red index
@@ -188,7 +194,7 @@ class Frame2D:
         2g - r - b - 1.4r + g = 3g - 2.4r - b
         """
         
-        return 3 * self.data_r() - 2.4 * self.data_g() - self.data_b()
+        return 3 * self.data_idx(CHANNEL.RED) - 2.4 * self.data_idx(CHANNEL.GREEN) - self.data_idx(CHANNEL.BLUE)
 
     def get_ndi(self):
         """ Calculates the Normalized Difference Index
@@ -196,13 +202,13 @@ class Frame2D:
         g - r / (g + r)
         """
 
-        # for i, (r, g) in enumerate(zip(self.data_r()[0], self.data_g()[0])):
-        #     print(i, r, g, g-r, g+r, (g-r)/(g+r))
-
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(np.true_divide(self.data_g().astype(np.int) - self.data_r().astype(np.int),
-                                             self.data_g().astype(np.int) + self.data_r().astype(np.int)),
-                              copy=False, nan=0, neginf=0, posinf=0)
+            x = np.nan_to_num(
+                np.true_divide(self.data_idx(CHANNEL.GREEN).astype(np.int) -
+                               self.data_idx(CHANNEL.RED).astype(np.int),
+                               self.data_idx(CHANNEL.GREEN).astype(np.int) +
+                               self.data_idx(CHANNEL.RED).astype(np.int)),
+                copy=False, nan=0, neginf=0, posinf=0)
 
         return x
     
@@ -215,9 +221,9 @@ class Frame2D:
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_g().astype(np.float) /
-                              (np.power(self.data_r().astype(np.float), const_a) *
-                               np.power(self.data_b().astype(np.float), 1 - const_a)),
+            x = np.nan_to_num(self.data_idx(CHANNEL.GREEN).astype(np.float) /
+                              (np.power(self.data_idx(CHANNEL.RED).astype(np.float), const_a) *
+                               np.power(self.data_idx(CHANNEL.BLUE).astype(np.float), 1 - const_a)),
                               copy=False, nan=0, neginf=0, posinf=0)
         return x
 
@@ -246,7 +252,8 @@ class Frame2D:
         """ Gets all implemented features.
 
         Order is given by the argument order.
-        R, G, B, H, S, V, EX_G, MEX_G, EX_GR ,NDI ,VEG ,X ,Y , ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
+        R, G, B, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG, X, Y,
+        ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
 
         :param self_: Include current frame
         :param xy: XY Coordinates
@@ -411,6 +418,14 @@ class Frame2D:
                ) -> KMeans:
         """ Fits a KMeans on current frame, on certain axes
 
+        Example::
+
+            frame_idxs = frame.get_idxs(xy=True,hsv=True,veg=True)
+            frame_idxs.kmeans(clusters=5, fit_indexes=[2,3,4,5],
+                              plot_figure=True,xy_indexes=(0,1),scatter_size=1)
+
+        This will firstly get the coordinate, hsv and veg indexes, placing it in a df
+
         :param clusters: The number of clusters
         :param fit_indexes: The indexes to fit
         :param sample_weight: The sample weight for each record, if any. Can be None.
@@ -462,14 +477,12 @@ class Frame2D:
     def shape(self) -> Tuple:
         return self.data.shape
 
-    def data_r(self):
-        return self.data[..., [CONSTS.CHANNEL.RED]]
-    def data_g(self):
-        return self.data[..., [CONSTS.CHANNEL.GREEN]]
-    def data_b(self):
-        return self.data[..., [CONSTS.CHANNEL.BLUE]]
+    def data_idx(self, idx):
+        return self.data[..., [idx]]
+    def data_idxs(self, idxs):
+        return self.data[..., idxs]
     def data_rgb(self):
-        return self.data[..., [CONSTS.CHANNEL.RED, CONSTS.CHANNEL.GREEN, CONSTS.CHANNEL.BLUE]]
+        return self.data[..., [CHANNEL.RED, CHANNEL.GREEN, CHANNEL.BLUE]]
 
     def height(self):
         return self.shape[0]
