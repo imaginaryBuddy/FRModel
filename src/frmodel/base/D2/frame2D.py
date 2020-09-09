@@ -463,7 +463,7 @@ class Frame2D:
         frame_xy_trans = scaler(flat[:, fit_indexes])
         km = KMeans(n_clusters=clusters, verbose=verbose) \
             .fit(frame_xy_trans,
-                 sample_weight=frame_xy_trans[:, sample_weight] if sample_weight else None)
+                 sample_weight=frame_xy_trans[:, sample_weight] if np.all(sample_weight) else None)
         if plot_figure:
             df = pd.DataFrame(np.append(flat, km.labels_[...,np.newaxis],axis=-1))
             df.columns = [f"c{e}" for e, _ in enumerate(df.columns)]
