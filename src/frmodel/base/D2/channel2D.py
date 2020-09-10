@@ -1,13 +1,12 @@
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
 
 import numpy as np
 from PIL import Image
-import warnings
 
 from frmodel.base.D2.glcm2D import GLCM2D
-from frmodel.base.consts import CONSTS
 
 
 @dataclass
@@ -39,4 +38,3 @@ class Channel2D:
         c = self.data[by_y:, by_x:].astype(np.int32)
 
         return GLCM2D(b, c)
-
