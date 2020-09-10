@@ -1,8 +1,11 @@
 from __future__ import annotations
-from frmodel.base.consts import CONSTS
-import numpy as np
+
 from abc import ABC, abstractmethod
+
+import numpy as np
 from skimage.color import rgb2hsv
+
+from frmodel.base.consts import CONSTS
 
 CHANNEL = CONSTS.CHANNEL
 MAX_RGB = 255

@@ -1,8 +1,11 @@
 from __future__ import annotations
-from frmodel.base.consts import CONSTS
-from typing import List
-import numpy as np
+
 from abc import ABC, abstractmethod
+from typing import List
+
+import numpy as np
+
+from frmodel.base.consts import CONSTS
 
 
 class _Frame2DPartition(ABC):

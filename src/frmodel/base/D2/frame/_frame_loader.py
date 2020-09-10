@@ -1,8 +1,10 @@
 from __future__ import annotations
-from math import ceil
-from PIL import Image
-import numpy as np
+
 from abc import ABC
+from math import ceil
+
+import numpy as np
+from PIL import Image
 
 
 class _Frame2DLoader(ABC):

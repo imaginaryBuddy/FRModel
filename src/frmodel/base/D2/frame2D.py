@@ -1,21 +1,25 @@
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
 from typing import List, Tuple
 
 import numpy as np
-import warnings
 from PIL import Image
-
-from frmodel.base.D2.channel2D import Channel2D
-from frmodel.base.consts import CONSTS
 from sklearn.neighbors import KDTree
 
-from frmodel.base.D2.frame._frame_kmeans import _Frame2DKmeans
-from frmodel.base.D2.frame._frame_partition import _Frame2DPartition
-from frmodel.base.D2.frame._frame_loader import _Frame2DLoader
+from frmodel.base.D2.channel2D import Channel2D
+# noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_channel import _Frame2DChannel
+# noinspection PyProtectedMember
+from frmodel.base.D2.frame._frame_kmeans import _Frame2DKmeans
+# noinspection PyProtectedMember
+from frmodel.base.D2.frame._frame_loader import _Frame2DLoader
+# noinspection PyProtectedMember
+from frmodel.base.D2.frame._frame_partition import _Frame2DPartition
+# noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_scaling import _Frame2DScaling
+from frmodel.base.consts import CONSTS
 
 CHANNEL = CONSTS.CHANNEL
 
