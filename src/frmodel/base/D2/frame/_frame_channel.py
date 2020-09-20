@@ -4,6 +4,8 @@ from abc import ABC, abstractmethod
 
 import numpy as np
 from skimage.color import rgb2hsv
+from scipy.signal import fftconvolve
+from scipy.signal.windows import gaussian
 
 from frmodel.base.consts import CONSTS
 
@@ -110,7 +112,8 @@ class _Frame2DChannel(ABC):
 
     def get_chns(self, self_=False, xy=False, hsv=False, ex_g=False,
                  mex_g=False, ex_gr=False, ndi=False, veg=False,
-                 veg_a=0.667, glcm=False, glcm_by_x=1, glcm_by_y=1,
+                 veg_a=0.667, glcm_con=False, glcm_cor=False, glcm_ent=False,
+                 glcm_by_x=1, glcm_by_y=1,
                  glcm_radius=5, glcm_verbose=False) -> _Frame2DChannel:
         """ Gets selected channels
 
@@ -127,17 +130,21 @@ class _Frame2DChannel(ABC):
         :param ndi: Normalized Difference Index
         :param veg: Vegetative Index
         :param veg_a: Vegatative Index Const A
-        :param glcm: GLCM
+        :param glcm_con: GLCM Contrast
+        :param glcm_cor: GLCM Correlation
+        :param glcm_ent: GLCM Entropy
         :param glcm_by_x: GLCM By X Parameter
         :param glcm_by_y: GLCM By Y Parameter
         :param glcm_radius: GLCM Radius
-        :param glcm_verbose: Whether to have glcm generation give feedback
+        :param glcm_verbose: Whether to have glcm entropy generation give feedback
         """
         return self.get_all_chns(self_, xy, hsv, ex_g, mex_g, ex_gr, ndi,
-                                 veg, veg_a, glcm, glcm_by_x, glcm_by_y, glcm_radius, glcm_verbose)
+                                 veg, veg_a, glcm_con, glcm_cor, glcm_ent,
+                                 glcm_by_x, glcm_by_y, glcm_radius, glcm_verbose)
 
     def get_all_chns(self, self_=True, xy=True, hsv=True, ex_g=True, mex_g=True,
-                     ex_gr=True, ndi=True, veg=True, veg_a=0.667, glcm=True,
+                     ex_gr=True, ndi=True, veg=True, veg_a=0.667,
+                     glcm_con=True, glcm_cor=True, glcm_ent=True,
                      glcm_by_x=1, glcm_by_y=1, glcm_radius=5, glcm_verbose=False) -> _Frame2DChannel:
         """ Gets all implemented channels, excluding possible.
 
@@ -154,11 +161,13 @@ class _Frame2DChannel(ABC):
         :param ndi: Normalized Difference Index
         :param veg: Vegetative Index
         :param veg_a: Vegatative Index Const A
-        :param glcm: GLCM
+        :param glcm_con: GLCM Contrast
+        :param glcm_cor: GLCM Correlation
+        :param glcm_ent: GLCM Entropy
         :param glcm_by_x: GLCM By X Parameter
         :param glcm_by_y: GLCM By Y Parameter
         :param glcm_radius: GLCM Radius
-        :param glcm_verbose: Whether to have glcm generation give feedback
+        :param glcm_verbose: Whether to have glcm entropy generation give feedback
         """
 
         features = \
@@ -173,16 +182,20 @@ class _Frame2DChannel(ABC):
 
         frame = self.init(np.concatenate([f for f in features if f is not None], axis=2))
 
-        if glcm:
+        if glcm_con or glcm_cor or glcm_ent:
             # We trim the frame so that the new glcm can fit
             # We also average the shifted frame with the current
-            frame.data = (frame.data[glcm_by_y:, glcm_by_x:] + frame.data[:-glcm_by_y, :-glcm_by_x]) / 2
-            frame.data = frame.data[glcm_radius:-glcm_radius, glcm_radius: -glcm_radius]
 
-            return self.init(np.concatenate([
-                frame.data,
-                self.get_glcm(by_x=glcm_by_x, by_y=glcm_by_y,
-                              radius=glcm_radius, verbose=glcm_verbose)], axis=2))
+            kernel_diam = glcm_radius * 2 + 1
+            kernel = np.outer(gaussian(kernel_diam + glcm_by_y, 8),
+                              gaussian(kernel_diam + glcm_by_x, 8))
+            kernel = np.expand_dims(kernel, axis=-1)
+            fft = fftconvolve(frame.data, kernel, mode='valid', axes=[0,1])
+            glcm = self.get_glcm(
+                contrast=glcm_con, correlation=glcm_cor, entropy=glcm_ent,
+                by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius, verbose=glcm_verbose)
+
+            return self.init(np.concatenate([fft, glcm], axis=2))
 
         return frame
 
@@ -190,6 +203,9 @@ class _Frame2DChannel(ABC):
                  by_x: int = 1,
                  by_y: int = 1,
                  radius: int = 5,
+                 contrast: bool = True,
+                 correlation: bool = True,
+                 entropy: bool = True,
                  verbose: bool = False):
         """ This will get the GLCM statistics for this window
 
@@ -203,7 +219,7 @@ class _Frame2DChannel(ABC):
 
         There will be edge cropping here, so take note of the following:
 
-        1) Edge will be cropped on GLCM Making (That is shifting the frame with by_x and by_y.
+        1) Edge will be cropped on GLCM Making (That is shifting the frame with by_x and by_y).
         2) Edge will be further cropped by GLCM Neighbour convolution.
 
         If only a specific GLCM is needed, open up an issue on GitHub, I just don't think it's needed right now.
@@ -235,50 +251,95 @@ class _Frame2DChannel(ABC):
             frame.size - by - radius * 2
         """
 
-        glcm_window = radius * 2 + 1
+        rgb = self.data_rgb().astype(np.int32)
+        rgb_a = rgb[:-by_y, :-by_x]
+        rgb_b = rgb[by_y:, by_x:]
 
-        frames_a = self.init(self.data_rgb()[:-by_y, :-by_x].astype(np.int32))\
-            .slide_xy(by=glcm_window, stride=1)
-        frames_b = self.init(self.data_rgb()[by_y:, by_x:].astype(np.int32))\
-            .slide_xy(by=glcm_window, stride=1)
-        out = np.zeros((self.height() - by_y - radius * 2,
-                        self.width() - by_x - radius * 2,
-                        3 * 3))  # RGB * Channel count
+        idxs = [self._get_glcm_contrast(rgb_a, rgb_b, radius)            if contrast else None,
+                self._get_glcm_correlation(rgb_a, rgb_b, radius)         if correlation else None,
+                self._get_glcm_entropy(rgb_a, rgb_b, radius, verbose)    if entropy else None]
 
-        for col, (col_a, col_b) in enumerate(zip(frames_a, frames_b)):
-            if verbose: print(f"Progress {100 * col / len(frames_b):.2f}% [{col} / {len(frames_b)}]")
-            for row, (cell_a, cell_b) in enumerate(zip(col_a, col_b)):
-                # Contrast
-                contrast = np.sum((cell_a.data - cell_b.data) ** 2, axis=(0, 1))
+        # We drop the nones using a list comp
+        return np.concatenate([i for i in idxs if i is not None], axis=2)
 
-                # Correlation
-                mean_x = np.mean(cell_a.data, axis=(0, 1))
-                mean_y = np.mean(cell_b.data, axis=(0, 1))
-                mean = mean_x - mean_y
-                std_x = np.std(cell_a.data, axis=(0, 1))
-                std_y = np.std(cell_b.data, axis=(0, 1))
-                std = std_x * std_y
+    def _get_glcm_contrast(self,
+                           rgb_a: np.ndarray,
+                           rgb_b: np.ndarray,
+                           radius) -> np.ndarray:
+        """ This is a faster implementation for contrast calculation.
 
-                with np.errstate(divide='ignore', invalid='ignore'):
-                    correlation = np.sum(
-                        np.nan_to_num(((cell_a.data * cell_b.data) - mean) / std,
-                                      copy=False, nan=0, neginf=-1, posinf=1), axis=(0, 1))
+        Create the difference matrix, then convolve with a 1 filled kernel
+        """
 
-                """ Optimized Entropy Calculation
+        ar = (rgb_a - rgb_b) ** 2
+        return fftconvolve(ar, np.ones(shape=[radius * 2 + 1, radius * 2 + 1, 1]), mode='valid')
 
-                This is an abnormal and complicated way to optimize.
+    def _get_glcm_correlation(self,
+                              rgb_a: np.ndarray,
+                              rgb_b: np.ndarray,
+                              radius) -> np.ndarray:
+        """ This is a faster implementation for correlation calculation.
 
-                1) We create c, which is the shape of a or b (they must be the same shape anyways)
-                2) We make c = a + b * 256 (Notice 256 is the max val of RGB + 1).
-                   The reason for this is so that we can represent (x, y) as a singular unique value.
-                   This is a 1 to 1 mapping from a + b -> c, so c -> a + b is possible.
-                   However, the main reason is that so that we can use np.unique without constructing
-                   a tuple hash for each pair!
-                3) After this, we just reshape with [-1, Channels]
-                """
-                c = np.zeros(cell_a.shape)
-                c[:] = cell_a.data + cell_b.data * (MAX_RGB + 1)
-                c = c.reshape([-1, c.shape[-1]])
+        Using the following identity, we can vectorise it entirely!
+
+        Var = E(X^2) - E(X)^2
+
+        Corr = (a * b - (E(a) - E(b))) / std(a) * std(b)
+        """
+
+        kernel = np.ones(shape=[radius * 2 + 1, radius * 2 + 1, 1])
+
+        conv_ab = fftconvolve(rgb_a * rgb_b, kernel, mode='valid')
+
+        conv_a = fftconvolve(rgb_a, kernel, mode='valid')
+        conv_b = fftconvolve(rgb_b, kernel, mode='valid')
+
+        # E(A) & E(B)
+        conv_ae = conv_a / kernel.size
+        conv_be = conv_b / kernel.size
+
+        conv_a2 = fftconvolve(rgb_a ** 2, kernel, mode='valid')
+        conv_b2 = fftconvolve(rgb_b ** 2, kernel, mode='valid')
+
+        # E(A^2) & E(B^2)
+        conv_ae2 = conv_a2 / kernel.size
+        conv_be2 = conv_b2 / kernel.size
+
+        # E(A)^2 & E(B)^2
+        conv_ae_2 = conv_ae ** 2
+        conv_be_2 = conv_be ** 2
+
+        conv_stda = np.sqrt(np.abs(conv_ae2 - conv_ae_2))
+        conv_stdb = np.sqrt(np.abs(conv_be2 - conv_be_2))
+
+        with np.errstate(divide='ignore', invalid='ignore'):
+            cor = (conv_ab - (conv_ae - conv_be)) / conv_stda * conv_stdb
+            return np.nan_to_num(cor, copy=False, nan=0, neginf=-1, posinf=1)
+
+    def _get_glcm_entropy(self,
+                          rgb_a: np.ndarray,
+                          rgb_b: np.ndarray,
+                          radius,
+                          verbose) -> np.ndarray:
+
+        # We make c = a + b * 256 (Notice 256 is the max val of RGB + 1).
+        # The reason for this is so that we can represent (x, y) as a singular unique value.
+        # This is a 1 to 1 mapping from a + b -> c, so c -> a + b is possible.
+        # However, the main reason is that so that we can use np.unique without constructing
+        # a tuple hash for each pair!
+
+        windows = self.init(rgb_a * (MAX_RGB + 1) + rgb_b)\
+                      .slide_xy(by=radius * 2 + 1, stride=1)
+
+        out = np.zeros((rgb_a.shape[0] - radius * 2,
+                        rgb_a.shape[1] - radius * 2,
+                        3))  # RGB * Channel count
+
+        for col, _ in enumerate(windows):
+            if verbose: print(f"GLCM Entropy: {col} / {len(windows)}")
+            for row, cell in enumerate(_):
+                # We flatten the x and y axis first.
+                c = cell.data.reshape([-1, cell.shape[-1]])
 
                 """ Entropy is complicated.
 
@@ -292,10 +353,10 @@ class _Frame2DChannel(ABC):
 
                 Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
                 """
-                entropy = np.asarray([np.sum(i ** 2)
+                entropy = np.asarray([np.sum(i * np.log2(i))
                                       for g in c.swapaxes(0, 1)
                                       for i in np.unique(g, return_counts=True)[1::2]])
 
-                out[row, col, :] = np.concatenate([contrast, correlation, entropy])
+                out[row, col, :] = entropy
 
         return out
