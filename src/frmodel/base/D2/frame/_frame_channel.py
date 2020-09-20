@@ -6,6 +6,7 @@ import numpy as np
 from skimage.color import rgb2hsv
 from scipy.signal import fftconvolve
 from scipy.signal.windows import gaussian
+from scipy.sparse import coo_matrix
 
 from frmodel.base.consts import CONSTS
 
@@ -328,32 +329,37 @@ class _Frame2DChannel(ABC):
         # However, the main reason is that so that we can use np.unique without constructing
         # a tuple hash for each pair!
 
-        windows = self.init(rgb_a * (MAX_RGB + 1) + rgb_b)\
-                      .slide_xy(by=radius * 2 + 1, stride=1)
+        rgb_a = rgb_a.astype(np.uint16)
+        rgb_b = rgb_b.astype(np.uint16)
+
+        cells = self.init(rgb_a * (MAX_RGB + 1) + rgb_b).slide_xy(by=radius * 2 + 1, stride=1)
+
+        cells = np.asarray([[i.data for i in j] for j in cells])
 
         out = np.zeros((rgb_a.shape[0] - radius * 2,
                         rgb_a.shape[1] - radius * 2,
                         3))  # RGB * Channel count
 
-        for col, _ in enumerate(windows):
-            if verbose: print(f"GLCM Entropy: {col} / {len(windows)}")
+        for col, _ in enumerate(cells):
+            if verbose: print(f"GLCM Entropy: {col} / {len(cells)}")
             for row, cell in enumerate(_):
                 # We flatten the x and y axis first.
-                c = cell.data.reshape([-1, cell.shape[-1]])
+                c = cell.reshape([-1, cell.shape[-1]])
 
                 """ Entropy is complicated.
-
+    
                 Problem with unique is that it cannot unique on a certain axis as expected here,
                 it's because of staggering dimension size, so we have to loop with a list comp.
-
+    
                 We swap axis because we want to loop on the channel instead of the c value.
-
+    
                 We call unique and grab the 2nd, 4th, ...th element because unique returns 2
                 values here. The 2nd ones are the counts.
-
+    
                 Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
                 """
-                entropy = np.asarray([np.sum(i * np.log2(i))
+
+                entropy = np.asarray([np.sum(i * np.log2(i))  # Shannon's Entropy
                                       for g in c.swapaxes(0, 1)
                                       for i in np.unique(g, return_counts=True)[1::2]])
 
@@ -382,7 +388,7 @@ class _Frame2DChannel(ABC):
                 ca = ca.data.reshape([-1, ca.shape[-1]])
                 cb = cb.data.reshape([-1, cb.shape[-1]])
                 cd = np.ones(ca.shape[0])
-                
+
                 coo_r = coo_matrix((cd, (ca[..., 0], cb[..., 0])), shape=(MAX_RGB, MAX_RGB)).tocsr(copy=False).power(2).sum()
                 coo_g = coo_matrix((cd, (ca[..., 1], cb[..., 1])), shape=(MAX_RGB, MAX_RGB)).tocsr(copy=False).power(2).sum()
                 coo_b = coo_matrix((cd, (ca[..., 2], cb[..., 2])), shape=(MAX_RGB, MAX_RGB)).tocsr(copy=False).power(2).sum()
