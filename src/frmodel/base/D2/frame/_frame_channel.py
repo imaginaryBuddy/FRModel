@@ -360,3 +360,33 @@ class _Frame2DChannel(ABC):
                 out[row, col, :] = entropy
 
         return out
+
+    def _get_glcm_entropy2(self,
+                          rgb_a: np.ndarray,
+                          rgb_b: np.ndarray,
+                          radius,
+                          verbose) -> np.ndarray:
+        """ Uses the COO Matrix to calculate Entropy, slightly slower. """
+
+        w_a = self.init(rgb_a).slide_xy(by=radius * 2 + 1, stride=1)
+        w_b = self.init(rgb_b).slide_xy(by=radius * 2 + 1, stride=1)
+
+        out = np.zeros((rgb_a.shape[0] - radius * 2,
+                        rgb_a.shape[1] - radius * 2,
+                        3))  # RGB * Channel count
+
+        for col, (_a, _b) in enumerate(zip(w_a, w_b)):
+            if verbose: print(f"GLCM Entropy: {col} / {len(w_a)}")
+            for row, (ca, cb) in enumerate(zip(_a, _b)):
+                # We flatten the x and y axis first.
+                ca = ca.data.reshape([-1, ca.shape[-1]])
+                cb = cb.data.reshape([-1, cb.shape[-1]])
+                cd = np.ones(ca.shape[0])
+                
+                coo_r = coo_matrix((cd, (ca[..., 0], cb[..., 0])), shape=(MAX_RGB, MAX_RGB)).tocsr(copy=False).power(2).sum()
+                coo_g = coo_matrix((cd, (ca[..., 1], cb[..., 1])), shape=(MAX_RGB, MAX_RGB)).tocsr(copy=False).power(2).sum()
+                coo_b = coo_matrix((cd, (ca[..., 2], cb[..., 2])), shape=(MAX_RGB, MAX_RGB)).tocsr(copy=False).power(2).sum()
+
+                out[row, col, :] = [coo_r, coo_g, coo_b]
+
+        return out
