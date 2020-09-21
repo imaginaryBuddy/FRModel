@@ -46,7 +46,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         """ Calculates the excessive green index
 
         Original: 2g - 1r - 1b
-        Modified: 1.262G - 0.884r - 0.331b
+        Modified: 1.262g - 0.884r - 0.331b
 
         :param modified: Whether to use the modified or not. Refer to docstring
         """
@@ -72,7 +72,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
     def get_ndi(self):
         """ Calculates the Normalized Difference Index
 
-        g - r / (g + r)
+        (g - r) / (g + r)
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
@@ -88,7 +88,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
     def get_veg(self, const_a: float = 0.667):
         """ Calculates the Vegetative Index
 
-        (g) / r ^ (a) * b ^ (1 - a)
+        g / {(r^a) * [b^(1 - a)]}
 
         :param const_a: Constant A depends on the camera used.
         """
