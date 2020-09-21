@@ -10,6 +10,7 @@ ChangeLog
 - Improved performance for GLCM statistics
 - Use Gaussian + FFTConvolution for Non-GLCM Channel fitting
 - Implement GLCM statistics with FFTConvolution
+- Add Multiprocessing capability for GLCM Entropy
 
 -----
 0.0.3
