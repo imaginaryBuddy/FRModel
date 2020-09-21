@@ -1,8 +1,8 @@
-###############################
-Gray Level Co-occurrence Matrix
-###############################
+#####################################
+Frame Gray Level Co-occurrence Matrix
+#####################################
 
-**The ``GLCM2D`` Class is deprecated from 0.0.3 onwards. However, the knowledge is still up-to-date**
+*The GLCM2D Class is deprecated from 0.0.3 onwards, replaced by the current in-built methods*
 
 =========================
 Underlying Representation
@@ -251,3 +251,10 @@ Entropy doesn't use convolution, it receives a prepared window the runs ``bin_co
 For the ``bin_count``, it's then squared then summed to get entropy for the channel.
 
 **Note:** As of v0.0.4, ``bin_count`` replaces ``unique`` for performance.
+
+Multiprocessing
+###############
+
+As Entropy uses a for loop, we can deploy multiple processes to parallelise it.
+
+It simply uses the in-built ``multiprocessing.Pool`` class to execute it.
