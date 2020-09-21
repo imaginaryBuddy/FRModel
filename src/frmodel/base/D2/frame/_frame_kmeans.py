@@ -5,6 +5,7 @@ import pandas as pd
 import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import normalize as sk_normalize
+import matplotlib.pyplot as plt
 
 
 class _Frame2DKmeans(ABC):
@@ -58,4 +59,6 @@ class _Frame2DKmeans(ABC):
                        legend=True,
                        legend_out=True,
                        scatter_kws={"s": scatter_size})
+            plt.gca().set_aspect('equal')
+            plt.gca().invert_yaxis()
         return km
