@@ -35,7 +35,7 @@ class _Frame2DChannelGLCM(ABC):
                  entropy: bool = True,
                  verbose: bool = False,
                  entropy_mp: bool = False,
-                 entropy_mp_procs: int = ...):
+                 entropy_mp_procs: int = None):
         """ This will get the GLCM statistics for this window
 
         In order:
@@ -161,7 +161,7 @@ class _Frame2DChannelGLCM(ABC):
                           radius,
                           verbose,
                           multiprocessing,
-                          multiprocessing_procs=...,
+                          multiprocessing_procs=None,
                           ) -> np.ndarray:
         """ Gets the entropy
 
@@ -170,7 +170,7 @@ class _Frame2DChannelGLCM(ABC):
         :param radius: Radius of window
         :param verbose: Whether to show progress of entropy
         :param multiprocessing: Whether to enable multiprocessing
-        :param multiprocessing_procs: How many processes to run, can be ...
+        :param multiprocessing_procs: How many processes to run
         """
         # We make c = a + b * 256 (Notice 256 is the max val of RGB + 1).
         # The reason for this is so that we can represent (x, y) as a singular unique value.
@@ -193,8 +193,7 @@ class _Frame2DChannelGLCM(ABC):
             return self._get_glcm_entropy_mp(cells, out, verbose,
                                              procs=multiprocessing_procs)
 
-        for row, _ in enumerate(cells):
-            if verbose: print(f"GLCM Entropy: {row} / {len(cells)}")
+        for row, _ in enumerate(tqdm(cells, total=len(cells), disable=not verbose)):
             for col, cell in enumerate(_):
                 # We flatten the x and y axis first.
                 c = cell.reshape([-1, cell.shape[-1]])
@@ -218,7 +217,7 @@ class _Frame2DChannelGLCM(ABC):
 
         return out
 
-    def _get_glcm_entropy_mp(self, cells, out, verbose, procs=...) -> np.ndarray:
+    def _get_glcm_entropy_mp(self, cells, out, verbose, procs=None) -> np.ndarray:
         """ Branched from glcm_entropy, for Multiprocessing
 
         :param cells: Defined in glcm_entropy
@@ -226,7 +225,7 @@ class _Frame2DChannelGLCM(ABC):
         :param verbose: Whether to output progress
         :param procs: Number of processes to run in the multiprocessing
         """
-        p = Pool(procs)
+        p = Pool(procs) if procs else Pool()
 
         for i, _ in enumerate(tqdm(p.imap_unordered(self._get_glcm_entropy_mp_loop, cells),
                                    total=len(cells), disable=not verbose)):
