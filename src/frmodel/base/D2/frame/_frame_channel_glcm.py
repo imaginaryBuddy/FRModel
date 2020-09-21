@@ -1,13 +1,12 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from multiprocessing import Pool
 
 import numpy as np
 from scipy.signal import fftconvolve
-from multiprocessing import Pool
-from tqdm import tqdm
-
 from skimage.util.shape import view_as_windows
+from tqdm import tqdm
 
 from frmodel.base.consts import CONSTS
 

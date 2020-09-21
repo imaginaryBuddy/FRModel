@@ -1,13 +1,14 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 import numpy as np
-from skimage.color import rgb2hsv
 from scipy.signal import fftconvolve
 from scipy.signal.windows import gaussian
-from frmodel.base.consts import CONSTS
+from skimage.color import rgb2hsv
+
 from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
+from frmodel.base.consts import CONSTS
 
 CHANNEL = CONSTS.CHANNEL
 MAX_RGB = 255
