@@ -89,17 +89,35 @@
 <li class="toctree-l3"><a class="reference internal" href="channel2D.html">Channel2D (Pending Deprecation)</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">GLCM2D (Pending Deprecation)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#underlying-representation">Underlying Representation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#creation">Creation</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#channel">1 Channel</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#n-channels">n Channels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#algorithm">Algorithm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#offset-arrays">Offset Arrays</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#channel">1 Channel</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#n-channels">n Channels</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#neighbour-convolution">Neighbour Convolution</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#edge-cropping">Edge Cropping</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#neighbour-convolution">Neighbour Convolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#edge-cropping">Edge Cropping</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#non-glcm-channel-fitting">Non-GLCM Channel Fitting</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="#statistics">Statistics</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#contrast">Contrast</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#correlation">Correlation</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#entropy">Entropy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#contrast">Contrast</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#correlation">Correlation</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id1">Implementation</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#variance-formula">Variance Formula</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#id2">Correlation</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#error-correction">Error Correction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#entropy">Entropy</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id3">Implementation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -186,43 +204,49 @@
 <h2>Underlying Representation<a class="headerlink" href="#underlying-representation" title="Permalink to this headline">¶</a></h2>
 <p>The data stored isn’t actually a co-occurrence matrix, instead <span class="math notranslate nohighlight">\(2 * channels\)</span> <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code></p>
 </div>
-<div class="section" id="creation">
-<h2>Creation<a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="algorithm">
+<h2>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="offset-arrays">
+<h3>Offset Arrays<a class="headerlink" href="#offset-arrays" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="channel">
-<h3>1 Channel<a class="headerlink" href="#channel" title="Permalink to this headline">¶</a></h3>
+<h4>1 Channel<a class="headerlink" href="#channel" title="Permalink to this headline">¶</a></h4>
 <p>Consider the following.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>                      <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>       <span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span>            <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>      <span class="o">.</span><span class="n">get_glcm</span><span class="p">()</span>     <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>   <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>  <span class="n">func</span>  <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>  <span class="o">--</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span><span class="o">--&gt;</span> <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span> <span class="o">+</span> <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>  <span class="o">---&gt;</span>  <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>                      <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>   <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>        <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>                          <span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span>       <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>            <span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span>
- <span class="n">Channel</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>                      <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">.</span>   <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>          <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>      <span class="o">.</span><span class="n">get_glcm</span><span class="p">()</span>     <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">.</span>   <span class="o">.</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>  <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>  <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>  <span class="o">--</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span><span class="o">--&gt;</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">.</span> <span class="o">+</span> <span class="o">.</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>  <span class="o">-----&gt;</span>  <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>                      <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">.</span>   <span class="o">.</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>          <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>                      <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>   <span class="o">.</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+ <span class="n">Channel</span>                        <span class="n">Array</span> <span class="n">A</span>     <span class="n">Array</span> <span class="n">B</span>           <span class="n">Array</span> <span class="n">C</span>
+ <span class="p">[</span><span class="mi">5</span> <span class="n">x</span> <span class="mi">5</span><span class="p">]</span>                        <span class="p">[</span><span class="mi">4</span> <span class="n">x</span> <span class="mi">4</span><span class="p">]</span>     <span class="p">[</span><span class="mi">4</span> <span class="n">x</span> <span class="mi">4</span><span class="p">]</span>           <span class="p">[</span><span class="mi">4</span> <span class="n">x</span> <span class="mi">4</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Notice that they have the same size, this allows us to use common <code class="docutils literal notranslate"><span class="pre">numpy</span></code> operations on it.</p>
 </div>
 <div class="section" id="n-channels">
-<h3>n Channels<a class="headerlink" href="#n-channels" title="Permalink to this headline">¶</a></h3>
+<h4>n Channels<a class="headerlink" href="#n-channels" title="Permalink to this headline">¶</a></h4>
 <p>Imagine the above, but we do that to multiple channels at once in parallel. This helps save a lot of time because
 <code class="docutils literal notranslate"><span class="pre">numpy</span></code> favors vectorized operations. However, it may limit some calculations.</p>
 </div>
 </div>
 <div class="section" id="neighbour-convolution">
-<h2>Neighbour Convolution<a class="headerlink" href="#neighbour-convolution" title="Permalink to this headline">¶</a></h2>
+<h3>Neighbour Convolution<a class="headerlink" href="#neighbour-convolution" title="Permalink to this headline">¶</a></h3>
 <p>In order to map these values to channels that just rely on a single cell, we have to rely on neighbour’s values.</p>
 <p>Consider this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span>                 <span class="n">o</span><span class="p">:</span> <span class="n">Centre</span><span class="p">,</span> <span class="o">+</span><span class="p">:</span> <span class="n">Neighbour</span>
-<span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>       <span class="o">|</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>       <span class="o">|</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>  <span class="o">--&gt;</span>  <span class="o">|</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>       <span class="o">|</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span>
-    <span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span>
-<span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>                 <span class="n">Note</span> <span class="n">that</span> <span class="n">it</span><span class="s1">&#39;s slightly off centre because of (1)</span>
-<span class="n">x</span> <span class="n">o</span> <span class="n">o</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>  <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">x</span> <span class="n">o</span> <span class="n">o</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>  <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>
-<span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>
-<span class="n">Original</span>       <span class="n">Transformed</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span>              <span class="n">o</span><span class="p">:</span> <span class="n">Centre</span><span class="p">,</span> <span class="o">+</span><span class="p">:</span> <span class="n">Neighbour</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>        <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>        <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">.</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>   <span class="o">--&gt;</span>  <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="o">.</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>        <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">.</span>
+<span class="n">Array</span> <span class="n">C</span>
+               <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="o">+</span><span class="p">)</span>  <span class="o">.</span> <span class="n">x</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="n">x</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+          <span class="o">--&gt;</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="n">x</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="n">x</span> <span class="o">.</span> <span class="o">.</span>
+               <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+
+               <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+               <span class="o">.</span> <span class="n">x</span> <span class="n">x</span> <span class="o">.</span>
+          <span class="o">--&gt;</span>  <span class="o">.</span> <span class="n">x</span> <span class="n">x</span> <span class="o">.</span>
+               <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
 </pre></div>
 </div>
 <p>With a radius 1, we sum all of the neighbour values together to calculate a GLCM at a specific cell.</p>
@@ -230,7 +254,7 @@
 of GLCM statistics, then do a convolution at each feasible point.</p>
 </div>
 <div class="section" id="edge-cropping">
-<h2>Edge Cropping<a class="headerlink" href="#edge-cropping" title="Permalink to this headline">¶</a></h2>
+<h3>Edge Cropping<a class="headerlink" href="#edge-cropping" title="Permalink to this headline">¶</a></h3>
 <p>We will not resort to padding due to difficulty and minimal impact on result (a small amount of pixels removed).</p>
 <p>Note that the larger the GLCM stride, the more edge pixels will be removed.</p>
 <p>There will be edge cropping here, so take note of the following:</p>
@@ -240,27 +264,46 @@ of GLCM statistics, then do a convolution at each feasible point.</p>
 </ol>
 <p>Going through the example again:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="n">GLCM</span> <span class="n">Making</span><span class="p">,</span> <span class="n">by_x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">by_y</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>       <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>       <span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span>            <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>       <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>   <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>  <span class="n">func</span>  <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>  <span class="o">--&gt;</span>  <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span> <span class="o">+</span> <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>  <span class="o">---&gt;</span>  <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>       <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>   <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>        <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>           <span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span>       <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>            <span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>                      <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">.</span>   <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>          <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>      <span class="o">.</span><span class="n">get_glcm</span><span class="p">()</span>     <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">.</span>   <span class="o">.</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>  <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>  <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>  <span class="o">--</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span><span class="o">--&gt;</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">.</span> <span class="o">+</span> <span class="o">.</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>  <span class="o">-----&gt;</span>  <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>                      <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">.</span>   <span class="o">.</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>          <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>                      <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>   <span class="o">.</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>
+ <span class="n">Channel</span>                        <span class="n">Array</span> <span class="n">A</span>     <span class="n">Array</span> <span class="n">B</span>           <span class="n">Array</span> <span class="n">C</span>
+ <span class="p">[</span><span class="mi">5</span> <span class="n">x</span> <span class="mi">5</span><span class="p">]</span>                        <span class="p">[</span><span class="mi">4</span> <span class="n">x</span> <span class="mi">4</span><span class="p">]</span>     <span class="p">[</span><span class="mi">4</span> <span class="n">x</span> <span class="mi">4</span><span class="p">]</span>           <span class="p">[</span><span class="mi">4</span> <span class="n">x</span> <span class="mi">4</span><span class="p">]</span>
 
 <span class="mi">2</span><span class="p">)</span> <span class="n">GLCM</span> <span class="n">Neighbour</span> <span class="n">Summation</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">1</span>
-                  <span class="n">o</span><span class="p">:</span> <span class="n">Centre</span><span class="p">,</span> <span class="o">+</span><span class="p">:</span> <span class="n">Neighbour</span>
-<span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>       <span class="o">|</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>       <span class="o">|</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>  <span class="o">--&gt;</span>  <span class="o">|</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>       <span class="o">|</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">|</span> <span class="p">,</span> <span class="o">|</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="n">x</span> <span class="o">|</span>
-    <span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span>
-<span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>                 <span class="n">Note</span> <span class="n">that</span> <span class="n">it</span><span class="s1">&#39;s slightly off centre because of (1)</span>
-<span class="n">x</span> <span class="n">o</span> <span class="n">o</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>  <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">x</span> <span class="n">o</span> <span class="n">o</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>  <span class="o">|</span> <span class="n">o</span> <span class="n">o</span> <span class="o">|</span>
-<span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>
-<span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span> <span class="n">x</span>  <span class="o">=&gt;</span>
+<span class="o">.</span>              <span class="n">o</span><span class="p">:</span> <span class="n">Centre</span><span class="p">,</span> <span class="o">+</span><span class="p">:</span> <span class="n">Neighbour</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>        <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>        <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">.</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>   <span class="o">--&gt;</span>  <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="n">o</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">+</span> <span class="n">o</span> <span class="o">+</span> <span class="o">.</span>
+<span class="n">o</span> <span class="n">o</span> <span class="n">o</span> <span class="n">o</span>        <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="p">,</span>  <span class="o">.</span> <span class="o">+</span> <span class="o">+</span> <span class="o">+</span>  <span class="p">,</span>  <span class="o">+</span> <span class="o">+</span> <span class="o">+</span> <span class="o">.</span>
+<span class="n">Array</span> <span class="n">C</span>
+               <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="o">+</span><span class="p">)</span>  <span class="o">.</span> <span class="n">x</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="n">x</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+          <span class="o">--&gt;</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="n">x</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="n">x</span> <span class="o">.</span> <span class="o">.</span>
+               <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>  <span class="o">+</span>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+
+               <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+               <span class="o">.</span> <span class="n">x</span> <span class="n">x</span> <span class="o">.</span>         <span class="n">x</span> <span class="n">x</span>
+          <span class="o">--&gt;</span>  <span class="o">.</span> <span class="n">x</span> <span class="n">x</span> <span class="o">.</span>  <span class="o">--&gt;</span>    <span class="n">x</span> <span class="n">x</span>
+               <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+                             <span class="n">Array</span> <span class="n">D</span>
+                             <span class="p">[</span><span class="mi">2</span> <span class="n">x</span> <span class="mi">2</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>The resultant size, if by_x = by_y, is <span class="math notranslate nohighlight">\(frame.size - by - radius * 2\)</span>.</p>
+</div>
+<div class="section" id="non-glcm-channel-fitting">
+<h3>Non-GLCM Channel Fitting<a class="headerlink" href="#non-glcm-channel-fitting" title="Permalink to this headline">¶</a></h3>
+<p>Because GLCM slightly compresses the frame size, we need to somehow fit the other channels into a new shape.</p>
+<p>That’s where Gaussian Convolution comes in.</p>
+<p>By creating a Gaussian kernel with <code class="docutils literal notranslate"><span class="pre">scipy.signal.windows.gaussian</span></code>,
+then using a Fast Fourier Transform Convolution <code class="docutils literal notranslate"><span class="pre">scipy.signal.fftconvolve</span></code>,
+we apply convolution to the channel axis for all other channels.</p>
+<p>This is an improvement from the previous convolution, where it just attempts to average overlapping values.</p>
+<p><strong>Note:</strong> Gaussian standard deviation is controlled by <code class="docutils literal notranslate"><span class="pre">conv_gauss_stdev</span></code>.</p>
+</div>
 </div>
 <div class="section" id="statistics">
 <h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
@@ -277,6 +320,16 @@ of GLCM statistics, then do a convolution at each feasible point.</p>
 <h3>Contrast<a class="headerlink" href="#contrast" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[Con = \sum_{x=0}^{x_n} \sum_{y=0}^{y_n} (a_{x,y} - b_{x,y})^2\]</div>
+<div class="section" id="implementation">
+<h4>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h4>
+<p>Assume <code class="docutils literal notranslate"><span class="pre">rgb_a</span></code> and <code class="docutils literal notranslate"><span class="pre">rgb_b</span></code> are the offset arrays.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ar</span> <span class="o">=</span> <span class="p">(</span><span class="n">rgb_a</span> <span class="o">-</span> <span class="n">rgb_b</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="k">return</span> <span class="n">fftconvolve</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="n">radius</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">radius</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;valid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This one is pretty simple, we create a calculated array for every cell, then convolve over it with
+a specified <code class="docutils literal notranslate"><span class="pre">np.ones</span></code> kernel the size of the window.</p>
+</div>
 </div>
 <div class="section" id="correlation">
 <h3>Correlation<a class="headerlink" href="#correlation" title="Permalink to this headline">¶</a></h3>
@@ -287,6 +340,43 @@ std_{a,b} &amp;= std(a) * std(b) \\
 Corr &amp;= \sum_{x=0}^{x_n} \sum_{y=0}^{y_n}
         \frac{a_{x,y} * b_{x,y} - {mean_{a,b}}}
              {std_{a,b}}\end{split}\]</div>
+<div class="section" id="id1">
+<h4>Implementation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>Assume <code class="docutils literal notranslate"><span class="pre">rgb_a</span></code> and <code class="docutils literal notranslate"><span class="pre">rgb_b</span></code> are the offset arrays.</p>
+<p>This is pretty complicated, so let’s break it down into smaller parts.</p>
+<div class="section" id="variance-formula">
+<h5>Variance Formula<a class="headerlink" href="#variance-formula" title="Permalink to this headline">¶</a></h5>
+<p>Variance can be alternatively expressed as <span class="math notranslate nohighlight">\(var = E(X^2) - E(X)^2\)</span>, from here we just <code class="docutils literal notranslate"><span class="pre">sqrt</span></code> to get
+the stdev.</p>
+<p>This alternative formula allows us to use vectorization and convolution as a solution to the problem.</p>
+<p>This can be achieved by the following code only for offset array A</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conv_a</span> <span class="o">=</span> <span class="n">fftconvolve</span><span class="p">(</span><span class="n">rgb_a</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;valid&#39;</span><span class="p">)</span>
+<span class="n">conv_ae</span> <span class="o">=</span> <span class="n">conv_a</span> <span class="o">/</span> <span class="n">kernel</span><span class="o">.</span><span class="n">size</span>  <span class="c1"># E(A)</span>
+
+<span class="n">conv_a2</span> <span class="o">=</span> <span class="n">fftconvolve</span><span class="p">(</span><span class="n">rgb_a</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;valid&#39;</span><span class="p">)</span>
+<span class="n">conv_ae2</span> <span class="o">=</span> <span class="n">conv_a2</span> <span class="o">/</span> <span class="n">kernel</span><span class="o">.</span><span class="n">size</span>  <span class="c1"># E(A^2)</span>
+
+<span class="n">conv_ae_2</span> <span class="o">=</span> <span class="n">conv_ae</span> <span class="o">**</span> <span class="mi">2</span>  <span class="c1"># E(A)^2</span>
+<span class="n">conv_stda</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">conv_ae2</span> <span class="o">-</span> <span class="n">conv_ae_2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h5>Correlation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
+<p>Correlation is then calculated like so, note that <span class="math notranslate nohighlight">\(E(x)\)</span> is just the mean.</p>
+<p><span class="math notranslate nohighlight">\(Corr = (a * b - (E(a) - E(b))) / std(a) * std(b)\)</span></p>
+</div>
+<div class="section" id="error-correction">
+<h5>Error Correction<a class="headerlink" href="#error-correction" title="Permalink to this headline">¶</a></h5>
+<p>If either stdev are 0, we cap it to -1 or 1 depending on the numerator.</p>
+<p>This only happens if we happen to convolute a perfectly monotonous window.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
+    <span class="n">cor</span> <span class="o">=</span> <span class="p">(</span><span class="n">conv_ab</span> <span class="o">-</span> <span class="p">(</span><span class="n">conv_ae</span> <span class="o">-</span> <span class="n">conv_be</span><span class="p">))</span> <span class="o">/</span> <span class="n">conv_stda</span> <span class="o">*</span> <span class="n">conv_stdb</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">cor</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="entropy">
 <h3>Entropy<a class="headerlink" href="#entropy" title="Permalink to this headline">¶</a></h3>
@@ -295,6 +385,11 @@ Corr &amp;= \sum_{x=0}^{x_n} \sum_{y=0}^{y_n}
 <p><strong>i</strong> and <strong>j</strong> represent the co-occurrence matrix indexes</p>
 <div class="math notranslate nohighlight">
 \[Con = \sum_{i=0}^{i_n} \sum_{j=0}^{j_n} GLCM_{(i,j)}^2\]</div>
+<div class="section" id="id3">
+<h4>Implementation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>Entropy doesn’t use convolution, it receives a prepared window the runs <code class="docutils literal notranslate"><span class="pre">bin_count</span></code> on it.</p>
+<p>For the <code class="docutils literal notranslate"><span class="pre">bin_count</span></code>, it’s then squared then summed to get entropy for the channel.</p>
+</div>
 </div>
 </div>
 </div>
