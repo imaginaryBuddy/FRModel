@@ -1,14 +1,35 @@
-###############################
-Gray Level Co-occurrence Matrix
-###############################
+#####################################
+Frame Gray Level Co-occurrence Matrix
+#####################################
 
-**The ``GLCM2D`` Class is deprecated from 0.0.3 onwards. However, the knowledge is still up-to-date**
+*The GLCM2D Class is deprecated from 0.0.3 onwards, replaced by the current in-built methods*
 
 =========================
 Underlying Representation
 =========================
 
 The data stored isn't actually a co-occurrence matrix, instead :math:`2 * channels` ``np.ndarray``
+
+=======
+Example
+=======
+
+.. code-block:: python
+
+    out = f.get_chns(glcm_con=True, glcm_cor=True, glcm_ent=True,
+                     glcm_by_x=1, glcm_by_y=1, glcm_radius=25, glcm_verbose=True,
+                     glcm_entropy_mp=True, glcm_entropy_mp_procs=2)
+
+Assuming f is a ``Frame2D``.
+
+- This grabs the GLCM Contrast, Correlation, Entropy.
+- The GLCM is offset by 1 x 1.
+- The Neighbour Convolution radius is 25.
+- The function will output its progress with a progress bar.
+- GLCM Entropy will use multiprocessing to speed up the entropy loop
+- It will use 2 processes to loop.
+
+``out`` will have the channel dimension length of 9, as contrast, correlation, entropy all act on RGB.
 
 =========
 Algorithm
@@ -251,3 +272,10 @@ Entropy doesn't use convolution, it receives a prepared window the runs ``bin_co
 For the ``bin_count``, it's then squared then summed to get entropy for the channel.
 
 **Note:** As of v0.0.4, ``bin_count`` replaces ``unique`` for performance.
+
+Multiprocessing
+###############
+
+As Entropy uses a for loop, we can deploy multiple processes to parallelise it.
+
+It simply uses the in-built ``multiprocessing.Pool`` class to execute it.

@@ -18,6 +18,7 @@ requirements:
     - scipy
     - scikit-image
     - scikit-learn
+    - tqdm
   run:
     - pillow
     - opencv
@@ -27,6 +28,7 @@ requirements:
     - scipy
     - scikit-image
     - scikit-learn
+    - tqdm
 
 about:
   home: "https://github.com/Eve-ning/frmodel"

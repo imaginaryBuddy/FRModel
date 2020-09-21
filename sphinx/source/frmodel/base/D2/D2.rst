@@ -9,8 +9,6 @@ These are the 2-Dimensional Classes.
 
     Frame2D <frame2D>
     Video2D <video2D>
-    Channel2D (Pending Deprecation) <channel2D>
-    GLCM2D (Pending Deprecation) <glcm2D>
 
 ===================
 Data Representation
