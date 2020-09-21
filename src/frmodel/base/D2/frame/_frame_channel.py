@@ -359,9 +359,8 @@ class _Frame2DChannel(ABC):
                 Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
                 """
 
-                entropy = np.asarray([np.sum(i * np.log2(i))  # Shannon's Entropy
-                                      for g in c.swapaxes(0, 1)
-                                      for i in np.unique(g, return_counts=True)[1::2]])
+                entropy = np.asarray([np.sum(np.bincount(g) ** 2)
+                                      for g in c.swapaxes(0, 1)])
 
                 out[row, col, :] = entropy
 
