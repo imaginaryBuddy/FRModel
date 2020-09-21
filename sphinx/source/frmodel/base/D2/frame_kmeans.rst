@@ -78,3 +78,14 @@ Scatter Size
 ------------
 
 This sets the scatter plot size.
+
+-------------------------------
+Y-Axis Inversion & Aspect Ratio
+-------------------------------
+
+Implicitly, these will be called::
+
+    plt.gca().set_aspect('equal')
+    plt.gca().invert_yaxis()
+
+So the Y Axis may seem inverted, because the coordinate system starts from the top left.
