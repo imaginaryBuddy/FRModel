@@ -7,6 +7,8 @@ from skimage.color import rgb2hsv
 from scipy.signal import fftconvolve
 from scipy.signal.windows import gaussian
 from scipy.sparse import coo_matrix
+from multiprocessing import Pool
+from tqdm import tqdm
 
 from skimage.util.shape import view_as_windows
 
@@ -262,9 +264,9 @@ class _Frame2DChannel(ABC):
         rgb_a = rgb[:-by_y, :-by_x]
         rgb_b = rgb[by_y:, by_x:]
 
-        idxs = [self._get_glcm_contrast(rgb_a, rgb_b, radius)            if contrast else None,
-                self._get_glcm_correlation(rgb_a, rgb_b, radius)         if correlation else None,
-                self._get_glcm_entropy(rgb_a, rgb_b, radius, verbose)    if entropy else None]
+        idxs = [self._get_glcm_contrast(rgb_a, rgb_b, radius)                  if contrast else None,
+                self._get_glcm_correlation(rgb_a, rgb_b, radius)               if correlation else None,
+                self._get_glcm_entropy(rgb_a, rgb_b, radius, verbose, True)    if entropy else None]
 
         # We drop the nones using a list comp
         return np.concatenate([i for i in idxs if i is not None], axis=2)
@@ -327,13 +329,18 @@ class _Frame2DChannel(ABC):
                           rgb_a: np.ndarray,
                           rgb_b: np.ndarray,
                           radius,
-                          verbose) -> np.ndarray:
+                          verbose,
+                          multiprocessing
+                          ) -> np.ndarray:
 
         # We make c = a + b * 256 (Notice 256 is the max val of RGB + 1).
         # The reason for this is so that we can represent (x, y) as a singular unique value.
         # This is a 1 to 1 mapping from a + b -> c, so c -> a + b is possible.
         # However, the main reason is that so that we can use np.unique without constructing
         # a tuple hash for each pair!
+
+        # Branch to MP if True
+        if multiprocessing: return self._get_glcm_entropy_mp(rgb_a, rgb_b, radius, verbose)
 
         rgb_a = rgb_a.astype(np.uint16)
         rgb_b = rgb_b.astype(np.uint16)
@@ -367,6 +374,61 @@ class _Frame2DChannel(ABC):
                 entropy = np.asarray([np.sum(np.bincount(g) ** 2) for g in c.swapaxes(0, 1)])
 
                 out[row, col, :] = entropy
+
+        return out
+
+    def _get_glcm_entropy_mp(self,
+                          rgb_a: np.ndarray,
+                          rgb_b: np.ndarray,
+                          radius,
+                          verbose) -> np.ndarray:
+
+        # We make c = a + b * 256 (Notice 256 is the max val of RGB + 1).
+        # The reason for this is so that we can represent (x, y) as a singular unique value.
+        # This is a 1 to 1 mapping from a + b -> c, so c -> a + b is possible.
+        # However, the main reason is that so that we can use np.unique without constructing
+        # a tuple hash for each pair!
+
+        rgb_a = rgb_a.astype(np.uint16)
+        rgb_b = rgb_b.astype(np.uint16)
+
+        cells = view_as_windows(self.init(rgb_a * (MAX_RGB + 1) + rgb_b).data,
+                                [radius * 2 + 1, radius * 2 + 1, 3], step=1).squeeze()
+
+        p = Pool()
+
+        out = np.zeros((rgb_a.shape[0] - radius * 2,
+                        rgb_a.shape[1] - radius * 2,
+                        3))
+
+        for i, _ in enumerate(tqdm(p.imap_unordered(self._get_glcm_entropy_mp_loop, cells),
+                                   total=len(cells), disable=not verbose)):
+            out[i, :, :] = _
+
+        return out
+
+    @staticmethod
+    def _get_glcm_entropy_mp_loop(row):
+        """ This is a top-level method for pickling in multiprocessing"""
+        out = np.zeros(shape=[row.shape[0], row.shape[-1]])
+
+        for i, cell in enumerate(row):
+            # We flatten the x and y axis first.
+            c = cell.reshape([-1, cell.shape[-1]])
+
+            """ Entropy is complicated.
+
+            Problem with unique is that it cannot unique on a certain axis as expected here,
+            it's because of staggering dimension size, so we have to loop with a list comp.
+
+            We swap axis because we want to loop on the channel instead of the c value.
+
+            We call bincount to get call occurrences and square them.
+
+            Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
+            """
+
+            out[i, :] = [np.sum(np.bincount(g) ** 2) for g in c.swapaxes(0, 1)]
 
         return out
 
