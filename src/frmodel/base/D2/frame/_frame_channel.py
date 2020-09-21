@@ -8,6 +8,8 @@ from scipy.signal import fftconvolve
 from scipy.signal.windows import gaussian
 from scipy.sparse import coo_matrix
 
+from skimage.util.shape import view_as_windows
+
 from frmodel.base.consts import CONSTS
 
 CHANNEL = CONSTS.CHANNEL
@@ -332,17 +334,16 @@ class _Frame2DChannel(ABC):
         rgb_a = rgb_a.astype(np.uint16)
         rgb_b = rgb_b.astype(np.uint16)
 
-        cells = self.init(rgb_a * (MAX_RGB + 1) + rgb_b).slide_xy(by=radius * 2 + 1, stride=1)
-
-        cells = np.asarray([[i.data for i in j] for j in cells])
+        cells = view_as_windows(self.init(rgb_a * (MAX_RGB + 1) + rgb_b).data,
+                                [radius * 2 + 1, radius * 2 + 1,3], step=1).squeeze()
 
         out = np.zeros((rgb_a.shape[0] - radius * 2,
                         rgb_a.shape[1] - radius * 2,
-                        3))  # RGB * Channel count
+                        3))  # RGB count
 
-        for col, _ in enumerate(cells):
-            if verbose: print(f"GLCM Entropy: {col} / {len(cells)}")
-            for row, cell in enumerate(_):
+        for row, _ in enumerate(cells):
+            if verbose: print(f"GLCM Entropy: {row} / {len(cells)}")
+            for col, cell in enumerate(_):
                 # We flatten the x and y axis first.
                 c = cell.reshape([-1, cell.shape[-1]])
 
@@ -359,8 +360,7 @@ class _Frame2DChannel(ABC):
                 Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
                 """
 
-                entropy = np.asarray([np.sum(np.bincount(g) ** 2)
-                                      for g in c.swapaxes(0, 1)])
+                entropy = np.asarray([np.sum(np.bincount(g) ** 2) for g in c.swapaxes(0, 1)])
 
                 out[row, col, :] = entropy
 
