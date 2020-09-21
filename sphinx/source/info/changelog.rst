@@ -3,6 +3,15 @@ ChangeLog
 #########
 
 -----
+0.0.4
+-----
+
+- Separated implementation for ``Frame2D``
+- Improved performance for GLCM statistics
+- Use Gaussian + FFTConvolution for Non-GLCM Channel fitting
+- Implement GLCM statistics with FFTConvolution
+
+-----
 0.0.3
 -----
 - Implement Index Grabbing with ``get_xx`` ops.
