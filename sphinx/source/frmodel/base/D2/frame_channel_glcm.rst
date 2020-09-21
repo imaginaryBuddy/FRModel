@@ -10,6 +10,27 @@ Underlying Representation
 
 The data stored isn't actually a co-occurrence matrix, instead :math:`2 * channels` ``np.ndarray``
 
+=======
+Example
+=======
+
+.. code-block:: python
+
+    out = f.get_chns(glcm_con=True, glcm_cor=True, glcm_ent=True,
+                     glcm_by_x=1, glcm_by_y=1, glcm_radius=25, glcm_verbose=True,
+                     glcm_entropy_mp=True, glcm_entropy_mp_procs=2)
+
+Assuming f is a ``Frame2D``.
+
+- This grabs the GLCM Contrast, Correlation, Entropy.
+- The GLCM is offset by 1 x 1.
+- The Neighbour Convolution radius is 25.
+- The function will output its progress with a progress bar.
+- GLCM Entropy will use multiprocessing to speed up the entropy loop
+- It will use 2 processes to loop.
+
+``out`` will have the channel dimension length of 9, as contrast, correlation, entropy all act on RGB.
+
 =========
 Algorithm
 =========
