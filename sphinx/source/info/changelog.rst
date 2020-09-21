@@ -11,6 +11,7 @@ ChangeLog
 - Use Gaussian + FFTConvolution for Non-GLCM Channel fitting
 - Implement GLCM statistics with FFTConvolution
 - Add Multiprocessing capability for GLCM Entropy
+- Split the ``Frame2D`` page into separate implementation pages
 
 -----
 0.0.3

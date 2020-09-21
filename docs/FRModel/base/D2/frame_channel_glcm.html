@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Gray Level Co-occurrence Matrix &mdash; frmodel 0.0.4 documentation</title>
+  <title>Frame Gray Level Co-occurrence Matrix &mdash; frmodel 0.0.4 documentation</title>
   
 
   
@@ -36,7 +36,8 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="prev" title="Channel" href="channel2D.html" /> 
+    <link rel="next" title="Frame Scaling" href="frame_scaling.html" />
+    <link rel="prev" title="Frame Channel" href="frame_channel.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,45 +85,53 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="frame2D.html">Frame2D</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="frame_partition.html">Partition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel.html">Channel</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">GLCM</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#underlying-representation">Underlying Representation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#algorithm">Algorithm</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#offset-arrays">Offset Arrays</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#channel">1 Channel</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#n-channels">n Channels</a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#neighbour-convolution">Neighbour Convolution</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#edge-cropping">Edge Cropping</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#non-glcm-channel-fitting">Non-GLCM Channel Fitting</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#statistics">Statistics</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#contrast">Contrast</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#correlation">Correlation</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#id1">Implementation</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="#variance-formula">Variance Formula</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#id2">Correlation</a></li>
+<li class="toctree-l8"><a class="reference internal" href="#error-correction">Error Correction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="#entropy">Entropy</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#id3">Implementation</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#multiprocessing">Multiprocessing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_kmeans.html">K-Means</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="channel2D.html">Channel2D (Pending Deprecation)</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">GLCM2D (Pending Deprecation)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#underlying-representation">Underlying Representation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#algorithm">Algorithm</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#offset-arrays">Offset Arrays</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#channel">1 Channel</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#n-channels">n Channels</a></li>
-</ul>
-</li>
-<li class="toctree-l5"><a class="reference internal" href="#neighbour-convolution">Neighbour Convolution</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#edge-cropping">Edge Cropping</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#non-glcm-channel-fitting">Non-GLCM Channel Fitting</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#statistics">Statistics</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#contrast">Contrast</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#implementation">Implementation</a></li>
-</ul>
-</li>
-<li class="toctree-l5"><a class="reference internal" href="#correlation">Correlation</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#id1">Implementation</a><ul>
-<li class="toctree-l7"><a class="reference internal" href="#variance-formula">Variance Formula</a></li>
-<li class="toctree-l7"><a class="reference internal" href="#id2">Correlation</a></li>
-<li class="toctree-l7"><a class="reference internal" href="#error-correction">Error Correction</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l5"><a class="reference internal" href="#entropy">Entropy</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#id3">Implementation</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#multiprocessing">Multiprocessing</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
 </ul>
@@ -179,13 +188,15 @@
         
           <li><a href="D2.html">2D Classes</a> &raquo;</li>
         
-      <li>Gray Level Co-occurrence Matrix</li>
+          <li><a href="frame2D.html">Frame</a> &raquo;</li>
+        
+      <li>Frame Gray Level Co-occurrence Matrix</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/frmodel/base/D2/glcm2D.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/frmodel/base/D2/frame_channel_glcm.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -198,12 +209,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="gray-level-co-occurrence-matrix">
-<h1>Gray Level Co-occurrence Matrix<a class="headerlink" href="#gray-level-co-occurrence-matrix" title="Permalink to this headline">¶</a></h1>
-<p><strong>The ``GLCM2D`` Class is deprecated from 0.0.3 onwards. However, the knowledge is still up-to-date</strong></p>
+  <div class="section" id="frame-gray-level-co-occurrence-matrix">
+<h1>Frame Gray Level Co-occurrence Matrix<a class="headerlink" href="#frame-gray-level-co-occurrence-matrix" title="Permalink to this headline">¶</a></h1>
+<p><em>The GLCM2D Class is deprecated from 0.0.3 onwards, replaced by the current in-built methods</em></p>
 <div class="section" id="underlying-representation">
 <h2>Underlying Representation<a class="headerlink" href="#underlying-representation" title="Permalink to this headline">¶</a></h2>
 <p>The data stored isn’t actually a co-occurrence matrix, instead <span class="math notranslate nohighlight">\(2 * channels\)</span> <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code></p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_chns</span><span class="p">(</span><span class="n">glcm_con</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">glcm_cor</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">glcm_ent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">glcm_by_x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">glcm_by_y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">glcm_radius</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">glcm_verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">glcm_entropy_mp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">glcm_entropy_mp_procs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Assuming f is a <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code>.</p>
+<ul class="simple">
+<li><p>This grabs the GLCM Contrast, Correlation, Entropy.</p></li>
+<li><p>The GLCM is offset by 1 x 1.</p></li>
+<li><p>The Neighbour Convolution radius is 25.</p></li>
+<li><p>The function will output its progress with a progress bar.</p></li>
+<li><p>GLCM Entropy will use multiprocessing to speed up the entropy loop</p></li>
+<li><p>It will use 2 processes to loop.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">out</span></code> will have the channel dimension length of 9, as contrast, correlation, entropy all act on RGB.</p>
 </div>
 <div class="section" id="algorithm">
 <h2>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h2>
@@ -409,8 +438,10 @@ the stdev.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="frame_scaling.html" class="btn btn-neutral float-right" title="Frame Scaling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="channel2D.html" class="btn btn-neutral float-left" title="Channel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="frame_channel.html" class="btn btn-neutral float-left" title="Frame Channel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
