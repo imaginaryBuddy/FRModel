@@ -120,3 +120,9 @@ Example
 
     plt.gcf().set_size_inches(f.width() / 96 * 2, f.height() / 96 * 2)
     plt.gcf().savefig('cluster.jpg', dpi=96)
+
+===========
+Module Info
+===========
+
+.. automodule:: frmodel.base.D2.frame._frame_kmeans

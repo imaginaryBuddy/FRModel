@@ -93,6 +93,7 @@
 <li class="toctree-l4"><a class="reference internal" href="frame_kmeans.html">K-Means</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#intuition">Intuition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-frmodel.base.D2.frame2D">Module Info</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
@@ -195,6 +196,53 @@ We can then grab the np.ndarray using <code class="docutils literal notranslate"
 <span class="n">d</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="module-frmodel.base.D2.frame2D">
+<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame2D" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="frmodel.base.D2.frame2D.Frame2D">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame2D.</code><code class="sig-name descname">Frame2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_loader._Frame2DLoader</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_kmeans._Frame2DKmeans</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_partition._Frame2DPartition</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_channel._Frame2DChannel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_scaling._Frame2DScaling</span></code></p>
+<p>A Frame is an alias to an Image.</p>
+<p>The underlying representation is a 2D array, each cell is a array of channels</p>
+<dl class="py method">
+<dt id="frmodel.base.D2.frame2D.Frame2D.channel">
+<code class="sig-name descname">channel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">channel</span><span class="p">:</span> <span class="n">frmodel.base.consts.CONSTS.CHANNEL</span></em><span class="sig-paren">)</span> &#x2192; frmodel.base.D2.channel2D.Channel2D<a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the channel of the Frame as Channel 2D.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame2D.Frame2D.data_chn">
+<code class="sig-name descname">data_chn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.data_chn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets channels as pure np.ndarray data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> – Can be a single int index or multiple in a List</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame2D.Frame2D.data_kdtree">
+<code class="sig-name descname">data_kdtree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">leaf_size</span><span class="o">=</span><span class="default_value">40</span></em>, <em class="sig-param"><span class="n">metric</span><span class="o">=</span><span class="default_value">'minkowski'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; sklearn.neighbors._kd_tree.KDTree<a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.data_kdtree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a KDTree with current data.</p>
+<p>Uses sklearn.neighbours.KDTree API.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame2D.Frame2D.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the current Frame file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame2D.Frame2D.size">
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of pixels</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 

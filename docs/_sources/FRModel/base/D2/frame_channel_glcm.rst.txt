@@ -279,3 +279,9 @@ Multiprocessing
 As Entropy uses a for loop, we can deploy multiple processes to parallelise it.
 
 It simply uses the in-built ``multiprocessing.Pool`` class to execute it.
+
+===========
+Module Info
+===========
+
+.. automodule:: frmodel.base.D2.frame._frame_channel_glcm

@@ -49,3 +49,9 @@ Sliding is different from splitting as it allows for overlapping regions.
 The ``stride`` argument specifies how far the window to shift on that axis.
 
 ``slide_xy`` is a shortcut for splitting on both axes with the same ``by`` and ``stride`` arguments.
+
+===========
+Module Info
+===========
+
+.. automodule:: frmodel.base.D2.frame._frame_partition

@@ -108,3 +108,9 @@ Vegetative Index, defined as
 .. math::
 
     \frac{g}{r^{a} * b^{1-a}}
+
+===========
+Module Info
+===========
+
+.. automodule:: frmodel.base.D2.frame._frame_channel
