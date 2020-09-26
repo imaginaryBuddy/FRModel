@@ -28,3 +28,9 @@ Caveats
 =======
 
 The class doesn't provide a way to calculate the length of the video.
+
+===============
+Grabbing Frames
+===============
+
+.. automodule:: frmodel.base.D2.video2D
