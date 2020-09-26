@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started &mdash; frmodel 0.0.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Layers" href="layers.html" />
+    <link rel="prev" title="Information" href="../info.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../info.html">Information</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#"> Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wrapping">Wrapping</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="layers.html"> Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html"> Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../frmodel/base.html">Base</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../info.html">Information</a> &raquo;</li>
+        
+      <li>Getting Started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/info/getting_started.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>This document is directed to the users of the library.</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>This short example illustrates how to load in an image (stored as a np.ndarray)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">frmodel.base.consts</span> <span class="kn">import</span> <span class="n">CONSTS</span>
+<span class="kn">from</span> <span class="nn">frmodel.base.D2.frame2D</span> <span class="kn">import</span> <span class="n">Frame2D</span>
+
+<span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
+<span class="n">frames</span> <span class="o">=</span>\
+    <span class="n">frame</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">CONSTS</span><span class="o">.</span><span class="n">AXIS</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">Frame2D</span><span class="o">.</span><span class="n">SplitMethod</span><span class="o">.</span><span class="n">DROP</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">frames</span><span class="p">):</span> <span class="n">f</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;path/to/save</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">.jpg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the image is <strong>Width x Height</strong> large,
+We then split it into <strong>200px x Height</strong> chunks using <code class="docutils literal notranslate"><span class="pre">split()</span></code></p>
+<ul class="simple">
+<li><p>Note that it slices vertically because we specified <code class="docutils literal notranslate"><span class="pre">CONSTS.AXIS.X</span></code>.</p></li>
+<li><p>It will also <code class="docutils literal notranslate"><span class="pre">DROP</span></code> any pieces that cannot be perfectly cut. E.g. 1920 will be sliced into 200 x 9 pieces.</p></li>
+</ul>
+</div>
+<div class="section" id="wrapping">
+<h2>Wrapping<a class="headerlink" href="#wrapping" title="Permalink to this headline">¶</a></h2>
+<p>Most classes here are just wrappers of existing library classes.
+If you would like to extract the underlying data, e.g. <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>, just call .data.</p>
+<p>This is useful if you would like to utilize functions that the library doesn’t provide.
+However, it’s recommended to use the library functions as a lot of boilercode is hidden.</p>
+<p>Open up a <strong>Issue</strong> on GitHub to notify me to create a wrapper for a specific repeated function.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="layers.html" class="btn btn-neutral float-right" title="Layers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../info.html" class="btn btn-neutral float-left" title="Information" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
