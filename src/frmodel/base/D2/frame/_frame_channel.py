@@ -122,7 +122,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         """ Gets selected channels
 
         Order is given by the argument order.
-        R, G, B, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG, X, Y,
+        R, G, B, X, Y, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG,
         ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
 
         :param self_: Include current frame
