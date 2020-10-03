@@ -6,6 +6,7 @@ import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import normalize as sk_normalize
 import matplotlib.pyplot as plt
+from typing import Tuple
 
 
 class _Frame2DKmeans(ABC):
@@ -22,7 +23,7 @@ class _Frame2DKmeans(ABC):
                plot_figure=False,
                xy_indexes=(3 ,4),
                scatter_size=0.2
-               ) -> KMeans:
+               ) -> KMeans or Tuple[KMeans, plt.Figure]:
         """ Fits a KMeans on current frame, on certain axes
 
         Example::
@@ -51,14 +52,15 @@ class _Frame2DKmeans(ABC):
         if plot_figure:
             df = pd.DataFrame(np.append(flat, km.labels_[... ,np.newaxis] ,axis=-1))
             df.columns = [f"c{e}" for e, _ in enumerate(df.columns)]
-            sns.lmplot(data=df,
-                       x=f'c{xy_indexes[0]}',
-                       y=f'c{xy_indexes[1]}',
-                       hue=df.columns[-1],
-                       fit_reg=False,
-                       legend=True,
-                       legend_out=True,
-                       scatter_kws={"s": scatter_size})
-            plt.gca().set_aspect('equal')
-            plt.gca().invert_yaxis()
+            fg = sns.lmplot(data=df,
+                            x=f'c{xy_indexes[0]}',
+                            y=f'c{xy_indexes[1]}',
+                            hue=df.columns[-1],
+                            fit_reg=False,
+                            legend=True,
+                            legend_out=True,
+                            scatter_kws={"s": scatter_size})
+            fg.ax.set_aspect('equal')
+            fg.ax.invert_yaxis()
+            return km, fg
         return km
