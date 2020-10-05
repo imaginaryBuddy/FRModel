@@ -1,13 +1,26 @@
+from __future__ import annotations
 import numpy as np
 from laspy.file import File
 import pandas as pd
 import gdal
+from xml.etree import ElementTree
+from typing import Tuple
+from dataclasses import dataclass
 
+@dataclass
 class Cloud3D:
 
+    data: np.ndarray
+    header: File
+    lat: float
+    long: float
+    origin_x: float
+    origin_y: float
+    origin_z: float
+
     @staticmethod
-    def from_las(file_path:str, sample_size=None):
-        f = File(file_path, mode='r')
+    def from_las(las_path:str, xml_path:str, sample_size=None) -> Cloud3D:
+        f = File(las_path, mode='r')
 
         # Sample if needed
         pts = np.random.choice(f.points, sample_size, False) if sample_size else f.points
@@ -21,7 +34,20 @@ class Cloud3D:
         # Scale RGB to 255
         pts[:, 3:] //= 2 ** 8
 
-        return pts
+        lat, long, origin_x, origin_y, origin_z = Cloud3D._read_xml(xml_path)
+        header = f.header
+        f.close()
+        return Cloud3D(pts, header, lat, long, origin_x, origin_y, origin_z)
+
+    @staticmethod
+    def _read_xml(xml_path):
+        """ Reads XML and returns
+
+        :param xml_path: Path to XML metadata
+        :returns: Latitude, Longitude, Origin X, Y, Z respectively
+        """
+        root = ElementTree.parse(xml_path).getroot()
+        return [float(i) for i in root[0].text[4:].split(",")] + [float(i) for i in root[1].text.split(",")]
 
     @staticmethod
     def get_geo_info(geotiff_path: str):
@@ -30,6 +56,8 @@ class Cloud3D:
 
         return dict(xoffset=xoffset, px_w=px_w, rot1=rot1,
                     yoffset=yoffset, px_h=px_h, rot2=rot2)
+
+
 
 #
 #
