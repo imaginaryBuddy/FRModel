@@ -25,7 +25,7 @@ class Cloud3D:
 
     @staticmethod
     def get_geo_info(geotiff_path: str):
-        ds = gdal.Open('rsc/imgs/result.tif')
+        ds = gdal.Open(geotiff_path)
         xoffset, px_w, rot1, yoffset, px_h, rot2 = ds.GetGeoTransform()
 
         return dict(xoffset=xoffset, px_w=px_w, rot1=rot1,
