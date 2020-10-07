@@ -17,5 +17,12 @@ class ChannelTest(TestD2):
                            outline=(255, 0, 0),
                            labels=[f"{i:.0f}, {j:.0f}" for i, j in zip(x, y)])
 
+    def test_draw_single(self):
+        draw = Draw2D.load_frame(self.frame)
+        draw.mark_single(100,
+                         200,
+                         outline=(255, 0, 0),
+                         label="100, 200")
+
 if __name__ == '__main__':
     unittest.main()
