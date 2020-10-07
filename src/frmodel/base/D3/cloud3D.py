@@ -4,14 +4,13 @@ from laspy.file import File
 import pandas as pd
 import gdal
 from xml.etree import ElementTree
-from typing import Tuple
+from copy import deepcopy
 from dataclasses import dataclass
 
 @dataclass
 class Cloud3D:
 
-    data: np.ndarray
-    header: File
+    f: File
     lat: float
     long: float
     origin_x: float
@@ -19,21 +18,24 @@ class Cloud3D:
     origin_z: float
 
     @staticmethod
-    def from_las_xml(las_path:str, xml_path:str, sample_size=None) -> Cloud3D:
+    def from_las_xml(las_path:str, xml_path:str) -> Cloud3D:
         f = File(las_path, mode='r')
 
-        # Sample if needed
-        pts = np.random.choice(f.points, sample_size, False) if sample_size else f.points
-
-        # Grab required points
-        pts = pd.DataFrame(pts['point'][['X', 'Y', 'Z', 'red', 'green', 'blue']]).to_numpy()
-
-        Cloud3D._transform_data(pts, f.header)
-
         lat, long, origin_x, origin_y, origin_z = Cloud3D._read_xml(xml_path)
-        header = f.header
-        f.close()
-        return Cloud3D(pts, header, lat, long, origin_x, origin_y, origin_z)
+        return Cloud3D(f, lat, long, origin_x, origin_y, origin_z)
+
+    def data(self, sample_size=None, transformed=True):
+        data = np.random.choice(self.f.points, sample_size, False) if sample_size else self.f.points
+        data2 = pd.DataFrame(data['point'][['X', 'Y', 'Z', 'red', 'green', 'blue']]).to_numpy()
+        if transformed: data2 = Cloud3D._transform_data(data2, self.header)
+        return deepcopy(data2)
+
+    @property
+    def header(self):
+        return self.f.header
+
+    def close(self):
+        self.f.close()
 
     @staticmethod
     def get_geo_info(geotiff_path: str):
@@ -49,22 +51,30 @@ class Cloud3D:
         Header used will be the same as the one provided during loading otherwise given.
         """
 
-        f = File(file_name, mode='w+')
-        f.header = alt_header if alt_header else self.header
-        self._transform_data(self.data, f.header)
-        f.points = self.data
+        f = File(file_name, mode='w', header=alt_header if alt_header else self.header)
+        data = self.data(transformed=False)
+
+        f.X = data[:, 0]
+        f.Y = data[:, 1]
+        f.Z = data[:, 2]
+
+        f.Red   = data[:, 3]
+        f.Green = data[:, 4]
+        f.Blue  = data[:, 5]
+
+        f.close()
         
     @staticmethod
     def _transform_data(data, header: File):
         """ Transforms data suitable for usage, from LAS format """
-        data[:, :3] = Cloud3D._transform_xyz(data[:, :3], header)
-        data[:, 3:] = Cloud3D._transform_rgb(data[:, 3:])
+        return np.hstack([Cloud3D._transform_xyz(data[:, :3], header),
+                          Cloud3D._transform_rgb(data[:, 3:])])
 
     @staticmethod
     def _inv_transform_data(data, header: File):
         """ Transforms data suitable for writing """
-        data[:, :3] = Cloud3D._inv_transform_xyz(data[:, :3], header)
-        data[:, 3:] = Cloud3D._inv_transform_rgb(data[:, 3:])
+        return np.hstack([Cloud3D._inv_transform_xyz(data[:, :3], header),
+                          Cloud3D._inv_transform_rgb(data[:, 3:])])
 
     @staticmethod
     def _transform_xyz(xyz, header: File):
