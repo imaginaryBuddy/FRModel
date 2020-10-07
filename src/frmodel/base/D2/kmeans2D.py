@@ -22,14 +22,6 @@ class KMeans2D:
             scaler=normalize) -> KMeans:
         """ Fits a KMeans on current frame, on certain axes
 
-        Example::
-
-            frame_idxs = frame.get_idxs(xy=True,hsv=True,veg=True)
-            frame_idxs.kmeans(clusters=5, fit_indexes=[2,3,4,5],
-                              plot_figure=True,xy_indexes=(0,1),scatter_size=1)
-
-        This will firstly get the coordinate, hsv and veg indexes, placing it in a df
-
         :param fit_indexes: The indexes to .fit()
         :param sample_weight: The sample weight for each record, if any. Can be None.
         :param scaler: The scaler to use, must be a callable(np.ndarray)
@@ -44,6 +36,16 @@ class KMeans2D:
              km_est: KMeans,
              xy_indexes=(3 ,4),
              scatter_size=0.2) -> FacetGrid:
+        """ Generates a plot with fitted KMeans
+
+        Implicitly set 1:1 ratio plotting
+        Implicitly inverts y-axis
+
+        :param km_est: The fitted KMeans Estimator
+        :param xy_indexes: The indexes of X & Y for plotting
+        :param scatter_size: Size of marker
+        :return: A FacetGrid
+        """
         df = pd.DataFrame(np.append(self.data, km_est.labels_[..., np.newaxis], axis=-1))
         df.columns = [f"c{e}" for e, _ in enumerate(df.columns)]
 
