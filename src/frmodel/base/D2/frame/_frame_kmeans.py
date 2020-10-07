@@ -1,12 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import Tuple
-
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import normalize as sk_normalize
+
+from frmodel.base.D2.kmeans2D import KMeans2D
 
 
 class _Frame2DKmeans(ABC):
@@ -23,7 +22,7 @@ class _Frame2DKmeans(ABC):
                plot_figure=False,
                xy_indexes=(3 ,4),
                scatter_size=0.2
-               ) -> KMeans or Tuple[KMeans, plt.Figure]:
+               ) -> KMeans2D:
         """ Fits a KMeans on current frame, on certain axes
 
         Example::
@@ -62,5 +61,5 @@ class _Frame2DKmeans(ABC):
                             scatter_kws={"s": scatter_size})
             fg.ax.set_aspect('equal')
             fg.ax.invert_yaxis()
-            return km, fg
-        return km
+            return KMeans2D(km, fg)
+        return KMeans2D(km)
