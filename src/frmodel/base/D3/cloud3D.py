@@ -19,7 +19,7 @@ class Cloud3D:
     origin_z: float
 
     @staticmethod
-    def from_las(las_path:str, xml_path:str, sample_size=None) -> Cloud3D:
+    def from_las_xml(las_path:str, xml_path:str, sample_size=None) -> Cloud3D:
         f = File(las_path, mode='r')
 
         # Sample if needed
@@ -28,16 +28,77 @@ class Cloud3D:
         # Grab required points
         pts = pd.DataFrame(pts['point'][['X', 'Y', 'Z', 'red', 'green', 'blue']]).to_numpy()
 
-        # Offset them according to header
-        pts[:, :3] = pts[:, :3] + [o/s for o, s in zip(f.header.offset, f.header.scale)]
-
-        # Scale RGB to 255
-        pts[:, 3:] //= 2 ** 8
+        Cloud3D._transform_data(pts, f.header)
 
         lat, long, origin_x, origin_y, origin_z = Cloud3D._read_xml(xml_path)
         header = f.header
         f.close()
         return Cloud3D(pts, header, lat, long, origin_x, origin_y, origin_z)
+
+    @staticmethod
+    def get_geo_info(geotiff_path: str):
+        ds = gdal.Open(geotiff_path)
+        xoffset, px_w, rot1, yoffset, px_h, rot2 = ds.GetGeoTransform()
+
+        return dict(xoffset=xoffset, px_w=px_w, rot1=rot1,
+                    yoffset=yoffset, px_h=px_h, rot2=rot2)
+
+    def write_las(self, file_name: str, alt_header:File = None):
+        """ Writes the current points in a las format
+
+        Header used will be the same as the one provided during loading otherwise given.
+        """
+
+        f = File(file_name, mode='w+')
+        f.header = alt_header if alt_header else self.header
+        self._transform_data(self.data, f.header)
+        f.points = self.data
+        
+    @staticmethod
+    def _transform_data(data, header: File):
+        """ Transforms data suitable for usage, from LAS format """
+        data[:, :3] = Cloud3D._transform_xyz(data[:, :3], header)
+        data[:, 3:] = Cloud3D._transform_rgb(data[:, 3:])
+
+    @staticmethod
+    def _inv_transform_data(data, header: File):
+        """ Transforms data suitable for writing """
+        data[:, :3] = Cloud3D._inv_transform_xyz(data[:, :3], header)
+        data[:, 3:] = Cloud3D._inv_transform_rgb(data[:, 3:])
+
+    @staticmethod
+    def _transform_xyz(xyz, header: File):
+        """ Transforms XYZ according to the header information
+
+        This transforms XYZ into a workable, intended format for usage.
+        """
+        # noinspection PyUnresolvedReferences
+        return xyz + [o / s for o, s in zip(header.offset, header.scale)]
+
+    @staticmethod
+    def _transform_rgb(rgb):
+        """ Transforms RGB according to the header information
+
+        This transforms RGB into 0 - 255
+        """
+        return rgb // (2 ** 8)
+
+    @staticmethod
+    def _inv_transform_xyz(xyz, header: File):
+        """ Inverse Transforms XYZ according to the header information
+
+        This inverse transforms XYZ according to header, intended for writing
+        """
+        # noinspection PyUnresolvedReferences
+        return xyz - [o / s for o, s in zip(header.offset, header.scale)]
+
+    @staticmethod
+    def _inv_transform_rgb(rgb):
+        """ Inverse Transforms RGB according to the header information
+
+        This transforms RGB into 0 - 65535, intended for writing
+        """
+        return rgb * (2 ** 8)
 
     @staticmethod
     def _read_xml(xml_path):
@@ -48,16 +109,6 @@ class Cloud3D:
         """
         root = ElementTree.parse(xml_path).getroot()
         return [float(i) for i in root[0].text[4:].split(",")] + [float(i) for i in root[1].text.split(",")]
-
-    @staticmethod
-    def get_geo_info(geotiff_path: str):
-        ds = gdal.Open(geotiff_path)
-        xoffset, px_w, rot1, yoffset, px_h, rot2 = ds.GetGeoTransform()
-
-        return dict(xoffset=xoffset, px_w=px_w, rot1=rot1,
-                    yoffset=yoffset, px_h=px_h, rot2=rot2)
-
-
 
 #
 #
