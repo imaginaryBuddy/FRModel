@@ -3,8 +3,6 @@ from dataclasses import dataclass
 from typing import Tuple, Any
 
 from PIL import Image, ImageDraw
-import numpy as np
-from jinja2.nodes import List
 
 from frmodel.base.D2 import Frame2D
 
