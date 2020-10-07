@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
+from typing import Tuple
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import normalize as sk_normalize
-import matplotlib.pyplot as plt
-from typing import Tuple
 
 
 class _Frame2DKmeans(ABC):
