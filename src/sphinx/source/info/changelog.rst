@@ -12,6 +12,10 @@ ChangeLog
 - Implement GLCM statistics with FFTConvolution
 - Add Multiprocessing capability for GLCM Entropy
 - Split the ``Frame2D`` page into separate implementation pages
+- Add basic LAS w/ XML Metadata support.
+- Fix autodoc issue
+- Add ``Draw2D`` for marking
+- Deprecate ``Channel2D`` and ``GLCM2D``
 
 -----
 0.0.3
