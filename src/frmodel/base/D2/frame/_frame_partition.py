@@ -72,9 +72,9 @@ class _Frame2DPartition(ABC):
         # Pre-process by as modified by_
         # np.split_array splits it by the number of slices generated,
         # we need to transform this into the slice locations
-        if axis_cut == CONSTS.AXIS.X:
+        if axis_cut == CONSTS.AXIS.Y:
             by_ = np.arange(by, self.width(), by)
-        elif axis_cut == CONSTS.AXIS.Y:
+        elif axis_cut == CONSTS.AXIS.X:
             by_ = np.arange(by, self.height(), by)
         else:
             raise TypeError(f"Axis {axis_cut} is not recognised. Use CONSTS.AXIS class.")
@@ -104,7 +104,7 @@ class _Frame2DPartition(ABC):
 
 
         :param by: Size of each piece
-        :param stride: Stride when sliding 
+        :param stride: Stride when sliding
         :return: List of List of Frame2D
 
         """
@@ -124,9 +124,9 @@ class _Frame2DPartition(ABC):
         :return: List of Frame2D
         """
 
-        if axis_cut == CONSTS.AXIS.X:
+        if axis_cut == CONSTS.AXIS.Y:
             return [self.init(self.data[:, i: i + by])
                     for i in range(0, self.width() - by + 1, stride)]
-        elif axis_cut == CONSTS.AXIS.Y:
+        elif axis_cut == CONSTS.AXIS.X:
             return [self.init(self.data[i: i + by, :])
                     for i in range(0, self.height() - by + 1, stride)]
