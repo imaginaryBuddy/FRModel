@@ -6,7 +6,7 @@ from tests.base.D2.test_d2 import TestD2
 import numpy as np
 
 
-class ChannelTest(TestD2):
+class DrawTest(TestD2):
 
     def test_draw_multiple(self):
         draw = Draw2D.load_frame(self.frame)
