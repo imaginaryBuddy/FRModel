@@ -63,7 +63,7 @@ class Draw2D:
         else: assert len(xs) == len(labels), "label Lengths must be the same as xy."
 
         for x, y, l in zip(xs, ys, labels):
-            self.mark_single(x, y, radius, outline, fill, l)
+            self.mark_single(x, y, l, radius, outline, fill)
 
     @staticmethod
     def load_frame(frame: Frame2D) -> Draw2D:

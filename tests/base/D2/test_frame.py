@@ -15,9 +15,10 @@ class FrameTest(TestD2):
         self.assertEqual((self.window, self.window, self.channels), frames[0][0].shape)
 
     def test_split(self):
-        # Split by Y Axis only, horizontal slices
-        frames = self.frame.split(by=self.window, method=Frame2D.SplitMethod.DROP, axis=CONSTS.AXIS.Y)
+        # Split by X Axis only, horizontal slices
+        frames = self.frame.split(by=self.window, method=Frame2D.SplitMethod.DROP, axis_cut=CONSTS.AXIS.X)
 
+        # Hence the number of rows (index 0) must be equal to window size
         self.assertEqual(self.window, frames[0].shape[0])
 
     def test_slide_xy(self):
@@ -27,9 +28,10 @@ class FrameTest(TestD2):
         self.assertEqual((self.window, self.window, self.channels), frames[0][0].shape)
 
     def test_slide(self):
-        # Slide by Y Axis only, horizontal slices
-        frames = self.frame.slide(by=self.window, stride=self.window // 2, axis=CONSTS.AXIS.Y)
+        # Slide by X Axis only, horizontal slices
+        frames = self.frame.slide(by=self.window, stride=self.window // 2, axis_cut=CONSTS.AXIS.X)
 
+        # Hence the number of rows (index 0) must be equal to window size
         self.assertEqual(self.window, frames[0].shape[0])
 
 

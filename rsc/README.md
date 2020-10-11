@@ -1,3 +1,3 @@
 # Resources
 
-Only samples are uploaded. This is to allow quick testing.
+As of `0.0.4`, images are not uploaded to avoid versioning issues.
