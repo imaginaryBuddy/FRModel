@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import warnings
 from dataclasses import dataclass
 from typing import List, Tuple
 
@@ -8,7 +7,6 @@ import numpy as np
 from PIL import Image
 from sklearn.neighbors import KDTree
 
-from frmodel.base.D2.channel2D import Channel2D
 # noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_channel import _Frame2DChannel
 # noinspection PyProtectedMember
@@ -77,9 +75,3 @@ class Frame2D(_Frame2DLoader,
 
     def width(self) -> int:
         return self.shape[1]
-
-    def channel(self, channel: CONSTS.CHANNEL) -> Channel2D:
-        """ Gets the channel of the Frame as Channel 2D. """
-        warnings.warn("Channel2D will be deprecated soon, it's recommended to work within Frame2D "
-                      "or slice using np.ndarray.")
-        return Channel2D(self.data[..., channel])

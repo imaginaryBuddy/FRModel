@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Frame Channel &mdash; frmodel 0.0.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Frame Gray Level Co-occurrence Matrix" href="frame_channel_glcm.html" />
+    <link rel="prev" title="Frame Partitioning" href="frame_partition.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="frame2D.html">Frame2D</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="frame_partition.html">Partition</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Channel</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#getting-channels">Getting Channels</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#glcm">GLCM</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#xy">XY</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hsv">HSV</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ex-g">EX_G</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#mex-g">MEX_G</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ex-gr">EX_GR</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ndi">NDI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#veg">VEG</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.frame._frame_channel">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel_glcm.html">GLCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_kmeans.html">K-Means</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#module-frmodel.base.D2.frame2D">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+          <li><a href="D2.html">2D Classes</a> &raquo;</li>
+        
+          <li><a href="frame2D.html">Frame</a> &raquo;</li>
+        
+      <li>Frame Channel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/frmodel/base/D2/frame_channel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="frame-channel">
+<h1>Frame Channel<a class="headerlink" href="#frame-channel" title="Permalink to this headline">¶</a></h1>
+<p><em>Channel2D Class is deprecated from 0.0.3 onwards, replaced by the current in-built methods</em></p>
+<div class="section" id="getting-channels">
+<h2>Getting Channels<a class="headerlink" href="#getting-channels" title="Permalink to this headline">¶</a></h2>
+<p>As to cater to this research project, index calculations are readily available with <code class="docutils literal notranslate"><span class="pre">get_xx</span></code> named functions.</p>
+<p>Currently, <code class="docutils literal notranslate"><span class="pre">frmodel</span></code> supports the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">index_count</span></code> represents how many “layers” it will take, similar to the cake analogy.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 49%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>function</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>index_count</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_self</span></code></p></td>
+<td><p>Gets channels including current</p></td>
+<td><p>n</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_xy</span></code></p></td>
+<td><p>X, Y Coordinates</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_hsv</span></code></p></td>
+<td><p>Hue Saturation and Value</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_ex_g(False)</span></code></p></td>
+<td><p>Excess Green</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_ex_g(True)</span></code></p></td>
+<td><p>(Modified) Excess Green</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_ex_gr</span></code></p></td>
+<td><p>Excess Green Minus Red</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_ndi</span></code></p></td>
+<td><p>Normalized Difference Index</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_veg</span></code></p></td>
+<td><p>Vegetative Index</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_glcm</span></code></p></td>
+<td><p>GLCM (All Statistics)</p></td>
+<td><p>9</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">get_all_chn</span></code> and <code class="docutils literal notranslate"><span class="pre">get_chn</span></code> gets all channels above, the order is as shown above too.</p>
+<p>The difference between those 2 is the default values,
+depending on your choices, one may be more succinct than the other.</p>
+</div>
+<div class="section" id="glcm">
+<h2>GLCM<a class="headerlink" href="#glcm" title="Permalink to this headline">¶</a></h2>
+<p>GLCM is detailed in the <a class="reference internal" href="frame_channel_glcm.html"><span class="doc">GLCM Implementation Page</span></a>.</p>
+</div>
+<div class="section" id="xy">
+<h2>XY<a class="headerlink" href="#xy" title="Permalink to this headline">¶</a></h2>
+<p>The XY coordinate for every Pixel</p>
+</div>
+<div class="section" id="hsv">
+<h2>HSV<a class="headerlink" href="#hsv" title="Permalink to this headline">¶</a></h2>
+<p>HSV (Hue, Saturation, Value)</p>
+</div>
+<div class="section" id="ex-g">
+<h2>EX_G<a class="headerlink" href="#ex-g" title="Permalink to this headline">¶</a></h2>
+<p>Excess Green, defined as</p>
+<div class="math notranslate nohighlight">
+\[2G - 1R - 1B\]</div>
+</div>
+<div class="section" id="mex-g">
+<h2>MEX_G<a class="headerlink" href="#mex-g" title="Permalink to this headline">¶</a></h2>
+<p>Modified Excess Green, defined as</p>
+<div class="math notranslate nohighlight">
+\[1.262G - 0.884R - 0.331B\]</div>
+</div>
+<div class="section" id="ex-gr">
+<h2>EX_GR<a class="headerlink" href="#ex-gr" title="Permalink to this headline">¶</a></h2>
+<p>Excess Green Minus Red, defined as</p>
+<div class="math notranslate nohighlight">
+\[3G - 2.4R - B\]</div>
+</div>
+<div class="section" id="ndi">
+<h2>NDI<a class="headerlink" href="#ndi" title="Permalink to this headline">¶</a></h2>
+<p>Normalized Difference Index, defined as</p>
+<div class="math notranslate nohighlight">
+\[\frac{G - R}{G + R}\]</div>
+</div>
+<div class="section" id="veg">
+<h2>VEG<a class="headerlink" href="#veg" title="Permalink to this headline">¶</a></h2>
+<p>Vegetative Index, defined as</p>
+<div class="math notranslate nohighlight">
+\[\frac{g}{r^{a} * b^{1-a}}\]</div>
+</div>
+<div class="section" id="module-frmodel.base.D2.frame._frame_channel">
+<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_channel" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="frame_channel_glcm.html" class="btn btn-neutral float-right" title="Frame Gray Level Co-occurrence Matrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="frame_partition.html" class="btn btn-neutral float-left" title="Frame Partitioning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
