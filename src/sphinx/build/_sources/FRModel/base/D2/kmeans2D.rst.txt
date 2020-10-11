@@ -1,5 +1,5 @@
 #####
-Frame
+KM
 #####
 
 .. toctree::
@@ -35,5 +35,6 @@ We can then grab the np.ndarray using ``.data``.
 Module Info
 ===========
 
-.. automodule:: frmodel.base.D2.frame2D
-   :inherited-members:
+.. automodule:: frmodel.base.D2.frame._frame_kmeans
+
+.. automodule:: frmodel.base.D2.kmeans2D

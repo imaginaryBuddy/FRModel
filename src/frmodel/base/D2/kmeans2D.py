@@ -65,13 +65,13 @@ class KMeans2D:
         # Count each unique pair occurrence and return count.
         # Because return_count returns separately, we vstack it
         # Then we transpose the data for iterrows() op
-        ar_0 = \
+        ar = \
             np.vstack(
                 np.unique(axis=1, return_counts=True,
                           ar=np.vstack([self.model.labels_, ar]))).transpose()
 
         # This sorts by the last column (Counts)
-        ar_0: np.ndarray = ar_0[ar_0[:, -1].argsort()[::-1]]
+        ar: np.ndarray = ar[ar[:, -1].argsort()[::-1]]
 
         # There's no simple way to get the maximum unique of 2 dimensions I believe
         # We'll loop through the cells using a naive approach
@@ -87,7 +87,7 @@ class KMeans2D:
         visited_pred = []
         visited_act = []
         counts = []
-        for r in ar_0:
+        for r in ar:
             if r[0] in visited_pred or r[1] in visited_act:
                 continue
             else:
@@ -95,7 +95,7 @@ class KMeans2D:
                 visited_act.append(int(r[1]))
                 counts.append(r)
 
-        ar_1 = np.asarray(counts)
-        return ar_1, np.sum(ar_1[:, -1]) / (im.size[0] * im.size[1])
+        ar = np.asarray(counts)
+        return ar, np.sum(ar[:, -1]) / (im.size[0] * im.size[1])
 
 

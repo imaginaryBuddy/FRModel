@@ -36,3 +36,4 @@ Module Info
 ===========
 
 .. automodule:: frmodel.base.D2.frame2D
+   :inherited-members:

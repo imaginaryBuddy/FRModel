@@ -4,7 +4,6 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import minmax_scale
 
 from frmodel.base.D2 import Frame2D
-from frmodel.base.D2.draw2D import Draw2D
 from tests.base.D2.test_d2 import TestD2
 
 import numpy as np

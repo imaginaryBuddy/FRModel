@@ -16,6 +16,10 @@ ChangeLog
 - Fix autodoc issue
 - Add ``Draw2D`` for marking
 - Deprecate ``Channel2D`` and ``GLCM2D``
+- Remove files in ``rsc``
+- Implement ``KMeans2D``
+- Implement ``score`` -ing system to evaluate ``KMeans2D`` clustering performance.
+
 
 -----
 0.0.3

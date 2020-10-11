@@ -2,21 +2,30 @@
 Frame KMeans
 ############
 
-This is an in-built k-means using ``sklearn.cluster.KMeans`` and ``seaborn`` for plotting.
-
-The purpose of this is to quickly generate a kmeans run and plot the results.
-
-*It will be limiting on how you can modify, if you need more flexibility you can just copy the source code and modify.*
+As of ``0.0.4``, the API has been loosened to introduce more features.
 
 ========
-Clusters
+Creation
 ========
 
-The number of kmeans clusters to start off with
+This class can and should be created from ``Frame2D``, otherwise it might not work correctly.
 
-===========
+However, if it's absolutely needed,
+
+- ``model`` is a **fitted** ``KMeans`` instance.
+- ``data`` is a ``np.ndarray`` where it follows the **Channel Dimension** convention used.
+  This is to facilitate ``plot()`` to use the right axes.
+
+----------------
+KMeans Modelling
+----------------
+
+The API allows you to set up your own ``KMeans`` model object, hence most
+parameters such as ``clusters`` can be set-up outside ``frmodel`` pre-fitting.
+
+-----------
 Fit Indexes
-===========
+-----------
 
 The indexes to fit the kmeans to.
 
@@ -31,25 +40,23 @@ Will use the 2nd, 3rd, 4th channels to perform kmeans on.
 
 That is, the **Y-Axis, Hue and Saturation**.
 
-=============
+-------------
 Sample Weight
-=============
+-------------
 
-A numpy array to set the weight for each record
+A numpy array to set the weight for each record. Refer to ``KMeans.fit(sample_weight=)`` argument
 
-======
+------
 Scaler
-======
+------
 
-Scales the data before running kmeans
+Scales the data before running kmeans, must be a **Callable**
 
 ===============
 Figure Plotting
 ===============
 
-Set ``plot_figure == True`` to automatically let seaborn plot into the current figure.
-
-Grab the figure with ``plt.gcf``.
+``plot`` plots using ``seaborn.lmplot()``
 
 ----------
 XY Indexes
@@ -90,39 +97,93 @@ Implicitly, these will be called::
 
 So the Y Axis may seem inverted, because the coordinate system starts from the top left.
 
+=====
+Score
+=====
+
+To test out how well the clustering works, we can mimic **supervised learning**.
+
+We can have another image (Score Image) that shows the expected grouping of clusters,
+by simply filling another image with same dimensions with different gray-scales.
+
+We then pair the labelled KMeans and Score gray-scale labels to find out the
+maximum score attainable.
+
+For example::
+
+    [ORIGINAL]
+        KMEANS      SCORE    COUNT
+    [1] LABEL A <-> LABEL A  1000
+    [2] LABEL A <-> LABEL B  500
+    [3] LABEL B <-> LABEL A  2000
+    [4] LABEL B <-> LABEL B  4000
+
+If we wanted the highest score attainable, we look at the top values::
+
+    [SORTED BY COUNT]
+        KMEANS      SCORE    COUNT
+    [4] LABEL B <-> LABEL B  4000
+    [3] LABEL B <-> LABEL A  2000
+    [1] LABEL A <-> LABEL A  1000
+    [2] LABEL A <-> LABEL B  500
+
+If we picked ``[4]`` here, we cannot pick ``[3]`` to attain a maximum score,
+this is because ``KMEANS B`` is connected to ``SCORE B`` already, we need to find another.
+
+The only other connection available is ``A <-> A``::
+
+    .   KMEANS      SCORE    COUNT
+    [4] LABEL B <-> LABEL B  4000  [Accept]
+    [3] LABEL B <-> LABEL A  2000  [Visited KMEANS Label]
+    [1] LABEL A <-> LABEL A  1000  [Accept]
+    [2] LABEL A <-> LABEL B  500   [Loop Ended]
+
+Hence, the follow **pseudo-code** is used::
+
+    for kmeans_label, score_label, count in array:
+        if kmeans_label or score_label in visited:
+            continue
+        else:
+            visited.append(kmeans_label)
+            visited.append(score_label)
+            counts.append(count)
+
+----------
+Score File
+----------
+
+A Score File is any image with a deliberate discrete amount of gray-scale values that mark clusters.
+
+Any area which has the same gray-scale value is deemed to be one cluster.
+
+- Note that **anti-aliasing** can cause multiple unnecessary grayscale interpolated values.
+- Note to save it in a **lossless** format like ``png`` to avoid artifacts.
+
 =======
 Example
 =======
 
 .. code-block:: python
 
-    import matplotlib.pyplot as plt
+    from sklearn.cluster import KMeans
     from sklearn.preprocessing import minmax_scale
-    import seaborn as sns
 
-    from frmodel.base.D2.frame2D import Frame2D
-    f = Frame2D.from_image("rsc/imgs/test_img.jpg")
-
-    sns.set_palette(sns.color_palette("Blues"))
-
-    frame_xy = f.get_chns(xy=True, glcm_con=True, glcm_cor=True, glcm_ent=True,
-                          glcm_by_x=1, glcm_by_y=1, glcm_radius=25, glcm_verbose=True,
-                          glcm_entropy_mp=False, glcm_entropy_mp_procs=None)
+    from frmodel.base.D2 import Frame2D
 
 
-    frame_xy.kmeans(clusters=5,
-                    fit_indexes=[2,3,4,5,6,7,8,9,10],
-                    plot_figure=True,
-                    xy_indexes=(0, 1),
-                    verbose=True,
-                    scatter_size=0.4,
-                    scaler=minmax_scale)
+    f = Frame2D.from_image("path/to/file.png")
+    frame_xy = f.get_chns(xy=True, hsv=True, mex_g=True, ex_gr=True, ndi=True)
 
-    plt.gcf().set_size_inches(f.width() / 96 * 2, f.height() / 96 * 2)
-    plt.gcf().savefig('cluster.jpg', dpi=96)
+    km = frame_xy.kmeans(KMeans(n_clusters=3, verbose=False),
+                         fit_indexes=[2, 3, 4, 5, 6, 7],
+                         scaler=minmax_scale)
+
+    counts, score = km.score("path/to/score_file.png")
 
 ===========
 Module Info
 ===========
 
 .. automodule:: frmodel.base.D2.frame._frame_kmeans
+
+.. automodule:: frmodel.base.D2.kmeans2D
