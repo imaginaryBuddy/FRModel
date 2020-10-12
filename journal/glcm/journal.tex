@@ -74,13 +74,13 @@ $f(i, j, n_{i,j})$ is defined as the function that will occur on every $i, j$ pa
 GLCM generates itself by looking at a neighbour at a fixed offset. Instead of creating the GLCM right away, we can generate 2 arrays.
 
 \begin{enumerate}
-\item{Original Array}
-\item{Target Array}
+\item{Original Array $a$}
+\item{Target Array $b$}
 \end{enumerate}
 
 $a, b$ Represents the original and target matrices.
 
-Take a look at the section below for a visual.
+\textit{Doesn't matter which is called the original or target.}
 
 \subsection{Making Pairs}
 
@@ -163,10 +163,10 @@ $$\sum i$$
 \draw[step=1cm,gray,very thin] (0,0) grid (6,6);
 \filldraw[red!20!white, draw=black] (0,6) rectangle (3,3);
 \filldraw[red!30!white, draw=black] (3,4) rectangle (6,1);
-\node (A) at (1.5, 4.5) {A};
-\node (B) at (4.5, 2.5) {B};
+\node at (1.5, 4.5) {Y};
+\node at (4.5, 2.5) {Z};
 \end{tikzpicture}
-\caption{A and B Represents possible 3x3 windows}
+\caption{Y and Z Represents possible 3x3 windows}
 \label{Convolution Window Summation}
 \end{figure}
 
@@ -216,65 +216,132 @@ Using this 3x3 kernel, we can do a sliding window summation for all \textbf{vali
 \label{Convolution Window Result}
 \end{figure}
 
+A more detailed example utilizing this concept can be found in the section \textbf{Contrast} below.
+
+\newpage
 \section{Contrast}
 
 Contrast is defined as such
 
 $$\sum_{i=i_0,j=j_0}^{i=i,j=j}(i - j)^2*n_{i,j}$$
 
-Let's say we have the following data
+Let's say we have the following image data.
+We will do a 1-step diagonal GLCM.
 
-\begin{verbatim}
-[0, 1], [1, 0], [1, 1], [1, 0]
-\end{verbatim}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw[step=1cm,gray,very thin] (-4,0) grid (-1,3);
+\node at (-3.5, 0.5) {1};
+\node at (-3.5, 1.5) {0};
+\node at (-3.5, 2.5) {1};
+\node at (-2.5, 0.5) {0};
+\node at (-2.5, 1.5) {1};
+\node at (-2.5, 2.5) {1};
+\node at (-1.5, 0.5) {0};
+\node at (-1.5, 1.5) {1};
+\node at (-1.5, 2.5) {0};
 
-We generate the GLCM like so.
+\draw[step=1cm,gray,very thin] (0,0) grid (3,3);
+\draw[red, very thick] (1,1) rectangle (3,3);
+\draw[blue, very thick] (0,0) rectangle (2,2);
+\node at (0.5, 0.5) {1};
+\node at (0.5, 1.5) {0};
+\node at (0.5, 2.5) {1};
+\node at (1.5, 0.5) {0};
+\node at (1.5, 1.5) {1};
+\node at (1.5, 2.5) {1};
+\node at (2.5, 0.5) {0};
+\node at (2.5, 1.5) {1};
+\node at (2.5, 2.5) {0};
+
+\draw[step=1cm,gray,very thin] (4,0) grid (6,2);
+\draw[blue, very thick] (4,0) rectangle (6,2);
+\node at (4.5, 0.5) {1};
+\node at (4.5, 1.5) {0};
+\node at (5.5, 0.5) {0};
+\node at (5.5, 1.5) {1};
+
+\draw[step=1cm,gray,very thin] (7,0) grid (9,2);
+\draw[red, very thick] (7,0) rectangle (9,2);
+\node at (7.5, 0.5) {1};
+\node at (7.5, 1.5) {1};
+\node at (8.5, 0.5) {1};
+\node at (8.5, 1.5) {0};
+
+\draw [->] (-1,1.5) -> (0, 1.5);
+\draw (3,2.5) -> (8,2.5);
+
+\draw [->] (5,2.5) -> (5,2);
+\draw [->] (8,2.5) -> (8,2);
+
+\end{tikzpicture}
+\caption{Example GLCM Pair Making}
+\label{Example GLCM Pair Making}
+\end{figure}
+
+If we were to calculate the GLCM, it'll look something like this
 
 \begin{center}
 \begin{tabular}{ |c|c|c| } 
- \hline   & 0 & 1\\ 
- \hline 0 & 0 & 1\\ 
- \hline 1 & 2 & 1\\ 
+ \hline   & 0 & 1 \\ 
+ \hline 0 & 0 & 2 \\ 
+ \hline 1 & 1 & 1 \\ 
  \hline
 \end{tabular}
 \end{center} 
 
 \begin{align*}
 \sum(i - j)^2*n
-&= (0 - 1) ^ 2 + (1 - 0) ^ 2 * 2 + (1 - 1) ^ 2\\
-&= (0 - 1) ^ 2 + (1 - 0) ^ 2 + (1 - 0) ^ 2 + (1 - 1) ^ 2\\
+&= (0 - 1) ^ 2 * 2 + (1 - 0) ^ 2 + (1 - 1) ^ 2\\
+&= (0 - 1) ^ 2 + (0 - 1) ^ 2 + (1 - 0) ^ 2 + (1 - 1) ^ 2\\
 &= 3
 \end{align*}
 
 Notice how we expanded $n$, so we can vectorize it.
 
-Let's say we don't generate the GLCM, instead we have the data as so
+Let's say we don't generate the GLCM, instead we have the data as so, right after the \textbf{pair making}.
 
-\begin{center}
-\begin{tabular}{ |c|c| } 
- \hline i & j\\ 
- \hline 0 & 1\\ 
- \hline 1 & 0\\
- \hline 1 & 1\\ 
- \hline 1 & 0\\ 
- \hline
-\end{tabular}
-\end{center} 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
 
-We can \textbf{vectorize} it because $\sum$ is linear.
+\draw[step=1cm,gray,very thin] (0,0) grid (2,2);
+\draw[blue, very thick] (0,0) rectangle (2,2);
+\node at (0.5, 0.5) {1};
+\node at (0.5, 1.5) {0};
+\node at (1.5, 0.5) {0};
+\node at (1.5, 1.5) {1};
 
-\begin{center}
-\begin{tabular}{ |c|c|c| } 
- \hline i & j & $(i-j)^2$ \\
- \hline 0 & 1 & $(0-1)^2$ \\
- \hline 1 & 0 & $(1-0)^2$ \\
- \hline 1 & 1 & $(1-1)^2$ \\
- \hline 1 & 0 & $(1-0)^2$ \\
- \hline
- \hline   & $\sum$ & 3 \\
- \hline
-\end{tabular}
-\end{center} 
+\draw[step=1cm,gray,very thin] (3,0) grid (5,2);
+\draw[red, very thick] (3,0) rectangle (5,2);
+\node at (3.5, 0.5) {1};
+\node at (3.5, 1.5) {1};
+\node at (4.5, 0.5) {1};
+\node at (4.5, 1.5) {0};
+
+\draw[step=1cm,gray,very thin] (6,1) grid (10,2);
+\draw[blue, very thick] (6,1.01) rectangle (10,2);
+\node at (6.5, 1.5) {0};
+\node at (7.5, 1.5) {1};
+\node at (8.5, 1.5) {1};
+\node at (9.5, 1.5) {0};
+
+\draw[step=1cm,gray,very thin] (6,0) grid (10,1);
+\draw[red, very thick] (6,0) rectangle (10,0.99);
+\node at (6.5, 0.5) {1};
+\node at (7.5, 0.5) {0};
+\node at (8.5, 0.5) {1};
+\node at (9.5, 0.5) {1};
+
+\foreach \xa in {0, ..., 3} {
+	\draw [<->] (6.5 + \xa, 0.75) -- (6.5 + \xa, 1.25);
+}
+
+\end{tikzpicture}
+\caption{Flattening for Vectorization}
+\label{Flattening for Vectorization}
+\end{figure}
 
 \begin{align*}
 \sum(i - j)^2*n
@@ -282,6 +349,12 @@ We can \textbf{vectorize} it because $\sum$ is linear.
 &= 3
 \end{align*}
 
+As you can see, we managed to avoid GLCM entirely because of the 
+linear property of a summation.
+
+We will use the same idea for \textbf{Correlation} below.
+
+\newpage
 \section{Correlation}
 
 Correlation is defined as such
@@ -296,9 +369,35 @@ Where $\mu_x,\mu_y$ are defined as the mean of all $i$ and $j$ values respective
 
 $\sigma_x,\sigma_y$ are defined as the standard deviation of $i$ and $j$ values respectively.
 
-We run into a problem where the above 2 values are defined within a local window, hence we cannot treat them as a constant where \textbf{kernel size} is less than \textbf{image size}.
+To make this formula simpler and relevant for our \textbf{Making Pairs} method, we reword it as such
 
-Take for example:
+$$
+\sum_{w=w_0}^{w=w} \sum_{a=a_0,b=b_0}^{a=a,b=b}
+\frac{(a * b) - (\mu_a - \mu_b)}
+{\sigma_a * \sigma_b}
+$$
+
+In simpler terms
+
+\begin{verbatim}
+for a and b in each window pair:
+	(
+		sum all (a * b) cells
+		minus mean of a
+		plus mean of b # Note the sign!
+	)	
+	all divided by
+	(
+		standard deviation of a 
+		multiplied by standard deviation of b
+	)
+\end{verbatim}
+
+Notice how we need to calculate the mean and standard deviation
+\textbf{within} each window pair. This raises a problem where
+we need to \textbf{Convolute} within the \textbf{Window Convolution}. 
+
+This is referred to as the \textit{Inner Convolution}.
 
 \begin{figure}[H]
 \centering
@@ -306,11 +405,11 @@ Take for example:
 \draw[step=1cm,gray,very thin] (0,0) grid (5,5);
 \filldraw[red!20!white, draw=black] (0,5) rectangle (3,2);
 \filldraw[red!30!white, draw=black] (2,3) rectangle (5,0);
-\node (A) at (1.5, 3.5) {$\mu_{0,0}, \sigma_{0,0}$};
-\node (B) at (3.5, 1.5) {$\mu_{2,2}, \sigma_{2,2}$};
+\node at (1.5, 3.5) {$\mu_{0,0}, \sigma_{0,0}$};
+\node at (3.5, 1.5) {$\mu_{2,2}, \sigma_{2,2}$};
 \end{tikzpicture}
-\caption{Correlation Inner Convolution}
-\label{fig:label}
+\caption{Correlation Inner Convolution 3x3}
+\label{Correlation Inner Convolution 3x3}
 \end{figure}
 
 \subsection{Inner Convolution Mean}
@@ -330,8 +429,8 @@ Let's deal with $\mu$, the mean first.
 
 \filldraw[blue!20!white, draw=black] (6,5) rectangle (9,2);
 \filldraw[blue!20!white, draw=black] (0,5) rectangle (3,2);
-\node at (1.5, 3.5) {$\mu_{0,0,x}$};
-\node at (7.5, 3.5) {$\mu_{0,0,y}$};
+\node at (1.5, 3.5) {$\mu_{0,0,a}$};
+\node at (7.5, 3.5) {$\mu_{0,0,b}$};
 \end{tikzpicture}
 \caption{Correlation Inner Convolution Mean}
 \label{Correlation Inner Convolution Mean}
@@ -345,9 +444,11 @@ We'll look at $\sigma$, which causes a bit of an issue.
 
 The standard deviation function cannot be attached to the convolution \textbf{directly}. However, thankfully, we have an alternative formula.
 
+\textit{Note: We only depict a here}
+
 \begin{align*}
-Var    &= E(X^2) - E(X)^2 \\
-\sigma &= \sqrt{E(X^2) - E(X)^2}
+Var    &= E(A^2) - E(A)^2 \\
+\sigma &= \sqrt{E(A^2) - E(A)^2}
 \end{align*}
 
 \begin{figure}[H]
@@ -370,15 +471,15 @@ Var    &= E(X^2) - E(X)^2 \\
 
 \foreach \xa in {2, ..., 0} {
 	\foreach \ya in {0, ..., 2} {
-		\node at (\xa + 0.5, \ya + 4.5) {$x_{\xa, \ya}$};
-		\node at (\xa + 0.5, \ya + 0.5) {$x_{\xa, \ya}^2$};
+		\node at (\xa + 0.5, \ya + 4.5) {$a_{\xa, \ya}$};
+		\node at (\xa + 0.5, \ya + 0.5) {$a_{\xa, \ya}^2$};
 		\node at (\xa * 0.5 + 9, \ya * 0.5 + 0.25) {$1$};
 	}
 }
 
-\node at (5.5, 5.5) {$E(X)$};
-\node at (5.5, 1.5) {$E(X^2)$};
-\node at (9.5, 5.5) {$E(X)^2$};
+\node at (5.5, 5.5) {$E(A)$};
+\node at (5.5, 1.5) {$E(A^2)$};
+\node at (9.5, 5.5) {$E(A)^2$};
 \draw [->] (1.5, 4) -- (1.5, 3);
 \draw [->] (3, 1.5) -- (4, 1.5);
 \draw [->] (3, 5.5) -- (4, 5.5);
@@ -403,29 +504,30 @@ The rest of the steps are similar to \textbf{Contrast}, so I won't repeat it. Th
 \begin{python}
 kernel = np.ones(shape=[radius * 2 + 1, radius * 2 + 1, 1])
 
-conv_ij = fftconvolve(i * j, kernel, mode='valid')
+conv_ab = fftconvolve(a * b, kernel, mode='valid')
 
-# E(I) 
-conv_i = fftconvolve(i, kernel, mode='valid')
-conv_ie = conv_i / kernel.size
+# E(A) 
+conv_a = fftconvolve(ai, kernel, mode='valid')
+conv_ae = conv_a / kernel.size
 
-# E(I^2)
-conv_i2 = fftconvolve(i ** 2, kernel, mode='valid')
-conv_ie2 = conv_i2 / kernel.size
+# E(A^2)
+conv_a2 = fftconvolve(a ** 2, kernel, mode='valid')
+conv_ae2 = conv_i2 / kernel.size
 
-# E(I)^2
-conv_ie_2 = conv_ie ** 2
+# E(A)^2
+conv_ae_2 = conv_ae ** 2
 
-# Stdev(I)
-conv_stdi = np.sqrt(np.abs(conv_ie2 - conv_ie_2))
+# Stdev(A)
+conv_stda = np.sqrt(np.abs(conv_ae2 - conv_ae_2))
 
-cor = (conv_ij - (conv_ie - conv_je)) / conv_stdi * conv_stdj
+cor = (conv_ab - (conv_ae - conv_be)) / conv_stda * conv_stdb
 \end{python}
 
 \caption{Correlation Algorithm Summary. Self-explanatory variables are removed.}
 \label{Correlation Algorithm Summary}
 \end{figure}
 
+\newpage
 \section{Entropy}
 
 This is one of the statistics that is not possible to vectorize efficiently.
@@ -435,6 +537,8 @@ Entropy is defined as such
 $$\sum_{i=i_0,j=j_0}^{i=i,j=j} n^2$$
 
 In other words, every occurrence is squared, then summed. Due to the squaring on the occurrences, we cannot simplify it for convolution vectorization.
+
+Note that we'll use the GLCM convention $i, j$ here instead of $a, b$.
 
 \begin{figure}[H]
 \centering
