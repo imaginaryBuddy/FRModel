@@ -153,9 +153,7 @@ class _Frame2DChannelGLCM(ABC):
                           rgb_a: np.ndarray,
                           rgb_b: np.ndarray,
                           radius,
-                          verbose,
-                          multiprocessing,
-                          multiprocessing_procs=None,
+                          verbose
                           ) -> np.ndarray:
         """ Gets the entropy
 
@@ -163,8 +161,6 @@ class _Frame2DChannelGLCM(ABC):
         :param rgb_b: Offset ar B
         :param radius: Radius of window
         :param verbose: Whether to show progress of entropy
-        :param multiprocessing: Whether to enable multiprocessing
-        :param multiprocessing_procs: How many processes to run
         """
         # We make c = a + b * 256 (Notice 256 is the max val of RGB + 1).
         # The reason for this is so that we can represent (x, y) as a singular unique value.
@@ -208,6 +204,7 @@ class _Frame2DChannelGLCM(ABC):
                              rgb_a: np.ndarray,
                              rgb_b: np.ndarray,
                              radius,
+                             verbose
                              ) -> np.ndarray:
         """ Gets the entropy, uses the Cython entropy algorithm
 
@@ -217,78 +214,4 @@ class _Frame2DChannelGLCM(ABC):
         """
         rgb_c = rgb_a + rgb_b * (MAX_RGB + 1)
 
-        return cy_entropy(rgb_c.astype(np.uint16), radius)
-
-    #
-    # def _get_glcm_entropy_mp(self, cells, out, verbose, procs=None) -> np.ndarray:
-    #     """ Branched from glcm_entropy, for Multiprocessing
-    #
-    #     :param cells: Defined in glcm_entropy
-    #     :param out: The array to throw values into, defined in glcm_entropy
-    #     :param verbose: Whether to output progress
-    #     :param procs: Number of processes to run in the multiprocessing
-    #     """
-    #     p = Pool(procs) if procs else Pool()
-    #
-    #     for i, _ in enumerate(tqdm(p.imap_unordered(self._get_glcm_entropy_mp_loop, cells),
-    #                                total=len(cells), disable=not verbose)):
-    #         out[i, :, :] = _
-    #
-    #     return out
-    #
-    # @staticmethod
-    # def _get_glcm_entropy_mp_loop(row):
-    #     """ This is a top-level method for pickling in multiprocessing """
-    #     out = np.zeros(shape=[row.shape[0], row.shape[-1]])
-    #
-    #     for i, cell in enumerate(row):
-    #         # We flatten the x and y axis first.
-    #         c = cell.reshape([-1, cell.shape[-1]])
-    #
-    #         """ Entropy is complicated.
-    #
-    #         Problem with unique is that it cannot unique on a certain axis as expected here,
-    #         it's because of staggering dimension size, so we have to loop with a list comp.
-    #
-    #         We swap axis because we want to loop on the channel instead of the c value.
-    #
-    #         We call bincount to get call occurrences and square them.
-    #
-    #         Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
-    #         """
-    #
-    #         out[i, :] = [np.sum(np.bincount(g) ** 2) for g in c.swapaxes(0, 1)]
-    #
-    #     return out
-
-    """ COO Method, (deprecated)
-        def _get_glcm_entropy2(self,
-                              rgb_a: np.ndarray,
-                              rgb_b: np.ndarray,
-                              radius,
-                              verbose) -> np.ndarray:
-            "Uses the COO Matrix to calculate Entropy, slightly slower."
-    
-            w_a = self.init(rgb_a).slide_xy(by=radius * 2 + 1, stride=1)
-            w_b = self.init(rgb_b).slide_xy(by=radius * 2 + 1, stride=1)
-    
-            out = np.zeros((rgb_a.shape[0] - radius * 2,
-                            rgb_a.shape[1] - radius * 2,
-                            3))  # RGB * Channel count
-    
-            for col, (_a, _b) in enumerate(zip(w_a, w_b)):
-                if verbose: print(f"GLCM Entropy: {col} / {len(w_a)}")
-                for row, (ca, cb) in enumerate(zip(_a, _b)):
-                    # We flatten the x and y axis first.
-                    ca = ca.data.reshape([-1, ca.shape[-1]])
-                    cb = cb.data.reshape([-1, cb.shape[-1]])
-                    cd = np.ones(ca.shape[0])
-    
-                    coo_r = coo_matrix((cd, (ca[..., 0], cb[..., 0])), shape=(MAX_RGB, MAX_RGB)).tocsr(copy=False).power(2).sum()
-                    coo_g = coo_matrix((cd, (ca[..., 1], cb[..., 1])), shape=(MAX_RGB, MAX_RGB)).tocsr(copy=False).power(2).sum()
-                    coo_b = coo_matrix((cd, (ca[..., 2], cb[..., 2])), shape=(MAX_RGB, MAX_RGB)).tocsr(copy=False).power(2).sum()
-    
-                    out[row, col, :] = [coo_r, coo_g, coo_b]
-    
-            return out
-    """
+        return cy_entropy(rgb_c.astype(np.uint16), radius, verbose)
