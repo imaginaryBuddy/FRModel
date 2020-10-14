@@ -899,6 +899,13 @@ typedef struct {
   char is_valid_array;
 } __Pyx_BufFmt_Context;
 
+/* NoFastGil.proto */
+#define __Pyx_PyGILState_Ensure PyGILState_Ensure
+#define __Pyx_PyGILState_Release PyGILState_Release
+#define __Pyx_FastGIL_Remember()
+#define __Pyx_FastGIL_Forget()
+#define __Pyx_FastGilFuncInit()
+
 /* MemviewSliceStruct.proto */
 struct __pyx_memoryview_obj;
 typedef struct {
@@ -963,13 +970,6 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
 #ifndef __PYX_FORCE_INIT_THREADS
   #define __PYX_FORCE_INIT_THREADS 0
 #endif
-
-/* NoFastGil.proto */
-#define __Pyx_PyGILState_Ensure PyGILState_Ensure
-#define __Pyx_PyGILState_Release PyGILState_Release
-#define __Pyx_FastGIL_Remember()
-#define __Pyx_FastGIL_Forget()
-#define __Pyx_FastGilFuncInit()
 
 
 /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":697
@@ -1164,20 +1164,20 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":4
  * cimport numpy as np
  * cimport cython
- * ctypedef np.npy_uint16 DTYPE_t             # <<<<<<<<<<<<<<
- * ctypedef np.npy_uint32 DTYPE_t32
- * from tqdm import tqdm
+ * ctypedef np.uint16_t DTYPE_t16             # <<<<<<<<<<<<<<
+ * ctypedef np.uint32_t DTYPE_t32
+ * from cython.parallel cimport prange
  */
-typedef npy_uint16 __pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t;
+typedef __pyx_t_5numpy_uint16_t __pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16;
 
 /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":5
  * cimport cython
- * ctypedef np.npy_uint16 DTYPE_t
- * ctypedef np.npy_uint32 DTYPE_t32             # <<<<<<<<<<<<<<
+ * ctypedef np.uint16_t DTYPE_t16
+ * ctypedef np.uint32_t DTYPE_t32             # <<<<<<<<<<<<<<
+ * from cython.parallel cimport prange
  * from tqdm import tqdm
- * 
  */
-typedef npy_uint32 __pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t32;
+typedef __pyx_t_5numpy_uint32_t __pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t32;
 /* Declarations.proto */
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -1537,9 +1537,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 #define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
-/* ExtTypeTest.proto */
-static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
-
 /* PyCFunctionFastCall.proto */
 #if CYTHON_FAST_PYCCALL
 static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
@@ -1659,6 +1656,9 @@ static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index);
 
 /* RaiseNoneIterError.proto */
 static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void);
+
+/* ExtTypeTest.proto */
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
@@ -2121,7 +2121,7 @@ static struct __pyx_typeinfo_string __Pyx_TypeInfoToFormat(__Pyx_TypeInfo *type)
 static CYTHON_INLINE unsigned int __Pyx_PyInt_As_unsigned_int(PyObject *);
 
 /* CIntFromPy.proto */
-static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *);
+static CYTHON_INLINE short __Pyx_PyInt_As_short(PyObject *);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
@@ -2150,10 +2150,10 @@ static int __Pyx_ValidateAndInit_memviewslice(
                 PyObject *original_obj);
 
 /* ObjectToMemviewSlice.proto */
-static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t(PyObject *, int writable_flag);
+static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16(PyObject *, int writable_flag);
 
 /* ObjectToMemviewSlice.proto */
-static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_unsigned_int(PyObject *, int writable_flag);
+static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_5numpy_uint32_t(PyObject *, int writable_flag);
 
 /* ObjectToMemviewSlice.proto */
 static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_short(PyObject *, int writable_flag);
@@ -2255,10 +2255,9 @@ static void __pyx_memoryview_slice_assign_scalar(__Pyx_memviewslice *, int, size
 static void __pyx_memoryview__slice_assign_scalar(char *, Py_ssize_t *, Py_ssize_t *, int, size_t, void *); /*proto*/
 static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *, PyObject *); /*proto*/
 static PyObject *__pyx_format_from_typeinfo(__Pyx_TypeInfo *); /*proto*/
-static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t = { "DTYPE_t", NULL, sizeof(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t), 0 };
-static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t32 = { "DTYPE_t32", NULL, sizeof(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t32), { 0 }, 0, IS_UNSIGNED(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t32) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t32), 0 };
+static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16 = { "DTYPE_t16", NULL, sizeof(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16), { 0 }, 0, IS_UNSIGNED(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_unsigned_short = { "unsigned short", NULL, sizeof(unsigned short), { 0 }, 0, IS_UNSIGNED(unsigned short) ? 'U' : 'I', IS_UNSIGNED(unsigned short), 0 };
-static __Pyx_TypeInfo __Pyx_TypeInfo_unsigned_int = { "unsigned int", NULL, sizeof(unsigned int), { 0 }, 0, IS_UNSIGNED(unsigned int) ? 'U' : 'I', IS_UNSIGNED(unsigned int), 0 };
+static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_uint32_t = { "uint32_t", NULL, sizeof(__pyx_t_5numpy_uint32_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_5numpy_uint32_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_5numpy_uint32_t), 0 };
 #define __Pyx_MODULE_NAME "src.frmodel.base.D2.frame._cy_entropy"
 extern int __pyx_module_is_main_src__frmodel__base__D2__frame___cy_entropy;
 int __pyx_module_is_main_src__frmodel__base__D2__frame___cy_entropy = 0;
@@ -2629,10 +2628,10 @@ static PyObject *__pyx_codeobj__30;
 static PyObject *__pyx_codeobj__37;
 /* Late includes */
 
-/* "src/frmodel/base/D2/frame/_cy_entropy.pyx":10
+/* "src/frmodel/base/D2/frame/_cy_entropy.pyx":11
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,             # <<<<<<<<<<<<<<
+ * def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,             # <<<<<<<<<<<<<<
  *                unsigned int radius,
  *                bint verbose):
  */
@@ -2676,17 +2675,17 @@ static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entro
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_radius)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cy_entropy", 1, 3, 3, 1); __PYX_ERR(0, 10, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cy_entropy", 1, 3, 3, 1); __PYX_ERR(0, 11, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_verbose)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cy_entropy", 1, 3, 3, 2); __PYX_ERR(0, 10, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("cy_entropy", 1, 3, 3, 2); __PYX_ERR(0, 11, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cy_entropy") < 0)) __PYX_ERR(0, 10, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cy_entropy") < 0)) __PYX_ERR(0, 11, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -2696,18 +2695,18 @@ static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entro
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_c = ((PyArrayObject *)values[0]);
-    __pyx_v_radius = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_radius == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 11, __pyx_L3_error)
-    __pyx_v_verbose = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_verbose == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L3_error)
+    __pyx_v_radius = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_radius == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L3_error)
+    __pyx_v_verbose = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_verbose == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 13, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("cy_entropy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 10, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("cy_entropy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 11, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("src.frmodel.base.D2.frame._cy_entropy.cy_entropy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c), __pyx_ptype_5numpy_ndarray, 1, "c", 0))) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c), __pyx_ptype_5numpy_ndarray, 1, "c", 0))) __PYX_ERR(0, 11, __pyx_L1_error)
   __pyx_r = __pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy(__pyx_self, __pyx_v_c, __pyx_v_radius, __pyx_v_verbose);
 
   /* function exit code */
@@ -2724,26 +2723,24 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   unsigned short __pyx_v_w_size;
   unsigned short __pyx_v_wi_rows;
   unsigned short __pyx_v_wi_cols;
-  size_t __pyx_v_wi_r;
-  size_t __pyx_v_wi_c;
+  short __pyx_v_wi_r;
+  short __pyx_v_wi_c;
   CYTHON_UNUSED unsigned int __pyx_v_w_rows;
   CYTHON_UNUSED unsigned int __pyx_v_w_cols;
-  size_t __pyx_v_w_r;
-  size_t __pyx_v_w_c;
+  short __pyx_v_w_r;
+  short __pyx_v_w_c;
   unsigned char __pyx_v_w_channels;
-  size_t __pyx_v_w_ch;
-  PyArrayObject *__pyx_v_entropy_ar = 0;
+  char __pyx_v_w_ch;
+  PyObject *__pyx_v_entropy_ar = NULL;
   __Pyx_memviewslice __pyx_v_entropy_view = { 0, 0, { 0 }, { 0 }, { 0 } };
-  unsigned short __pyx_v_glcm_size;
+  CYTHON_UNUSED int __pyx_v_glcm_size;
   unsigned short __pyx_v_glcm[0x10000];
   __Pyx_memviewslice __pyx_v_glcm_view = { 0, 0, { 0 }, { 0 }, { 0 } };
-  size_t __pyx_v_glcm_i;
+  int __pyx_v_glcm_i;
   unsigned int __pyx_v_entropy;
   unsigned char __pyx_v_entropy_power;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_c;
   __Pyx_Buffer __pyx_pybuffer_c;
-  __Pyx_LocalBuf_ND __pyx_pybuffernd_entropy_ar;
-  __Pyx_Buffer __pyx_pybuffer_entropy_ar;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_memviewslice __pyx_t_1 = { 0, 0, { 0 }, { 0 }, { 0 } };
@@ -2752,60 +2749,59 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
-  PyArrayObject *__pyx_t_7 = NULL;
-  __Pyx_memviewslice __pyx_t_8 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  struct __pyx_array_obj *__pyx_t_9 = NULL;
-  __Pyx_memviewslice __pyx_t_10 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  Py_ssize_t __pyx_t_11;
-  PyObject *(*__pyx_t_12)(PyObject *);
-  size_t __pyx_t_13;
+  __Pyx_memviewslice __pyx_t_7 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  struct __pyx_array_obj *__pyx_t_8 = NULL;
+  __Pyx_memviewslice __pyx_t_9 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  Py_ssize_t __pyx_t_10;
+  PyObject *(*__pyx_t_11)(PyObject *);
+  short __pyx_t_12;
+  unsigned short __pyx_t_13;
   unsigned short __pyx_t_14;
   unsigned short __pyx_t_15;
   unsigned char __pyx_t_16;
   unsigned char __pyx_t_17;
-  size_t __pyx_t_18;
+  unsigned char __pyx_t_18;
   unsigned short __pyx_t_19;
   unsigned short __pyx_t_20;
-  size_t __pyx_t_21;
+  unsigned short __pyx_t_21;
   unsigned short __pyx_t_22;
   unsigned short __pyx_t_23;
-  size_t __pyx_t_24;
-  size_t __pyx_t_25;
-  size_t __pyx_t_26;
-  size_t __pyx_t_27;
-  size_t __pyx_t_28;
+  unsigned short __pyx_t_24;
+  Py_ssize_t __pyx_t_25;
+  Py_ssize_t __pyx_t_26;
+  Py_ssize_t __pyx_t_27;
+  Py_ssize_t __pyx_t_28;
+  int __pyx_t_29;
+  int __pyx_t_30;
+  int __pyx_t_31;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cy_entropy", 0);
-  __pyx_pybuffer_entropy_ar.pybuffer.buf = NULL;
-  __pyx_pybuffer_entropy_ar.refcount = 0;
-  __pyx_pybuffernd_entropy_ar.data = NULL;
-  __pyx_pybuffernd_entropy_ar.rcbuffer = &__pyx_pybuffer_entropy_ar;
   __pyx_pybuffer_c.pybuffer.buf = NULL;
   __pyx_pybuffer_c.refcount = 0;
   __pyx_pybuffernd_c.data = NULL;
   __pyx_pybuffernd_c.rcbuffer = &__pyx_pybuffer_c;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c.rcbuffer->pybuffer, (PyObject*)__pyx_v_c, &__Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) __PYX_ERR(0, 10, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c.rcbuffer->pybuffer, (PyObject*)__pyx_v_c, &__Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) __PYX_ERR(0, 11, __pyx_L1_error)
   }
   __pyx_pybuffernd_c.diminfo[0].strides = __pyx_pybuffernd_c.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_c.diminfo[0].shape = __pyx_pybuffernd_c.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_c.diminfo[1].strides = __pyx_pybuffernd_c.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_c.diminfo[1].shape = __pyx_pybuffernd_c.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_c.diminfo[2].strides = __pyx_pybuffernd_c.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_c.diminfo[2].shape = __pyx_pybuffernd_c.rcbuffer->pybuffer.shape[2];
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":46
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":47
  *     # This is the explicit number of rows and columns the window has
  * 
- *     cdef DTYPE_t [:, :, :] c_view = c             # <<<<<<<<<<<<<<
+ *     cdef DTYPE_t16 [:, :, :] c_view = c             # <<<<<<<<<<<<<<
  * 
  *     cdef unsigned short w_size = radius * 2 + 1
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t(((PyObject *)__pyx_v_c), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16(((PyObject *)__pyx_v_c), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 47, __pyx_L1_error)
   __pyx_v_c_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":48
- *     cdef DTYPE_t [:, :, :] c_view = c
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":49
+ *     cdef DTYPE_t16 [:, :, :] c_view = c
  * 
  *     cdef unsigned short w_size = radius * 2 + 1             # <<<<<<<<<<<<<<
  *     cdef unsigned short wi_rows = (<unsigned int> c.shape[0]) - w_size + 1
@@ -2813,99 +2809,99 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_w_size = ((__pyx_v_radius * 2) + 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":49
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":50
  * 
  *     cdef unsigned short w_size = radius * 2 + 1
  *     cdef unsigned short wi_rows = (<unsigned int> c.shape[0]) - w_size + 1             # <<<<<<<<<<<<<<
  *     cdef unsigned short wi_cols = (<unsigned int> c.shape[1]) - w_size + 1
- *     cdef size_t wi_r = 0, wi_c = 0
+ *     cdef short wi_r = 0, wi_c = 0
  */
   __pyx_v_wi_rows = ((((unsigned int)(__pyx_v_c->dimensions[0])) - __pyx_v_w_size) + 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":50
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":51
  *     cdef unsigned short w_size = radius * 2 + 1
  *     cdef unsigned short wi_rows = (<unsigned int> c.shape[0]) - w_size + 1
  *     cdef unsigned short wi_cols = (<unsigned int> c.shape[1]) - w_size + 1             # <<<<<<<<<<<<<<
- *     cdef size_t wi_r = 0, wi_c = 0
+ *     cdef short wi_r = 0, wi_c = 0
  * 
  */
   __pyx_v_wi_cols = ((((unsigned int)(__pyx_v_c->dimensions[1])) - __pyx_v_w_size) + 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":51
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":52
  *     cdef unsigned short wi_rows = (<unsigned int> c.shape[0]) - w_size + 1
  *     cdef unsigned short wi_cols = (<unsigned int> c.shape[1]) - w_size + 1
- *     cdef size_t wi_r = 0, wi_c = 0             # <<<<<<<<<<<<<<
+ *     cdef short wi_r = 0, wi_c = 0             # <<<<<<<<<<<<<<
  * 
  *     cdef unsigned int w_rows = (<unsigned int> c.shape[0]) - w_size - 1
  */
   __pyx_v_wi_r = 0;
   __pyx_v_wi_c = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":53
- *     cdef size_t wi_r = 0, wi_c = 0
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":54
+ *     cdef short wi_r = 0, wi_c = 0
  * 
  *     cdef unsigned int w_rows = (<unsigned int> c.shape[0]) - w_size - 1             # <<<<<<<<<<<<<<
  *     cdef unsigned int w_cols = (<unsigned int> c.shape[1]) - w_size - 1
- *     cdef size_t w_r = 0, w_c = 0
+ *     cdef short w_r = 0, w_c = 0
  */
   __pyx_v_w_rows = ((((unsigned int)(__pyx_v_c->dimensions[0])) - __pyx_v_w_size) - 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":54
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":55
  * 
  *     cdef unsigned int w_rows = (<unsigned int> c.shape[0]) - w_size - 1
  *     cdef unsigned int w_cols = (<unsigned int> c.shape[1]) - w_size - 1             # <<<<<<<<<<<<<<
- *     cdef size_t w_r = 0, w_c = 0
+ *     cdef short w_r = 0, w_c = 0
  * 
  */
   __pyx_v_w_cols = ((((unsigned int)(__pyx_v_c->dimensions[1])) - __pyx_v_w_size) - 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":55
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":56
  *     cdef unsigned int w_rows = (<unsigned int> c.shape[0]) - w_size - 1
  *     cdef unsigned int w_cols = (<unsigned int> c.shape[1]) - w_size - 1
- *     cdef size_t w_r = 0, w_c = 0             # <<<<<<<<<<<<<<
+ *     cdef short w_r = 0, w_c = 0             # <<<<<<<<<<<<<<
  * 
  *     cdef unsigned char w_channels = <char>c.shape[2]
  */
   __pyx_v_w_r = 0;
   __pyx_v_w_c = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":57
- *     cdef size_t w_r = 0, w_c = 0
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":58
+ *     cdef short w_r = 0, w_c = 0
  * 
  *     cdef unsigned char w_channels = <char>c.shape[2]             # <<<<<<<<<<<<<<
- *     cdef size_t w_ch = 0
+ *     cdef char w_ch = 0
  * 
  */
   __pyx_v_w_channels = ((char)(__pyx_v_c->dimensions[2]));
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":58
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":59
  * 
  *     cdef unsigned char w_channels = <char>c.shape[2]
- *     cdef size_t w_ch = 0             # <<<<<<<<<<<<<<
+ *     cdef char w_ch = 0             # <<<<<<<<<<<<<<
  * 
- *     cdef np.ndarray[DTYPE_t32, ndim=3] entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
+ *     entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
  */
   __pyx_v_w_ch = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":60
- *     cdef size_t w_ch = 0
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":61
+ *     cdef char w_ch = 0
  * 
- *     cdef np.ndarray[DTYPE_t32, ndim=3] entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)             # <<<<<<<<<<<<<<
- *     cdef unsigned int[:, :, :] entropy_view = entropy_ar
- * 
+ *     entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)             # <<<<<<<<<<<<<<
+ *     cdef np.uint32_t[:, :, :] entropy_view = entropy_ar
+ *     entropy_view[:, :, :] = 0
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_unsigned_short(__pyx_v_wi_rows); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_short(__pyx_v_wi_rows); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_short(__pyx_v_wi_cols); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_short(__pyx_v_wi_cols); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyInt_From_unsigned_char(__pyx_v_w_channels); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_unsigned_char(__pyx_v_w_channels); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = PyList_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_6 = PyList_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_2);
   PyList_SET_ITEM(__pyx_t_6, 0, __pyx_t_2);
@@ -2916,93 +2912,120 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   __pyx_t_2 = 0;
   __pyx_t_4 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6);
   __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint32); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint32); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_2) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_2) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 60, __pyx_L1_error)
-  __pyx_t_7 = ((PyArrayObject *)__pyx_t_2);
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t32, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) {
-      __pyx_v_entropy_ar = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 60, __pyx_L1_error)
-    } else {__pyx_pybuffernd_entropy_ar.diminfo[0].strides = __pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_entropy_ar.diminfo[0].shape = __pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_entropy_ar.diminfo[1].strides = __pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_entropy_ar.diminfo[1].shape = __pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_entropy_ar.diminfo[2].strides = __pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_entropy_ar.diminfo[2].shape = __pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer.shape[2];
-    }
-  }
-  __pyx_t_7 = 0;
-  __pyx_v_entropy_ar = ((PyArrayObject *)__pyx_t_2);
+  __pyx_v_entropy_ar = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":61
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":62
  * 
- *     cdef np.ndarray[DTYPE_t32, ndim=3] entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
- *     cdef unsigned int[:, :, :] entropy_view = entropy_ar             # <<<<<<<<<<<<<<
+ *     entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
+ *     cdef np.uint32_t[:, :, :] entropy_view = entropy_ar             # <<<<<<<<<<<<<<
+ *     entropy_view[:, :, :] = 0
  * 
- *     cdef unsigned short glcm_size = <unsigned short>65536
  */
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_unsigned_int(((PyObject *)__pyx_v_entropy_ar), PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 61, __pyx_L1_error)
-  __pyx_v_entropy_view = __pyx_t_8;
-  __pyx_t_8.memview = NULL;
-  __pyx_t_8.data = NULL;
+  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_5numpy_uint32_t(__pyx_v_entropy_ar, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_v_entropy_view = __pyx_t_7;
+  __pyx_t_7.memview = NULL;
+  __pyx_t_7.data = NULL;
 
   /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":63
- *     cdef unsigned int[:, :, :] entropy_view = entropy_ar
+ *     entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
+ *     cdef np.uint32_t[:, :, :] entropy_view = entropy_ar
+ *     entropy_view[:, :, :] = 0             # <<<<<<<<<<<<<<
  * 
- *     cdef unsigned short glcm_size = <unsigned short>65536             # <<<<<<<<<<<<<<
- *     cdef unsigned short glcm[65536]
- *     cdef unsigned short [:] glcm_view = glcm
+ *     cdef int glcm_size = <unsigned int>65536
  */
-  __pyx_v_glcm_size = ((unsigned short)0x10000);
+  {
+      __pyx_t_5numpy_uint32_t __pyx_temp_scalar = 0;
+      {
+          Py_ssize_t __pyx_temp_extent_0 = __pyx_v_entropy_view.shape[0];
+          Py_ssize_t __pyx_temp_stride_0 = __pyx_v_entropy_view.strides[0];
+          char *__pyx_temp_pointer_0;
+          Py_ssize_t __pyx_temp_idx_0;
+          Py_ssize_t __pyx_temp_extent_1 = __pyx_v_entropy_view.shape[1];
+          Py_ssize_t __pyx_temp_stride_1 = __pyx_v_entropy_view.strides[1];
+          char *__pyx_temp_pointer_1;
+          Py_ssize_t __pyx_temp_idx_1;
+          Py_ssize_t __pyx_temp_extent_2 = __pyx_v_entropy_view.shape[2];
+          Py_ssize_t __pyx_temp_stride_2 = __pyx_v_entropy_view.strides[2];
+          char *__pyx_temp_pointer_2;
+          Py_ssize_t __pyx_temp_idx_2;
+          __pyx_temp_pointer_0 = __pyx_v_entropy_view.data;
+          for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 < __pyx_temp_extent_0; __pyx_temp_idx_0++) {
+            __pyx_temp_pointer_1 = __pyx_temp_pointer_0;
+            for (__pyx_temp_idx_1 = 0; __pyx_temp_idx_1 < __pyx_temp_extent_1; __pyx_temp_idx_1++) {
+              __pyx_temp_pointer_2 = __pyx_temp_pointer_1;
+              for (__pyx_temp_idx_2 = 0; __pyx_temp_idx_2 < __pyx_temp_extent_2; __pyx_temp_idx_2++) {
+                *((__pyx_t_5numpy_uint32_t *) __pyx_temp_pointer_2) = __pyx_temp_scalar;
+                __pyx_temp_pointer_2 += __pyx_temp_stride_2;
+              }
+              __pyx_temp_pointer_1 += __pyx_temp_stride_1;
+            }
+            __pyx_temp_pointer_0 += __pyx_temp_stride_0;
+          }
+      }
+  }
 
   /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":65
- *     cdef unsigned short glcm_size = <unsigned short>65536
- *     cdef unsigned short glcm[65536]
- *     cdef unsigned short [:] glcm_view = glcm             # <<<<<<<<<<<<<<
- *     cdef size_t glcm_i = 0
+ *     entropy_view[:, :, :] = 0
  * 
- */
-  __pyx_t_6 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_unsigned_short); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)0x10000)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_9 = __pyx_array_new(__pyx_t_2, sizeof(unsigned short), PyBytes_AS_STRING(__pyx_t_6), (char *) "fortran", (char *) __pyx_v_glcm);
-  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_9);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_short(((PyObject *)__pyx_t_9), PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_DECREF(((PyObject *)__pyx_t_9)); __pyx_t_9 = 0;
-  __pyx_v_glcm_view = __pyx_t_10;
-  __pyx_t_10.memview = NULL;
-  __pyx_t_10.data = NULL;
-
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":66
+ *     cdef int glcm_size = <unsigned int>65536             # <<<<<<<<<<<<<<
  *     cdef unsigned short glcm[65536]
  *     cdef unsigned short [:] glcm_view = glcm
- *     cdef size_t glcm_i = 0             # <<<<<<<<<<<<<<
+ */
+  __pyx_v_glcm_size = ((unsigned int)0x10000);
+
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":67
+ *     cdef int glcm_size = <unsigned int>65536
+ *     cdef unsigned short glcm[65536]
+ *     cdef unsigned short [:] glcm_view = glcm             # <<<<<<<<<<<<<<
+ *     cdef int glcm_i = 0
+ * 
+ */
+  __pyx_t_6 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_unsigned_short); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_2 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)0x10000)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_8 = __pyx_array_new(__pyx_t_2, sizeof(unsigned short), PyBytes_AS_STRING(__pyx_t_6), (char *) "fortran", (char *) __pyx_v_glcm);
+  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_short(((PyObject *)__pyx_t_8), PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __Pyx_DECREF(((PyObject *)__pyx_t_8)); __pyx_t_8 = 0;
+  __pyx_v_glcm_view = __pyx_t_9;
+  __pyx_t_9.memview = NULL;
+  __pyx_t_9.data = NULL;
+
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":68
+ *     cdef unsigned short glcm[65536]
+ *     cdef unsigned short [:] glcm_view = glcm
+ *     cdef int glcm_i = 0             # <<<<<<<<<<<<<<
  * 
  *     cdef unsigned int entropy = 0
  */
   __pyx_v_glcm_i = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":68
- *     cdef size_t glcm_i = 0
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":70
+ *     cdef int glcm_i = 0
  * 
  *     cdef unsigned int entropy = 0             # <<<<<<<<<<<<<<
  *     cdef unsigned char entropy_power = 2
@@ -3010,7 +3033,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_entropy = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":69
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":71
  * 
  *     cdef unsigned int entropy = 0
  *     cdef unsigned char entropy_power = 2             # <<<<<<<<<<<<<<
@@ -3019,236 +3042,368 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_entropy_power = 2;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":76
- *     #       In that window, we then loop through the array and square sum
- *     #       We slot this value into the corresponding cell in entropy_ar
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":82
+ *     # prange will not work if there are any Python objects within
+ *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):             # <<<<<<<<<<<<<<
- *         for wi_c in range(wi_cols):
+ *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
  *             # Slide through possible window top lefts
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyInt_From_unsigned_short(__pyx_v_wi_rows); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_short(__pyx_v_wi_rows); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_5);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_disable, __pyx_t_3) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_disable, __pyx_t_3) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_desc, __pyx_kp_s_Entropy_Progress) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_desc, __pyx_kp_s_Entropy_Progress) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
-    __pyx_t_5 = __pyx_t_3; __Pyx_INCREF(__pyx_t_5); __pyx_t_11 = 0;
-    __pyx_t_12 = NULL;
+    __pyx_t_5 = __pyx_t_3; __Pyx_INCREF(__pyx_t_5); __pyx_t_10 = 0;
+    __pyx_t_11 = NULL;
   } else {
-    __pyx_t_11 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __pyx_t_10 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_12 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __pyx_t_11 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 82, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   for (;;) {
-    if (likely(!__pyx_t_12)) {
+    if (likely(!__pyx_t_11)) {
       if (likely(PyList_CheckExact(__pyx_t_5))) {
-        if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_5)) break;
+        if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_5)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 82, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_5, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_5, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       } else {
-        if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
+        if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 82, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_5, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_5, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       }
     } else {
-      __pyx_t_3 = __pyx_t_12(__pyx_t_5);
+      __pyx_t_3 = __pyx_t_11(__pyx_t_5);
       if (unlikely(!__pyx_t_3)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 76, __pyx_L1_error)
+          else __PYX_ERR(0, 82, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_3);
     }
-    __pyx_t_13 = __Pyx_PyInt_As_size_t(__pyx_t_3); if (unlikely((__pyx_t_13 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyInt_As_short(__pyx_t_3); if (unlikely((__pyx_t_12 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_v_wi_r = __pyx_t_13;
+    __pyx_v_wi_r = __pyx_t_12;
 
-    /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":77
- *     #       We slot this value into the corresponding cell in entropy_ar
+    /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":83
+ *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
- *         for wi_c in range(wi_cols):             # <<<<<<<<<<<<<<
+ *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
  *             # Slide through possible window top lefts
  *             glcm_view[:] = 0
  */
-    __pyx_t_14 = __pyx_v_wi_cols;
-    __pyx_t_15 = __pyx_t_14;
-    for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_15; __pyx_t_13+=1) {
-      __pyx_v_wi_c = __pyx_t_13;
+    {
+        #ifdef WITH_THREAD
+        PyThreadState *_save;
+        Py_UNBLOCK_THREADS
+        __Pyx_FastGIL_Remember();
+        #endif
+        /*try:*/ {
+          __pyx_t_13 = __pyx_v_wi_cols;
+          if ((1 == 0)) abort();
+          {
+              #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
+                  #undef likely
+                  #undef unlikely
+                  #define likely(x)   (x)
+                  #define unlikely(x) (x)
+              #endif
+              __pyx_t_15 = (__pyx_t_13 - 0 + 1 - 1/abs(1)) / 1;
+              if (__pyx_t_15 > 0)
+              {
+                  #ifdef _OPENMP
+                  #pragma omp parallel private(__pyx_t_16, __pyx_t_17, __pyx_t_18, __pyx_t_19, __pyx_t_20, __pyx_t_21, __pyx_t_22, __pyx_t_23, __pyx_t_24, __pyx_t_25, __pyx_t_26, __pyx_t_27, __pyx_t_28, __pyx_t_29, __pyx_t_30, __pyx_t_31)
+                  #endif /* _OPENMP */
+                  {
+                      #ifdef _OPENMP
+                      #pragma omp for lastprivate(__pyx_v_entropy) lastprivate(__pyx_v_glcm_i) lastprivate(__pyx_v_w_c) lastprivate(__pyx_v_w_ch) lastprivate(__pyx_v_w_r) firstprivate(__pyx_v_wi_c) lastprivate(__pyx_v_wi_c) schedule(dynamic)
+                      #endif /* _OPENMP */
+                      for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_15; __pyx_t_14++){
+                          {
+                              __pyx_v_wi_c = (short)(0 + 1 * __pyx_t_14);
+                              /* Initialize private variables to invalid values */
+                              __pyx_v_entropy = ((unsigned int)0xbad0bad0);
+                              __pyx_v_glcm_i = ((int)0xbad0bad0);
+                              __pyx_v_w_c = ((short)0xbad0bad0);
+                              __pyx_v_w_ch = ((char)'?');
+                              __pyx_v_w_r = ((short)0xbad0bad0);
 
-      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":79
- *         for wi_c in range(wi_cols):
+                              /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":85
+ *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
  *             # Slide through possible window top lefts
  *             glcm_view[:] = 0             # <<<<<<<<<<<<<<
  * 
- *             for w_ch in range(w_channels):
+ *             for w_ch in prange(w_channels, schedule='dynamic'):
  */
-      {
-          unsigned short __pyx_temp_scalar = 0;
-          {
-              Py_ssize_t __pyx_temp_extent_0 = __pyx_v_glcm_view.shape[0];
-              Py_ssize_t __pyx_temp_stride_0 = __pyx_v_glcm_view.strides[0];
-              char *__pyx_temp_pointer_0;
-              Py_ssize_t __pyx_temp_idx_0;
-              __pyx_temp_pointer_0 = __pyx_v_glcm_view.data;
-              for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 < __pyx_temp_extent_0; __pyx_temp_idx_0++) {
-                *((unsigned short *) __pyx_temp_pointer_0) = __pyx_temp_scalar;
-                __pyx_temp_pointer_0 += __pyx_temp_stride_0;
-              }
-          }
-      }
+                              {
+                                  unsigned short __pyx_temp_scalar = 0;
+                                  {
+                                      Py_ssize_t __pyx_temp_extent_0 = __pyx_v_glcm_view.shape[0];
+                                      Py_ssize_t __pyx_temp_stride_0 = __pyx_v_glcm_view.strides[0];
+                                      char *__pyx_temp_pointer_0;
+                                      Py_ssize_t __pyx_temp_idx_0;
+                                      __pyx_temp_pointer_0 = __pyx_v_glcm_view.data;
+                                      for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 < __pyx_temp_extent_0; __pyx_temp_idx_0++) {
+                                        *((unsigned short *) __pyx_temp_pointer_0) = __pyx_temp_scalar;
+                                        __pyx_temp_pointer_0 += __pyx_temp_stride_0;
+                                      }
+                                  }
+                              }
 
-      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":81
+                              /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":87
  *             glcm_view[:] = 0
  * 
- *             for w_ch in range(w_channels):             # <<<<<<<<<<<<<<
- *                 for w_r in range(w_size):
- *                     for w_c in range(w_size):
+ *             for w_ch in prange(w_channels, schedule='dynamic'):             # <<<<<<<<<<<<<<
+ *                 for w_r in prange(w_size, schedule='dynamic'):
+ *                     for w_c in prange(w_size, schedule='dynamic'):
  */
-      __pyx_t_16 = __pyx_v_w_channels;
-      __pyx_t_17 = __pyx_t_16;
-      for (__pyx_t_18 = 0; __pyx_t_18 < __pyx_t_17; __pyx_t_18+=1) {
-        __pyx_v_w_ch = __pyx_t_18;
+                              __pyx_t_16 = __pyx_v_w_channels;
+                              if ((1 == 0)) abort();
+                              {
+                                  __pyx_t_18 = (__pyx_t_16 - 0 + 1 - 1/abs(1)) / 1;
+                                  if (__pyx_t_18 > 0)
+                                  {
+                                      #if 0
+                                      #pragma omp parallel
+                                      #endif /* _OPENMP */
+                                      {
+                                          #if 0
+                                          #pragma omp for lastprivate(__pyx_v_entropy) lastprivate(__pyx_v_glcm_i) lastprivate(__pyx_v_w_c) firstprivate(__pyx_v_w_ch) lastprivate(__pyx_v_w_ch) lastprivate(__pyx_v_w_r) schedule(dynamic)
+                                          #endif /* _OPENMP */
+                                          for (__pyx_t_17 = 0; __pyx_t_17 < __pyx_t_18; __pyx_t_17++){
+                                              {
+                                                  __pyx_v_w_ch = (char)(0 + 1 * __pyx_t_17);
+                                                  /* Initialize private variables to invalid values */
+                                                  __pyx_v_entropy = ((unsigned int)0xbad0bad0);
+                                                  __pyx_v_glcm_i = ((int)0xbad0bad0);
+                                                  __pyx_v_w_c = ((short)0xbad0bad0);
+                                                  __pyx_v_w_r = ((short)0xbad0bad0);
 
-        /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":82
+                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":88
  * 
- *             for w_ch in range(w_channels):
- *                 for w_r in range(w_size):             # <<<<<<<<<<<<<<
- *                     for w_c in range(w_size):
- *                         glcm_view[c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
+ *             for w_ch in prange(w_channels, schedule='dynamic'):
+ *                 for w_r in prange(w_size, schedule='dynamic'):             # <<<<<<<<<<<<<<
+ *                     for w_c in prange(w_size, schedule='dynamic'):
+ *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
  */
-        __pyx_t_19 = __pyx_v_w_size;
-        __pyx_t_20 = __pyx_t_19;
-        for (__pyx_t_21 = 0; __pyx_t_21 < __pyx_t_20; __pyx_t_21+=1) {
-          __pyx_v_w_r = __pyx_t_21;
+                                                  __pyx_t_19 = __pyx_v_w_size;
+                                                  if ((1 == 0)) abort();
+                                                  {
+                                                      __pyx_t_21 = (__pyx_t_19 - 0 + 1 - 1/abs(1)) / 1;
+                                                      if (__pyx_t_21 > 0)
+                                                      {
+                                                          #if 0
+                                                          #pragma omp parallel
+                                                          #endif /* _OPENMP */
+                                                          {
+                                                              #if 0
+                                                              #pragma omp for lastprivate(__pyx_v_w_c) firstprivate(__pyx_v_w_r) lastprivate(__pyx_v_w_r) schedule(dynamic)
+                                                              #endif /* _OPENMP */
+                                                              for (__pyx_t_20 = 0; __pyx_t_20 < __pyx_t_21; __pyx_t_20++){
+                                                                  {
+                                                                      __pyx_v_w_r = (short)(0 + 1 * __pyx_t_20);
+                                                                      /* Initialize private variables to invalid values */
+                                                                      __pyx_v_w_c = ((short)0xbad0bad0);
 
-          /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":83
- *             for w_ch in range(w_channels):
- *                 for w_r in range(w_size):
- *                     for w_c in range(w_size):             # <<<<<<<<<<<<<<
- *                         glcm_view[c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
+                                                                      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":89
+ *             for w_ch in prange(w_channels, schedule='dynamic'):
+ *                 for w_r in prange(w_size, schedule='dynamic'):
+ *                     for w_c in prange(w_size, schedule='dynamic'):             # <<<<<<<<<<<<<<
+ *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
+ * 
+ */
+                                                                      __pyx_t_22 = __pyx_v_w_size;
+                                                                      if ((1 == 0)) abort();
+                                                                      {
+                                                                          __pyx_t_24 = (__pyx_t_22 - 0 + 1 - 1/abs(1)) / 1;
+                                                                          if (__pyx_t_24 > 0)
+                                                                          {
+                                                                              #if 0
+                                                                              #pragma omp parallel
+                                                                              #endif /* _OPENMP */
+                                                                              {
+                                                                                  #if 0
+                                                                                  #pragma omp for firstprivate(__pyx_v_w_c) lastprivate(__pyx_v_w_c) schedule(dynamic)
+                                                                                  #endif /* _OPENMP */
+                                                                                  for (__pyx_t_23 = 0; __pyx_t_23 < __pyx_t_24; __pyx_t_23++){
+                                                                                      {
+                                                                                          __pyx_v_w_c = (short)(0 + 1 * __pyx_t_23);
+
+                                                                                          /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":90
+ *                 for w_r in prange(w_size, schedule='dynamic'):
+ *                     for w_c in prange(w_size, schedule='dynamic'):
+ *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1             # <<<<<<<<<<<<<<
+ * 
  *                 entropy = 0
  */
-          __pyx_t_22 = __pyx_v_w_size;
-          __pyx_t_23 = __pyx_t_22;
-          for (__pyx_t_24 = 0; __pyx_t_24 < __pyx_t_23; __pyx_t_24+=1) {
-            __pyx_v_w_c = __pyx_t_24;
+                                                                                          __pyx_t_25 = (__pyx_v_wi_r + __pyx_v_w_r);
+                                                                                          __pyx_t_26 = (__pyx_v_wi_c + __pyx_v_w_c);
+                                                                                          __pyx_t_27 = __pyx_v_w_ch;
+                                                                                          __pyx_t_28 = ((int)(*((__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_c_view.data + __pyx_t_25 * __pyx_v_c_view.strides[0]) ) + __pyx_t_26 * __pyx_v_c_view.strides[1]) ) + __pyx_t_27 * __pyx_v_c_view.strides[2]) ))));
+                                                                                          *((unsigned short *) ( /* dim=0 */ (__pyx_v_glcm_view.data + __pyx_t_28 * __pyx_v_glcm_view.strides[0]) )) += 1;
+                                                                                      }
+                                                                                  }
+                                                                              }
+                                                                          }
+                                                                      }
+                                                                  }
+                                                              }
+                                                          }
+                                                      }
+                                                  }
 
-            /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":84
- *                 for w_r in range(w_size):
- *                     for w_c in range(w_size):
- *                         glcm_view[c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1             # <<<<<<<<<<<<<<
- *                 entropy = 0
+                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":92
+ *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
  * 
- */
-            __pyx_t_25 = (__pyx_v_wi_r + __pyx_v_w_r);
-            __pyx_t_26 = (__pyx_v_wi_c + __pyx_v_w_c);
-            __pyx_t_27 = __pyx_v_w_ch;
-            __pyx_t_28 = (*((__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_c_view.data + __pyx_t_25 * __pyx_v_c_view.strides[0]) ) + __pyx_t_26 * __pyx_v_c_view.strides[1]) ) + __pyx_t_27 * __pyx_v_c_view.strides[2]) )));
-            *((unsigned short *) ( /* dim=0 */ (__pyx_v_glcm_view.data + __pyx_t_28 * __pyx_v_glcm_view.strides[0]) )) += 1;
-          }
-        }
-
-        /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":85
- *                     for w_c in range(w_size):
- *                         glcm_view[c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
  *                 entropy = 0             # <<<<<<<<<<<<<<
- * 
- *                 for glcm_i in range(glcm_size):
+ *                 for glcm_i in prange(glcm_size, schedule='dynamic'):
+ *                     entropy += glcm_view[glcm_i] ** entropy_power
  */
-        __pyx_v_entropy = 0;
+                                                  __pyx_v_entropy = 0;
 
-        /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":87
+                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":93
+ * 
  *                 entropy = 0
- * 
- *                 for glcm_i in range(glcm_size):             # <<<<<<<<<<<<<<
+ *                 for glcm_i in prange(glcm_size, schedule='dynamic'):             # <<<<<<<<<<<<<<
  *                     entropy += glcm_view[glcm_i] ** entropy_power
- *                 entropy_view[wi_r, wi_c, w_ch] = entropy
+ *                 entropy_view[wi_r, wi_c, w_ch] += entropy
  */
-        __pyx_t_19 = __pyx_v_glcm_size;
-        __pyx_t_20 = __pyx_t_19;
-        for (__pyx_t_21 = 0; __pyx_t_21 < __pyx_t_20; __pyx_t_21+=1) {
-          __pyx_v_glcm_i = __pyx_t_21;
+                                                  __pyx_t_29 = __pyx_v_glcm_size;
+                                                  if ((1 == 0)) abort();
+                                                  {
+                                                      __pyx_t_31 = (__pyx_t_29 - 0 + 1 - 1/abs(1)) / 1;
+                                                      if (__pyx_t_31 > 0)
+                                                      {
+                                                          #if 0
+                                                          #pragma omp parallel reduction(+:__pyx_v_entropy)
+                                                          #endif /* _OPENMP */
+                                                          {
+                                                              #if 0
+                                                              #pragma omp for firstprivate(__pyx_v_glcm_i) lastprivate(__pyx_v_glcm_i) schedule(dynamic)
+                                                              #endif /* _OPENMP */
+                                                              for (__pyx_t_30 = 0; __pyx_t_30 < __pyx_t_31; __pyx_t_30++){
+                                                                  {
+                                                                      __pyx_v_glcm_i = (int)(0 + 1 * __pyx_t_30);
 
-          /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":88
- * 
- *                 for glcm_i in range(glcm_size):
+                                                                      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":94
+ *                 entropy = 0
+ *                 for glcm_i in prange(glcm_size, schedule='dynamic'):
  *                     entropy += glcm_view[glcm_i] ** entropy_power             # <<<<<<<<<<<<<<
- *                 entropy_view[wi_r, wi_c, w_ch] = entropy
+ *                 entropy_view[wi_r, wi_c, w_ch] += entropy
  * 
  */
-          __pyx_t_24 = __pyx_v_glcm_i;
-          __pyx_v_entropy = (__pyx_v_entropy + __Pyx_pow_int(((int)(*((unsigned short *) ( /* dim=0 */ (__pyx_v_glcm_view.data + __pyx_t_24 * __pyx_v_glcm_view.strides[0]) )))), ((int)__pyx_v_entropy_power)));
-        }
+                                                                      __pyx_t_27 = __pyx_v_glcm_i;
+                                                                      __pyx_v_entropy = (__pyx_v_entropy + __Pyx_pow_int(((int)(*((unsigned short *) ( /* dim=0 */ (__pyx_v_glcm_view.data + __pyx_t_27 * __pyx_v_glcm_view.strides[0]) )))), ((int)__pyx_v_entropy_power)));
+                                                                  }
+                                                              }
+                                                          }
+                                                      }
+                                                  }
 
-        /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":89
- *                 for glcm_i in range(glcm_size):
+                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":95
+ *                 for glcm_i in prange(glcm_size, schedule='dynamic'):
  *                     entropy += glcm_view[glcm_i] ** entropy_power
- *                 entropy_view[wi_r, wi_c, w_ch] = entropy             # <<<<<<<<<<<<<<
+ *                 entropy_view[wi_r, wi_c, w_ch] += entropy             # <<<<<<<<<<<<<<
  * 
  *     return entropy_ar
  */
-        __pyx_t_21 = __pyx_v_wi_r;
-        __pyx_t_24 = __pyx_v_wi_c;
-        __pyx_t_27 = __pyx_v_w_ch;
-        *((unsigned int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_entropy_view.data + __pyx_t_21 * __pyx_v_entropy_view.strides[0]) ) + __pyx_t_24 * __pyx_v_entropy_view.strides[1]) ) + __pyx_t_27 * __pyx_v_entropy_view.strides[2]) )) = __pyx_v_entropy;
-      }
+                                                  __pyx_t_27 = __pyx_v_wi_r;
+                                                  __pyx_t_26 = __pyx_v_wi_c;
+                                                  __pyx_t_25 = __pyx_v_w_ch;
+                                                  *((__pyx_t_5numpy_uint32_t *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_entropy_view.data + __pyx_t_27 * __pyx_v_entropy_view.strides[0]) ) + __pyx_t_26 * __pyx_v_entropy_view.strides[1]) ) + __pyx_t_25 * __pyx_v_entropy_view.strides[2]) )) += __pyx_v_entropy;
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+          #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
+              #undef likely
+              #undef unlikely
+              #define likely(x)   __builtin_expect(!!(x), 1)
+              #define unlikely(x) __builtin_expect(!!(x), 0)
+          #endif
+        }
+
+        /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":83
+ *     # So the options are exclusive, but verbose is more important
+ *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
+ *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
+ *             # Slide through possible window top lefts
+ *             glcm_view[:] = 0
+ */
+        /*finally:*/ {
+          /*normal exit:*/{
+            #ifdef WITH_THREAD
+            __Pyx_FastGIL_Forget();
+            Py_BLOCK_THREADS
+            #endif
+            goto __pyx_L9;
+          }
+          __pyx_L9:;
+        }
     }
 
-    /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":76
- *     #       In that window, we then loop through the array and square sum
- *     #       We slot this value into the corresponding cell in entropy_ar
+    /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":82
+ *     # prange will not work if there are any Python objects within
+ *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):             # <<<<<<<<<<<<<<
- *         for wi_c in range(wi_cols):
+ *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
  *             # Slide through possible window top lefts
  */
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":91
- *                 entropy_view[wi_r, wi_c, w_ch] = entropy
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":97
+ *                 entropy_view[wi_r, wi_c, w_ch] += entropy
  * 
  *     return entropy_ar             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_entropy_ar));
-  __pyx_r = ((PyObject *)__pyx_v_entropy_ar);
+  __Pyx_INCREF(__pyx_v_entropy_ar);
+  __pyx_r = __pyx_v_entropy_ar;
   goto __pyx_L0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":10
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":11
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,             # <<<<<<<<<<<<<<
+ * def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,             # <<<<<<<<<<<<<<
  *                unsigned int radius,
  *                bint verbose):
  */
@@ -3261,25 +3416,23 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __PYX_XDEC_MEMVIEW(&__pyx_t_8, 1);
-  __Pyx_XDECREF(((PyObject *)__pyx_t_9));
-  __PYX_XDEC_MEMVIEW(&__pyx_t_10, 1);
+  __PYX_XDEC_MEMVIEW(&__pyx_t_7, 1);
+  __Pyx_XDECREF(((PyObject *)__pyx_t_8));
+  __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
     __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_c.rcbuffer->pybuffer);
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
   __Pyx_AddTraceback("src.frmodel.base.D2.frame._cy_entropy.cy_entropy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_c.rcbuffer->pybuffer);
-  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_entropy_ar.rcbuffer->pybuffer);
   __pyx_L2:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_c_view, 1);
-  __Pyx_XDECREF((PyObject *)__pyx_v_entropy_ar);
+  __Pyx_XDECREF(__pyx_v_entropy_ar);
   __PYX_XDEC_MEMVIEW(&__pyx_v_entropy_view, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_v_glcm_view, 1);
   __Pyx_XGIVEREF(__pyx_r);
@@ -19146,7 +19299,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 82, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 777, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 781, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 959, __pyx_L1_error)
@@ -19412,17 +19565,17 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":10
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":11
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,             # <<<<<<<<<<<<<<
+ * def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,             # <<<<<<<<<<<<<<
  *                unsigned int radius,
  *                bint verbose):
  */
-  __pyx_tuple__29 = PyTuple_Pack(23, __pyx_n_s_c, __pyx_n_s_radius, __pyx_n_s_verbose, __pyx_n_s_c_view, __pyx_n_s_w_size, __pyx_n_s_wi_rows, __pyx_n_s_wi_cols, __pyx_n_s_wi_r, __pyx_n_s_wi_c, __pyx_n_s_w_rows, __pyx_n_s_w_cols, __pyx_n_s_w_r, __pyx_n_s_w_c, __pyx_n_s_w_channels, __pyx_n_s_w_ch, __pyx_n_s_entropy_ar, __pyx_n_s_entropy_view, __pyx_n_s_glcm_size, __pyx_n_s_glcm, __pyx_n_s_glcm_view, __pyx_n_s_glcm_i, __pyx_n_s_entropy, __pyx_n_s_entropy_power); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(23, __pyx_n_s_c, __pyx_n_s_radius, __pyx_n_s_verbose, __pyx_n_s_c_view, __pyx_n_s_w_size, __pyx_n_s_wi_rows, __pyx_n_s_wi_cols, __pyx_n_s_wi_r, __pyx_n_s_wi_c, __pyx_n_s_w_rows, __pyx_n_s_w_cols, __pyx_n_s_w_r, __pyx_n_s_w_c, __pyx_n_s_w_channels, __pyx_n_s_w_ch, __pyx_n_s_entropy_ar, __pyx_n_s_entropy_view, __pyx_n_s_glcm_size, __pyx_n_s_glcm, __pyx_n_s_glcm_view, __pyx_n_s_glcm_i, __pyx_n_s_entropy, __pyx_n_s_entropy_power); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(3, 0, 23, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_frmodel_base_D2_frame__cy_en, __pyx_n_s_cy_entropy, 10, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(3, 0, 23, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_frmodel_base_D2_frame__cy_en, __pyx_n_s_cy_entropy, 11, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 11, __pyx_L1_error)
 
   /* "View.MemoryView":286
  *         return self.name
@@ -19496,6 +19649,13 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 }
 
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
+  /* InitThreads.init */
+  #ifdef WITH_THREAD
+PyEval_InitThreads();
+#endif
+
+if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L1_error)
+
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -19878,37 +20038,37 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":6
- * ctypedef np.npy_uint16 DTYPE_t
- * ctypedef np.npy_uint32 DTYPE_t32
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":7
+ * ctypedef np.uint32_t DTYPE_t32
+ * from cython.parallel cimport prange
  * from tqdm import tqdm             # <<<<<<<<<<<<<<
  * 
  * @cython.boundscheck(False)
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_tqdm);
   __Pyx_GIVEREF(__pyx_n_s_tqdm);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_tqdm);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_tqdm, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_tqdm, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tqdm, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tqdm, __pyx_t_1) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":10
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":11
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,             # <<<<<<<<<<<<<<
+ * def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,             # <<<<<<<<<<<<<<
  *                unsigned int radius,
  *                bint verbose):
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy, NULL, __pyx_n_s_src_frmodel_base_D2_frame__cy_en_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy, NULL, __pyx_n_s_src_frmodel_base_D2_frame__cy_en_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_cy_entropy, __pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_cy_entropy, __pyx_t_2) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":1
@@ -20949,19 +21109,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 }
 #endif
 
-/* ExtTypeTest */
-  static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
-        return 0;
-    }
-    if (likely(__Pyx_TypeCheck(obj, type)))
-        return 1;
-    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
-                 Py_TYPE(obj)->tp_name, type->tp_name);
-    return 0;
-}
-
 /* PyCFunctionFastCall */
   #if CYTHON_FAST_PYCCALL
 static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
@@ -21360,6 +21507,19 @@ static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
 /* RaiseNoneIterError */
   static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+}
+
+/* ExtTypeTest */
+  static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    if (likely(__Pyx_TypeCheck(obj, type)))
+        return 1;
+    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
+                 Py_TYPE(obj)->tp_name, type->tp_name);
+    return 0;
 }
 
 /* RaiseException */
@@ -23732,19 +23892,19 @@ raise_neg_overflow:
 }
 
 /* CIntFromPy */
-  static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *x) {
-    const size_t neg_one = (size_t) ((size_t) 0 - (size_t) 1), const_zero = (size_t) 0;
+  static CYTHON_INLINE short __Pyx_PyInt_As_short(PyObject *x) {
+    const short neg_one = (short) ((short) 0 - (short) 1), const_zero = (short) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
     if (likely(PyInt_Check(x))) {
-        if (sizeof(size_t) < sizeof(long)) {
-            __PYX_VERIFY_RETURN_INT(size_t, long, PyInt_AS_LONG(x))
+        if (sizeof(short) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(short, long, PyInt_AS_LONG(x))
         } else {
             long val = PyInt_AS_LONG(x);
             if (is_unsigned && unlikely(val < 0)) {
                 goto raise_neg_overflow;
             }
-            return (size_t) val;
+            return (short) val;
         }
     } else
 #endif
@@ -23753,32 +23913,32 @@ raise_neg_overflow:
 #if CYTHON_USE_PYLONG_INTERNALS
             const digit* digits = ((PyLongObject*)x)->ob_digit;
             switch (Py_SIZE(x)) {
-                case  0: return (size_t) 0;
-                case  1: __PYX_VERIFY_RETURN_INT(size_t, digit, digits[0])
+                case  0: return (short) 0;
+                case  1: __PYX_VERIFY_RETURN_INT(short, digit, digits[0])
                 case 2:
-                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                    if (8 * sizeof(short) > 1 * PyLong_SHIFT) {
                         if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(size_t) >= 2 * PyLong_SHIFT) {
-                            return (size_t) (((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                            __PYX_VERIFY_RETURN_INT(short, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(short) >= 2 * PyLong_SHIFT) {
+                            return (short) (((((short)digits[1]) << PyLong_SHIFT) | (short)digits[0]));
                         }
                     }
                     break;
                 case 3:
-                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                    if (8 * sizeof(short) > 2 * PyLong_SHIFT) {
                         if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(size_t) >= 3 * PyLong_SHIFT) {
-                            return (size_t) (((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                            __PYX_VERIFY_RETURN_INT(short, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(short) >= 3 * PyLong_SHIFT) {
+                            return (short) (((((((short)digits[2]) << PyLong_SHIFT) | (short)digits[1]) << PyLong_SHIFT) | (short)digits[0]));
                         }
                     }
                     break;
                 case 4:
-                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                    if (8 * sizeof(short) > 3 * PyLong_SHIFT) {
                         if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(size_t) >= 4 * PyLong_SHIFT) {
-                            return (size_t) (((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                            __PYX_VERIFY_RETURN_INT(short, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(short) >= 4 * PyLong_SHIFT) {
+                            return (short) (((((((((short)digits[3]) << PyLong_SHIFT) | (short)digits[2]) << PyLong_SHIFT) | (short)digits[1]) << PyLong_SHIFT) | (short)digits[0]));
                         }
                     }
                     break;
@@ -23792,86 +23952,86 @@ raise_neg_overflow:
             {
                 int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
                 if (unlikely(result < 0))
-                    return (size_t) -1;
+                    return (short) -1;
                 if (unlikely(result == 1))
                     goto raise_neg_overflow;
             }
 #endif
-            if (sizeof(size_t) <= sizeof(unsigned long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned long, PyLong_AsUnsignedLong(x))
+            if (sizeof(short) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(short, unsigned long, PyLong_AsUnsignedLong(x))
 #ifdef HAVE_LONG_LONG
-            } else if (sizeof(size_t) <= sizeof(unsigned PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+            } else if (sizeof(short) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(short, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
 #endif
             }
         } else {
 #if CYTHON_USE_PYLONG_INTERNALS
             const digit* digits = ((PyLongObject*)x)->ob_digit;
             switch (Py_SIZE(x)) {
-                case  0: return (size_t) 0;
-                case -1: __PYX_VERIFY_RETURN_INT(size_t, sdigit, (sdigit) (-(sdigit)digits[0]))
-                case  1: __PYX_VERIFY_RETURN_INT(size_t,  digit, +digits[0])
+                case  0: return (short) 0;
+                case -1: __PYX_VERIFY_RETURN_INT(short, sdigit, (sdigit) (-(sdigit)digits[0]))
+                case  1: __PYX_VERIFY_RETURN_INT(short,  digit, +digits[0])
                 case -2:
-                    if (8 * sizeof(size_t) - 1 > 1 * PyLong_SHIFT) {
+                    if (8 * sizeof(short) - 1 > 1 * PyLong_SHIFT) {
                         if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
-                            return (size_t) (((size_t)-1)*(((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                            __PYX_VERIFY_RETURN_INT(short, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(short) - 1 > 2 * PyLong_SHIFT) {
+                            return (short) (((short)-1)*(((((short)digits[1]) << PyLong_SHIFT) | (short)digits[0])));
                         }
                     }
                     break;
                 case 2:
-                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                    if (8 * sizeof(short) > 1 * PyLong_SHIFT) {
                         if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
-                            return (size_t) ((((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                            __PYX_VERIFY_RETURN_INT(short, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(short) - 1 > 2 * PyLong_SHIFT) {
+                            return (short) ((((((short)digits[1]) << PyLong_SHIFT) | (short)digits[0])));
                         }
                     }
                     break;
                 case -3:
-                    if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                    if (8 * sizeof(short) - 1 > 2 * PyLong_SHIFT) {
                         if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
-                            return (size_t) (((size_t)-1)*(((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                            __PYX_VERIFY_RETURN_INT(short, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(short) - 1 > 3 * PyLong_SHIFT) {
+                            return (short) (((short)-1)*(((((((short)digits[2]) << PyLong_SHIFT) | (short)digits[1]) << PyLong_SHIFT) | (short)digits[0])));
                         }
                     }
                     break;
                 case 3:
-                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                    if (8 * sizeof(short) > 2 * PyLong_SHIFT) {
                         if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
-                            return (size_t) ((((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                            __PYX_VERIFY_RETURN_INT(short, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(short) - 1 > 3 * PyLong_SHIFT) {
+                            return (short) ((((((((short)digits[2]) << PyLong_SHIFT) | (short)digits[1]) << PyLong_SHIFT) | (short)digits[0])));
                         }
                     }
                     break;
                 case -4:
-                    if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                    if (8 * sizeof(short) - 1 > 3 * PyLong_SHIFT) {
                         if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
-                            return (size_t) (((size_t)-1)*(((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                            __PYX_VERIFY_RETURN_INT(short, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(short) - 1 > 4 * PyLong_SHIFT) {
+                            return (short) (((short)-1)*(((((((((short)digits[3]) << PyLong_SHIFT) | (short)digits[2]) << PyLong_SHIFT) | (short)digits[1]) << PyLong_SHIFT) | (short)digits[0])));
                         }
                     }
                     break;
                 case 4:
-                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                    if (8 * sizeof(short) > 3 * PyLong_SHIFT) {
                         if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
-                            return (size_t) ((((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                            __PYX_VERIFY_RETURN_INT(short, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(short) - 1 > 4 * PyLong_SHIFT) {
+                            return (short) ((((((((((short)digits[3]) << PyLong_SHIFT) | (short)digits[2]) << PyLong_SHIFT) | (short)digits[1]) << PyLong_SHIFT) | (short)digits[0])));
                         }
                     }
                     break;
             }
 #endif
-            if (sizeof(size_t) <= sizeof(long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(size_t, long, PyLong_AsLong(x))
+            if (sizeof(short) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(short, long, PyLong_AsLong(x))
 #ifdef HAVE_LONG_LONG
-            } else if (sizeof(size_t) <= sizeof(PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(size_t, PY_LONG_LONG, PyLong_AsLongLong(x))
+            } else if (sizeof(short) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(short, PY_LONG_LONG, PyLong_AsLongLong(x))
 #endif
             }
         }
@@ -23880,7 +24040,7 @@ raise_neg_overflow:
             PyErr_SetString(PyExc_RuntimeError,
                             "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
 #else
-            size_t val;
+            short val;
             PyObject *v = __Pyx_PyNumber_IntOrLong(x);
  #if PY_MAJOR_VERSION < 3
             if (likely(v) && !PyLong_Check(v)) {
@@ -23900,24 +24060,24 @@ raise_neg_overflow:
                     return val;
             }
 #endif
-            return (size_t) -1;
+            return (short) -1;
         }
     } else {
-        size_t val;
+        short val;
         PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
-        if (!tmp) return (size_t) -1;
-        val = __Pyx_PyInt_As_size_t(tmp);
+        if (!tmp) return (short) -1;
+        val = __Pyx_PyInt_As_short(tmp);
         Py_DECREF(tmp);
         return val;
     }
 raise_overflow:
     PyErr_SetString(PyExc_OverflowError,
-        "value too large to convert to size_t");
-    return (size_t) -1;
+        "value too large to convert to short");
+    return (short) -1;
 raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
-        "can't convert negative value to size_t");
-    return (size_t) -1;
+        "can't convert negative value to short");
+    return (short) -1;
 }
 
 /* CIntFromPy */
@@ -24741,7 +24901,7 @@ no_fail:
 }
 
 /* ObjectToMemviewSlice */
-  static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t(PyObject *obj, int writable_flag) {
+  static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16(PyObject *obj, int writable_flag) {
     __Pyx_memviewslice result = { 0, 0, { 0 }, { 0 }, { 0 } };
     __Pyx_BufFmt_StackElem stack[1];
     int axes_specs[] = { (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED), (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED), (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED) };
@@ -24752,7 +24912,7 @@ no_fail:
     }
     retcode = __Pyx_ValidateAndInit_memviewslice(axes_specs, 0,
                                                  PyBUF_RECORDS_RO | writable_flag, 3,
-                                                 &__Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t, stack,
+                                                 &__Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16, stack,
                                                  &result, obj);
     if (unlikely(retcode == -1))
         goto __pyx_fail;
@@ -24764,7 +24924,7 @@ __pyx_fail:
 }
 
 /* ObjectToMemviewSlice */
-  static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_unsigned_int(PyObject *obj, int writable_flag) {
+  static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_5numpy_uint32_t(PyObject *obj, int writable_flag) {
     __Pyx_memviewslice result = { 0, 0, { 0 }, { 0 }, { 0 } };
     __Pyx_BufFmt_StackElem stack[1];
     int axes_specs[] = { (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED), (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED), (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED) };
@@ -24775,7 +24935,7 @@ __pyx_fail:
     }
     retcode = __Pyx_ValidateAndInit_memviewslice(axes_specs, 0,
                                                  PyBUF_RECORDS_RO | writable_flag, 3,
-                                                 &__Pyx_TypeInfo_unsigned_int, stack,
+                                                 &__Pyx_TypeInfo_nn___pyx_t_5numpy_uint32_t, stack,
                                                  &result, obj);
     if (unlikely(retcode == -1))
         goto __pyx_fail;

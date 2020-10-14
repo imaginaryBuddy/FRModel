@@ -1,13 +1,14 @@
 import numpy as np
 cimport numpy as np
 cimport cython
-ctypedef np.npy_uint16 DTYPE_t
-ctypedef np.npy_uint32 DTYPE_t32
+ctypedef np.uint16_t DTYPE_t16
+ctypedef np.uint32_t DTYPE_t32
+from cython.parallel cimport prange
 from tqdm import tqdm
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,
+def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,
                unsigned int radius,
                bint verbose):
     """ Entropy Calculation in Cython
@@ -43,27 +44,28 @@ def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,
     #
     # This is the explicit number of rows and columns the window has
 
-    cdef DTYPE_t [:, :, :] c_view = c
+    cdef DTYPE_t16 [:, :, :] c_view = c
 
     cdef unsigned short w_size = radius * 2 + 1
     cdef unsigned short wi_rows = (<unsigned int> c.shape[0]) - w_size + 1
     cdef unsigned short wi_cols = (<unsigned int> c.shape[1]) - w_size + 1
-    cdef size_t wi_r = 0, wi_c = 0
+    cdef short wi_r = 0, wi_c = 0
 
     cdef unsigned int w_rows = (<unsigned int> c.shape[0]) - w_size - 1
     cdef unsigned int w_cols = (<unsigned int> c.shape[1]) - w_size - 1
-    cdef size_t w_r = 0, w_c = 0
+    cdef short w_r = 0, w_c = 0
 
     cdef unsigned char w_channels = <char>c.shape[2]
-    cdef size_t w_ch = 0
+    cdef char w_ch = 0
 
-    cdef np.ndarray[DTYPE_t32, ndim=3] entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
-    cdef unsigned int[:, :, :] entropy_view = entropy_ar
+    entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
+    cdef np.uint32_t[:, :, :] entropy_view = entropy_ar
+    entropy_view[:, :, :] = 0
 
-    cdef unsigned short glcm_size = <unsigned short>65536
+    cdef int glcm_size = <unsigned int>65536
     cdef unsigned short glcm[65536]
     cdef unsigned short [:] glcm_view = glcm
-    cdef size_t glcm_i = 0
+    cdef int glcm_i = 0
 
     cdef unsigned int entropy = 0
     cdef unsigned char entropy_power = 2
@@ -73,19 +75,23 @@ def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,
     #       In each window we throw the value into a GLCM 65535 long array
     #       In that window, we then loop through the array and square sum
     #       We slot this value into the corresponding cell in entropy_ar
+
+    # The outer loop is required for verbose tqdm
+    # prange will not work if there are any Python objects within
+    # So the options are exclusive, but verbose is more important
     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
-        for wi_c in range(wi_cols):
+        for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
             # Slide through possible window top lefts
             glcm_view[:] = 0
 
-            for w_ch in range(w_channels):
-                for w_r in range(w_size):
-                    for w_c in range(w_size):
-                        glcm_view[c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
-                entropy = 0
+            for w_ch in prange(w_channels, schedule='dynamic'):
+                for w_r in prange(w_size, schedule='dynamic'):
+                    for w_c in prange(w_size, schedule='dynamic'):
+                        glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
 
-                for glcm_i in range(glcm_size):
+                entropy = 0
+                for glcm_i in prange(glcm_size, schedule='dynamic'):
                     entropy += glcm_view[glcm_i] ** entropy_power
-                entropy_view[wi_r, wi_c, w_ch] = entropy
+                entropy_view[wi_r, wi_c, w_ch] += entropy
 
     return entropy_ar
