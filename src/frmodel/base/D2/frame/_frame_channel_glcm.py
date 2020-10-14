@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from multiprocessing import Pool
-
 import numpy as np
 from scipy.signal import fftconvolve
 from skimage.util.shape import view_as_windows
 from tqdm import tqdm
 
 from frmodel.base.consts import CONSTS
+from frmodel.base.D2.frame._cy_entropy import cy_entropy
 
 CHANNEL = CONSTS.CHANNEL
 MAX_RGB = 255
@@ -32,9 +31,7 @@ class _Frame2DChannelGLCM(ABC):
                  contrast: bool = True,
                  correlation: bool = True,
                  entropy: bool = True,
-                 verbose: bool = False,
-                 entropy_mp: bool = False,
-                 entropy_mp_procs: int = None):
+                 verbose: bool = False):
         """ This will get the GLCM statistics for this window
 
         In order:
@@ -83,11 +80,9 @@ class _Frame2DChannelGLCM(ABC):
         rgb_a = rgb[:-by_y, :-by_x]
         rgb_b = rgb[by_y:, by_x:]
 
-        idxs = [self._get_glcm_contrast(rgb_a, rgb_b, radius)                  if contrast else None,
-                self._get_glcm_correlation(rgb_a, rgb_b, radius)               if correlation else None,
-                self._get_glcm_entropy(rgb_a, rgb_b, radius, verbose,
-                                       multiprocessing=entropy_mp,
-                                       multiprocessing_procs=entropy_mp_procs) if entropy else None]
+        idxs = [self._get_glcm_contrast(rgb_a, rgb_b, radius)             if contrast else None,
+                self._get_glcm_correlation(rgb_a, rgb_b, radius)          if correlation else None,
+                self._get_glcm_entropy_cy(rgb_a, rgb_b, radius, verbose)  if entropy else None]
 
         # We drop the nones using a list comp
         return np.concatenate([i for i in idxs if i is not None], axis=2)
@@ -177,85 +172,94 @@ class _Frame2DChannelGLCM(ABC):
         # However, the main reason is that so that we can use np.unique without constructing
         # a tuple hash for each pair!
 
-        rgb_a = rgb_a.astype(np.uint16)
-        rgb_b = rgb_b.astype(np.uint16)
+        rgb_a = rgb_a.astype(np.uint8)
+        rgb_b = rgb_b.astype(np.uint8)
 
         cells = view_as_windows(self.init(rgb_a * (MAX_RGB + 1) + rgb_b).data,
-                                [radius * 2 + 1, radius * 2 + 1,3], step=1).squeeze()
+                                [radius * 2 + 1, radius * 2 + 1, 3], step=1).squeeze()
 
         out = np.zeros((rgb_a.shape[0] - radius * 2,
                         rgb_a.shape[1] - radius * 2,
                         3))  # RGB count
 
-        # Branch to MP if True
-        if multiprocessing:
-            return self._get_glcm_entropy_mp(cells, out, verbose,
-                                             procs=multiprocessing_procs)
-
         for row, _ in enumerate(tqdm(cells, total=len(cells), disable=not verbose)):
             for col, cell in enumerate(_):
                 # We flatten the x and y axis first.
                 c = cell.reshape([-1, cell.shape[-1]])
-
                 """ Entropy is complicated.
-    
+
                 Problem with unique is that it cannot unique on a certain axis as expected here,
                 it's because of staggering dimension size, so we have to loop with a list comp.
-    
+
                 We swap axis because we want to loop on the channel instead of the c value.
-    
+
                 We call unique and grab the 2nd, 4th, ...th element because unique returns 2
                 values here. The 2nd ones are the counts.
-    
+
                 Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
                 """
 
                 entropy = np.asarray([np.sum(np.bincount(g) ** 2) for g in c.swapaxes(0, 1)])
-
                 out[row, col, :] = entropy
 
         return out
 
-    def _get_glcm_entropy_mp(self, cells, out, verbose, procs=None) -> np.ndarray:
-        """ Branched from glcm_entropy, for Multiprocessing
+    def _get_glcm_entropy_cy(self,
+                             rgb_a: np.ndarray,
+                             rgb_b: np.ndarray,
+                             radius,
+                             ) -> np.ndarray:
+        """ Gets the entropy, uses the Cython entropy algorithm
 
-        :param cells: Defined in glcm_entropy
-        :param out: The array to throw values into, defined in glcm_entropy
-        :param verbose: Whether to output progress
-        :param procs: Number of processes to run in the multiprocessing
+        :param rgb_a: Offset ar A
+        :param rgb_b: Offset ar B
+        :param radius: Radius of window
         """
-        p = Pool(procs) if procs else Pool()
+        rgb_c = rgb_a + rgb_b * (MAX_RGB + 1)
 
-        for i, _ in enumerate(tqdm(p.imap_unordered(self._get_glcm_entropy_mp_loop, cells),
-                                   total=len(cells), disable=not verbose)):
-            out[i, :, :] = _
+        return cy_entropy(rgb_c.astype(np.uint16), radius)
 
-        return out
-
-    @staticmethod
-    def _get_glcm_entropy_mp_loop(row):
-        """ This is a top-level method for pickling in multiprocessing """
-        out = np.zeros(shape=[row.shape[0], row.shape[-1]])
-
-        for i, cell in enumerate(row):
-            # We flatten the x and y axis first.
-            c = cell.reshape([-1, cell.shape[-1]])
-
-            """ Entropy is complicated.
-
-            Problem with unique is that it cannot unique on a certain axis as expected here,
-            it's because of staggering dimension size, so we have to loop with a list comp.
-
-            We swap axis because we want to loop on the channel instead of the c value.
-
-            We call bincount to get call occurrences and square them.
-
-            Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
-            """
-
-            out[i, :] = [np.sum(np.bincount(g) ** 2) for g in c.swapaxes(0, 1)]
-
-        return out
+    #
+    # def _get_glcm_entropy_mp(self, cells, out, verbose, procs=None) -> np.ndarray:
+    #     """ Branched from glcm_entropy, for Multiprocessing
+    #
+    #     :param cells: Defined in glcm_entropy
+    #     :param out: The array to throw values into, defined in glcm_entropy
+    #     :param verbose: Whether to output progress
+    #     :param procs: Number of processes to run in the multiprocessing
+    #     """
+    #     p = Pool(procs) if procs else Pool()
+    #
+    #     for i, _ in enumerate(tqdm(p.imap_unordered(self._get_glcm_entropy_mp_loop, cells),
+    #                                total=len(cells), disable=not verbose)):
+    #         out[i, :, :] = _
+    #
+    #     return out
+    #
+    # @staticmethod
+    # def _get_glcm_entropy_mp_loop(row):
+    #     """ This is a top-level method for pickling in multiprocessing """
+    #     out = np.zeros(shape=[row.shape[0], row.shape[-1]])
+    #
+    #     for i, cell in enumerate(row):
+    #         # We flatten the x and y axis first.
+    #         c = cell.reshape([-1, cell.shape[-1]])
+    #
+    #         """ Entropy is complicated.
+    #
+    #         Problem with unique is that it cannot unique on a certain axis as expected here,
+    #         it's because of staggering dimension size, so we have to loop with a list comp.
+    #
+    #         We swap axis because we want to loop on the channel instead of the c value.
+    #
+    #         We call bincount to get call occurrences and square them.
+    #
+    #         Then we sum it up with np.sum, note that python sum is much slower on numpy arrays!
+    #         """
+    #
+    #         out[i, :] = [np.sum(np.bincount(g) ** 2) for g in c.swapaxes(0, 1)]
+    #
+    #     return out
 
     """ COO Method, (deprecated)
         def _get_glcm_entropy2(self,
