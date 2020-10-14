@@ -10,6 +10,7 @@ from sklearn.cluster import KMeans
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from sklearn.metrics import homogeneity_completeness_v_measure
 
 
 @dataclass
@@ -46,21 +47,45 @@ class KMeans2D:
 
         return fg
 
-    def score(self,
-              score_file_path: str):
-        """ Scores the current Kmeans model with a scoring image
-
-        :param score_file_path: The file path to the scoring image.
-        :return: Count Array, Score out of 1.
-        """
-
+    def score(self, score_file_path: str, exclude_0=True, glcm_radius=None):
         # Convert to array
-        im: Image.Image = Image.open(score_file_path).convert('LA')
-        ar = np.asarray(im)[..., 0]
+        true = self.score_as_label(score_file_path)
+
+        if glcm_radius is not None:
+            true = true[glcm_radius+1:-glcm_radius, glcm_radius+1:-glcm_radius]
 
         # Convert Image Grayscale (0-255) to quantized rank
         # This will only work if all Grayscale values are unique.
-        ar = rankdata(ar, method='dense') - 1
+        true = rankdata(true.flatten(), method='dense') - 1
+        pred = self.model.labels_
+
+        if exclude_0:
+            mask = true == 0
+            true = np.ma.masked_array(true, mask=mask)
+            pred = pred[~true.mask]
+            true = true[~true.mask]
+
+        return self.score_map(true, pred), *homogeneity_completeness_v_measure(true, pred)
+
+    @staticmethod
+    def score_as_label(score_file_path: str):
+        im: Image.Image = Image.open(score_file_path).convert('LA')
+        return np.asarray(im)[..., 0].reshape(im.size)
+
+    @staticmethod
+    def score_map(true_labels: np.ndarray,
+                  pred_labels: np.ndarray):
+        """ Scores the current Kmeans model with a scoring image
+
+        This is a custom algorithm.
+
+        This attempts to find the best label to prediction mapping and returns that maximum
+        score.
+
+        :param pred_labels: Predicted Labels
+        :param true_labels: Actual Labels
+        :return: Count Array, Score out of 1.
+        """
 
         # Count each unique pair occurrence and return count.
         # Because return_count returns separately, we vstack it
@@ -68,7 +93,7 @@ class KMeans2D:
         ar = \
             np.vstack(
                 np.unique(axis=1, return_counts=True,
-                          ar=np.vstack([self.model.labels_, ar]))).transpose()
+                          ar=np.vstack([true_labels, pred_labels]))).transpose()
 
         # This sorts by the last column (Counts)
         ar: np.ndarray = ar[ar[:, -1].argsort()[::-1]]
@@ -96,6 +121,7 @@ class KMeans2D:
                 counts.append(r)
 
         ar = np.asarray(counts)
-        return ar, np.sum(ar[:, -1]) / (im.size[0] * im.size[1])
+        return ar, np.sum(ar[:, -1]) / pred_labels.size
+
 
 
