@@ -117,7 +117,6 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                  veg_a=0.667, glcm_con=False, glcm_cor=False, glcm_ent=False,
                  glcm_by_x=1, glcm_by_y=1,
                  glcm_radius=5, glcm_verbose=False,
-                 glcm_entropy_mp=False, glcm_entropy_mp_procs=None,
                  conv_gauss_stdev=4) -> _Frame2DChannel:
         """ Gets selected channels
 
@@ -141,21 +140,17 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :param glcm_by_y: GLCM By Y Parameter
         :param glcm_radius: GLCM Radius
         :param glcm_verbose: Whether to have glcm entropy generation give feedback
-        :param glcm_entropy_mp: Whether to enable multiprocessing for GLCM Entropy
-        :param glcm_entropy_mp_procs: Number of processes to run for GLCM Entropy
         :param conv_gauss_stdev: The stdev of the gaussian kernel used to convolute existing channels if GLCM is used
         """
         return self.get_all_chns(self_, xy, hsv, ex_g, mex_g, ex_gr, ndi,
                                  veg, veg_a, glcm_con, glcm_cor, glcm_ent,
                                  glcm_by_x, glcm_by_y, glcm_radius, glcm_verbose,
-                                 glcm_entropy_mp, glcm_entropy_mp_procs,
                                  conv_gauss_stdev)
 
     def get_all_chns(self, self_=True, xy=True, hsv=True, ex_g=True, mex_g=True,
                      ex_gr=True, ndi=True, veg=True, veg_a=0.667,
                      glcm_con=True, glcm_cor=True, glcm_ent=True,
                      glcm_by_x=1, glcm_by_y=1, glcm_radius=5, glcm_verbose=False,
-                     glcm_entropy_mp=False, glcm_entropy_mp_procs=None,
                      conv_gauss_stdev=4) -> _Frame2DChannel:
         """ Gets all implemented channels, excluding possible.
 
@@ -179,8 +174,6 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :param glcm_by_y: GLCM By Y Parameter
         :param glcm_radius: GLCM Radius
         :param glcm_verbose: Whether to have glcm entropy generation give feedback
-        :param glcm_entropy_mp: Whether to enable multiprocessing for GLCM Entropy
-        :param glcm_entropy_mp_procs: Number of processes to run for GLCM Entropy
         :param conv_gauss_stdev: The stdev of the gaussian kernel used to convolute existing channels if GLCM is used
         """
 
@@ -207,8 +200,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
             fft = fftconvolve(frame.data, kernel, mode='valid', axes=[0,1])
             glcm = self.get_glcm(
                 contrast=glcm_con, correlation=glcm_cor, entropy=glcm_ent,
-                by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius, verbose=glcm_verbose,
-                entropy_mp=glcm_entropy_mp, entropy_mp_procs=glcm_entropy_mp_procs
+                by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius, verbose=glcm_verbose
                 )
 
             return self.init(np.concatenate([fft, glcm], axis=2))
