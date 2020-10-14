@@ -3,11 +3,13 @@ cimport numpy as np
 cimport cython
 ctypedef np.npy_uint16 DTYPE_t
 ctypedef np.npy_uint32 DTYPE_t32
+from tqdm import tqdm
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,
-              unsigned int radius):
+               unsigned int radius,
+               bint verbose):
     """ Entropy Calculation in Cython
 
     Requirements:
@@ -21,10 +23,11 @@ def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,
     Entropy result will overflow on > unsigned int
     Maximum GLCM occurrence cannot exceed 65535
 
+    Verbose, whether to output progress with a progress bar
+
     Uses entropy_256_2dim for looping last dimension
 
     """
-
 
     # O O O           X X O   Window Size = 2
     # O O O if 2x2 -> X X O : Window I Rows = 2
@@ -70,7 +73,7 @@ def cy_entropy(np.ndarray[DTYPE_t, ndim=3] c,
     #       In each window we throw the value into a GLCM 65535 long array
     #       In that window, we then loop through the array and square sum
     #       We slot this value into the corresponding cell in entropy_ar
-    for wi_r in range(wi_rows):
+    for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
         for wi_c in range(wi_cols):
             # Slide through possible window top lefts
             glcm_view[:] = 0
