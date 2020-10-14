@@ -6,6 +6,7 @@ ctypedef np.uint32_t DTYPE_t32
 from cython.parallel cimport prange
 from tqdm import tqdm
 
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,
