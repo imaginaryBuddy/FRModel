@@ -15,13 +15,13 @@ class _Frame2DLoader(ABC):
         return cls(*args, **kwargs)
 
     @classmethod
-    def from_image(cls, file_path: str, scale:float = 1.0):
+    def from_image(cls, file_path: str, scale:float = 1.0, scale_method=Image.NEAREST):
         """ Creates an instance using the file path. """
         img = Image.open(file_path)
         img: Image.Image
         if scale != 1.0:
-            img = img.resize([int(scale * s) for s in img.size])
-        ar = np.asarray(img)
+            img = img.resize([int(scale * s) for s in img.size], resample=scale_method)
+        ar = np.asarray(img)[..., :3]
         return cls.init(ar)
 
     @classmethod
