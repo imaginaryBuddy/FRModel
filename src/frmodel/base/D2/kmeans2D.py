@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 from PIL import Image
 from scipy.stats import rankdata
@@ -11,6 +12,9 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.metrics import homogeneity_completeness_v_measure
+
+if TYPE_CHECKING:
+    from frmodel.base.D2 import Frame2D
 
 
 @dataclass
@@ -47,9 +51,16 @@ class KMeans2D:
 
         return fg
 
-    def score(self, score_file_path: str, exclude_0=True, glcm_radius=None):
-        # Convert to array
-        true = self.score_as_label(score_file_path)
+    def score(self, score_frame: Frame2D, exclude_0=True, glcm_radius=None):
+        """ Scores the current frame kmeans with a scoring image
+
+        :param score_frame: The score as Frame2D
+        :param exclude_0: Excludes the first label from calculation, that is the lowest grayscale value
+        :param glcm_radius: The radius of GLCM used if applicable. This will crop the Frame2D automatically to fit.
+        :return:
+        """
+        # Convert grayscale to labels
+        true = self._frame_as_label(score_frame)
 
         if glcm_radius is not None:
             true = true[glcm_radius+1:-glcm_radius, glcm_radius+1:-glcm_radius]
@@ -65,12 +76,15 @@ class KMeans2D:
             pred = pred[~true.mask]
             true = true[~true.mask]
 
-        return self.score_map(true, pred), *homogeneity_completeness_v_measure(true, pred)
+        score = self.score_map(true, pred), *homogeneity_completeness_v_measure(true, pred)
+        return {"Custom": score[0],
+                "Homogeneity": score[1],
+                "Completeness": score[2],
+                "V Measure": score[3]}
 
     @staticmethod
-    def score_as_label(score_file_path: str):
-        im: Image.Image = Image.open(score_file_path).convert('LA')
-        return np.asarray(im)[..., 0].reshape(im.size)
+    def _frame_as_label(frame: Frame2D):
+        return (rankdata(frame.data[..., 0].flatten(), method='dense') - 1).reshape(frame.shape[0:2])
 
     @staticmethod
     def score_map(true_labels: np.ndarray,
@@ -121,7 +135,7 @@ class KMeans2D:
                 counts.append(r)
 
         ar = np.asarray(counts)
-        return ar, np.sum(ar[:, -1]) / pred_labels.size
+        return np.sum(ar[:, -1]) / pred_labels.size
 
 
 
