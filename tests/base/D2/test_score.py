@@ -19,7 +19,8 @@ class ScoreTest(TestD2):
                              fit_indexes=[2, 3, 4, 5, 6, 7],
                              scaler=minmax_scale)
 
-        self.assertAlmostEqual(km.score(self._RSC + "/imgs/basic/box.png")[1], 1)
+        score = km.score(f, exclude_0=False)
+        self.assertAlmostEqual(score['Custom'], 1)
 
 if __name__ == '__main__':
     unittest.main()

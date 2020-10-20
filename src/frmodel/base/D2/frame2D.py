@@ -5,11 +5,13 @@ from typing import List, Tuple
 
 import numpy as np
 from PIL import Image
+from scipy.stats import rankdata
 from sklearn.neighbors import KDTree
 
 # noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_channel import _Frame2DChannel
 # noinspection PyProtectedMember
+from frmodel.base.D2.frame._frame_image import _Frame2DImage
 from frmodel.base.D2.frame._frame_kmeans import _Frame2DKmeans
 # noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_loader import _Frame2DLoader
@@ -28,17 +30,14 @@ class Frame2D(_Frame2DLoader,
               _Frame2DKmeans,
               _Frame2DPartition,
               _Frame2DChannel,
-              _Frame2DScaling):
+              _Frame2DScaling,
+              _Frame2DImage):
     """ A Frame is an alias to an Image.
 
     The underlying representation is a 2D array, each cell is a array of channels
     """
 
     data: np.ndarray
-
-    def save(self, file_path: str, **kwargs) -> None:
-        """ Saves the current Frame file """
-        Image.fromarray(self.data_rgb().astype(np.uint8)).save(file_path, **kwargs)
 
     def data_kdtree(self, leaf_size=40, metric='minkowski', **kwargs) -> KDTree:
         """ Constructs a KDTree with current data.
@@ -75,3 +74,9 @@ class Frame2D(_Frame2DLoader,
 
     def width(self) -> int:
         return self.shape[1]
+
+    # def data_cat_labels(self):
+    #     """ Categorizes unique values in the frame """
+    #     data = self.data.astype(np.uint)
+    #     flat = data[..., 0] + data[..., 1] * 255 + data[..., 2] * 255 * 255
+    #     return (rankdata(flat.flatten(), method='dense') - 1).reshape(self.data.shape[:-1])
