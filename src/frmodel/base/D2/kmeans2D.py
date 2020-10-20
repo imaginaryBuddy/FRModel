@@ -51,7 +51,7 @@ class KMeans2D:
 
         return fg
 
-    def score(self, score_frame: Frame2D, exclude_0=True, glcm_radius=None):
+    def score(self, score_frame: Frame2D, exclude_0=False, glcm_radius=None):
         """ Scores the current frame kmeans with a scoring image
 
         :param score_frame: The score as Frame2D
@@ -77,10 +77,10 @@ class KMeans2D:
             true = true[~true.mask]
 
         score = self.score_map(true, pred), *homogeneity_completeness_v_measure(true, pred)
-        return {"Custom": score[0],
-                "Homogeneity": score[1],
+        return {"Custom":       score[0],
+                "Homogeneity":  score[1],
                 "Completeness": score[2],
-                "V Measure": score[3]}
+                "V Measure":    score[3]}
 
     @staticmethod
     def _frame_as_label(frame: Frame2D):
