@@ -23,7 +23,7 @@ class _Frame2DImage(ABC):
              bottom:int = 0,
              left:int = 0) -> _Frame2DImage:
         """ Crops the frame by specifying how many rows/columns to remove from each side."""
-        return self.init(self.data[top:-bottom, left:-right, ...])
+        return self.init(self.data[top:-bottom or None, left:-right or None, ...])
 
     def save(self, file_path: str, rgb_indexes: Tuple = (0, 1, 2), **kwargs) -> None:
         """ Saves the current Frame file """
