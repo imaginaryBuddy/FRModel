@@ -18,6 +18,7 @@ from frmodel.base.D2.frame._frame_loader import _Frame2DLoader
 # noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_partition import _Frame2DPartition
 # noinspection PyProtectedMember
+from frmodel.base.D2.frame._frame_plot import _Frame2DPlot
 from frmodel.base.D2.frame._frame_scaling import _Frame2DScaling
 from frmodel.base.consts import CONSTS
 
@@ -31,7 +32,8 @@ class Frame2D(_Frame2DLoader,
               _Frame2DPartition,
               _Frame2DChannel,
               _Frame2DScaling,
-              _Frame2DImage):
+              _Frame2DImage,
+              _Frame2DPlot):
     """ A Frame is an alias to an Image.
 
     The underlying representation is a 2D array, each cell is a array of channels
