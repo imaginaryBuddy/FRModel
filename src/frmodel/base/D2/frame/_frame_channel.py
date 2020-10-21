@@ -151,7 +151,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                      ex_gr=True, ndi=True, veg=True, veg_a=0.667,
                      glcm_con=True, glcm_cor=True, glcm_ent=True,
                      glcm_by_x=1, glcm_by_y=1, glcm_radius=5, glcm_verbose=False,
-                     conv_gauss_stdev=4) -> _Frame2DChannel:
+                     conv_gauss_stdev=4, conv_method='nearest') -> _Frame2DChannel:
         """ Gets all implemented channels, excluding possible.
 
         Order is given by the argument order.
@@ -175,6 +175,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :param glcm_radius: GLCM Radius
         :param glcm_verbose: Whether to have glcm entropy generation give feedback
         :param conv_gauss_stdev: The stdev of the gaussian kernel used to convolute existing channels if GLCM is used
+        :param conv_method: Can be 'average' or 'nearest'
         """
 
         features = \
@@ -194,9 +195,13 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
             # We also average the shifted frame with the current
 
             kernel_diam = glcm_radius * 2 + 1
-            kernel = np.outer(gaussian(kernel_diam + glcm_by_y, conv_gauss_stdev),
-                              gaussian(kernel_diam + glcm_by_x, conv_gauss_stdev))
-            kernel = np.expand_dims(kernel, axis=-1)
+            if conv_method == 'nearest':
+                kernel = np.zeros([kernel_diam + 1, kernel_diam + 1, 1])
+                kernel[kernel.shape[0] // 2, kernel.shape[1] // 2] = 1
+            else: # 'average'
+                kernel = np.outer(gaussian(kernel_diam + glcm_by_y, conv_gauss_stdev),
+                                  gaussian(kernel_diam + glcm_by_x, conv_gauss_stdev))
+                kernel = np.expand_dims(kernel, axis=-1)
             fft = fftconvolve(frame.data, kernel, mode='valid', axes=[0,1])
             glcm = self.get_glcm(
                 contrast=glcm_con, correlation=glcm_cor, entropy=glcm_ent,
