@@ -6,6 +6,7 @@ from typing import Iterable
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.gridspec import GridSpec
+import seaborn as sns
 from sklearn.preprocessing import minmax_scale, normalize
 
 
@@ -38,6 +39,11 @@ class Frame2DPlot:
     def hist(self, scale=1, bins=50):
         for ax, d in self._create_grid(scale):
             ax.hist(d.flatten(), bins=bins)
+
+    def kde(self, scale=1, smoothing=0.5):
+        for ax, d in self._create_grid(scale):
+            sns.kdeplot(d.flatten(), ax=ax, bw_adjust=smoothing)
+
 
 class _Frame2DPlot:
     data: np.ndarray
