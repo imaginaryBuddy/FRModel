@@ -25,10 +25,10 @@ class _Frame2DLoader(ABC):
         return cls.init(ar)
 
     @classmethod
-    def from_rgbxy_(cls, ar: np.ndarray, xy_pos=(3,4), width=None, height=None) -> _Frame2DLoader:
+    def from_nxy_(cls, ar: np.ndarray, xy_pos=(3, 4), width=None, height=None) -> _Frame2DLoader:
         """ Rebuilds the frame with XY values. XY should be of integer values, otherwise, will be casted.
 
-        Note that RGB channels MUST be on index 0, 1, 2 else some functions may break. However, can be ignored.
+        Note that RGB channels SHOULD be on index 0, 1, 2 else some functions may break. However, can be ignored.
 
         The frame will be rebuild and all data will be retained, including XY.
 
