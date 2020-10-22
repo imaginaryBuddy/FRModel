@@ -8,6 +8,9 @@ from tqdm.gui import tqdm
 from frmodel.base.D2 import Frame2D
 import os
 
+from frmodel.base.D2.kmeans2D import KMeans2D
+
+
 def kmeans_matrix(test_path: str,
                   score_path: str,
                   scale: float,
@@ -70,20 +73,20 @@ def kmeans(f: Frame2D,
            verbose: bool,
            fit_indexes: list,
            scaler=minmax_scale,
-           fig_name:str or None = "out.png",
-           scatter_size=0.5):
-    km = f.kmeans(KMeans(n_clusters=clusters,
-                         verbose=verbose),
-                         fit_indexes=fit_indexes,
-                         scaler=scaler)
+           fig_name:str or None = "out.png"):
+    km = KMeans2D(f,
+                  model=KMeans(n_clusters=clusters,
+                               verbose=verbose),
+                  fit_indexes=fit_indexes,
+                  scaler=scaler)
 
     sns.set_palette(sns.color_palette("magma"), n_colors=clusters)
-    p = km.plot(scatter_size=scatter_size)
+    km.plot()
 
     if fig_name:
         plt.gcf().set_size_inches(f.width() / 96 * 2,
                                   f.height() / 96 * 2)
-        p.savefig(fig_name)
+        plt.gcf().savefig(fig_name)
         plt.cla()
 
     return km

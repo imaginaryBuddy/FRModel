@@ -1,31 +1,43 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import TYPE_CHECKING
-
-from PIL import Image
 from scipy.stats import rankdata
 from seaborn import FacetGrid
 
 from sklearn.cluster import KMeans
 import numpy as np
-import pandas as pd
-import seaborn as sns
 from sklearn.metrics import homogeneity_completeness_v_measure
+from sklearn.preprocessing import normalize
 
-if TYPE_CHECKING:
-    from frmodel.base.D2 import Frame2D
+from frmodel.base.D2 import Frame2D
 
 
-@dataclass
 class KMeans2D:
 
-    model: KMeans
-    data: np.ndarray
+    def __init__(self,
+                 frame: Frame2D,
+                 model: KMeans,
+                 fit_indexes,
+                 sample_weight=None,
+                 scaler=normalize):
+        """ Creates a KMeans Object from current data
+
+        :param model: KMeans Model
+        :param fit_indexes: The indexes to .fit()
+        :param sample_weight: The sample weight for each record, if any. Can be None.
+        :param scaler: The scaler to use, must be a callable(np.ndarray)
+        :returns: KMeans2D Instance
+
+        """
+        data = frame.data_flatten_xy()[..., fit_indexes]
+        trans = scaler(data)
+        fit = model.fit(trans,
+                        sample_weight=trans[:, sample_weight] if np.all(sample_weight) else None)
+        self.model = fit
+        self.frame = frame
 
     def plot(self,
              xy_indexes=(3, 4),
-             scatter_size=0.2) -> FacetGrid:
+             scale=1):
         """ Generates a plot with fitted KMeans
 
         Implicitly set 1:1 ratio plotting
@@ -35,21 +47,12 @@ class KMeans2D:
         :param scatter_size: Size of marker
         :return: A FacetGrid
         """
-        df = pd.DataFrame(np.append(self.data, self.model.labels_[..., np.newaxis], axis=-1))
-        df.columns = [f"c{e}" for e, _ in enumerate(df.columns)]
 
-        fg = sns.lmplot(data=df,
-                        x=f'c{xy_indexes[0]}',
-                        y=f'c{xy_indexes[1]}',
-                        hue=df.columns[-1],
-                        fit_reg=False,
-                        legend=True,
-                        legend_out=True,
-                        scatter_kws={"s": scatter_size})
-        fg.ax.set_aspect('equal')
-        fg.ax.invert_yaxis()
+        f = Frame2D.from_nxy_(np.append(np.round(self.frame.data_flatten_xy()[..., xy_indexes]).astype(np.int),
+                                        self.model.labels_[..., np.newaxis], axis=-1),
+                              xy_pos=(0, 1))
+        f.plot([-1]).image()
 
-        return fg
 
     def score(self, score_frame: Frame2D, exclude_0=False, glcm_radius=None):
         """ Scores the current frame kmeans with a scoring image
@@ -84,7 +87,7 @@ class KMeans2D:
 
     @staticmethod
     def _frame_as_label(frame: Frame2D):
-        return (rankdata(frame.data[..., 0].flatten(), method='dense') - 1).reshape(frame.shape[0:2])
+        return (rankdata(frame.data_flatten_xy()[..., 0], method='dense') - 1).reshape(frame.shape[0:2])
 
     @staticmethod
     def score_map(true_labels: np.ndarray,
