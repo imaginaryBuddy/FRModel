@@ -48,6 +48,9 @@ class Frame2DPlot:
 class _Frame2DPlot:
     data: np.ndarray
 
-    def plot(self, ixs: Iterable or slice) -> Frame2DPlot:
+    def plot(self, ixs: Iterable or slice or None = None) -> Frame2DPlot:
         """ Gets a plot object. Note that you need to call a plot function to plot """
-        return Frame2DPlot(self.data[..., ixs])
+        if ixs:
+            return Frame2DPlot(self.data[..., ixs])
+        else:
+            return Frame2DPlot(self.data)
