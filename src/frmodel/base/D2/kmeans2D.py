@@ -24,7 +24,7 @@ class KMeans2D:
     data: np.ndarray
 
     def plot(self,
-             xy_indexes=(3 ,4),
+             xy_indexes=(3, 4),
              scatter_size=0.2) -> FacetGrid:
         """ Generates a plot with fitted KMeans
 
