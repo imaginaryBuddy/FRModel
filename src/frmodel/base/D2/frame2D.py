@@ -12,7 +12,6 @@ from sklearn.neighbors import KDTree
 from frmodel.base.D2.frame._frame_channel import _Frame2DChannel
 # noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_image import _Frame2DImage
-from frmodel.base.D2.frame._frame_kmeans import _Frame2DKmeans
 # noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_loader import _Frame2DLoader
 # noinspection PyProtectedMember
@@ -28,7 +27,6 @@ MAX_RGB = 255
 
 @dataclass
 class Frame2D(_Frame2DLoader,
-              _Frame2DKmeans,
               _Frame2DPartition,
               _Frame2DChannel,
               _Frame2DScaling,
@@ -45,12 +43,13 @@ class Frame2D(_Frame2DLoader,
         """ Constructs a KDTree with current data.
 
         Uses sklearn.neighbours.KDTree API."""
-        return KDTree(self.data_flatten(),
+        return KDTree(self.data_flatten_xy(),
                       leaf_size=leaf_size,
                       metric=metric,
                       **kwargs)
 
-    def data_flatten(self) -> np.ndarray:
+    def data_flatten_xy(self) -> np.ndarray:
+        """ Flattens the data on XY only. """
         return self.data.reshape([-1, self.shape[-1]])
 
     def data_chn(self, idx: int or List[int]) -> np.ndarray:
