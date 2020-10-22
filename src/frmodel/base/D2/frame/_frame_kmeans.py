@@ -8,8 +8,7 @@ from frmodel.base.D2.kmeans2D import KMeans2D
 
 class _Frame2DKmeans(ABC):
 
-    @abstractmethod
-    def data_flatten(self): ...
+    data: np.ndarray
 
     def kmeans(self,
                model: KMeans,
@@ -25,9 +24,10 @@ class _Frame2DKmeans(ABC):
         :returns: KMeans2D Instance
 
         """
-        frame_xy_trans = scaler(self.data_flatten()[:, fit_indexes])
-        fit = model.fit(frame_xy_trans,
-                        sample_weight=frame_xy_trans[:, sample_weight] if np.all(sample_weight) else None)
+        data = self.data[:, fit_indexes].reshape(-1, len(fit_indexes))
+        trans = scaler(data)
+        fit = model.fit(trans,
+                        sample_weight=trans[:, sample_weight] if np.all(sample_weight) else None)
 
-        return KMeans2D(fit, self.data_flatten())
+        return KMeans2D(fit, data)
 
