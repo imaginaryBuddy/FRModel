@@ -47,4 +47,4 @@ class _Frame2DScaling(ABC):
     def scale(self, scaler, **scaler_kwargs):
         shape = self.data.shape
         return self.init(scaler(self.data_flatten_xy(),
-                                **scaler_kwargs, axis=0).reshape(shape))
+                                **scaler_kwargs).reshape(shape))
