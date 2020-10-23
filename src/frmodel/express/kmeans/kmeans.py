@@ -98,7 +98,6 @@ def kmeans(f: Frame2D,
 
     return km
 
-
 def kmeans_score(f: Frame2D,
                  score: Frame2D or str,
                  glcm_radius: int,
@@ -106,10 +105,65 @@ def kmeans_score(f: Frame2D,
                  verbose: bool,
                  fit_indexes: list,
                  scaler=minmax_scale,
-                 fig_name:str or None = "out.png",
-                 scatter_size=0.5):
+                 fig_name:str or None = "out.png"):
     km = kmeans(f, clusters, verbose, fit_indexes, scaler,
-                fig_name, scatter_size)
+                fig_name)
     if isinstance(score, str):
         score = Frame2D.from_image(score)
     print(km.score(score, glcm_radius=glcm_radius))
+
+def kmeans_matrix_2dscore_heatmap(result_path: str,
+                                  i1='a', i2='b',
+                                  output_path: str = "out.png"):
+    df = pd.read_csv(result_path, ",")
+
+    df_v  = df.pivot(i1, i2, "V Measure")
+    df_cu = df.pivot(i1, i2, "Custom")
+    df_h  = df.pivot(i1, i2, "Homogeneity")
+    df_co = df.pivot(i1, i2, "Completeness")
+
+    fig, ax = plt.subplots(2, 2)
+    sns.heatmap(df_cu.round(2) * 100, annot=True, ax=ax[0][0])
+    sns.heatmap(df_h.round(2) * 100, annot=True, ax=ax[0][1])
+    sns.heatmap(df_co.round(2) * 100, annot=True, ax=ax[1][0])
+    sns.heatmap(df_v.round(2) * 100, annot=True, ax=ax[1][1])
+
+    ax[0][0].set_title("Custom")
+    ax[0][1].set_title("Homogeneity")
+    ax[1][0].set_title("Completeness")
+    ax[1][1].set_title("V Measure")
+
+    fig: plt.Figure
+    fig.set_figheight(15)
+    fig.set_figwidth(15)
+
+    fig.savefig(output_path)
+
+
+def kmeans_matrix_3dscore_heatmap(result_path: str,
+                                  i1='a', i2='b', i3='c',
+                                  score_method='V Measure',
+                                  output_path: str = "out.html"):
+    df = pd.read_csv(result_path, ",")
+
+    data = [
+        go.Scatter3d(
+            x=df[i1],
+            y=df[i2],
+            z=df[i3],
+            mode='markers',
+            marker=dict(line=dict(width=0),
+                        color=df[score_method],
+                        colorscale=px.colors.sequential.Viridis),
+        )
+    ]
+
+    layout = go.Layout(
+        scene=dict(xaxis={'title': i1},
+                   yaxis={'title': i2},
+                   zaxis={'title': i3}),
+        hovermode='closest'
+    )
+
+    fig = go.Figure(data=data, layout=layout)
+    fig.to_html(output_path)
