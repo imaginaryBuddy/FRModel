@@ -151,8 +151,7 @@ def kmeans_matrix_3dscore_heatmap(result_path: str,
             z=df[i3],
             mode='markers',
             marker=dict(line=dict(width=0),
-                        color=df[score_method],
-                        colorscale=px.colors.sequential.Viridis),
+                        color=df[score_method]),
         )
     ]
 
@@ -164,4 +163,4 @@ def kmeans_matrix_3dscore_heatmap(result_path: str,
     )
 
     fig = go.Figure(data=data, layout=layout)
-    fig.to_html(output_path)
+    fig.write_html(output_path)
