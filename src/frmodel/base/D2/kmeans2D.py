@@ -18,7 +18,7 @@ class KMeans2D:
                  model: KMeans,
                  fit_indexes,
                  sample_weight=None,
-                 scaler=normalize):
+                 scaler=None):
         """ Creates a KMeans Object from current data
 
         :param model: KMeans Model
@@ -29,15 +29,15 @@ class KMeans2D:
 
         """
         data = frame.data_flatten_xy()[..., fit_indexes]
-        trans = scaler(data)
-        fit = model.fit(trans,
-                        sample_weight=trans[:, sample_weight] if np.all(sample_weight) else None)
+        if scaler:
+            data = scaler(data)
+        fit = model.fit(data,
+                        sample_weight=np.abs(data[:, sample_weight]) if np.all(sample_weight) else None)
         self.model = fit
         self.frame = frame
 
     def plot(self,
-             xy_indexes=(3, 4),
-             scale=1):
+             xy_indexes=(3, 4)):
         """ Generates a plot with fitted KMeans
 
         Implicitly set 1:1 ratio plotting
