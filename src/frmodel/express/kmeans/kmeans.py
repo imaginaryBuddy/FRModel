@@ -25,7 +25,6 @@ def kmeans_matrix(test_path: str,
                   ixs_per_kmeans: int,
                   verbose=True,
                   clusters=6,
-                  scatter_size=0.5,
                   imgs_dir="imgs",
                   scaler=minmax_scale,
                   glcm_radius=5):
@@ -38,7 +37,6 @@ def kmeans_matrix(test_path: str,
     :param ixs_per_kmeans: The number of indexes to consider.
     :param verbose: Whether to output information in console
     :param clusters: The number of KMeans clusters
-    :param scatter_size: Size of the scatter used in reconstructing image
     :param imgs_dir: The subdir folder name of images
     :param scaler: The scaler to use to normalize data
     :param glcm_radius: Radius of GLCM
