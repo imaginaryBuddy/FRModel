@@ -1,14 +1,21 @@
 from itertools import combinations
+from string import ascii_lowercase
+
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import minmax_scale
 import seaborn as sns
 import matplotlib.pyplot as plt
-from tqdm.gui import tqdm
+import tqdm
+
+import pandas as pd
 
 from frmodel.base.D2 import Frame2D
 import os
 
 from frmodel.base.D2.kmeans2D import KMeans2D
+
+import plotly.graph_objs as go
+import plotly.express as px
 
 
 def kmeans_matrix(test_path: str,
@@ -45,23 +52,23 @@ def kmeans_matrix(test_path: str,
 
     with open(f"{output_dir}/results.csv", "w+") as file:
 
-        file.write(f"a,b,Custom,Homogeneity,Completeness,V Measure\n")
-        for ixs in tqdm(list(combinations(22, ixs_per_kmeans))):
-            print("Processing ", ixs)
-            km = frame.kmeans(
-                KMeans(n_clusters=clusters, verbose=verbose),
-                       fit_indexes=ixs,
-                       scaler=scaler)
+        file.write(",".join([a for a in ascii_lowercase[0:ixs_per_kmeans]]) +
+                   f",Custom,Homogeneity,Completeness,V Measure\n")
+        combos = list(combinations(range(22), ixs_per_kmeans))
+        for ixs in tqdm.tqdm(combos):
+
+            km = KMeans2D(frame, KMeans(n_clusters=clusters, verbose=verbose),
+                          fit_indexes=ixs,
+                          scaler=scaler)
 
             sns.set_palette(sns.color_palette("magma"), n_colors=clusters)
-            p = km.plot(scatter_size=scatter_size)
-            plt.gcf().set_size_inches(f.width() / 96 * 2, f.height() / 96 * 2)
-            p.savefig(f"{output_dir}/{imgs_dir}/" +
-                      "_".join([str(i) for i in ixs]) +
-                      ".png")
+            km.plot()
+            plt.savefig(f"{output_dir}/{imgs_dir}/" +
+                              "_".join([str(i) for i in ixs]) +
+                              ".png")
             plt.cla()
 
-            file.write(",".join(ixs) + ",")
+            file.write(",".join([str(i) for i in ixs]) + ",")
             file.write(",".join([str(s) for s in
                                  km.score(score,
                                           glcm_radius=glcm_radius).values()]) + '\n')
