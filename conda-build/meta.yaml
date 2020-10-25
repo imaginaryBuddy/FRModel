@@ -1,6 +1,6 @@
 package:
   name: "frmodel"
-  version: "0.0.3"
+  version: "0.0.4"
 
 source:
   path: ../src
@@ -30,9 +30,12 @@ requirements:
     - scikit-learn
     - tqdm
 
+
 about:
   home: "https://github.com/Eve-ning/frmodel"
   summary: "Forest Recovery Modelling base library"
   doc_url: https://eve-ning.github.io/frmodel/
   dev_url: https://github.com/Eve-ning
+  license: Mozilla Public License 2.0
+  license_file: ../LICENSE
 

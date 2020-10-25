@@ -22,6 +22,9 @@ class _Frame2DScaling(ABC):
     def data_chn(self, *args, **kwargs): ...
 
     @abstractmethod
+    def data_flatten_xy(self, *args, **kwargs): ...
+
+    @abstractmethod
     def width(self): ...
 
     @abstractmethod
@@ -35,10 +38,13 @@ class _Frame2DScaling(ABC):
     def init(cls, *args, **kwargs):
         return cls(*args, **kwargs)
 
-    def normalize(self) -> _Frame2DScaling:
-        shape = self.data.shape
-        return self.init(sk_normalize(self.data.reshape([-1, shape[-1]]), axis=0).reshape(shape))
+    def normalize(self, **kwargs) -> _Frame2DScaling:
+        return self.scale(sk_normalize, **kwargs)
 
-    def minmax_scale(self) -> _Frame2DScaling:
+    def minmax_scale(self, **kwargs) -> _Frame2DScaling:
+        return self.scale(sk_minmax_scale, **kwargs)
+
+    def scale(self, scaler, **scaler_kwargs):
         shape = self.data.shape
-        return self.init(sk_minmax_scale(self.data.reshape([-1, shape[-1]]), axis=0).reshape(shape))
+        return self.init(scaler(self.data_flatten_xy(),
+                                **scaler_kwargs).reshape(shape))
