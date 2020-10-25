@@ -191,23 +191,24 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         frame = self.init(np.concatenate([f for f in features if f is not None], axis=2))
 
         if glcm_con or glcm_cor or glcm_ent:
-            # We trim the frame so that the new glcm can fit
-            # We also average the shifted frame with the current
-
-            kernel_diam = glcm_radius * 2 + 1
-            if conv_method == 'nearest':
-                kernel = np.zeros([kernel_diam + 1, kernel_diam + 1, 1])
-                kernel[kernel.shape[0] // 2, kernel.shape[1] // 2] = 1
-            else: # 'average'
-                kernel = np.outer(gaussian(kernel_diam + glcm_by_y, conv_gauss_stdev),
-                                  gaussian(kernel_diam + glcm_by_x, conv_gauss_stdev))
-                kernel = np.expand_dims(kernel, axis=-1)
-            fft = fftconvolve(frame.data, kernel, mode='valid', axes=[0,1])
             glcm = self.get_glcm(
                 contrast=glcm_con, correlation=glcm_cor, entropy=glcm_ent,
                 by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius, verbose=glcm_verbose
                 )
 
-            return self.init(np.concatenate([fft, glcm], axis=2))
+            if frame:
+                # We trim the frame so that the new glcm can fit
+                # We also average the shifted frame with the current
+                kernel_diam = glcm_radius * 2 + 1
+                if conv_method == 'nearest':
+                    kernel = np.zeros([kernel_diam + 1, kernel_diam + 1, 1])
+                    kernel[kernel.shape[0] // 2, kernel.shape[1] // 2] = 1
+                else: # 'average'
+                    kernel = np.outer(gaussian(kernel_diam + glcm_by_y, conv_gauss_stdev),
+                                      gaussian(kernel_diam + glcm_by_x, conv_gauss_stdev))
+                    kernel = np.expand_dims(kernel, axis=-1)
+                fft = fftconvolve(frame.data, kernel, mode='valid', axes=[0,1])
+                glcm = np.concatenate([fft, glcm], axis=2)
+            return self.init(glcm)
 
         return frame
