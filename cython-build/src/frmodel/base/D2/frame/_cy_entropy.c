@@ -3047,7 +3047,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):             # <<<<<<<<<<<<<<
  *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
- *             # Slide through possible window top lefts
+ *             for w_ch in prange(w_channels, schedule='dynamic'):
  */
   __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
@@ -3121,8 +3121,8 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
  *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
- *             # Slide through possible window top lefts
- *             glcm_view[:] = 0
+ *             for w_ch in prange(w_channels, schedule='dynamic'):
+ *                 glcm_view[:] = 0
  */
     {
         #ifdef WITH_THREAD
@@ -3160,34 +3160,12 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                               __pyx_v_w_ch = ((char)'?');
                               __pyx_v_w_r = ((short)0xbad0bad0);
 
-                              /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":86
+                              /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":85
+ *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
  *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
- *             # Slide through possible window top lefts
- *             glcm_view[:] = 0             # <<<<<<<<<<<<<<
- * 
- *             for w_ch in prange(w_channels, schedule='dynamic'):
- */
-                              {
-                                  unsigned short __pyx_temp_scalar = 0;
-                                  {
-                                      Py_ssize_t __pyx_temp_extent_0 = __pyx_v_glcm_view.shape[0];
-                                      Py_ssize_t __pyx_temp_stride_0 = __pyx_v_glcm_view.strides[0];
-                                      char *__pyx_temp_pointer_0;
-                                      Py_ssize_t __pyx_temp_idx_0;
-                                      __pyx_temp_pointer_0 = __pyx_v_glcm_view.data;
-                                      for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 < __pyx_temp_extent_0; __pyx_temp_idx_0++) {
-                                        *((unsigned short *) __pyx_temp_pointer_0) = __pyx_temp_scalar;
-                                        __pyx_temp_pointer_0 += __pyx_temp_stride_0;
-                                      }
-                                  }
-                              }
-
-                              /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":88
- *             glcm_view[:] = 0
- * 
  *             for w_ch in prange(w_channels, schedule='dynamic'):             # <<<<<<<<<<<<<<
+ *                 glcm_view[:] = 0
  *                 for w_r in prange(w_size, schedule='dynamic'):
- *                     for w_c in prange(w_size, schedule='dynamic'):
  */
                               __pyx_t_16 = __pyx_v_w_channels;
                               if ((1 == 0)) abort();
@@ -3211,9 +3189,31 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                   __pyx_v_w_c = ((short)0xbad0bad0);
                                                   __pyx_v_w_r = ((short)0xbad0bad0);
 
-                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":89
- * 
+                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":86
+ *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
  *             for w_ch in prange(w_channels, schedule='dynamic'):
+ *                 glcm_view[:] = 0             # <<<<<<<<<<<<<<
+ *                 for w_r in prange(w_size, schedule='dynamic'):
+ *                     for w_c in prange(w_size, schedule='dynamic'):
+ */
+                                                  {
+                                                      unsigned short __pyx_temp_scalar = 0;
+                                                      {
+                                                          Py_ssize_t __pyx_temp_extent_0 = __pyx_v_glcm_view.shape[0];
+                                                          Py_ssize_t __pyx_temp_stride_0 = __pyx_v_glcm_view.strides[0];
+                                                          char *__pyx_temp_pointer_0;
+                                                          Py_ssize_t __pyx_temp_idx_0;
+                                                          __pyx_temp_pointer_0 = __pyx_v_glcm_view.data;
+                                                          for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 < __pyx_temp_extent_0; __pyx_temp_idx_0++) {
+                                                            *((unsigned short *) __pyx_temp_pointer_0) = __pyx_temp_scalar;
+                                                            __pyx_temp_pointer_0 += __pyx_temp_stride_0;
+                                                          }
+                                                      }
+                                                  }
+
+                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":87
+ *             for w_ch in prange(w_channels, schedule='dynamic'):
+ *                 glcm_view[:] = 0
  *                 for w_r in prange(w_size, schedule='dynamic'):             # <<<<<<<<<<<<<<
  *                     for w_c in prange(w_size, schedule='dynamic'):
  *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
@@ -3237,8 +3237,8 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                                       /* Initialize private variables to invalid values */
                                                                       __pyx_v_w_c = ((short)0xbad0bad0);
 
-                                                                      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":90
- *             for w_ch in prange(w_channels, schedule='dynamic'):
+                                                                      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":88
+ *                 glcm_view[:] = 0
  *                 for w_r in prange(w_size, schedule='dynamic'):
  *                     for w_c in prange(w_size, schedule='dynamic'):             # <<<<<<<<<<<<<<
  *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
@@ -3261,7 +3261,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                                                       {
                                                                                           __pyx_v_w_c = (short)(0 + 1 * __pyx_t_23);
 
-                                                                                          /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":91
+                                                                                          /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":89
  *                 for w_r in prange(w_size, schedule='dynamic'):
  *                     for w_c in prange(w_size, schedule='dynamic'):
  *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1             # <<<<<<<<<<<<<<
@@ -3284,7 +3284,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                       }
                                                   }
 
-                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":93
+                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":91
  *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
  * 
  *                 entropy = 0             # <<<<<<<<<<<<<<
@@ -3293,7 +3293,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
                                                   __pyx_v_entropy = 0;
 
-                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":94
+                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":92
  * 
  *                 entropy = 0
  *                 for glcm_i in prange(glcm_size, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -3317,7 +3317,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                                   {
                                                                       __pyx_v_glcm_i = (int)(0 + 1 * __pyx_t_30);
 
-                                                                      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":95
+                                                                      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":93
  *                 entropy = 0
  *                 for glcm_i in prange(glcm_size, schedule='dynamic'):
  *                     entropy += glcm_view[glcm_i] ** entropy_power             # <<<<<<<<<<<<<<
@@ -3332,7 +3332,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                       }
                                                   }
 
-                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":96
+                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":94
  *                 for glcm_i in prange(glcm_size, schedule='dynamic'):
  *                     entropy += glcm_view[glcm_i] ** entropy_power
  *                 entropy_view[wi_r, wi_c, w_ch] += entropy             # <<<<<<<<<<<<<<
@@ -3365,8 +3365,8 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
  *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
- *             # Slide through possible window top lefts
- *             glcm_view[:] = 0
+ *             for w_ch in prange(w_channels, schedule='dynamic'):
+ *                 glcm_view[:] = 0
  */
         /*finally:*/ {
           /*normal exit:*/{
@@ -3385,12 +3385,12 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):             # <<<<<<<<<<<<<<
  *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
- *             # Slide through possible window top lefts
+ *             for w_ch in prange(w_channels, schedule='dynamic'):
  */
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":98
+  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":96
  *                 entropy_view[wi_r, wi_c, w_ch] += entropy
  * 
  *     return entropy_ar             # <<<<<<<<<<<<<<

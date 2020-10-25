@@ -82,10 +82,8 @@ def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,
     # So the options are exclusive, but verbose is more important
     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
-            # Slide through possible window top lefts
-            glcm_view[:] = 0
-
             for w_ch in prange(w_channels, schedule='dynamic'):
+                glcm_view[:] = 0
                 for w_r in prange(w_size, schedule='dynamic'):
                     for w_c in prange(w_size, schedule='dynamic'):
                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
