@@ -6,7 +6,7 @@ This provides a simple high-level interface of plotting a frame.
 
 To start
 
-.. code-block::python
+.. code-block:: python
 
     f = Frame2D.from_image("path/to/file.png")
     fpl = f.plot()
@@ -15,7 +15,7 @@ This gives you a ``Frame2DPlot`` object to call plotting functions with.
 
 If you only want to plot a few indexes, you can call it with arguments
 
-.. code-block::python
+.. code-block:: python
 
     from sklearn.preprocessing import robust_scale,
 
@@ -34,7 +34,7 @@ By default, if ``Frame2DPlot.subplot_shape`` is None, it'll find the best shape 
 
 However, if you want to set a fixed shape, you can do so
 
-.. code-block::python
+.. code-block:: python
 
     ROWS = 3
     COLS = 2
@@ -55,7 +55,7 @@ Example
 
 Here, we load in an image on 25% scale then plot the images with 22 rows and 1 column.
 
-.. code-block::python
+.. code-block:: python
 
     SCALE = 0.25
     f = Frame2D.from_image("path/to/file.png", scale=SCALE)

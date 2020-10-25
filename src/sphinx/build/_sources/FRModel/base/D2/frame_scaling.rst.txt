@@ -22,7 +22,7 @@ Custom Scaling
 
 In case you have a custom scaler, you can scale it by passing the scale ``Callable`` as an argument
 
-.. code-block::python
+.. code-block:: python
 
     from sklearn.preprocessing import robust_scale
 
