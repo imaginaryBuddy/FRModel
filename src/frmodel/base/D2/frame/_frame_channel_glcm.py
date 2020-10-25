@@ -146,7 +146,7 @@ class _Frame2DChannelGLCM(ABC):
         conv_stdb = np.sqrt(np.abs(conv_be2 - conv_be_2))
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            cor = (conv_ab - (conv_ae - conv_be)) / conv_stda * conv_stdb
+            cor = (conv_ab - (conv_ae - conv_be) * (2 * radius + 1) ** 2) / (conv_stda * conv_stdb)
             return np.nan_to_num(cor, copy=False, nan=0, neginf=-1, posinf=1)
 
     def _get_glcm_entropy(self,
