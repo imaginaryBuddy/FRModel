@@ -10,6 +10,7 @@ Frame
     GLCM <frame_channel_glcm>
     Scaling <frame_scaling>
     K-Means <frame_kmeans>
+    Plotting <frame_plot>
 
 =========
 Intuition
