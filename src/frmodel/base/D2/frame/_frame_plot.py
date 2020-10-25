@@ -41,6 +41,9 @@ class Frame2DPlot:
             ax: plt.Axes
             yield ax, self.f.data[..., i]
 
+    def set_browser_plotting(self):
+        pio.renderers.default = "browser"
+
     def image(self, scale=1, colormap='magma'):
         for ax, d in self._create_grid(scale):
             ax.imshow(d, cmap=colormap)
