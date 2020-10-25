@@ -188,8 +188,13 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
              self.get_ndi() if ndi else None,
              self.get_veg(veg_a) if veg else None]
 
-        frame = self.init(np.concatenate([f for f in features if f is not None], axis=2))
+        features = [f for f in features if f is not None]
 
+        if features:
+            frame = self.init(np.concatenate([f for f in features if f is not None], axis=2))
+        else:
+            frame = None
+            
         if glcm_con or glcm_cor or glcm_ent:
             glcm = self.get_glcm(
                 contrast=glcm_con, correlation=glcm_cor, entropy=glcm_ent,
