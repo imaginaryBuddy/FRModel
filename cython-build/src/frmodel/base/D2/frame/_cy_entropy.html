@@ -862,24 +862,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
           __pyx_L9:;
         }
     }
-</pre><pre class="cython line score-0">&#xA0;<span class="">85</span>:             <span class="c"># Slide through possible window top lefts</span></pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">86</span>:             <span class="n">glcm_view</span><span class="p">[:]</span> <span class="o">=</span> <span class="mf">0</span></pre>
-<pre class='cython code score-0 '>                              {
-                                  unsigned short __pyx_temp_scalar = 0;
-                                  {
-                                      Py_ssize_t __pyx_temp_extent_0 = __pyx_v_glcm_view.shape[0];
-                                      Py_ssize_t __pyx_temp_stride_0 = __pyx_v_glcm_view.strides[0];
-                                      char *__pyx_temp_pointer_0;
-                                      Py_ssize_t __pyx_temp_idx_0;
-                                      __pyx_temp_pointer_0 = __pyx_v_glcm_view.data;
-                                      for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 &lt; __pyx_temp_extent_0; __pyx_temp_idx_0++) {
-                                        *((unsigned short *) __pyx_temp_pointer_0) = __pyx_temp_scalar;
-                                        __pyx_temp_pointer_0 += __pyx_temp_stride_0;
-                                      }
-                                  }
-                              }
-</pre><pre class="cython line score-0">&#xA0;<span class="">87</span>: </pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">88</span>:             <span class="k">for</span> <span class="n">w_ch</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">w_channels</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s">&#39;dynamic&#39;</span><span class="p">):</span></pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">85</span>:             <span class="k">for</span> <span class="n">w_ch</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">w_channels</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s">&#39;dynamic&#39;</span><span class="p">):</span></pre>
 <pre class='cython code score-0 '>                              __pyx_t_16 = __pyx_v_w_channels;
                               if ((1 == 0)) abort();
                               {
@@ -901,7 +884,22 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                   __pyx_v_glcm_i = ((int)0xbad0bad0);
                                                   __pyx_v_w_c = ((short)0xbad0bad0);
                                                   __pyx_v_w_r = ((short)0xbad0bad0);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">89</span>:                 <span class="k">for</span> <span class="n">w_r</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">w_size</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s">&#39;dynamic&#39;</span><span class="p">):</span></pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">86</span>:                 <span class="n">glcm_view</span><span class="p">[:]</span> <span class="o">=</span> <span class="mf">0</span></pre>
+<pre class='cython code score-0 '>                                                  {
+                                                      unsigned short __pyx_temp_scalar = 0;
+                                                      {
+                                                          Py_ssize_t __pyx_temp_extent_0 = __pyx_v_glcm_view.shape[0];
+                                                          Py_ssize_t __pyx_temp_stride_0 = __pyx_v_glcm_view.strides[0];
+                                                          char *__pyx_temp_pointer_0;
+                                                          Py_ssize_t __pyx_temp_idx_0;
+                                                          __pyx_temp_pointer_0 = __pyx_v_glcm_view.data;
+                                                          for (__pyx_temp_idx_0 = 0; __pyx_temp_idx_0 &lt; __pyx_temp_extent_0; __pyx_temp_idx_0++) {
+                                                            *((unsigned short *) __pyx_temp_pointer_0) = __pyx_temp_scalar;
+                                                            __pyx_temp_pointer_0 += __pyx_temp_stride_0;
+                                                          }
+                                                      }
+                                                  }
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">87</span>:                 <span class="k">for</span> <span class="n">w_r</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">w_size</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s">&#39;dynamic&#39;</span><span class="p">):</span></pre>
 <pre class='cython code score-0 '>                                                  __pyx_t_19 = __pyx_v_w_size;
                                                   if ((1 == 0)) abort();
                                                   {
@@ -920,7 +918,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                                       __pyx_v_w_r = (short)(0 + 1 * __pyx_t_20);
                                                                       /* Initialize private variables to invalid values */
                                                                       __pyx_v_w_c = ((short)0xbad0bad0);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">90</span>:                     <span class="k">for</span> <span class="n">w_c</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">w_size</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s">&#39;dynamic&#39;</span><span class="p">):</span></pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">88</span>:                     <span class="k">for</span> <span class="n">w_c</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">w_size</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s">&#39;dynamic&#39;</span><span class="p">):</span></pre>
 <pre class='cython code score-0 '>                                                                      __pyx_t_22 = __pyx_v_w_size;
                                                                       if ((1 == 0)) abort();
                                                                       {
@@ -937,7 +935,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                                                   for (__pyx_t_23 = 0; __pyx_t_23 &lt; __pyx_t_24; __pyx_t_23++){
                                                                                       {
                                                                                           __pyx_v_w_c = (short)(0 + 1 * __pyx_t_23);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">91</span>:                         <span class="n">glcm_view</span><span class="p">[&lt;</span><span class="kt">int</span><span class="p">&gt;</span><span class="n">c_view</span><span class="p">[</span><span class="n">wi_r</span> <span class="o">+</span> <span class="n">w_r</span><span class="p">,</span> <span class="n">wi_c</span> <span class="o">+</span> <span class="n">w_c</span><span class="p">,</span> <span class="n">w_ch</span><span class="p">]]</span> <span class="o">+=</span> <span class="mf">1</span></pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">89</span>:                         <span class="n">glcm_view</span><span class="p">[&lt;</span><span class="kt">int</span><span class="p">&gt;</span><span class="n">c_view</span><span class="p">[</span><span class="n">wi_r</span> <span class="o">+</span> <span class="n">w_r</span><span class="p">,</span> <span class="n">wi_c</span> <span class="o">+</span> <span class="n">w_c</span><span class="p">,</span> <span class="n">w_ch</span><span class="p">]]</span> <span class="o">+=</span> <span class="mf">1</span></pre>
 <pre class='cython code score-0 '>                                                                                          __pyx_t_25 = (__pyx_v_wi_r + __pyx_v_w_r);
                                                                                           __pyx_t_26 = (__pyx_v_wi_c + __pyx_v_w_c);
                                                                                           __pyx_t_27 = __pyx_v_w_ch;
@@ -953,10 +951,10 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                           }
                                                       }
                                                   }
-</pre><pre class="cython line score-0">&#xA0;<span class="">92</span>: </pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">93</span>:                 <span class="n">entropy</span> <span class="o">=</span> <span class="mf">0</span></pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">90</span>: </pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">91</span>:                 <span class="n">entropy</span> <span class="o">=</span> <span class="mf">0</span></pre>
 <pre class='cython code score-0 '>                                                  __pyx_v_entropy = 0;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">94</span>:                 <span class="k">for</span> <span class="n">glcm_i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">glcm_size</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s">&#39;dynamic&#39;</span><span class="p">):</span></pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">92</span>:                 <span class="k">for</span> <span class="n">glcm_i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">glcm_size</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="s">&#39;dynamic&#39;</span><span class="p">):</span></pre>
 <pre class='cython code score-0 '>                                                  __pyx_t_29 = __pyx_v_glcm_size;
                                                   if ((1 == 0)) abort();
                                                   {
@@ -973,7 +971,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                               for (__pyx_t_30 = 0; __pyx_t_30 &lt; __pyx_t_31; __pyx_t_30++){
                                                                   {
                                                                       __pyx_v_glcm_i = (int)(0 + 1 * __pyx_t_30);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">95</span>:                     <span class="n">entropy</span> <span class="o">+=</span> <span class="n">glcm_view</span><span class="p">[</span><span class="n">glcm_i</span><span class="p">]</span> <span class="o">**</span> <span class="n">entropy_power</span></pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">93</span>:                     <span class="n">entropy</span> <span class="o">+=</span> <span class="n">glcm_view</span><span class="p">[</span><span class="n">glcm_i</span><span class="p">]</span> <span class="o">**</span> <span class="n">entropy_power</span></pre>
 <pre class='cython code score-0 '>                                                                      __pyx_t_27 = __pyx_v_glcm_i;
                                                                       __pyx_v_entropy = (__pyx_v_entropy + __Pyx_pow_int(((int)(*((unsigned short *) ( /* dim=0 */ (__pyx_v_glcm_view.data + __pyx_t_27 * __pyx_v_glcm_view.strides[0]) )))), ((int)__pyx_v_entropy_power)));
                                                                   }
@@ -981,7 +979,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                           }
                                                       }
                                                   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">96</span>:                 <span class="n">entropy_view</span><span class="p">[</span><span class="n">wi_r</span><span class="p">,</span> <span class="n">wi_c</span><span class="p">,</span> <span class="n">w_ch</span><span class="p">]</span> <span class="o">+=</span> <span class="n">entropy</span></pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">94</span>:                 <span class="n">entropy_view</span><span class="p">[</span><span class="n">wi_r</span><span class="p">,</span> <span class="n">wi_c</span><span class="p">,</span> <span class="n">w_ch</span><span class="p">]</span> <span class="o">+=</span> <span class="n">entropy</span></pre>
 <pre class='cython code score-0 '>                                                  __pyx_t_27 = __pyx_v_wi_r;
                                                   __pyx_t_26 = __pyx_v_wi_c;
                                                   __pyx_t_25 = __pyx_v_w_ch;
@@ -1003,8 +1001,8 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
               #define unlikely(x) __builtin_expect(!!(x), 0)
           #endif
         }
-</pre><pre class="cython line score-0">&#xA0;<span class="">97</span>: </pre>
-<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">98</span>:     <span class="k">return</span> <span class="n">entropy_ar</span></pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">95</span>: </pre>
+<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">96</span>:     <span class="k">return</span> <span class="n">entropy_ar</span></pre>
 <pre class='cython code score-2 '>  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
   <span class='pyx_macro_api'>__Pyx_INCREF</span>(__pyx_v_entropy_ar);
   __pyx_r = __pyx_v_entropy_ar;
