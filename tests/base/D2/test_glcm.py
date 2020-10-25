@@ -32,5 +32,6 @@ class GLCMTest(TestD2):
         self.assertAlmostEqual(ar2[7], ar2[8])
         self.assertAlmostEqual(ar2[8], 9)
 
+
 if __name__ == '__main__':
     unittest.main()

@@ -1,16 +1,15 @@
 from dataclasses import dataclass
 from math import ceil
 from typing import Iterable
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.gridspec import GridSpec
-import seaborn as sns
-
 import plotly.express as px
 import plotly.graph_objs as go
 import plotly.io as pio
-from typing import TYPE_CHECKING
+import seaborn as sns
+from matplotlib.gridspec import GridSpec
 
 if TYPE_CHECKING:
     from frmodel.base.D2 import Frame2D
@@ -101,7 +100,7 @@ class Frame2DPlot:
                 z_scale:int = 1,
                 point_size:float = 7,
                 sample_size:int or None = 10000,
-                colorscale = px.colors.sequential.Viridis
+                colorscale=px.colors.sequential.Viridis
                 ):
         """ Plot a single index with respect to its X and Y.
 
@@ -149,6 +148,7 @@ class _Frame2DPlot:
     # noinspection PyArgumentList
     @classmethod
     def init(cls, *args, **kwargs) -> 'Frame2D':
+        # noinspection PyTypeChecker
         return cls(*args, **kwargs)
 
     def plot(self, ixs: Iterable or slice or None = None) -> Frame2DPlot:

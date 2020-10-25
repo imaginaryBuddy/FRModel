@@ -1,21 +1,17 @@
+import os
 from itertools import combinations
 from string import ascii_lowercase
 
+import matplotlib.pyplot as plt
+import pandas as pd
+import plotly.graph_objs as go
+import seaborn as sns
+import tqdm
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import minmax_scale
-import seaborn as sns
-import matplotlib.pyplot as plt
-import tqdm
-
-import pandas as pd
 
 from frmodel.base.D2 import Frame2D
-import os
-
 from frmodel.base.D2.kmeans2D import KMeans2D
-
-import plotly.graph_objs as go
-import plotly.express as px
 
 
 def kmeans_matrix(test_path: str,
@@ -46,7 +42,7 @@ def kmeans_matrix(test_path: str,
     frame = f.get_all_chns(glcm_verbose=verbose, glcm_radius=glcm_radius)
 
     try: os.makedirs(output_dir + "/" + imgs_dir)
-    except: pass
+    except OSError: pass
 
     with open(f"{output_dir}/results.csv", "w+") as file:
 

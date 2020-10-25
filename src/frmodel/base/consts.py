@@ -12,12 +12,3 @@ class CONSTS:
         X = 0
         Y = 1
         Z = 2
-
-""" Deprecated D_TYPE on branch destruct
-
-D_TYPE: np.dtype = \
-        np.dtype([(CONSTS.CHANNEL.RED,   'u1'),   # 0 - 255
-                  (CONSTS.CHANNEL.GREEN, 'u1'),   # 0 - 255
-                  (CONSTS.CHANNEL.BLUE,  'u1')])  # 0 - 255
-
-"""

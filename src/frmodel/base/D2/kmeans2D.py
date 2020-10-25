@@ -1,12 +1,9 @@
 from __future__ import annotations
 
-from scipy.stats import rankdata
-from seaborn import FacetGrid
-
-from sklearn.cluster import KMeans
 import numpy as np
+from scipy.stats import rankdata
+from sklearn.cluster import KMeans
 from sklearn.metrics import homogeneity_completeness_v_measure
-from sklearn.preprocessing import normalize
 
 from frmodel.base.D2 import Frame2D
 
@@ -44,7 +41,6 @@ class KMeans2D:
         Implicitly inverts y-axis
 
         :param xy_indexes: The indexes of X & Y for plotting
-        :param scatter_size: Size of marker
         :return: A FacetGrid
         """
 
@@ -52,7 +48,6 @@ class KMeans2D:
                                         self.model.labels_[..., np.newaxis], axis=-1),
                               xy_pos=(0, 1))
         f.plot([-1]).image()
-
 
     def score(self, score_frame: Frame2D, exclude_0=False, glcm_radius=None):
         """ Scores the current frame kmeans with a scoring image

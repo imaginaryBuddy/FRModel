@@ -21,6 +21,7 @@ class _Frame2DLoader(ABC):
         img: Image.Image
         if scale != 1.0:
             img = img.resize([int(scale * s) for s in img.size], resample=scale_method)
+        # noinspection PyTypeChecker
         ar = np.asarray(img)[..., :3]
         return cls.init(ar)
 

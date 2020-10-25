@@ -4,8 +4,6 @@ from dataclasses import dataclass
 from typing import List, Tuple
 
 import numpy as np
-from PIL import Image
-from scipy.stats import rankdata
 from sklearn.neighbors import KDTree
 
 # noinspection PyProtectedMember
@@ -18,6 +16,7 @@ from frmodel.base.D2.frame._frame_loader import _Frame2DLoader
 from frmodel.base.D2.frame._frame_partition import _Frame2DPartition
 # noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_plot import _Frame2DPlot
+# noinspection PyProtectedMember
 from frmodel.base.D2.frame._frame_scaling import _Frame2DScaling
 from frmodel.base.consts import CONSTS
 

@@ -194,7 +194,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
             frame = self.init(np.concatenate([f for f in features if f is not None], axis=2))
         else:
             frame = None
-            
+
         if glcm_con or glcm_cor or glcm_ent:
             glcm = self.get_glcm(
                 contrast=glcm_con, correlation=glcm_cor, entropy=glcm_ent,
@@ -208,7 +208,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                 if conv_method == 'nearest':
                     kernel = np.zeros([kernel_diam + 1, kernel_diam + 1, 1])
                     kernel[kernel.shape[0] // 2, kernel.shape[1] // 2] = 1
-                else: # 'average'
+                else:  # 'average'
                     kernel = np.outer(gaussian(kernel_diam + glcm_by_y, conv_gauss_stdev),
                                       gaussian(kernel_diam + glcm_by_x, conv_gauss_stdev))
                     kernel = np.expand_dims(kernel, axis=-1)

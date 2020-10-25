@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+
 import numpy as np
 from scipy.signal import fftconvolve
 from skimage.util.shape import view_as_windows
 from tqdm import tqdm
 
-from frmodel.base.consts import CONSTS
 from frmodel.base.D2.frame._cy_entropy import cy_entropy
+from frmodel.base.consts import CONSTS
 
 CHANNEL = CONSTS.CHANNEL
 MAX_RGB = 255
@@ -87,8 +88,8 @@ class _Frame2DChannelGLCM(ABC):
         # We drop the nones using a list comp
         return np.concatenate([i for i in idxs if i is not None], axis=2)
 
-    def _get_glcm_contrast(self,
-                           rgb_a: np.ndarray,
+    @staticmethod
+    def _get_glcm_contrast(rgb_a: np.ndarray,
                            rgb_b: np.ndarray,
                            radius) -> np.ndarray:
         """ This is a faster implementation for contrast calculation.
@@ -103,8 +104,8 @@ class _Frame2DChannelGLCM(ABC):
         ar = (rgb_a - rgb_b) ** 2
         return fftconvolve(ar, np.ones(shape=[radius * 2 + 1, radius * 2 + 1, 1]), mode='valid')
 
-    def _get_glcm_correlation(self,
-                              rgb_a: np.ndarray,
+    @staticmethod
+    def _get_glcm_correlation(rgb_a: np.ndarray,
                               rgb_b: np.ndarray,
                               radius) -> np.ndarray:
         """ This is a faster implementation for correlation calculation.
@@ -148,6 +149,22 @@ class _Frame2DChannelGLCM(ABC):
         with np.errstate(divide='ignore', invalid='ignore'):
             cor = (conv_ab - (conv_ae - conv_be) * (2 * radius + 1) ** 2) / (conv_stda * conv_stdb)
             return np.nan_to_num(cor, copy=False, nan=0, neginf=-1, posinf=1)
+
+    @staticmethod
+    def _get_glcm_entropy_cy(rgb_a: np.ndarray,
+                             rgb_b: np.ndarray,
+                             radius,
+                             verbose
+                             ) -> np.ndarray:
+        """ Gets the entropy, uses the Cython entropy algorithm
+
+        :param rgb_a: Offset ar A
+        :param rgb_b: Offset ar B
+        :param radius: Radius of window
+        """
+        rgb_c = rgb_a + rgb_b * (MAX_RGB + 1)
+
+        return cy_entropy(rgb_c.astype(np.uint16), radius, verbose)
 
     def _get_glcm_entropy(self,
                           rgb_a: np.ndarray,
@@ -199,19 +216,3 @@ class _Frame2DChannelGLCM(ABC):
                 out[row, col, :] = entropy
 
         return out
-
-    def _get_glcm_entropy_cy(self,
-                             rgb_a: np.ndarray,
-                             rgb_b: np.ndarray,
-                             radius,
-                             verbose
-                             ) -> np.ndarray:
-        """ Gets the entropy, uses the Cython entropy algorithm
-
-        :param rgb_a: Offset ar A
-        :param rgb_b: Offset ar B
-        :param radius: Radius of window
-        """
-        rgb_c = rgb_a + rgb_b * (MAX_RGB + 1)
-
-        return cy_entropy(rgb_c.astype(np.uint16), radius, verbose)
