@@ -115,6 +115,8 @@ class Frame2DPlot:
         if sample_size:
             d = d[np.random.choice(d.shape[0], replace=False, size=sample_size)]
 
+        if ix < 0: ix -= 2
+
         data = [
             go.Scatter3d(
                 x=d[..., -2],
