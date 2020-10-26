@@ -140,7 +140,7 @@ class Frame2DPlot:
         )
 
         fig = go.Figure(data=data, layout=layout)
-        fig.show()
+        return fig
 
 class _Frame2DPlot:
     data: np.ndarray
