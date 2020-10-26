@@ -33,21 +33,16 @@ class KMeans2D:
         self.model = fit
         self.frame = frame
 
-    def plot(self,
-             xy_indexes=(3, 4)):
-        """ Generates a plot with fitted KMeans
+    def as_frame(self, xy_indexes=(3, 4)) -> Frame2D:
+        """ Converts current model into Frame2D based on labels
 
-        Implicitly set 1:1 ratio plotting
-        Implicitly inverts y-axis
-
-        :param xy_indexes: The indexes of X & Y for plotting
-        :return: A FacetGrid
+        :param xy_indexes: The indexes of X & Y for frame creation
+        :return: Frame2D
         """
 
-        f = Frame2D.from_nxy_(np.append(np.round(self.frame.data_flatten_xy()[..., xy_indexes]).astype(np.int),
-                                        self.model.labels_[..., np.newaxis], axis=-1),
-                              xy_pos=(0, 1))
-        f.plot([-1]).image()
+        return Frame2D.from_nxy_(
+            np.append(np.round(self.frame.data_flatten_xy()[..., xy_indexes]).astype(np.int),
+                               self.model.labels_[..., np.newaxis], axis=-1), xy_pos=(0, 1))
 
     def score(self, score_frame: Frame2D, exclude_0=False, glcm_radius=None):
         """ Scores the current frame kmeans with a scoring image
