@@ -64,6 +64,23 @@ class Frame2D(_Frame2DLoader,
     def data_rgb(self) -> np.ndarray:
         return self.data[..., [CHANNEL.RED, CHANNEL.GREEN, CHANNEL.BLUE]]
 
+    def append(self, ar: np.ndarray):
+        shape_ar = ar.shape
+        shape_self = self.shape
+
+        assert shape_ar[0] == shape_self[0], f"Mismatch Axis 0, Target: {shape_ar[0]}, Self: {shape_self[0]}"
+        assert shape_ar[1] == shape_self[1], f"Mismatch Axis 0, Target: {shape_ar[1]}, Self: {shape_self[1]}"
+
+        if ar.ndim == 2:
+            ar = ar[..., np.newaxis]
+            shape_ar = ar.shape  # Update shape if ndim is 2
+
+        buffer = np.zeros((*shape_self[0:2], shape_ar[-1] + shape_self[-1]), self.dtype)
+        buffer[..., :self.shape[-1]] = self.data
+        buffer[..., self.shape[-1]:] = ar
+
+        return Frame2D(buffer)
+
     def size(self) -> np.ndarray:
         """ Returns the number of pixels """
         return self.data.size
