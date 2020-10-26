@@ -89,6 +89,10 @@ class Frame2D(_Frame2DLoader,
     def shape(self) -> Tuple:
         return self.data.shape
 
+    @property
+    def dtype(self):
+        return self.data.dtype
+
     def height(self) -> int:
         return self.shape[0]
 
