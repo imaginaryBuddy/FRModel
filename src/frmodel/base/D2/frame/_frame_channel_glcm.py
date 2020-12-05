@@ -121,6 +121,42 @@ class _Frame2DChannelGLCM(ABC):
         :param radius: Radius of window
         """
 
+        diam = radius * 2 + 1
+
+        windows_a = view_as_windows(rgb_a, [diam, diam, 3], step=1).squeeze()
+        windows_a_mean = np.mean(windows_a, axis=(2, 3))
+        windows_a_delta = windows_a - np.tile(np.expand_dims(windows_a_mean, (2, 3)), (1, 1, diam, diam, 1))
+        windows_a_std = np.std(windows_a, axis=(2, 3))
+
+        windows_b = view_as_windows(rgb_b, [diam, diam, 3], step=1).squeeze()
+        windows_b_mean = np.mean(windows_b, axis=(2, 3))
+        windows_b_delta = windows_b - np.tile(np.expand_dims(windows_b_mean, (2, 3)), (1, 1, diam, diam, 1))
+        windows_b_std = np.std(windows_b, axis=(2, 3))
+
+        return np.divide(
+            np.mean(windows_a_delta * windows_b_delta, axis=(2,3)),
+            windows_a_std * windows_b_std,
+            where=windows_a_std * windows_b_std != 0,
+            out=np.zeros_like(windows_a_std)
+        )
+
+    @staticmethod
+    def _get_glcm_correlation2(rgb_a: np.ndarray,
+                              rgb_b: np.ndarray,
+                              radius) -> np.ndarray:
+        """ This is a faster implementation for correlation calculation.
+
+        Using the following identity, we can vectorise it entirely!
+
+        Var = E(X^2) - E(X)^2
+
+        Corr = (a * b - (E(a) - E(b))) / std(a) * std(b)
+
+        :param rgb_a: Offset ar A
+        :param rgb_b: Offset ar B
+        :param radius: Radius of window
+        """
+
         kernel = np.ones(shape=[radius * 2 + 1, radius * 2 + 1, 1])
 
         conv_ab = fftconvolve(rgb_a * rgb_b, kernel, mode='valid')
@@ -145,9 +181,13 @@ class _Frame2DChannelGLCM(ABC):
 
         conv_stda = np.sqrt(np.abs(conv_ae2 - conv_ae_2))
         conv_stdb = np.sqrt(np.abs(conv_be2 - conv_be_2))
+        #
+        # cor = (conv_ab - (conv_ae - conv_be) * (2 * radius + 1) ** 2) / \
+        #       np.sqrt(conv_stda ** 2 * conv_stdb ** 2)
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            cor = (conv_ab - (conv_ae - conv_be) * (2 * radius + 1) ** 2) / (conv_stda * conv_stdb)
+            cor = (conv_ab - (conv_ae - conv_be) * (2 * radius + 1) ** 2) /\
+                   np.sqrt(conv_stda ** 2 * conv_stdb ** 2)
             return np.nan_to_num(cor, copy=False, nan=0, neginf=-1, posinf=1)
 
     @staticmethod
