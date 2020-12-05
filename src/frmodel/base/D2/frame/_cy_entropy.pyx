@@ -93,4 +93,4 @@ def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,
                     entropy += glcm_view[glcm_i] ** entropy_power
                 entropy_view[wi_r, wi_c, w_ch] += entropy
 
-    return entropy_ar
+    return entropy_ar / (w_size ** 4)

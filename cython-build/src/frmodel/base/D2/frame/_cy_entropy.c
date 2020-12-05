@@ -2000,6 +2000,12 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_char(unsigned char valu
 /* None.proto */
 static CYTHON_INLINE int __Pyx_pow_int(int, int);
 
+/* None.proto */
+static CYTHON_INLINE long __Pyx_pow_long(long, long);
+
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
+
 /* RealImag.proto */
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -2128,9 +2134,6 @@ static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
-
-/* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE char __Pyx_PyInt_As_char(PyObject *);
@@ -3337,7 +3340,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  *                     entropy += glcm_view[glcm_i] ** entropy_power
  *                 entropy_view[wi_r, wi_c, w_ch] += entropy             # <<<<<<<<<<<<<<
  * 
- *     return entropy_ar
+ *     return entropy_ar / (w_size ** 4)
  */
                                                   __pyx_t_27 = __pyx_v_wi_r;
                                                   __pyx_t_26 = __pyx_v_wi_c;
@@ -3393,11 +3396,16 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":96
  *                 entropy_view[wi_r, wi_c, w_ch] += entropy
  * 
- *     return entropy_ar             # <<<<<<<<<<<<<<
+ *     return entropy_ar / (w_size ** 4)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(__pyx_v_entropy_ar);
-  __pyx_r = __pyx_v_entropy_ar;
+  __pyx_t_5 = __Pyx_PyInt_From_long(__Pyx_pow_long(((long)__pyx_v_w_size), 4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_v_entropy_ar, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_r = __pyx_t_3;
+  __pyx_t_3 = 0;
   goto __pyx_L0;
 
   /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":12
@@ -23221,6 +23229,64 @@ __pyx_capsule_create(void *p, CYTHON_UNUSED const char *sig)
     return t;
 }
 
+/* None */
+  static CYTHON_INLINE long __Pyx_pow_long(long b, long e) {
+    long t = b;
+    switch (e) {
+        case 3:
+            t *= b;
+        CYTHON_FALLTHROUGH;
+        case 2:
+            t *= b;
+        CYTHON_FALLTHROUGH;
+        case 1:
+            return t;
+        case 0:
+            return 1;
+    }
+    #if 1
+    if (unlikely(e<0)) return 0;
+    #endif
+    t = 1;
+    while (likely(e)) {
+        t *= (b * (e&1)) | ((~e)&1);
+        b *= b;
+        e >>= 1;
+    }
+    return t;
+}
+
+/* CIntToPy */
+  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+    const long neg_one = (long) ((long) 0 - (long) 1), const_zero = (long) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(long) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(long) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(long),
+                                     little, !is_unsigned);
+    }
+}
+
 /* Declarations */
   #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -24456,37 +24522,6 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to long");
     return (long) -1;
-}
-
-/* CIntToPy */
-  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
-    const long neg_one = (long) ((long) 0 - (long) 1), const_zero = (long) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(long) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(long) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(long),
-                                     little, !is_unsigned);
-    }
 }
 
 /* CIntFromPy */
