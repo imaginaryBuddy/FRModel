@@ -26,11 +26,11 @@ class GLCMTest(TestD2):
 
         self.assertAlmostEqual(ar2[3], ar2[4])
         self.assertAlmostEqual(ar2[4], ar2[5])
-        self.assertAlmostEqual(ar2[5], 12.03057, places=4)
+        self.assertAlmostEqual(ar2[5], -0.12209306360906494, places=4)
 
         self.assertAlmostEqual(ar2[6], ar2[7])
         self.assertAlmostEqual(ar2[7], ar2[8])
-        self.assertAlmostEqual(ar2[8], 9)
+        self.assertAlmostEqual(ar2[8], 1)
 
 
 if __name__ == '__main__':

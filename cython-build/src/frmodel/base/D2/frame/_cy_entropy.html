@@ -1002,11 +1002,11 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
           #endif
         }
 </pre><pre class="cython line score-0">&#xA0;<span class="">95</span>: </pre>
-<pre class="cython line score-6" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">96</span>:     <span class="k">return</span> <span class="n">entropy_ar</span> <span class="o">/</span> <span class="p">(</span><span class="n">w_size</span> <span class="o">**</span> <span class="mf">4</span><span class="p">)</span></pre>
+<pre class="cython line score-6" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">96</span>:     <span class="k">return</span> <span class="p">(</span><span class="n">w_size</span> <span class="o">**</span> <span class="mf">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">entropy_ar</span></pre>
 <pre class='cython code score-6 '>  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
-  __pyx_t_5 = <span class='pyx_c_api'>__Pyx_PyInt_From_long</span>(__Pyx_pow_long(((long)__pyx_v_w_size), 4));<span class='error_goto'> if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)</span>
+  __pyx_t_5 = <span class='pyx_c_api'>__Pyx_PyInt_From_long</span>(__Pyx_pow_long(((long)__pyx_v_w_size), 2));<span class='error_goto'> if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_5);
-  __pyx_t_3 = <span class='pyx_c_api'>__Pyx_PyNumber_Divide</span>(__pyx_v_entropy_ar, __pyx_t_5);<span class='error_goto'> if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)</span>
+  __pyx_t_3 = <span class='pyx_c_api'>__Pyx_PyNumber_Divide</span>(__pyx_t_5, __pyx_v_entropy_ar);<span class='error_goto'> if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_3);
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_r = __pyx_t_3;

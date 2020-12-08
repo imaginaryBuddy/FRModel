@@ -3340,7 +3340,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  *                     entropy += glcm_view[glcm_i] ** entropy_power
  *                 entropy_view[wi_r, wi_c, w_ch] += entropy             # <<<<<<<<<<<<<<
  * 
- *     return entropy_ar / (w_size ** 4)
+ *     return (w_size ** 2) / entropy_ar
  */
                                                   __pyx_t_27 = __pyx_v_wi_r;
                                                   __pyx_t_26 = __pyx_v_wi_c;
@@ -3396,12 +3396,12 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":96
  *                 entropy_view[wi_r, wi_c, w_ch] += entropy
  * 
- *     return entropy_ar / (w_size ** 4)             # <<<<<<<<<<<<<<
+ *     return (w_size ** 2) / entropy_ar             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = __Pyx_PyInt_From_long(__Pyx_pow_long(((long)__pyx_v_w_size), 4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_long(__Pyx_pow_long(((long)__pyx_v_w_size), 2)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_v_entropy_ar, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_t_5, __pyx_v_entropy_ar); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_r = __pyx_t_3;
