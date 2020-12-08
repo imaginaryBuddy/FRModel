@@ -15,7 +15,7 @@ class _Frame2DLoader(ABC):
         return cls(*args, **kwargs)
 
     @classmethod
-    def from_image(cls, file_path: str, scale:float = 1.0, scale_method=Image.NEAREST):
+    def from_image(cls, file_path: str, scale:float = 1.0, scale_method=Image.NEAREST) -> _Frame2DLoader:
         """ Creates an instance using the file path. """
         img = Image.open(file_path)
         img: Image.Image

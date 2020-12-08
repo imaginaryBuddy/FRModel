@@ -14,12 +14,6 @@ MAX_RGB = 255
 class _Frame2DScaling(ABC):
 
     data: np.ndarray
-    
-    @abstractmethod
-    def data_rgb(self): ...
-    
-    @abstractmethod
-    def data_chn(self, *args, **kwargs): ...
 
     @abstractmethod
     def data_flatten_xy(self, *args, **kwargs): ...
@@ -29,9 +23,6 @@ class _Frame2DScaling(ABC):
 
     @abstractmethod
     def height(self): ...
-    
-    @abstractmethod
-    def slide_xy(self, *args, **kwargs): ...
 
     # noinspection PyArgumentList
     @classmethod

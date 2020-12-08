@@ -8,6 +8,8 @@ from skimage.util.shape import view_as_windows
 from tqdm import tqdm
 
 from frmodel.base.D2.frame._cy_entropy import cy_entropy
+
+from frmodel.base.D2.frame._cy_corr import cy_corr
 from frmodel.base.consts import CONSTS
 
 CHANNEL = CONSTS.CHANNEL
@@ -81,18 +83,26 @@ class _Frame2DChannelGLCM(ABC):
         rgb_a = rgb[:-by_y, :-by_x]
         rgb_b = rgb[by_y:, by_x:]
 
-        idxs = [self._get_glcm_contrast(rgb_a, rgb_b, radius)             if contrast else None,
-                self._get_glcm_correlation(rgb_a, rgb_b, radius)          if correlation else None,
-                self._get_glcm_entropy_cy(rgb_a, rgb_b, radius, verbose)  if entropy else None]
+        idxs = [self._get_glcm_contrast_py(rgb_a, rgb_b, radius)
+                if contrast else None,
+
+                self._get_glcm_correlation_cy(rgb_a, rgb_b, radius)
+                if correlation else None,
+
+                self._get_glcm_entropy_cy(rgb_a, rgb_b, radius, verbose)
+                if entropy else None]
 
         # We drop the nones using a list comp
         return np.concatenate([i for i in idxs if i is not None], axis=2)
 
+
     @staticmethod
-    def _get_glcm_contrast(rgb_a: np.ndarray,
-                           rgb_b: np.ndarray,
-                           radius) -> np.ndarray:
-        """ This is a faster implementation for contrast calculation.
+    def _get_glcm_contrast_py(rgb_a: np.ndarray,
+                              rgb_b: np.ndarray,
+                              radius) -> np.ndarray:
+        """ Pure python implementation of Contrast.
+
+        Cython isn't needed as it's purely vectorizable.
 
         Create the difference matrix, then convolve with a 1 filled kernel
 
@@ -105,10 +115,43 @@ class _Frame2DChannelGLCM(ABC):
         return fftconvolve(ar, np.ones(shape=[radius * 2 + 1, radius * 2 + 1, 1]), mode='valid')
 
     @staticmethod
-    def _get_glcm_correlation(rgb_a: np.ndarray,
+    def _get_glcm_correlation_py(rgb_a: np.ndarray,
                               rgb_b: np.ndarray,
                               radius) -> np.ndarray:
-        """ This is a faster implementation for correlation calculation.
+        """ Uses Pure Python to implement correlation GLCM
+
+        :param rgb_a: Offset ar A
+        :param rgb_b: Offset ar B
+        :param radius: Radius of window
+        """
+
+        diam = radius * 2 + 1
+
+        windows_a = view_as_windows(rgb_a, [diam, diam, 3], step=1).squeeze()
+        windows_a_mean = np.mean(windows_a, axis=(2, 3))
+        windows_a_delta = windows_a - np.tile(np.expand_dims(windows_a_mean, (2, 3)), (1, 1, diam, diam, 1))
+        windows_a_std = np.std(windows_a, axis=(2, 3))
+
+        windows_b = view_as_windows(rgb_b, [diam, diam, 3], step=1).squeeze()
+        windows_b_mean = np.mean(windows_b, axis=(2, 3))
+        windows_b_delta = windows_b - np.tile(np.expand_dims(windows_b_mean, (2, 3)), (1, 1, diam, diam, 1))
+        windows_b_std = np.std(windows_b, axis=(2, 3))
+
+        return np.divide(
+            np.mean(windows_a_delta * windows_b_delta, axis=(2,3)),
+            windows_a_std * windows_b_std,
+            where=windows_a_std * windows_b_std != 0,
+            out=np.zeros_like(windows_a_std)
+        )
+
+    @staticmethod
+    def _get_glcm_correlation_naive_py(rgb_a: np.ndarray,
+                                       rgb_b: np.ndarray,
+                                       radius) -> np.ndarray:
+        """ Legacy Naive Correlation Calculation in Pure Python
+
+        This is naive because the formula doesn't seem to match up with the basis definition of Correlation.
+        This omits the
 
         Using the following identity, we can vectorise it entirely!
 
@@ -145,10 +188,31 @@ class _Frame2DChannelGLCM(ABC):
 
         conv_stda = np.sqrt(np.abs(conv_ae2 - conv_ae_2))
         conv_stdb = np.sqrt(np.abs(conv_be2 - conv_be_2))
+        #
+        # cor = (conv_ab - (conv_ae - conv_be) * (2 * radius + 1) ** 2) / \
+        #       np.sqrt(conv_stda ** 2 * conv_stdb ** 2)
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            cor = (conv_ab - (conv_ae - conv_be) * (2 * radius + 1) ** 2) / (conv_stda * conv_stdb)
+            cor = (conv_ab - (conv_ae - conv_be) * (2 * radius + 1) ** 2) /\
+                   np.sqrt(conv_stda ** 2 * conv_stdb ** 2)
             return np.nan_to_num(cor, copy=False, nan=0, neginf=-1, posinf=1)
+
+    @staticmethod
+    def _get_glcm_correlation_cy(rgb_a: np.ndarray,
+                                 rgb_b: np.ndarray,
+                                 radius) -> np.ndarray:
+        """ Correlation In Cython
+
+        Uses the basis GLCM definition.
+
+        :param rgb_a: Offset ar A
+        :param rgb_b: Offset ar B
+        :param radius: Radius of window
+        """
+
+        return cy_corr(rgb_a.astype(np.uint8),
+                       rgb_b.astype(np.uint8),
+                       radius, True) / ((2 * radius + 1) ** 2)
 
     @staticmethod
     def _get_glcm_entropy_cy(rgb_a: np.ndarray,
@@ -166,13 +230,13 @@ class _Frame2DChannelGLCM(ABC):
 
         return cy_entropy(rgb_c.astype(np.uint16), radius, verbose)
 
-    def _get_glcm_entropy(self,
-                          rgb_a: np.ndarray,
-                          rgb_b: np.ndarray,
-                          radius,
-                          verbose
-                          ) -> np.ndarray:
-        """ Gets the entropy
+    def _get_glcm_entropy_py(self,
+                             rgb_a: np.ndarray,
+                             rgb_b: np.ndarray,
+                             radius,
+                             verbose
+                             ) -> np.ndarray:
+        """ Gets the entropy in Pure Python
 
         :param rgb_a: Offset ar A
         :param rgb_b: Offset ar B
