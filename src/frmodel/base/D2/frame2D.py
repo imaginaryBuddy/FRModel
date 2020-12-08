@@ -81,7 +81,7 @@ class Frame2D(_Frame2DLoader,
 
         return Frame2D(buffer)
 
-    def size(self) -> np.ndarray:
+    def size(self) -> int:
         """ Returns the number of pixels """
         return self.data.size
 

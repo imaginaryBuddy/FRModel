@@ -9,10 +9,18 @@ from tqdm import tqdm
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,
+def cy_glcm(np.ndarray[DTYPE_t16, ndim=3] c,
                unsigned int radius,
                bint verbose):
-    """ Entropy Calculation in Cython
+    """ GLCM Calculation in Cython. (Deprecated for FRModel)
+
+    This is exceptionally fast.
+    However, because we use a very large buffer, we require a very large amount of RAM.
+
+    This is not useful in practise due to this limitation, however, could be optimized using sparse matrices.
+
+    The large RAM usage comes from using a 65536 == (256 ** 2) pre-made array to hold GLCM pair values. All of these
+    arrays must be made before the execution of the algorithm hence it cannot be directly optimized.
 
     Requirements:
     Array C is defined as 256 * A + B.
@@ -59,17 +67,8 @@ def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,
     cdef unsigned char w_channels = <char>c.shape[2]
     cdef char w_ch = 0
 
-    entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
-    cdef np.uint32_t[:, :, :] entropy_view = entropy_ar
-    entropy_view[:, :, :] = 0
-
-    cdef int glcm_size = <unsigned int>65536
-    cdef unsigned short glcm[65536]
-    cdef unsigned short [:] glcm_view = glcm
-    cdef int glcm_i = 0
-
-    cdef unsigned int entropy = 0
-    cdef unsigned char entropy_power = 2
+    glcm_v = np.zeros(shape=(65536, wi_rows, wi_cols, w_channels), dtype=np.uint16)
+    cdef unsigned short [:, :, :, :] glcm_v_view = glcm_v
 
     # For each valid window row and column:
     #   We loop through channels, then rows, then columns of each window
@@ -83,14 +82,10 @@ def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,
     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
             for w_ch in prange(w_channels, schedule='dynamic'):
-                glcm_view[:] = 0
                 for w_r in prange(w_size, schedule='dynamic'):
                     for w_c in prange(w_size, schedule='dynamic'):
-                        glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
+                        glcm_v_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch], wi_r, wi_c, w_ch] += 1
 
-                entropy = 0
-                for glcm_i in prange(glcm_size, schedule='dynamic'):
-                    entropy += glcm_view[glcm_i] ** entropy_power
-                entropy_view[wi_r, wi_c, w_ch] += entropy
+    return glcm_v
 
-    return (w_size ** 2) / entropy_ar
+
