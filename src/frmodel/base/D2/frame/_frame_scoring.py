@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from math import ceil
-from typing import List, TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 from warnings import warn
 
 import numpy as np
@@ -33,10 +32,61 @@ class _Frame2DScoring(ABC):
 
     @staticmethod
     def labelize(ar:np.ndarray) -> np.ndarray:
+        """ Labelizes the np.ndarray.
+
+        This is used to make distinct values into categorical like value.
+
+        E.g. [[0, 10, 20], [10, 20, 34]]
+        labelizes to
+        [[0, 1, 2], [1, 2, 3]].
+
+        Note that if your array is >1D, all points of data will be treated equally due
+        to flattening and the shape is preserved.
+
+        That is, [[A, B], [B, C]] will labelize as
+        [[0, 1], [1, 2]] instead of [0, 1].
+
+        :param ar: The array to labelize
+        :returns: An np.ndarray of the same shape
+        """
+
         if ar.ndim >= 3: warn(f"Your data with {ar.ndim} dimensions will be flattened entirely,"
                               f"labelling all data points as equal! Recommend to use only ndim 2")
 
         return LabelEncoder().fit_transform(np.round(ar).astype(int).flatten()).reshape(ar.shape)
+
+
+    @staticmethod
+    def scorer(x: 'Frame2D',
+               y: 'Frame2D',
+               x_label_ix: int = 0):
+        """ A custom scoring algorithm.
+
+        Note that these parameters are non-reversible,
+        that is scoring x against y is not the same as y against x.
+
+        y_frame, should be loaded in as RGB as it'll go through an RGB
+        distinct flatten, where every RGB value will be labelled distinctly.
+
+        :param x: Actual Labels
+        :param y: Predict Frame
+        :param x_label_ix: The label index of x
+        :returns:
+        """
+
+        assert x.shape == y.shape, "x's Shape must match y's Shape. If x used GLCM, you need to crop_glcm on y to fix" \
+                                   "its shape"
+
+        x = x.data_rgb_flatten()
+        y = y.data_rgb_flatten()
+
+        data = np.stack([_Frame2DScoring.labelize(x.flatten()),
+                         _Frame2DScoring.labelize(y.flatten())])
+
+        pass
+
+
+
 
     def score(self, score_frame: 'Frame2D', label_ix: int = -1, glcm_radius=None):
         """ Scores the current frame kmeans with a scoring image
@@ -44,11 +94,10 @@ class _Frame2DScoring(ABC):
         :param label_ix: The label index to score against score_frame
         :param score_frame: The score as Frame2D
         :param glcm_radius: The radius of GLCM used if applicable. This will crop the Frame2D automatically to fit.
-        :return:
+        :return: A Dictionary of various scoring algorithm results
         """
         # Convert grayscale to labels
-        if glcm_radius is not None: score_frame = score_frame.crop(glcm_radius+1, glcm_radius,
-                                                                   glcm_radius+1, glcm_radius)
+        if glcm_radius is not None: score_frame = score_frame.crop_glcm(glcm_radius)
         true = self.labelize(score_frame.data[...,0]).flatten()
         pred = self.data[..., label_ix].flatten()
 
@@ -57,6 +106,12 @@ class _Frame2DScoring(ABC):
                 "Homogeneity":  score[1],
                 "Completeness": score[2],
                 "V Measure":    score[3]}
+
+    def _pair_frames(self, score_frame: 'Frame2D'):
+        """"""
+
+        ...
+
 
     @staticmethod
     def score_custom(true_labels: np.ndarray,

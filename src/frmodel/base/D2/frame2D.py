@@ -51,8 +51,25 @@ class Frame2D(_Frame2DLoader,
                       **kwargs)
 
     def data_flatten_xy(self) -> np.ndarray:
-        """ Flattens the data on XY only. """
+        """ Flattens the data on XY only.
+
+        This means that the first 2 dimensions will be merged together.
+        """
         return self.data.reshape([-1, self.shape[-1]])
+
+    def data_rgb_flatten(self) -> np.ndarray:
+        """ Flattens the RGB data by merging all RGB channels
+
+        The algorithm used is
+        R + G * 256 + B * 256 * 256.
+
+        This is used to flatten the dimension while keeping all distinct values distinct.
+
+        Note the new dtype is uint32.
+        """
+
+        rgb = self.data_rgb().astype(dtype=np.uint32)
+        return rgb[..., 0] + rgb[..., 1] * 256 + rgb[..., 2] * (256 ** 2)
 
     def data_chn(self, idx: int or List[int]) -> np.ndarray:
         """ Gets channels as pure np.ndarray data

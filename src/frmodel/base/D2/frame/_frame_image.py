@@ -26,6 +26,10 @@ class _Frame2DImage(ABC):
         """ Crops the frame by specifying how many rows/columns to remove from each side."""
         return self.init(self.data[top:-bottom or None, left:-right or None, ...])
 
+    def crop_glcm(self, glcm_radius):
+        """ Crops the frame to match GLCM cropping. """
+        return self.crop(glcm_radius + 1, glcm_radius, glcm_radius + 1, glcm_radius)
+
     def save(self, file_path: str, rgb_indexes: Tuple = (0, 1, 2), **kwargs) -> None:
         """ Saves the current Frame file """
         Image.fromarray(self.data[..., rgb_indexes].astype(np.uint8)).save(file_path, **kwargs)
