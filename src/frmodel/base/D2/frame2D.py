@@ -40,7 +40,9 @@ class Frame2D(_Frame2DLoader,
     """
 
     data: np.ndarray
-    _ix: dict = field(default_factory={'R': 0, 'G': 1, 'B': 2})
+    _ix: dict = field(default_factory={CONSTS.CHN.RED: 0,
+                                       CONSTS.CHN.GREEN: 1,
+                                       CONSTS.CHN.BLUE: 2})
 
     def data_kdtree(self, leaf_size=40, metric='minkowski', **kwargs) -> KDTree:
         """ Constructs a KDTree with current data.
@@ -67,7 +69,7 @@ class Frame2D(_Frame2DLoader,
         return self.data[..., keys]
 
     def data_rgb(self) -> np.ndarray:
-        return self.data[..., [CHANNEL.RED, CHANNEL.GREEN, CHANNEL.BLUE]]
+        return self.data_chn(CONSTS.CHN.RGB)
 
     def append(self, ar: np.ndarray):
         shape_ar = ar.shape
