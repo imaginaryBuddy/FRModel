@@ -281,4 +281,4 @@ class _Frame2DChannelGLCM(ABC):
                 entropy = np.asarray([np.sum(np.bincount(g) ** 2) for g in c.swapaxes(0, 1)])
                 out[row, col, :] = entropy
 
-        return out
+        return out, CONSTS.CHN.GLCM.ENT_RGB

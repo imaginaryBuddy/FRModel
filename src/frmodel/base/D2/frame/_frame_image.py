@@ -41,7 +41,6 @@ class _Frame2DImage(ABC):
         Private because it causes weird behavior
 
         :param scale: The scaling factor. 0.5 for zoom 2x, 2 for 0.5x
-        :param rgb_indexes: The indexes of the RGB Channels.
         :param dtype: The resulting dtype of the Frame2D
         :param anti_aliasing: Whether to have anti-aliasing or not
         :return: RGB Frame2D
