@@ -175,28 +175,43 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :param conv_method: Can be 'average' or 'nearest'
         """
 
-        features = \
-            [self.data if self_ else None,
-             self.get_xy() if xy else None,
-             self.get_hsv() if hsv else None,
-             self.get_ex_g() if ex_g else None,
-             self.get_ex_g(True) if mex_g else None,
-             self.get_ex_gr() if ex_gr else None,
-             self.get_ndi() if ndi else None,
-             self.get_veg(veg_a) if veg else None]
+        features = []
+        labels = []
 
-        features = [f for f in features if f is not None]
+        def add_feature(feature: np.ndarray, label: str or Tuple[str]):
+            # Convenience function to help add features
+
+            # If the feature is a singular channel, we need to promote it into a 3dim
+            features.append(feature if feature.ndim == 3 else feature[..., np.newaxis])
+            if isinstance(label, str):
+                # noinspection PyTypeChecker
+                labels.append(label)
+            else:
+                labels.extend(label)
+
+        self:'Frame2D'
+        if self_ :add_feature(self.data, self.labels.values())
+        if xy    :add_feature(*self.get_xy()                 )
+        if hsv   :add_feature(*self.get_hsv()                )
+        if ex_g  :add_feature(*self.get_ex_g()               )
+        if mex_g :add_feature(*self.get_ex_g(True)           )
+        if ex_gr :add_feature(*self.get_ex_gr()              )
+        if ndi   :add_feature(*self.get_ndi()                )
+        if veg   :add_feature(*self.get_veg(veg_a)           )
 
         if features:
-            frame = self.init(np.concatenate([f for f in features if f is not None], axis=2))
+            frame = self.create(data=np.concatenate(features, axis=2),
+                                labels=labels)
         else:
             frame = None
 
         if glcm_con or glcm_cor or glcm_ent:
-            glcm = self.get_glcm(
+            glcm, glcm_labels = self.get_glcm(
                 contrast=glcm_con, correlation=glcm_cor, entropy=glcm_ent,
                 by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius, verbose=glcm_verbose
                 )
+
+            labels.extend(glcm_labels)
 
             if frame:
                 # We trim the frame so that the new glcm can fit
@@ -211,6 +226,6 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                     kernel = np.expand_dims(kernel, axis=-1)
                 fft = fftconvolve(frame.data, kernel, mode='valid', axes=[0,1])
                 glcm = np.concatenate([fft, glcm], axis=2)
-            return self.init(glcm)
+            return self.create(data=glcm, labels=labels)
 
         return frame
