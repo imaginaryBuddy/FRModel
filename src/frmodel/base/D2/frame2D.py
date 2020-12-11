@@ -55,12 +55,16 @@ class Frame2D(_Frame2DLoader,
         """ Flattens the data on XY only. """
         return self.data.reshape([-1, self.shape[-1]])
 
-    def data_chn(self, idx: int or List[int]) -> np.ndarray:
+    def _keys_to_ix(self, keys: str or List[str]):
+        """ Converts keys to indexes for splicing """
+
+        return self._ix[keys] if isinstance(keys, str) else [self._ix[k] for k in keys]
+
+    def data_chn(self, keys: str or List[str]) -> np.ndarray:
         """ Gets channels as pure np.ndarray data
 
-        :param idx: Can be a single int index or multiple in a List"""
-        if isinstance(idx, int): idx = [idx]
-        return self.data[..., idx]
+        :param keys: Can be a single str or multiple in a List"""
+        return self.data[..., keys]
 
     def data_rgb(self) -> np.ndarray:
         return self.data[..., [CHANNEL.RED, CHANNEL.GREEN, CHANNEL.BLUE]]
