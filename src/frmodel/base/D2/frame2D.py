@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import List, Tuple
+from typing import List, Tuple, Iterable
 
 import numpy as np
 from sklearn.neighbors import KDTree
@@ -24,7 +23,6 @@ from frmodel.base.consts import CONSTS
 
 MAX_RGB = 255
 
-@dataclass
 class Frame2D(_Frame2DLoader,
               _Frame2DPartition,
               _Frame2DChannel,
@@ -37,10 +35,37 @@ class Frame2D(_Frame2DLoader,
     The underlying representation is a 2D array, each cell is a array of channels
     """
 
-    data: np.ndarray
-    _ix: dict = field(default_factory={CONSTS.CHN.RED: 0,
-                                       CONSTS.CHN.GREEN: 1,
-                                       CONSTS.CHN.BLUE: 2})
+    _data: np.ndarray
+    _labels: dict
+
+    def __init__(self, data: np.ndarray, labels: str or dict or List[str]):
+        self._data = data
+        labels = [labels] if isinstance(labels, str) else labels
+
+        assert data.ndim == 3, f"Number of dimensions for initialization must be 3. (Given: {data.ndim})"
+        assert data.shape[-1] == len(labels),\
+            f"Number of labels ({len(labels)}) must be same as number of Channels ({data.shape[-1]})."
+
+        if isinstance(labels, Iterable) and not isinstance(labels, dict):
+            # Converts list to enumerated dict
+            labels = {k: e for e, k in enumerate(labels)}
+
+        self._labels = labels
+
+    @staticmethod
+    def create(data:np.ndarray, labels: dict or List[str]) -> Frame2D:
+        """ This is an init function that allows you to receive the class upon initiation.
+
+        This function will not modify the caller as it's static. """
+        return Frame2D(data, labels)
+
+    @property
+    def data(self) -> np.ndarray:
+        return self._data
+
+    @property
+    def labels(self) -> dict:
+        return self._labels
 
     def data_kdtree(self, leaf_size=40, metric='minkowski', **kwargs) -> KDTree:
         """ Constructs a KDTree with current data.
@@ -55,21 +80,21 @@ class Frame2D(_Frame2DLoader,
         """ Flattens the data on XY only. """
         return self.data.reshape([-1, self.shape[-1]])
 
-    def _keys_to_ix(self, *keys: str or List[str]):
+    def _labels_to_ix(self, labels: str or List[str]):
         """ Converts keys to indexes for splicing """
 
-        return self._ix[keys] if isinstance(keys, str) else [self._ix[k] for k in keys]
+        return self._labels[labels] if isinstance(labels, str) else [self._labels[l] for l in labels]
 
-    def data_chn(self, *keys: str or List[str]) -> np.ndarray:
+    def data_chn(self, labels: str or List[str]) -> np.ndarray:
         """ Gets channels as pure np.ndarray data
 
-        :param keys: Can be a single str or multiple in a List"""
-        return self.data[..., keys]
+        :param labels: Can be a single str or multiple in a List"""
+        return self.data[..., self._labels_to_ix(labels)]
 
     def data_rgb(self) -> np.ndarray:
         return self.data_chn(CONSTS.CHN.RGB)
 
-    def append(self, ar: np.ndarray, label: str or Tuple[str]):
+    def append(self, ar: np.ndarray, labels: str or Tuple[str]):
         """ Appends another channel onto the Frame2D.
 
         It is compulsory to include channel labels when appending.
@@ -78,21 +103,27 @@ class Frame2D(_Frame2DLoader,
         It is recommended to use the consts provided in consts.py
 
         :param ar: The array to append to self array. Must be of the same dimensions for the first 2 axes
-        :param label: A list of string labels. Must be the same length as the number of channels to append
+        :param labels: A list of string labels. Must be the same length as the number of channels to append
         :return: Returns a new Frame2D.
         """
         ar_shape = ar.shape
         self_shape = self.shape
 
+        labels = [labels] if isinstance(labels, str) else labels
+
+        if ar.ndim == 2:
+            ar = ar[..., np.newaxis]
+            ar_shape = ar.shape  # Update shape if ndim is 2
+
         assert ar_shape[0] == self_shape[0], f"Mismatch Axis 0, Target: {ar_shape[0]}, Self: {self_shape[0]}"
         assert ar_shape[1] == self_shape[1], f"Mismatch Axis 1, Target: {ar_shape[1]}, Self: {self_shape[1]}"
-        assert len(label) == ar_shape[-1], f"Mismatch Label Length, Target: {ar_shape[-1]}, Labels: {len(label)}"
+        assert len(labels) == ar_shape[-1], f"Mismatch Label Length, Target: {ar_shape[-1]}, Labels: {len(labels)}"
 
         buffer = np.zeros((*self_shape[0:2], ar_shape[-1] + self_shape[-1]), self.dtype)
         buffer[..., :self.shape[-1]] = self.data
         buffer[..., self.shape[-1]:] = ar
 
-        return Frame2D(buffer)
+        return Frame2D(buffer, [*self._labels, *labels])
 
     def size(self) -> int:
         """ Returns the number of pixels """
