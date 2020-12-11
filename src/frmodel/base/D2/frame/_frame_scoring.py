@@ -5,22 +5,15 @@ from typing import TYPE_CHECKING
 from warnings import warn
 
 import numpy as np
-from PIL import Image
 from sklearn.metrics import homogeneity_completeness_v_measure
 from sklearn.preprocessing import LabelEncoder
 
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
-
 class _Frame2DScoring(ABC):
 
     data: np.ndarray
-
-    # noinspection PyArgumentList
-    @classmethod
-    def init(cls, *args, **kwargs):
-        return cls(*args, **kwargs)
 
     @abstractmethod
     def crop(self,

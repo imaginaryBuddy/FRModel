@@ -5,6 +5,7 @@ from typing import List
 
 import cv2
 
+from frmodel.base import CONSTS
 from frmodel.base.D2.frame2D import Frame2D
 
 
@@ -47,7 +48,7 @@ class Video2D:
             if success:
                 # CV2 uses BGR, we swap the channels here
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                img_list.append(Frame2D(image))
+                img_list.append(Frame2D(image, CONSTS.CHN.RGB))
             else:
                 img_list.append(failure_default)
 

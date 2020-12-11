@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import numpy as np
-from scipy.stats import rankdata
 from sklearn.cluster import KMeans
-from sklearn.metrics import homogeneity_completeness_v_measure
 
+from frmodel.base import CONSTS
 from frmodel.base.D2 import Frame2D
+
 
 class KMeans2D:
 
@@ -38,5 +38,5 @@ class KMeans2D:
         :return: Frame2D
         """
 
-        return self.frame.append(self.model.labels_.reshape(self.frame.shape[0:2]))
+        return self.frame.append(self.model.labels_.reshape(self.frame.shape[0:2]), CONSTS.CHN.KMEANS.LABEL)
 
