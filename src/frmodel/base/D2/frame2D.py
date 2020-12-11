@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import List, Tuple
+from copy import deepcopy
+from typing import List, Tuple, Iterable
 
 import numpy as np
 from sklearn.neighbors import KDTree
@@ -22,11 +22,8 @@ from frmodel.base.D2.frame._frame_scaling import _Frame2DScaling
 from frmodel.base.D2.frame._frame_scoring import _Frame2DScoring
 from frmodel.base.consts import CONSTS
 
-CHANNEL = CONSTS.CHANNEL
-
 MAX_RGB = 255
 
-@dataclass
 class Frame2D(_Frame2DLoader,
               _Frame2DPartition,
               _Frame2DChannel,
@@ -39,7 +36,37 @@ class Frame2D(_Frame2DLoader,
     The underlying representation is a 2D array, each cell is a array of channels
     """
 
-    data: np.ndarray
+    _data: np.ndarray
+    _labels: dict
+
+    def __init__(self, data: np.ndarray, labels: str or dict or List[str]):
+        self._data = data
+        labels = [labels] if isinstance(labels, str) else labels
+
+        assert data.ndim == 3, f"Number of dimensions for initialization must be 3. (Given: {data.ndim})"
+        assert data.shape[-1] == len(labels),\
+            f"Number of labels ({len(labels)}) must be same as number of Channels ({data.shape[-1]})."
+
+        if isinstance(labels, Iterable) and not isinstance(labels, dict):
+            # Converts list to enumerated dict
+            labels = {k: e for e, k in enumerate(labels)}
+
+        self._labels = labels
+
+    @staticmethod
+    def create(data:np.ndarray, labels: dict or List[str]) -> Frame2D:
+        """ This is an init function that allows you to receive the class upon initiation.
+
+        This function will not modify the caller as it's static. """
+        return Frame2D(data, labels)
+
+    @property
+    def data(self) -> np.ndarray:
+        return self._data
+
+    @property
+    def labels(self) -> dict:
+        return self._labels
 
     def data_kdtree(self, leaf_size=40, metric='minkowski', **kwargs) -> KDTree:
         """ Constructs a KDTree with current data.
@@ -54,32 +81,50 @@ class Frame2D(_Frame2DLoader,
         """ Flattens the data on XY only. """
         return self.data.reshape([-1, self.shape[-1]])
 
-    def data_chn(self, idx: int or List[int]) -> np.ndarray:
+    def _labels_to_ix(self, labels: str or List[str]):
+        """ Converts keys to indexes for splicing """
+
+        return self._labels[labels] if isinstance(labels, str) else [self._labels[label] for label in labels]
+
+    def data_chn(self, labels: str or List[str]) -> np.ndarray:
         """ Gets channels as pure np.ndarray data
 
-        :param idx: Can be a single int index or multiple in a List"""
-        if isinstance(idx, int): idx = [idx]
-        return self.data[..., idx]
+        :param labels: Can be a single str or multiple in a List"""
+        return self.data[..., self._labels_to_ix(labels)]
 
     def data_rgb(self) -> np.ndarray:
-        return self.data[..., [CHANNEL.RED, CHANNEL.GREEN, CHANNEL.BLUE]]
+        return self.data_chn(CONSTS.CHN.RGB)
 
-    def append(self, ar: np.ndarray):
-        shape_ar = ar.shape
-        shape_self = self.shape
+    def append(self, ar: np.ndarray, labels: str or Tuple[str]) -> Frame2D:
+        """ Appends another channel onto the Frame2D.
 
-        assert shape_ar[0] == shape_self[0], f"Mismatch Axis 0, Target: {shape_ar[0]}, Self: {shape_self[0]}"
-        assert shape_ar[1] == shape_self[1], f"Mismatch Axis 0, Target: {shape_ar[1]}, Self: {shape_self[1]}"
+        It is compulsory to include channel labels when appending.
+        They can be arbitrary, however, the labels are used to easily extract the channel later.
+
+        It is recommended to use the consts provided in consts.py
+
+        :param ar: The array to append to self array. Must be of the same dimensions for the first 2 axes
+        :param labels: A list of string labels. Must be the same length as the number of channels to append
+        :return: Returns a new Frame2D.
+        """
+        ar_shape = ar.shape
+        self_shape = self.shape
+
+        labels = [labels] if isinstance(labels, str) else labels
 
         if ar.ndim == 2:
             ar = ar[..., np.newaxis]
-            shape_ar = ar.shape  # Update shape if ndim is 2
+            ar_shape = ar.shape  # Update shape if ndim is 2
 
-        buffer = np.zeros((*shape_self[0:2], shape_ar[-1] + shape_self[-1]), self.dtype)
+        assert ar_shape[0] == self_shape[0], f"Mismatch Axis 0, Target: {ar_shape[0]}, Self: {self_shape[0]}"
+        assert ar_shape[1] == self_shape[1], f"Mismatch Axis 1, Target: {ar_shape[1]}, Self: {self_shape[1]}"
+        assert len(labels) == ar_shape[-1], f"Mismatch Label Length, Target: {ar_shape[-1]}, Labels: {len(labels)}"
+
+        buffer = np.zeros((*self_shape[0:2], ar_shape[-1] + self_shape[-1]), self.dtype)
         buffer[..., :self.shape[-1]] = self.data
         buffer[..., self.shape[-1]:] = ar
 
-        return Frame2D(buffer)
+        return Frame2D(buffer, [*self._labels, *labels])
 
     def size(self) -> int:
         """ Returns the number of pixels """
@@ -98,9 +143,3 @@ class Frame2D(_Frame2DLoader,
 
     def width(self) -> int:
         return self.shape[1]
-
-    # def data_cat_labels(self):
-    #     """ Categorizes unique values in the frame """
-    #     data = self.data.astype(np.uint)
-    #     flat = data[..., 0] + data[..., 1] * 255 + data[..., 2] * 255 * 255
-    #     return (rankdata(flat.flatten(), method='dense') - 1).reshape(self.data.shape[:-1])

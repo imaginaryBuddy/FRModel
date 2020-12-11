@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from math import ceil
-from typing import Iterable
+from typing import List
 from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
@@ -147,15 +147,9 @@ class Frame2DPlot:
 class _Frame2DPlot:
     data: np.ndarray
 
-    # noinspection PyArgumentList
-    @classmethod
-    def init(cls, *args, **kwargs) -> 'Frame2D':
-        # noinspection PyTypeChecker
-        return cls(*args, **kwargs)
-
-    def plot(self, ixs: Iterable or slice or None = None) -> Frame2DPlot:
+    def plot(self, labels: str or List[str] = None) -> Frame2DPlot:
         """ Gets a plot object. Note that you need to call a plot function to plot. """
-        if ixs:
-            return Frame2DPlot(self.init(self.data[..., ixs]))
-        else:
-            return Frame2DPlot(self.init(self.data))
+
+        self: 'Frame2D'
+        return Frame2DPlot(self.create(data=self.data_chn(labels) if labels else self.data,
+                                       labels=labels))

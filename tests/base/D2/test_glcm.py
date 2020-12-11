@@ -16,7 +16,7 @@ class GLCMTest(TestD2):
 
         ar = np.tile(ar, [3, 1, 1]).swapaxes(0,1).swapaxes(1,2)
 
-        f = Frame2D(ar.astype(np.uint8))
+        f = Frame2D(ar.astype(np.uint8), CONSTS.CHN.RGB)
         fc = f.get_chns(glcm_con=True, glcm_cor=True, glcm_ent=True, glcm_radius=1)
         ar2 = fc.data.squeeze()
 

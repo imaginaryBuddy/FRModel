@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from abc import abstractmethod
+from typing import TYPE_CHECKING, Tuple
 
 import numpy as np
 from scipy.signal import fftconvolve
@@ -10,14 +11,16 @@ from skimage.color import rgb2hsv
 from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
 from frmodel.base.consts import CONSTS
 
-CHANNEL = CONSTS.CHANNEL
-MAX_RGB = 255
+if TYPE_CHECKING:
+    from frmodel.base.D2.frame2D import Frame2D
 
+MAX_RGB = 255
+CHN = CONSTS.CHN
 
 class _Frame2DChannel(_Frame2DChannelGLCM):
 
     data: np.ndarray
-    
+
     @abstractmethod
     def data_rgb(self): ...
     
@@ -29,20 +32,12 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
 
     @abstractmethod
     def height(self): ...
-    
-    @abstractmethod
-    def slide_xy(self, *args, **kwargs): ...
 
-    # noinspection PyArgumentList
-    @classmethod
-    def init(cls, *args, **kwargs):
-        return cls(*args, **kwargs)
-
-    def get_hsv(self) -> np.ndarray:
+    def get_hsv(self) -> Tuple[np.ndarray, Tuple[str]]:
         """ Creates a HSV """
-        return rgb2hsv(self.data_rgb())
+        return rgb2hsv(self.data_rgb()), CONSTS.CHN.HSV
 
-    def get_ex_g(self, modified=False) -> np.ndarray:
+    def get_ex_g(self, modified=False) -> Tuple[np.ndarray, str]:
         """ Calculates the excessive green index
 
         Original: 2g - 1r - 1b
@@ -52,24 +47,26 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         """
 
         if modified:
-            return 1.262 * self.data_chn(CHANNEL.RED) - \
-                   0.884 * self.data_chn(CHANNEL.GREEN) - \
-                   0.331 * self.data_chn(CHANNEL.BLUE)
+            return 1.262 * self.data_chn(CHN.RED) -   \
+                   0.884 * self.data_chn(CHN.GREEN) - \
+                   0.331 * self.data_chn(CHN.BLUE), CHN.MEX_G
 
         else:
-            return 2 * self.data_chn(CHANNEL.RED) - \
-                   self.data_chn(CHANNEL.GREEN) - \
-                   self.data_chn(CHANNEL.BLUE)
+            return 2 * self.data_chn(CHN.RED) -   \
+                       self.data_chn(CHN.GREEN) - \
+                       self.data_chn(CHN.BLUE), CHN.EX_G
 
-    def get_ex_gr(self) -> np.ndarray:
+    def get_ex_gr(self) -> Tuple[np.ndarray, str]:
         """ Calculates the excessive green minus excess red index
 
         2g - r - b - 1.4r + g = 3g - 2.4r - b
         """
 
-        return 3 * self.data_chn(CHANNEL.RED) - 2.4 * self.data_chn(CHANNEL.GREEN) - self.data_chn(CHANNEL.BLUE)
+        return 3   * self.data_chn(CHN.RED) -   \
+               2.4 * self.data_chn(CHN.GREEN) - \
+                     self.data_chn(CHN.BLUE), CHN.EX_GR
 
-    def get_ndi(self):
+    def get_ndi(self) -> Tuple[np.ndarray, str]:
         """ Calculates the Normalized Difference Index
 
         (g - r) / (g + r)
@@ -77,15 +74,15 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
 
         with np.errstate(divide='ignore', invalid='ignore'):
             x = np.nan_to_num(
-                np.true_divide(self.data_chn(CHANNEL.GREEN).astype(np.int) -
-                               self.data_chn(CHANNEL.RED).astype(np.int),
-                               self.data_chn(CHANNEL.GREEN).astype(np.int) +
-                               self.data_chn(CHANNEL.RED).astype(np.int)),
+                np.true_divide(self.data_chn(CHN.GREEN).astype(np.int) -
+                               self.data_chn(CHN.RED)  .astype(np.int),
+                               self.data_chn(CHN.GREEN).astype(np.int) +
+                               self.data_chn(CHN.RED)  .astype(np.int)),
                 copy=False, nan=0, neginf=0, posinf=0)
 
-        return x
+        return x, CONSTS.CHN.NDI
 
-    def get_veg(self, const_a: float = 0.667):
+    def get_veg(self, const_a: float = 0.667) -> Tuple[np.ndarray, str]:
         """ Calculates the Vegetative Index
 
         g / {(r^a) * [b^(1 - a)]}
@@ -94,13 +91,13 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_chn(CHANNEL.GREEN).astype(np.float) /
-                              (np.power(self.data_chn(CHANNEL.RED).astype(np.float), const_a) *
-                               np.power(self.data_chn(CHANNEL.BLUE).astype(np.float), 1 - const_a)),
+            x = np.nan_to_num(self.data_chn(CHN.GREEN).astype(np.float) /
+                              (np.power(self.data_chn(CHN.RED).astype(np.float), const_a) *
+                               np.power(self.data_chn(CHN.BLUE).astype(np.float), 1 - const_a)),
                               copy=False, nan=0, neginf=0, posinf=0)
-        return x
+        return x, CONSTS.CHN.VEG
 
-    def get_xy(self) -> np.ndarray:
+    def get_xy(self) -> Tuple[np.ndarray, Tuple[str]]:
         """ Creates the XY Coord Array """
 
         # We create a new array to copy self over we expand the last axis by 2
@@ -110,7 +107,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         buffer[..., 0] = np.tile(np.arange(0, self.width()), (self.height(), 1))
         buffer[..., 1] = np.tile(np.arange(0, self.height()), (self.width(), 1)).swapaxes(0, 1)
 
-        return buffer
+        return buffer, CONSTS.CHN.XY
 
     def get_chns(self, self_=False, xy=False, hsv=False, ex_g=False,
                  mex_g=False, ex_gr=False, ndi=False, veg=False,
@@ -178,28 +175,43 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :param conv_method: Can be 'average' or 'nearest'
         """
 
-        features = \
-            [self.data if self_ else None,
-             self.get_xy() if xy else None,
-             self.get_hsv() if hsv else None,
-             self.get_ex_g() if ex_g else None,
-             self.get_ex_g(True) if mex_g else None,
-             self.get_ex_gr() if ex_gr else None,
-             self.get_ndi() if ndi else None,
-             self.get_veg(veg_a) if veg else None]
+        features = []
+        labels = []
 
-        features = [f for f in features if f is not None]
+        def add_feature(feature: np.ndarray, label: str or Tuple[str]):
+            # Convenience function to help add features
+
+            # If the feature is a singular channel, we need to promote it into a 3dim
+            features.append(feature if feature.ndim == 3 else feature[..., np.newaxis])
+            if isinstance(label, str):
+                # noinspection PyTypeChecker
+                labels.append(label)
+            else:
+                labels.extend(label)
+
+        self:'Frame2D'
+        if self_ :add_feature(self.data, self.labels.values())
+        if xy    :add_feature(*self.get_xy()                 )
+        if hsv   :add_feature(*self.get_hsv()                )
+        if ex_g  :add_feature(*self.get_ex_g()               )
+        if mex_g :add_feature(*self.get_ex_g(True)           )
+        if ex_gr :add_feature(*self.get_ex_gr()              )
+        if ndi   :add_feature(*self.get_ndi()                )
+        if veg   :add_feature(*self.get_veg(veg_a)           )
 
         if features:
-            frame = self.init(np.concatenate([f for f in features if f is not None], axis=2))
+            frame = self.create(data=np.concatenate(features, axis=2),
+                                labels=labels)
         else:
             frame = None
 
         if glcm_con or glcm_cor or glcm_ent:
-            glcm = self.get_glcm(
+            glcm, glcm_labels = self.get_glcm(
                 contrast=glcm_con, correlation=glcm_cor, entropy=glcm_ent,
                 by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius, verbose=glcm_verbose
                 )
+
+            labels.extend(glcm_labels)
 
             if frame:
                 # We trim the frame so that the new glcm can fit
@@ -214,6 +226,6 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                     kernel = np.expand_dims(kernel, axis=-1)
                 fft = fftconvolve(frame.data, kernel, mode='valid', axes=[0,1])
                 glcm = np.concatenate([fft, glcm], axis=2)
-            return self.init(glcm)
+            return self.create(data=glcm, labels=labels)
 
         return frame
