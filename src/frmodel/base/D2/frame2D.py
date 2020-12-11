@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Tuple
 
 import numpy as np
@@ -40,6 +40,7 @@ class Frame2D(_Frame2DLoader,
     """
 
     data: np.ndarray
+    _ix: dict = field(default_factory={'R': 0, 'G': 1, 'B': 2})
 
     def data_kdtree(self, leaf_size=40, metric='minkowski', **kwargs) -> KDTree:
         """ Constructs a KDTree with current data.
