@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from abc import abstractmethod
+from typing import TYPE_CHECKING, Tuple
 
 import numpy as np
 from scipy.signal import fftconvolve
@@ -10,12 +11,16 @@ from skimage.color import rgb2hsv
 from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
 from frmodel.base.consts import CONSTS
 
+if TYPE_CHECKING:
+    from frmodel.base.D2.frame2D import Frame2D
+
 MAX_RGB = 255
+CHN = CONSTS.CHN
 
 class _Frame2DChannel(_Frame2DChannelGLCM):
 
     data: np.ndarray
-    
+
     @abstractmethod
     def data_rgb(self): ...
     
@@ -28,16 +33,11 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
     @abstractmethod
     def height(self): ...
 
-    # noinspection PyArgumentList
-    @classmethod
-    def init(cls, *args, **kwargs):
-        return cls(*args, **kwargs)
-
-    def get_hsv(self) -> np.ndarray:
+    def get_hsv(self) -> Tuple[np.ndarray, Tuple[str]]:
         """ Creates a HSV """
-        return rgb2hsv(self.data_rgb())
+        return rgb2hsv(self.data_rgb()), CONSTS.CHN.HSV
 
-    def get_ex_g(self, modified=False) -> np.ndarray:
+    def get_ex_g(self, modified=False) -> Tuple[np.ndarray, str]:
         """ Calculates the excessive green index
 
         Original: 2g - 1r - 1b
@@ -46,36 +46,33 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :param modified: Whether to use the modified or not. Refer to docstring
         """
 
-        with CONSTS.CHN as CHN:
-            if modified:
-                return 1.262 * self.data_chn(CHN.RED) -   \
-                       0.884 * self.data_chn(CHN.GREEN) - \
-                       0.331 * self.data_chn(CHN.BLUE)
+        if modified:
+            return 1.262 * self.data_chn(CHN.RED) -   \
+                   0.884 * self.data_chn(CHN.GREEN) - \
+                   0.331 * self.data_chn(CHN.BLUE), CHN.MEX_G
 
-            else:
-                return 2 * self.data_chn(CHN.RED) -   \
-                           self.data_chn(CHN.GREEN) - \
-                           self.data_chn(CHN.BLUE)
+        else:
+            return 2 * self.data_chn(CHN.RED) -   \
+                       self.data_chn(CHN.GREEN) - \
+                       self.data_chn(CHN.BLUE), CHN.EX_G
 
-    def get_ex_gr(self) -> np.ndarray:
+    def get_ex_gr(self) -> Tuple[np.ndarray, str]:
         """ Calculates the excessive green minus excess red index
 
         2g - r - b - 1.4r + g = 3g - 2.4r - b
         """
 
-        with CONSTS.CHN as CHN:
-            return 3   * self.data_chn(CHN.RED) -   \
-                   2.4 * self.data_chn(CHN.GREEN) - \
-                         self.data_chn(CHN.BLUE)
+        return 3   * self.data_chn(CHN.RED) -   \
+               2.4 * self.data_chn(CHN.GREEN) - \
+                     self.data_chn(CHN.BLUE), CHN.EX_GR
 
-    def get_ndi(self) -> np.ndarray:
+    def get_ndi(self) -> Tuple[np.ndarray, str]:
         """ Calculates the Normalized Difference Index
 
         (g - r) / (g + r)
         """
 
-        with np.errstate(divide='ignore', invalid='ignore'),\
-             CONSTS.CHN as CHN:
+        with np.errstate(divide='ignore', invalid='ignore'):
             x = np.nan_to_num(
                 np.true_divide(self.data_chn(CHN.GREEN).astype(np.int) -
                                self.data_chn(CHN.RED)  .astype(np.int),
@@ -83,9 +80,9 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                                self.data_chn(CHN.RED)  .astype(np.int)),
                 copy=False, nan=0, neginf=0, posinf=0)
 
-        return x
+        return x, CONSTS.CHN.NDI
 
-    def get_veg(self, const_a: float = 0.667) -> np.ndarray:
+    def get_veg(self, const_a: float = 0.667) -> Tuple[np.ndarray, str]:
         """ Calculates the Vegetative Index
 
         g / {(r^a) * [b^(1 - a)]}
@@ -93,15 +90,14 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :param const_a: Constant A depends on the camera used.
         """
 
-        with np.errstate(divide='ignore', invalid='ignore'),\
-             CONSTS.CHN as CHN:
+        with np.errstate(divide='ignore', invalid='ignore'):
             x = np.nan_to_num(self.data_chn(CHN.GREEN).astype(np.float) /
                               (np.power(self.data_chn(CHN.RED).astype(np.float), const_a) *
                                np.power(self.data_chn(CHN.BLUE).astype(np.float), 1 - const_a)),
                               copy=False, nan=0, neginf=0, posinf=0)
-        return x
+        return x, CONSTS.CHN.VEG
 
-    def get_xy(self) -> np.ndarray:
+    def get_xy(self) -> Tuple[np.ndarray, Tuple[str]]:
         """ Creates the XY Coord Array """
 
         # We create a new array to copy self over we expand the last axis by 2
@@ -111,7 +107,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         buffer[..., 0] = np.tile(np.arange(0, self.width()), (self.height(), 1))
         buffer[..., 1] = np.tile(np.arange(0, self.height()), (self.width(), 1)).swapaxes(0, 1)
 
-        return buffer
+        return buffer, CONSTS.CHN.XY
 
     def get_chns(self, self_=False, xy=False, hsv=False, ex_g=False,
                  mex_g=False, ex_gr=False, ndi=False, veg=False,
