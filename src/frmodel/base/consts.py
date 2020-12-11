@@ -3,13 +3,15 @@ class CONSTS:
 
     This is to facilitate magic constants/numbers around the program.
     """
-    class CHANNEL:
+    class CHN:
         RED         = "R"
         GREEN       = "G"
         BLUE        = "B"
+        RGB         = (RED, GREEN, BLUE)
         HUE         = "H"
         SATURATION  = "S"
         VALUE       = "V"
+        HSV         = (HUE, SATURATION, VALUE)
         NDI         = "NDI"
         EX_G        = "EX_G"
         MEX_G       = "MEX_G"
