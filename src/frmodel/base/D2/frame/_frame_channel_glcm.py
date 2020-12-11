@@ -1,18 +1,19 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from typing import Tuple, List
 
 import numpy as np
 from scipy.signal import fftconvolve
 from skimage.util.shape import view_as_windows
 from tqdm import tqdm
 
+from frmodel.base import CONSTS
 from frmodel.base.D2.frame._cy_entropy import cy_entropy
 
 from frmodel.base.D2.frame._cy_corr import cy_corr
-from frmodel.base.consts import CONSTS
 
-CHANNEL = CONSTS.CHANNEL
+
 MAX_RGB = 255
 
 class _Frame2DChannelGLCM(ABC):
@@ -22,11 +23,6 @@ class _Frame2DChannelGLCM(ABC):
     @abstractmethod
     def data_rgb(self): ...
 
-    # noinspection PyArgumentList
-    @classmethod
-    def init(cls, *args, **kwargs):
-        return cls(*args, **kwargs)
-
     def get_glcm(self,
                  by_x: int = 1,
                  by_y: int = 1,
@@ -34,7 +30,7 @@ class _Frame2DChannelGLCM(ABC):
                  contrast: bool = True,
                  correlation: bool = True,
                  entropy: bool = True,
-                 verbose: bool = False):
+                 verbose: bool = False) -> Tuple[np.ndarray, List[str]]:
         """ This will get the GLCM statistics for this window
 
         In order:
@@ -83,23 +79,30 @@ class _Frame2DChannelGLCM(ABC):
         rgb_a = rgb[:-by_y, :-by_x]
         rgb_b = rgb[by_y:, by_x:]
 
-        idxs = [self._get_glcm_contrast_py(rgb_a, rgb_b, radius)
-                if contrast else None,
+        features = []
+        labels = []
 
-                self._get_glcm_correlation_cy(rgb_a, rgb_b, radius)
-                if correlation else None,
+        def add_feature(feature: np.ndarray, label: str or Tuple[str]):
+            # Convenience function to help add features
 
-                self._get_glcm_entropy_cy(rgb_a, rgb_b, radius, verbose)
-                if entropy else None]
+            # If the feature is a singular channel, we need to promote it into a 3dim
+            features.append(feature if feature.ndim == 3 else feature[..., np.newaxis])
+            if isinstance(label, str):
+                # noinspection PyTypeChecker
+                labels.append(label)
+            else:
+                labels.extend(label)
 
-        # We drop the nones using a list comp
-        return np.concatenate([i for i in idxs if i is not None], axis=2)
-
+        if contrast:    add_feature(*self._get_glcm_contrast_py(rgb_a, rgb_b, radius))
+        if correlation: add_feature(*self._get_glcm_correlation_cy(rgb_a, rgb_b, radius))
+        if entropy:     add_feature(*self._get_glcm_entropy_cy(rgb_a, rgb_b, radius, verbose))
+            
+        return np.concatenate(features, axis=2), labels
 
     @staticmethod
     def _get_glcm_contrast_py(rgb_a: np.ndarray,
                               rgb_b: np.ndarray,
-                              radius) -> np.ndarray:
+                              radius) -> Tuple[np.ndarray, Tuple[str]]:
         """ Pure python implementation of Contrast.
 
         Cython isn't needed as it's purely vectorizable.
@@ -112,12 +115,13 @@ class _Frame2DChannelGLCM(ABC):
         """
 
         ar = (rgb_a - rgb_b) ** 2
-        return fftconvolve(ar, np.ones(shape=[radius * 2 + 1, radius * 2 + 1, 1]), mode='valid')
+        return fftconvolve(ar, np.ones(shape=[radius * 2 + 1, radius * 2 + 1, 1]), mode='valid'),\
+               CONSTS.CHN.GLCM.CON_RGB
 
     @staticmethod
     def _get_glcm_correlation_py(rgb_a: np.ndarray,
                               rgb_b: np.ndarray,
-                              radius) -> np.ndarray:
+                              radius) -> Tuple[np.ndarray, Tuple[str]]:
         """ Uses Pure Python to implement correlation GLCM
 
         :param rgb_a: Offset ar A
@@ -142,12 +146,12 @@ class _Frame2DChannelGLCM(ABC):
             windows_a_std * windows_b_std,
             where=windows_a_std * windows_b_std != 0,
             out=np.zeros_like(windows_a_std)
-        )
+        ), CONSTS.CHN.GLCM.COR_RGB
 
     @staticmethod
     def _get_glcm_correlation_naive_py(rgb_a: np.ndarray,
                                        rgb_b: np.ndarray,
-                                       radius) -> np.ndarray:
+                                       radius) -> Tuple[np.ndarray, Tuple[str]]:
         """ Legacy Naive Correlation Calculation in Pure Python
 
         This is naive because the formula doesn't seem to match up with the basis definition of Correlation.
@@ -195,12 +199,12 @@ class _Frame2DChannelGLCM(ABC):
         with np.errstate(divide='ignore', invalid='ignore'):
             cor = (conv_ab - (conv_ae - conv_be) * (2 * radius + 1) ** 2) /\
                    np.sqrt(conv_stda ** 2 * conv_stdb ** 2)
-            return np.nan_to_num(cor, copy=False, nan=0, neginf=-1, posinf=1)
+            return np.nan_to_num(cor, copy=False, nan=0, neginf=-1, posinf=1), CONSTS.CHN.GLCM.COR_RGB
 
     @staticmethod
     def _get_glcm_correlation_cy(rgb_a: np.ndarray,
                                  rgb_b: np.ndarray,
-                                 radius) -> np.ndarray:
+                                 radius) -> Tuple[np.ndarray, Tuple[str]]:
         """ Correlation In Cython
 
         Uses the basis GLCM definition.
@@ -212,14 +216,14 @@ class _Frame2DChannelGLCM(ABC):
 
         return cy_corr(rgb_a.astype(np.uint8),
                        rgb_b.astype(np.uint8),
-                       radius, True) / ((2 * radius + 1) ** 2)
+                       radius, True) / ((2 * radius + 1) ** 2), CONSTS.CHN.GLCM.COR_RGB
 
     @staticmethod
     def _get_glcm_entropy_cy(rgb_a: np.ndarray,
                              rgb_b: np.ndarray,
                              radius,
                              verbose
-                             ) -> np.ndarray:
+                             ) -> Tuple[np.ndarray, Tuple[str]]:
         """ Gets the entropy, uses the Cython entropy algorithm
 
         :param rgb_a: Offset ar A
@@ -228,14 +232,14 @@ class _Frame2DChannelGLCM(ABC):
         """
         rgb_c = rgb_a + rgb_b * (MAX_RGB + 1)
 
-        return cy_entropy(rgb_c.astype(np.uint16), radius, verbose)
+        return cy_entropy(rgb_c.astype(np.uint16), radius, verbose), CONSTS.CHN.GLCM.ENT_RGB
 
-    def _get_glcm_entropy_py(self,
-                             rgb_a: np.ndarray,
+    @staticmethod
+    def _get_glcm_entropy_py(rgb_a: np.ndarray,
                              rgb_b: np.ndarray,
                              radius,
                              verbose
-                             ) -> np.ndarray:
+                             ) -> Tuple[np.ndarray, Tuple[str]]:
         """ Gets the entropy in Pure Python
 
         :param rgb_a: Offset ar A
@@ -252,7 +256,7 @@ class _Frame2DChannelGLCM(ABC):
         rgb_a = rgb_a.astype(np.uint8)
         rgb_b = rgb_b.astype(np.uint8)
 
-        cells = view_as_windows(self.init(rgb_a * (MAX_RGB + 1) + rgb_b).data,
+        cells = view_as_windows(rgb_a * (MAX_RGB + 1) + rgb_b,
                                 [radius * 2 + 1, radius * 2 + 1, 3], step=1).squeeze()
 
         out = np.zeros((rgb_a.shape[0] - radius * 2,
