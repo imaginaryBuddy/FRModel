@@ -4,6 +4,9 @@ class CONSTS:
     This is to facilitate magic constants/numbers around the program.
     """
     class CHN:
+        X           = "X"
+        Y           = "Y"
+        XY          = (X, Y)
         RED         = "R"
         GREEN       = "G"
         BLUE        = "B"
@@ -27,12 +30,18 @@ class CONSTS:
             CON_RED   = "CON_R"
             CON_GREEN = "CON_G"
             CON_BLUE  = "CON_B"
+            CON_RGB   = (CON_RED, CON_GREEN, CON_BLUE)
             COR_RED   = "COR_R"
             COR_GREEN = "COR_G"
             COR_BLUE  = "COR_B"
+            COR_RGB   = (COR_RED, COR_GREEN, COR_BLUE)
             ENT_RED   = "ENT_R"
             ENT_GREEN = "ENT_G"
             ENT_BLUE  = "ENT_B"
+            ENT_RGB   = (ENT_RED, ENT_GREEN, ENT_BLUE)
+
+        class KMEANS:
+            LABEL = "KM_LABEL"
 
     class AXIS:
         X = 0
