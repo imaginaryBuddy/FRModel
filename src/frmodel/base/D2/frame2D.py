@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import List, Tuple, Iterable
 
 import numpy as np
@@ -94,7 +95,7 @@ class Frame2D(_Frame2DLoader,
     def data_rgb(self) -> np.ndarray:
         return self.data_chn(CONSTS.CHN.RGB)
 
-    def append(self, ar: np.ndarray, labels: str or Tuple[str]):
+    def append(self, ar: np.ndarray, labels: str or Tuple[str]) -> Frame2D:
         """ Appends another channel onto the Frame2D.
 
         It is compulsory to include channel labels when appending.
