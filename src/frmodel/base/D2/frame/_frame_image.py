@@ -7,6 +7,8 @@ import numpy as np
 from PIL import Image
 from skimage.transform import rescale
 
+from frmodel.base import CONSTS
+
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
@@ -27,13 +29,13 @@ class _Frame2DImage(ABC):
         return self.create(data=self.data[top:-bottom or None, left:-right or None, ...],
                            labels=self.labels)
 
-    def save(self, file_path: str, rgb_indexes: Tuple = (0, 1, 2), **kwargs) -> None:
+    def save(self, file_path: str, **kwargs) -> None:
         """ Saves the current Frame file """
-        Image.fromarray(self.data[..., rgb_indexes].astype(np.uint8)).save(file_path, **kwargs)
+        self: 'Frame2D'
+        Image.fromarray(self.data_rgb().astype(np.uint8)).save(file_path, **kwargs)
 
     def _rescale(self,
                 scale: float,
-                rgb_indexes: Tuple = (0, 1, 2),
                 dtype=np.uint8,
                 anti_aliasing=False) -> _Frame2DImage:
         """ Rescales the image. NOTE THAT THIS WILL RETURN A RGB FRAME ONLY
@@ -51,7 +53,7 @@ class _Frame2DImage(ABC):
         return self.create(
             data=(np.round
                 (rescale
-                     (self.data[..., rgb_indexes].astype(dtype),
+                     (self.data_rgb().astype(dtype),
                       scale=scale,
                       anti_aliasing=anti_aliasing,
                       multichannel=True

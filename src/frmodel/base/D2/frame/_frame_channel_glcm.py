@@ -96,7 +96,7 @@ class _Frame2DChannelGLCM(ABC):
         if contrast:    add_feature(*self._get_glcm_contrast_py(rgb_a, rgb_b, radius))
         if correlation: add_feature(*self._get_glcm_correlation_cy(rgb_a, rgb_b, radius))
         if entropy:     add_feature(*self._get_glcm_entropy_cy(rgb_a, rgb_b, radius, verbose))
-            
+
         return np.concatenate(features, axis=2), labels
 
     @staticmethod
