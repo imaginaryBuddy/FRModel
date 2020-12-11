@@ -101,7 +101,10 @@ class Frame2D(_Frame2DLoader,
     def _labels_to_ix(self, labels: str or List[str]):
         """ Converts keys to indexes for splicing """
 
-        return self._labels[labels] if isinstance(labels, str) else [self._labels[label] for label in labels]
+        try:
+            return self._labels[labels] if isinstance(labels, str) else [self._labels[label] for label in labels]
+        except KeyError:
+            raise KeyError(f"Labels {[label for label in labels if label not in self._labels]} not found in the Frame.")
 
     def data_chn(self, labels: str or List[str]) -> np.ndarray:
         """ Gets channels as pure np.ndarray data
