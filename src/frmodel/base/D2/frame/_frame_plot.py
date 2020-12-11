@@ -147,15 +147,13 @@ class Frame2DPlot:
 class _Frame2DPlot:
     data: np.ndarray
 
-    # noinspection PyArgumentList
-    @classmethod
-    def init(cls, *args, **kwargs) -> 'Frame2D':
-        # noinspection PyTypeChecker
-        return cls(*args, **kwargs)
-
     def plot(self, ixs: Iterable or slice or None = None) -> Frame2DPlot:
         """ Gets a plot object. Note that you need to call a plot function to plot. """
+
+        self: 'Frame2D'
         if ixs:
-            return Frame2DPlot(self.init(self.data[..., ixs]))
+            return Frame2DPlot(self.create(data=self.data[..., ixs],
+                                           labels=[self.labels[i] for i in ixs]))
         else:
-            return Frame2DPlot(self.init(self.data))
+            return Frame2DPlot(self.create(data=self.data,
+                                           labels=self.labels))

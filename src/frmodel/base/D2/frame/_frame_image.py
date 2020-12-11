@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 from abc import ABC
-from typing import Tuple
+from typing import Tuple, TYPE_CHECKING
 
 import numpy as np
 from PIL import Image
 from skimage.transform import rescale
+
+if TYPE_CHECKING:
+    from frmodel.base.D2.frame2D import Frame2D
 
 
 class _Frame2DImage(ABC):
@@ -13,18 +16,16 @@ class _Frame2DImage(ABC):
 
     data: np.ndarray
 
-    # noinspection PyArgumentList
-    @classmethod
-    def init(cls, *args, **kwargs):
-        return cls(*args, **kwargs)
-
     def crop(self,
              top:int = 0,
              right:int = 0,
              bottom:int = 0,
              left:int = 0) -> _Frame2DImage:
         """ Crops the frame by specifying how many rows/columns to remove from each side."""
-        return self.init(self.data[top:-bottom or None, left:-right or None, ...])
+
+        self: 'Frame2D'
+        return self.create(data=self.data[top:-bottom or None, left:-right or None, ...],
+                           labels=self.labels)
 
     def save(self, file_path: str, rgb_indexes: Tuple = (0, 1, 2), **kwargs) -> None:
         """ Saves the current Frame file """
@@ -46,11 +47,13 @@ class _Frame2DImage(ABC):
         :return: RGB Frame2D
         """
 
-        return self.init(
-            (np.round
+        self: 'Frame2D'
+        return self.create(
+            data=(np.round
                 (rescale
                      (self.data[..., rgb_indexes].astype(dtype),
                       scale=scale,
                       anti_aliasing=anti_aliasing,
                       multichannel=True
-                      ) * 256)).astype(dtype))
+                      ) * 256)).astype(dtype),
+            labels=self.labels)
