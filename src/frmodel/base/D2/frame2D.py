@@ -22,8 +22,6 @@ from frmodel.base.D2.frame._frame_scaling import _Frame2DScaling
 from frmodel.base.D2.frame._frame_scoring import _Frame2DScoring
 from frmodel.base.consts import CONSTS
 
-CHANNEL = CONSTS.CHANNEL
-
 MAX_RGB = 255
 
 @dataclass
@@ -105,9 +103,3 @@ class Frame2D(_Frame2DLoader,
 
     def width(self) -> int:
         return self.shape[1]
-
-    # def data_cat_labels(self):
-    #     """ Categorizes unique values in the frame """
-    #     data = self.data.astype(np.uint)
-    #     flat = data[..., 0] + data[..., 1] * 255 + data[..., 2] * 255 * 255
-    #     return (rankdata(flat.flatten(), method='dense') - 1).reshape(self.data.shape[:-1])
