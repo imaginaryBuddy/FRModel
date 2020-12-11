@@ -10,9 +10,7 @@ from skimage.color import rgb2hsv
 from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
 from frmodel.base.consts import CONSTS
 
-CHANNEL = CONSTS.CHANNEL
 MAX_RGB = 255
-
 
 class _Frame2DChannel(_Frame2DChannelGLCM):
 
@@ -29,9 +27,6 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
 
     @abstractmethod
     def height(self): ...
-    
-    @abstractmethod
-    def slide_xy(self, *args, **kwargs): ...
 
     # noinspection PyArgumentList
     @classmethod
@@ -51,15 +46,16 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :param modified: Whether to use the modified or not. Refer to docstring
         """
 
-        if modified:
-            return 1.262 * self.data_chn(CHANNEL.RED) - \
-                   0.884 * self.data_chn(CHANNEL.GREEN) - \
-                   0.331 * self.data_chn(CHANNEL.BLUE)
+        with CONSTS.CHN as CHN:
+            if modified:
+                return 1.262 * self.data_chn(CHN.RED) -   \
+                       0.884 * self.data_chn(CHN.GREEN) - \
+                       0.331 * self.data_chn(CHN.BLUE)
 
-        else:
-            return 2 * self.data_chn(CHANNEL.RED) - \
-                   self.data_chn(CHANNEL.GREEN) - \
-                   self.data_chn(CHANNEL.BLUE)
+            else:
+                return 2 * self.data_chn(CHN.RED) -   \
+                           self.data_chn(CHN.GREEN) - \
+                           self.data_chn(CHN.BLUE)
 
     def get_ex_gr(self) -> np.ndarray:
         """ Calculates the excessive green minus excess red index
@@ -67,25 +63,29 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         2g - r - b - 1.4r + g = 3g - 2.4r - b
         """
 
-        return 3 * self.data_chn(CHANNEL.RED) - 2.4 * self.data_chn(CHANNEL.GREEN) - self.data_chn(CHANNEL.BLUE)
+        with CONSTS.CHN as CHN:
+            return 3   * self.data_chn(CHN.RED) -   \
+                   2.4 * self.data_chn(CHN.GREEN) - \
+                         self.data_chn(CHN.BLUE)
 
-    def get_ndi(self):
+    def get_ndi(self) -> np.ndarray:
         """ Calculates the Normalized Difference Index
 
         (g - r) / (g + r)
         """
 
-        with np.errstate(divide='ignore', invalid='ignore'):
+        with np.errstate(divide='ignore', invalid='ignore'),\
+             CONSTS.CHN as CHN:
             x = np.nan_to_num(
-                np.true_divide(self.data_chn(CHANNEL.GREEN).astype(np.int) -
-                               self.data_chn(CHANNEL.RED).astype(np.int),
-                               self.data_chn(CHANNEL.GREEN).astype(np.int) +
-                               self.data_chn(CHANNEL.RED).astype(np.int)),
+                np.true_divide(self.data_chn(CHN.GREEN).astype(np.int) -
+                               self.data_chn(CHN.RED)  .astype(np.int),
+                               self.data_chn(CHN.GREEN).astype(np.int) +
+                               self.data_chn(CHN.RED)  .astype(np.int)),
                 copy=False, nan=0, neginf=0, posinf=0)
 
         return x
 
-    def get_veg(self, const_a: float = 0.667):
+    def get_veg(self, const_a: float = 0.667) -> np.ndarray:
         """ Calculates the Vegetative Index
 
         g / {(r^a) * [b^(1 - a)]}
@@ -93,10 +93,11 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :param const_a: Constant A depends on the camera used.
         """
 
-        with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_chn(CHANNEL.GREEN).astype(np.float) /
-                              (np.power(self.data_chn(CHANNEL.RED).astype(np.float), const_a) *
-                               np.power(self.data_chn(CHANNEL.BLUE).astype(np.float), 1 - const_a)),
+        with np.errstate(divide='ignore', invalid='ignore'),\
+             CONSTS.CHN as CHN:
+            x = np.nan_to_num(self.data_chn(CHN.GREEN).astype(np.float) /
+                              (np.power(self.data_chn(CHN.RED).astype(np.float), const_a) *
+                               np.power(self.data_chn(CHN.BLUE).astype(np.float), 1 - const_a)),
                               copy=False, nan=0, neginf=0, posinf=0)
         return x
 
