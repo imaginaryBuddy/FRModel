@@ -69,18 +69,26 @@ class Frame2D(_Frame2DLoader,
     def data_rgb(self) -> np.ndarray:
         return self.data_chn(CONSTS.CHN.RGB)
 
-    def append(self, ar: np.ndarray):
-        shape_ar = ar.shape
-        shape_self = self.shape
+    def append(self, ar: np.ndarray, label: str or Tuple[str]):
+        """ Appends another channel onto the Frame2D.
 
-        assert shape_ar[0] == shape_self[0], f"Mismatch Axis 0, Target: {shape_ar[0]}, Self: {shape_self[0]}"
-        assert shape_ar[1] == shape_self[1], f"Mismatch Axis 0, Target: {shape_ar[1]}, Self: {shape_self[1]}"
+        It is compulsory to include channel labels when appending.
+        They can be arbitrary, however, the labels are used to easily extract the channel later.
 
-        if ar.ndim == 2:
-            ar = ar[..., np.newaxis]
-            shape_ar = ar.shape  # Update shape if ndim is 2
+        It is recommended to use the consts provided in consts.py
 
-        buffer = np.zeros((*shape_self[0:2], shape_ar[-1] + shape_self[-1]), self.dtype)
+        :param ar: The array to append to self array. Must be of the same dimensions for the first 2 axes
+        :param label: A list of string labels. Must be the same length as the number of channels to append
+        :return: Returns a new Frame2D.
+        """
+        ar_shape = ar.shape
+        self_shape = self.shape
+
+        assert ar_shape[0] == self_shape[0], f"Mismatch Axis 0, Target: {ar_shape[0]}, Self: {self_shape[0]}"
+        assert ar_shape[1] == self_shape[1], f"Mismatch Axis 1, Target: {ar_shape[1]}, Self: {self_shape[1]}"
+        assert len(label) == ar_shape[-1], f"Mismatch Label Length, Target: {ar_shape[-1]}, Labels: {len(label)}"
+
+        buffer = np.zeros((*self_shape[0:2], ar_shape[-1] + self_shape[-1]), self.dtype)
         buffer[..., :self.shape[-1]] = self.data
         buffer[..., self.shape[-1]:] = ar
 
