@@ -9,10 +9,8 @@ from skimage.util.shape import view_as_windows
 from tqdm import tqdm
 
 from frmodel.base import CONSTS
-from frmodel.base.D2.frame._cy_entropy import cy_entropy
-
 from frmodel.base.D2.frame._cy_corr import cy_corr
-
+from frmodel.base.D2.frame._cy_entropy import cy_entropy
 
 MAX_RGB = 255
 

@@ -4,7 +4,6 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 import numpy as np
-
 from sklearn.preprocessing import minmax_scale as sk_minmax_scale
 from sklearn.preprocessing import normalize as sk_normalize
 

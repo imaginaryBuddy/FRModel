@@ -6,6 +6,7 @@ from sklearn.cluster import KMeans
 from frmodel.base import CONSTS
 from frmodel.base.D2 import Frame2D
 
+
 class KMeans2D:
 
     def __init__(self,

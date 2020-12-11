@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from math import ceil
-from typing import Iterable, List
+from typing import List
 from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt

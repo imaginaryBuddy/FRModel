@@ -1,13 +1,11 @@
 from __future__ import annotations
 
 from abc import ABC
-from typing import Tuple, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import numpy as np
 from PIL import Image
 from skimage.transform import rescale
-
-from frmodel.base import CONSTS
 
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
