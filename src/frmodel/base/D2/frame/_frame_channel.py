@@ -190,14 +190,14 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                 labels.extend(label)
 
         self:'Frame2D'
-        if self_ :add_feature(self.data, self.labels.values())
-        if xy    :add_feature(*self.get_xy()                 )
-        if hsv   :add_feature(*self.get_hsv()                )
-        if ex_g  :add_feature(*self.get_ex_g()               )
-        if mex_g :add_feature(*self.get_ex_g(True)           )
-        if ex_gr :add_feature(*self.get_ex_gr()              )
-        if ndi   :add_feature(*self.get_ndi()                )
-        if veg   :add_feature(*self.get_veg(veg_a)           )
+        if self_ :add_feature(self.data, self.labels.keys())
+        if xy    :add_feature(*self.get_xy()               )
+        if hsv   :add_feature(*self.get_hsv()              )
+        if ex_g  :add_feature(*self.get_ex_g()             )
+        if mex_g :add_feature(*self.get_ex_g(True)         )
+        if ex_gr :add_feature(*self.get_ex_gr()            )
+        if ndi   :add_feature(*self.get_ndi()              )
+        if veg   :add_feature(*self.get_veg(veg_a)         )
 
         if features:
             frame = self.create(data=np.concatenate(features, axis=2),
