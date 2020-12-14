@@ -1,3 +1,5 @@
+""" This is old code that is meant for archiving purposes, do not use. """
+
 import os
 from itertools import combinations
 from string import ascii_lowercase
