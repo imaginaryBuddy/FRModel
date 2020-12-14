@@ -13,7 +13,6 @@ def kmeans_scoring_12122020(test_path: str,
                             channels: dict = None,
                             grouping: str = "PREDICT",
                             color: str = "ACTUAL",
-                            glcm_radius: int = 5,
                             img_scale: float = 0.5,
                             clusters_mnl: int = 3,
                             clusters_mnf: int = 5,
@@ -36,7 +35,6 @@ def kmeans_scoring_12122020(test_path: str,
         See Description on allowable values
     :param color: The categorical color/hue.
         See Description on allowable values
-    :param glcm_radius: Radius of GLCM
     :param img_scale: The scaling of the test/score loaded in
     :param clusters_mnl: Clusters to use for Meaningless Clustering
     :param clusters_mnf: Clusters to use for Meaningful Clustering
@@ -61,15 +59,20 @@ def kmeans_scoring_12122020(test_path: str,
     # Note that the KMeans is being run on the RGB Channels only, we may change this later
 
     predict = Frame2D.from_image(test_path, scale=img_scale)
+    predict_rgb = predict.data_rgb()
     actual = Frame2D.from_image(score_path, scale=img_scale)
 
-    if channels: predict = predict.get_chns(**channels)
+    if channels:
+        predict = predict.get_chns(**channels)
+
+        # If there are any GLCM channels, we have to crop it.
+        if any([k in ("glcm_con", "glcm_cor", "glcm_ent") for k in channels.keys()]):
+            if 'glcm_radius' not in channels.keys():
+                raise Exception("glcm_radius must be explicitly specified on glcm features")
+            predict_rgb = predict_rgb.crop_glcm(glcm_radius=channels['glcm_radius'])
+            actual = actual.crop_glcm(glcm_radius=channels['glcm_radius'])
 
     fit_indexes = list(range(predict.shape[-1]))
-
-    # If there are any GLCM channels, we have to crop it.
-    if any([k in ("glcm_con", "glcm_cor", "glcm_ent") for k in channels.keys()]):
-        actual = actual.crop_glcm(glcm_radius=glcm_radius)
 
     # Predict using KMeans
     predict_km_mnl = KMeans2D(predict,
@@ -79,7 +82,7 @@ def kmeans_scoring_12122020(test_path: str,
 
     # Score the prediction
     # The labels are in 1D, we reshape it to recreate the channels
-    score_mnl = predict.scorer(predict_km_mnl.model.labels_, actual)['labels']\
+    score_mnl = Frame2D.scorer(predict_km_mnl.model.labels_, actual)['labels']\
                    .reshape([-1, 3])  # Reshape label prediction to PRED, ACT, COUNT
 
     # We retrieve the xy using predict or actual, then stack it onto the score
@@ -109,12 +112,14 @@ def kmeans_scoring_12122020(test_path: str,
     This will only rid off the least meaningful one, hence it'll fail on >1 MNL cluster
     """
 
-    # This contains the locations of the centers in terms of the given dimensions
-    # We use the harmonic mean of all channels
-    centers_mnl: np.ndarray = np.mean(predict_km_mnl.model.cluster_centers_, axis=1)
+    labels = predict_km_mnl.model.labels_
+
+    # We take the labels, then do a groupby of the RGB, finding the mean for each unique label
+    means = [np.mean(predict_rgb.data_flatten_xy()[labels == i,:])
+             for i in np.unique(labels)]
 
     # Contains the meaningless cluster number as labelled by KMeans
-    ix_mnl: int = centers_mnl.argmin()
+    ix_mnl: int = means.index(min(means))
 
     # Contains the mask [XY] where you can mask against np.ndarrays
     # noinspection PyTypeChecker
