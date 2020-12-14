@@ -43,7 +43,8 @@ class Frame2D(_Frame2DLoader,
         self._data = data
         labels = [labels] if isinstance(labels, str) else labels
 
-        assert data.ndim == 3, f"Number of dimensions for initialization must be 3. (Given: {data.ndim})"
+        if data.ndim == 2: data = data[..., np.newaxis]
+        assert data.ndim == 3 , f"Number of dimensions for initialization must be 2 or 3. (Given: {data.ndim})"
         assert data.shape[-1] == len(labels),\
             f"Number of labels ({len(labels)}) must be same as number of Channels ({data.shape[-1]})."
 
