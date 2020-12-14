@@ -51,8 +51,8 @@ class _Frame2DScoring(ABC):
         return LabelEncoder().fit_transform(np.round(ar).astype(int).flatten()).reshape(ar.shape)
 
     @staticmethod
-    def scorer(x: np.ndarray,
-               y: 'Frame2D' or np.ndarray):
+    def scorer(predict: np.ndarray,
+               actual: 'Frame2D' or np.ndarray):
         """ A custom scoring algorithm.
 
         Note that these parameters are non-reversible,
@@ -61,48 +61,48 @@ class _Frame2DScoring(ABC):
         y_frame, should be loaded in as RGB as it'll go through an RGB
         distinct flatten, where every RGB value will be labelled distinctly.
 
-        :param x: Actual Labels. Must be a 1D label array
-        :param y: Predict Frame. Can be either Frame with RGB or 1D label array
+        :param predict: Actual Labels. Must be a 1D label array
+        :param actual: Predict Frame. Can be either Frame with RGB or 1D label array
         :returns:
         """
-        x:np.ndarray = x.flatten()
+        predict:np.ndarray = predict.flatten()
 
-        if isinstance(y, np.ndarray):
-            y: np.ndarray = y.flatten()
-        else:
-            try:
-                y: np.ndarray = y.data_rgb_flatten().flatten()
-            except KeyError:
-                raise KeyError("Scoring Frame y doesn't have RGB channels. Make sure to load and use"
-                               "directly from an image file")
+        if not isinstance(actual, np.ndarray):
+            actual: np.ndarray = _Frame2DScoring.labelize(actual.data_rgb_flatten()).flatten()
 
-        assert x.size == y.size, "x's Size must match y's Size. If x used GLCM, you need to crop_glcm on y to fix " \
-                                 "its size"
+        assert predict.shape[0] == actual.shape[0],\
+            "x's Size must match y's Size. If x used GLCM, you need to crop_glcm on y to fix its size"
 
-        pairs, counts = np.unique(np.stack([_Frame2DScoring.labelize(x),
-                                            _Frame2DScoring.labelize(y)]),
-                                  axis=1,
-                                  return_counts=True)
+        pairs = np.vstack([predict, actual]).transpose()
+        unqpairs, counts = np.unique(pairs, axis=0, return_counts=True)
 
-        pairs = np.vstack([pairs, counts[np.newaxis, ...]]).transpose()
-        pairs = pairs[pairs[:,-1].argsort()[::-1]]
+        unqpairs = np.hstack([unqpairs, counts[..., np.newaxis]])
+        unqpairs = unqpairs[unqpairs[:,-1].argsort()[::-1]]
 
         # ------ Score algo
 
-        visited_act = []
         visited_pred = []
+        visited_act = []
         counts = []
 
-        for r in pairs:
+        for r in unqpairs:
             if r[0] in visited_pred or r[1] in visited_act:
                 continue
             else:
-                visited_pred.append(int(r[0]))
-                visited_act.append(int(r[1]))
+                visited_pred.append(r[0])
+                visited_act.append(r[1])
                 counts.append(r)
 
-        ar = np.asarray(counts)
-        return np.sum(ar[:, -1]) / y.size
+        counts_ar = np.asarray(counts)
+        labels = np.zeros((pairs.shape[0], pairs.shape[1] + 1))
+        labels[..., :-1] = pairs
+
+        for i in range(counts_ar.shape[0]):
+            labels[np.where((pairs == counts_ar[i, :-1]).all(axis=1)), -1] = 1
+
+        return dict(score=np.sum(counts_ar[:, -1]) / actual.size,
+                    score_pairs=counts_ar,
+                    labels=labels)
 
 
 
