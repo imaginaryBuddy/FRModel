@@ -92,7 +92,7 @@ class _Frame2DChannelGLCM(ABC):
                 labels.extend(label)
 
         if contrast:    add_feature(*self._get_glcm_contrast_py(rgb_a, rgb_b, radius))
-        if correlation: add_feature(*self._get_glcm_correlation_cy(rgb_a, rgb_b, radius))
+        if correlation: add_feature(*self._get_glcm_correlation_cy(rgb_a, rgb_b, radius, verbose))
         if entropy:     add_feature(*self._get_glcm_entropy_cy(rgb_a, rgb_b, radius, verbose))
 
         return np.concatenate(features, axis=2), labels
@@ -202,7 +202,8 @@ class _Frame2DChannelGLCM(ABC):
     @staticmethod
     def _get_glcm_correlation_cy(rgb_a: np.ndarray,
                                  rgb_b: np.ndarray,
-                                 radius) -> Tuple[np.ndarray, Tuple[str]]:
+                                 radius: int,
+                                 verbose: bool) -> Tuple[np.ndarray, Tuple[str]]:
         """ Correlation In Cython
 
         Uses the basis GLCM definition.
@@ -214,7 +215,7 @@ class _Frame2DChannelGLCM(ABC):
 
         return cy_corr(rgb_a.astype(np.uint8),
                        rgb_b.astype(np.uint8),
-                       radius, True) / ((2 * radius + 1) ** 2), CONSTS.CHN.GLCM.COR_RGB
+                       radius, verbose) / ((2 * radius + 1) ** 2), CONSTS.CHN.GLCM.COR_RGB
 
     @staticmethod
     def _get_glcm_entropy_cy(rgb_a: np.ndarray,
