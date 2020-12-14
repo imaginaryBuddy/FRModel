@@ -5,19 +5,19 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 
-from frmodel.base import CONSTS
 from frmodel.base.D2 import Frame2D
 from frmodel.base.D2.kmeans2D import KMeans2D
 
-def kmeans_scoring_005(test_path: str,
-                       score_path: str,
-                       grouping: str = "PREDICT",
-                       color: str = "ACTUAL",
-                       img_scale: float = 0.5,
-                       clusters_mnl: int = 3,
-                       clusters_mnf: int = 5,
+def kmeans_scoring_12122020(test_path: str,
+                            score_path: str,
+                            grouping: str = "PREDICT",
+                            color: str = "ACTUAL",
+                            glcm_radius: int = 5,
+                            img_scale: float = 0.5,
+                            clusters_mnl: int = 3,
+                            clusters_mnf: int = 5,
+                            verbose: bool = True):
 
-                       verbose: bool = True):
     """ Runs the KMeans model developed at 12/12/2020
 
     grouping and color only accept these following values:
@@ -29,6 +29,7 @@ def kmeans_scoring_005(test_path: str,
         See Description on allowable values
     :param color: The categorical color/hue.
         See Description on allowable values
+    :param glcm_radius: Radius of GLCM
     :param img_scale: The scaling of the test/score loaded in
     :param clusters_mnl: Clusters to use for Meaningless Clustering
     :param clusters_mnf: Clusters to use for Meaningful Clustering
@@ -57,12 +58,12 @@ def kmeans_scoring_005(test_path: str,
 
     predict = predict.get_chns(self_=True,
                                hsv=True, ex_g=True, ex_gr=True, mex_g=True, ndi=True, veg=True,
-                               glcm_con=True, glcm_ent=True, glcm_cor=True,
+                               glcm_con=True, glcm_ent=True, glcm_cor=True, glcm_radius=glcm_radius,
                                glcm_verbose=True)
 
     fit_indexes = list(range(0,20))
 
-    actual = actual.crop_glcm(5)
+    actual = actual.crop_glcm(glcm_radius=glcm_radius)
 
     # Predict using KMeans
     predict_km_mnl = KMeans2D(predict,
