@@ -35,7 +35,7 @@ class _Frame2DImage(ABC):
     def save(self, file_path: str, **kwargs) -> None:
         """ Saves the current Frame file """
         self: 'Frame2D'
-        Image.fromarray(self.data_rgb().astype(np.uint8)).save(file_path, **kwargs)
+        Image.fromarray(self.data_rgb().data.astype(np.uint8)).save(file_path, **kwargs)
 
     def convolute(self, radius: int, method: str = 'nearest') -> Frame2D:
         """ Convolutes the Frame. """
@@ -73,7 +73,7 @@ class _Frame2DImage(ABC):
         return self.create(
             data=(np.round
                 (rescale
-                     (self.data_rgb().astype(dtype),
+                     (self.data_rgb().data.astype(dtype),
                       scale=scale,
                       anti_aliasing=anti_aliasing,
                       multichannel=True

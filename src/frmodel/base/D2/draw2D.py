@@ -67,7 +67,7 @@ class Draw2D:
 
     @staticmethod
     def load_frame(frame: Frame2D) -> Draw2D:
-        canvas = Image.fromarray(frame.data_rgb(), mode=DRAW_MODE)
+        canvas = Image.fromarray(frame.data_rgb().data, mode=DRAW_MODE)
         return Draw2D(canvas, ImageDraw.Draw(canvas, DRAW_MODE))
 
     def draw(self):

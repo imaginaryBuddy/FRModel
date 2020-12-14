@@ -73,7 +73,7 @@ class _Frame2DChannelGLCM(ABC):
             frame.size - by - radius * 2
         """
 
-        rgb = self.data_rgb().astype(np.int32)
+        rgb = self.data_rgb().data.astype(np.int32)
         rgb_a = rgb[:-by_y, :-by_x]
         rgb_b = rgb[by_y:, by_x:]
 

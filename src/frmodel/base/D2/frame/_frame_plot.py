@@ -151,5 +151,5 @@ class _Frame2DPlot:
         """ Gets a plot object. Note that you need to call a plot function to plot. """
 
         self: 'Frame2D'
-        return Frame2DPlot(self.create(data=self.data_chn(labels) if labels else self.data,
+        return Frame2DPlot(self.create(data=self.data_chn(labels).data if labels else self.data,
                                        labels=labels))

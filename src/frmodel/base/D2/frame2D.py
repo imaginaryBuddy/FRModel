@@ -95,7 +95,7 @@ class Frame2D(_Frame2DLoader,
         Note the new dtype is uint32.
         """
 
-        rgb = self.data_rgb().astype(dtype=np.uint32)
+        rgb = self.data_rgb().data.astype(dtype=np.uint32)
         return rgb[..., 0] + rgb[..., 1] * 256 + rgb[..., 2] * (256 ** 2)
 
     def _labels_to_ix(self, labels: str or List[str]):
@@ -106,13 +106,14 @@ class Frame2D(_Frame2DLoader,
         except KeyError:
             raise KeyError(f"Labels {[label for label in labels if label not in self._labels]} not found in the Frame.")
 
-    def data_chn(self, labels: str or List[str]) -> np.ndarray:
+    def data_chn(self, labels: str or List[str]) -> Frame2D:
         """ Gets channels as pure np.ndarray data
 
         :param labels: Can be a single str or multiple in a List"""
-        return self.data[..., self._labels_to_ix(labels)]
+        return self.create(self.data[..., self._labels_to_ix(labels)], self.labels)
 
-    def data_rgb(self) -> np.ndarray:
+    def data_rgb(self) -> Frame2D:
+        # TODO: Update this Usages
         return self.data_chn(CONSTS.CHN.RGB)
 
     def append(self, ar: np.ndarray, labels: str or Tuple[str]) -> Frame2D:
