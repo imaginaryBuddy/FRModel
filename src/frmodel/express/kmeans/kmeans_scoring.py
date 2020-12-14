@@ -10,6 +10,7 @@ from frmodel.base.D2.kmeans2D import KMeans2D
 
 def kmeans_scoring_12122020(test_path: str,
                             score_path: str,
+                            channels: dict = None,
                             grouping: str = "PREDICT",
                             color: str = "ACTUAL",
                             glcm_radius: int = 5,
@@ -20,11 +21,17 @@ def kmeans_scoring_12122020(test_path: str,
 
     """ Runs the KMeans model developed at 12/12/2020
 
+    channels can be passed as a dictionary, whereby it's similar to how you would call get_chns
+
+    E.g. for f.get_chns(xy=True, hsv=True, glcm_con=True),
+    you'd pass channels=dict(xy=True, hsv=True, glcm_con=True)
+
     grouping and color only accept these following values:
     'PREDICT', 'ACTUAL', 'SELECTED'
-    
+
     :param test_path: Path to the test image
     :param score_path: Path to the scoring image
+    :param channels: The channels to get, See Description on how to pass argument.
     :param grouping: The categorical grouping of the plots. i.e. how to create subplots.
         See Description on allowable values
     :param color: The categorical color/hue.
@@ -34,7 +41,7 @@ def kmeans_scoring_12122020(test_path: str,
     :param clusters_mnl: Clusters to use for Meaningless Clustering
     :param clusters_mnf: Clusters to use for Meaningful Clustering
     :param verbose: Whether to output into console the details
-    :return: 
+    :return:
     """
 
     """ MEANINGLESS CLASSIFICATION
@@ -56,14 +63,13 @@ def kmeans_scoring_12122020(test_path: str,
     predict = Frame2D.from_image(test_path, scale=img_scale)
     actual = Frame2D.from_image(score_path, scale=img_scale)
 
-    predict = predict.get_chns(self_=True,
-                               hsv=True, ex_g=True, ex_gr=True, mex_g=True, ndi=True, veg=True,
-                               glcm_con=True, glcm_ent=True, glcm_cor=True, glcm_radius=glcm_radius,
-                               glcm_verbose=True)
+    if channels: predict = predict.get_chns(**channels)
 
-    fit_indexes = list(range(0,20))
+    fit_indexes = list(range(predict.shape[-1]))
 
-    actual = actual.crop_glcm(glcm_radius=glcm_radius)
+    # If there are any GLCM channels, we have to crop it.
+    if any([k in ("glcm_con", "glcm_cor", "glcm_ent") for k in channels.keys()]):
+        actual = actual.crop_glcm(glcm_radius=glcm_radius)
 
     # Predict using KMeans
     predict_km_mnl = KMeans2D(predict,
