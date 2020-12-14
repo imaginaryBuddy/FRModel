@@ -69,7 +69,7 @@ class Frame2DPlot:
         :returns: A plt.Figure
         """
         for ax, d in self._create_grid(scale):
-            ax.imshow(d, cmap=colormap)
+            ax.imshow(d, cmap=colormap, origin='upper')
         return plt.gcf()
 
     def hist(self, scale=1, bins=50):
