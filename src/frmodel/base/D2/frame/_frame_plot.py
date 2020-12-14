@@ -152,4 +152,4 @@ class _Frame2DPlot:
 
         self: 'Frame2D'
         return Frame2DPlot(self.create(data=self.data_chn(labels).data if labels else self.data,
-                                       labels=labels))
+                                       labels=labels if labels else self.labels))
