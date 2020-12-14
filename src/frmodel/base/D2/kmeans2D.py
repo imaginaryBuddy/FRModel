@@ -20,7 +20,7 @@ class KMeans2D:
         :param model: KMeans Model
         :param fit_indexes: The indexes to .fit()
         :param scaler: The scaler to use, must be a callable(np.ndarray)
-        :param frame_2dmask: The 2D mask to exclude certain points. Must be in 2 Dimensions
+        :param frame_1dmask: The 2D mask to exclude certain points. Must be in 2 Dimensions
         :returns: KMeans2D Instance
 
         """
@@ -36,6 +36,10 @@ class KMeans2D:
         fit = model.fit(data)
         self.model = fit
         self.frame = frame
+        self.frame_1dmask = frame_1dmask
+
+    def frame_masked(self, with_xy: bool = True):
+        return self.frame.get_chns(self_=True, xy=True).data_flatten_xy()[self.frame_1dmask, :]
 
     def as_frame(self) -> Frame2D:
         """ Converts current model into Frame2D based on labels. Places label at the end of channel dimension
