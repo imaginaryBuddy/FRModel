@@ -107,13 +107,13 @@ class Frame2D(_Frame2DLoader,
             raise KeyError(f"Labels {[label for label in labels if label not in self._labels]} not found in the Frame.")
 
     def data_chn(self, labels: str or List[str]) -> Frame2D:
-        """ Gets channels as pure np.ndarray data
+        """ Gets channels as another Frame2D
 
         :param labels: Can be a single str or multiple in a List"""
-        return self.create(self.data[..., self._labels_to_ix(labels)], self.labels)
+        return self.create(self.data[..., self._labels_to_ix(labels)], labels)
 
     def data_rgb(self) -> Frame2D:
-        # TODO: Update this Usages
+        """ Gets RGB as another Frame2D """
         return self.data_chn(CONSTS.CHN.RGB)
 
     def append(self, ar: np.ndarray, labels: str or Tuple[str]) -> Frame2D:
