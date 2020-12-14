@@ -82,7 +82,6 @@ def kmeans(f: Frame2D,
                   scaler=scaler)
 
     sns.set_palette(sns.color_palette("magma"), n_colors=clusters)
-    km.plot()
 
     if fig_name:
         plt.gcf().set_size_inches(f.width() / 96 * 2,
