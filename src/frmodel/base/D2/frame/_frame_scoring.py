@@ -117,7 +117,8 @@ class _Frame2DScoring(ABC):
         true = self.labelize(score_frame.data[...,0]).flatten()
         pred = self.data[..., label_ix].flatten()
 
-        score = self.score_custom(true, pred), *homogeneity_completeness_v_measure(true, pred)
+        score = self.scorer_pair(true, pred)['score'],\
+                *homogeneity_completeness_v_measure(true, pred)
         return {"Custom":       score[0],
                 "Homogeneity":  score[1],
                 "Completeness": score[2],
