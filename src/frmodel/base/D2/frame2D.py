@@ -43,7 +43,8 @@ class Frame2D(_Frame2DLoader,
         self._data = data
         labels = [labels] if isinstance(labels, str) else labels
 
-        assert data.ndim == 3, f"Number of dimensions for initialization must be 3. (Given: {data.ndim})"
+        if data.ndim == 2: data = data[..., np.newaxis]
+        assert data.ndim == 3 , f"Number of dimensions for initialization must be 2 or 3. (Given: {data.ndim})"
         assert data.shape[-1] == len(labels),\
             f"Number of labels ({len(labels)}) must be same as number of Channels ({data.shape[-1]})."
 
@@ -78,21 +79,42 @@ class Frame2D(_Frame2DLoader,
                       **kwargs)
 
     def data_flatten_xy(self) -> np.ndarray:
-        """ Flattens the data on XY only. """
+        """ Flattens the data on XY only.
+
+        This means that the first 2 dimensions will be merged together.
+        """
         return self.data.reshape([-1, self.shape[-1]])
+
+    def data_rgb_flatten(self) -> np.ndarray:
+        """ Flattens the RGB data by merging all RGB channels
+
+        The algorithm used is
+        R + G * 256 + B * 256 * 256.
+
+        This is used to flatten the dimension while keeping all distinct values distinct.
+
+        Note the new dtype is uint32.
+        """
+
+        rgb = self.data_rgb().data.astype(dtype=np.uint32)
+        return rgb[..., 0] + rgb[..., 1] * 256 + rgb[..., 2] * (256 ** 2)
 
     def _labels_to_ix(self, labels: str or List[str]):
         """ Converts keys to indexes for splicing """
 
-        return self._labels[labels] if isinstance(labels, str) else [self._labels[label] for label in labels]
+        try:
+            return self._labels[labels] if isinstance(labels, str) else [self._labels[label] for label in labels]
+        except KeyError:
+            raise KeyError(f"Labels {[label for label in labels if label not in self._labels]} not found in the Frame.")
 
-    def data_chn(self, labels: str or List[str]) -> np.ndarray:
-        """ Gets channels as pure np.ndarray data
+    def data_chn(self, labels: str or List[str]) -> Frame2D:
+        """ Gets channels as another Frame2D
 
         :param labels: Can be a single str or multiple in a List"""
-        return self.data[..., self._labels_to_ix(labels)]
+        return self.create(self.data[..., self._labels_to_ix(labels)], labels)
 
-    def data_rgb(self) -> np.ndarray:
+    def data_rgb(self) -> Frame2D:
+        """ Gets RGB as another Frame2D """
         return self.data_chn(CONSTS.CHN.RGB)
 
     def append(self, ar: np.ndarray, labels: str or Tuple[str]) -> Frame2D:

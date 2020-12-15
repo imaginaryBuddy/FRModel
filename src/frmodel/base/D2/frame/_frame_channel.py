@@ -35,7 +35,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
 
     def get_hsv(self) -> Tuple[np.ndarray, Tuple[str]]:
         """ Creates a HSV """
-        return rgb2hsv(self.data_rgb()), CONSTS.CHN.HSV
+        return rgb2hsv(self.data_rgb().data), CONSTS.CHN.HSV
 
     def get_ex_g(self, modified=False) -> Tuple[np.ndarray, str]:
         """ Calculates the excessive green index
@@ -47,14 +47,14 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         """
 
         if modified:
-            return 1.262 * self.data_chn(CHN.RED) -   \
-                   0.884 * self.data_chn(CHN.GREEN) - \
-                   0.331 * self.data_chn(CHN.BLUE), CHN.MEX_G
+            return 1.262 * self.data_chn(CHN.RED).data -   \
+                   0.884 * self.data_chn(CHN.GREEN).data - \
+                   0.331 * self.data_chn(CHN.BLUE).data, CHN.MEX_G
 
         else:
-            return 2 * self.data_chn(CHN.RED) -   \
-                       self.data_chn(CHN.GREEN) - \
-                       self.data_chn(CHN.BLUE), CHN.EX_G
+            return 2 * self.data_chn(CHN.RED).data -   \
+                       self.data_chn(CHN.GREEN).data - \
+                       self.data_chn(CHN.BLUE).data, CHN.EX_G
 
     def get_ex_gr(self) -> Tuple[np.ndarray, str]:
         """ Calculates the excessive green minus excess red index
@@ -62,9 +62,9 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         2g - r - b - 1.4r + g = 3g - 2.4r - b
         """
 
-        return 3   * self.data_chn(CHN.RED) -   \
-               2.4 * self.data_chn(CHN.GREEN) - \
-                     self.data_chn(CHN.BLUE), CHN.EX_GR
+        return 3   * self.data_chn(CHN.RED).data -   \
+               2.4 * self.data_chn(CHN.GREEN).data - \
+                     self.data_chn(CHN.BLUE).data, CHN.EX_GR
 
     def get_ndi(self) -> Tuple[np.ndarray, str]:
         """ Calculates the Normalized Difference Index
@@ -74,10 +74,10 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
 
         with np.errstate(divide='ignore', invalid='ignore'):
             x = np.nan_to_num(
-                np.true_divide(self.data_chn(CHN.GREEN).astype(np.int) -
-                               self.data_chn(CHN.RED)  .astype(np.int),
-                               self.data_chn(CHN.GREEN).astype(np.int) +
-                               self.data_chn(CHN.RED)  .astype(np.int)),
+                np.true_divide(self.data_chn(CHN.GREEN).data.astype(np.int) -
+                               self.data_chn(CHN.RED)  .data.astype(np.int),
+                               self.data_chn(CHN.GREEN).data.astype(np.int) +
+                               self.data_chn(CHN.RED)  .data.astype(np.int)),
                 copy=False, nan=0, neginf=0, posinf=0)
 
         return x, CONSTS.CHN.NDI
@@ -91,9 +91,9 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_chn(CHN.GREEN).astype(np.float) /
-                              (np.power(self.data_chn(CHN.RED).astype(np.float), const_a) *
-                               np.power(self.data_chn(CHN.BLUE).astype(np.float), 1 - const_a)),
+            x = np.nan_to_num(self.data_chn(CHN.GREEN).data.astype(np.float) /
+                              (np.power(self.data_chn(CHN.RED).data.astype(np.float), const_a) *
+                               np.power(self.data_chn(CHN.BLUE).data.astype(np.float), 1 - const_a)),
                               copy=False, nan=0, neginf=0, posinf=0)
         return x, CONSTS.CHN.VEG
 
@@ -190,14 +190,14 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                 labels.extend(label)
 
         self:'Frame2D'
-        if self_ :add_feature(self.data, self.labels.values())
-        if xy    :add_feature(*self.get_xy()                 )
-        if hsv   :add_feature(*self.get_hsv()                )
-        if ex_g  :add_feature(*self.get_ex_g()               )
-        if mex_g :add_feature(*self.get_ex_g(True)           )
-        if ex_gr :add_feature(*self.get_ex_gr()              )
-        if ndi   :add_feature(*self.get_ndi()                )
-        if veg   :add_feature(*self.get_veg(veg_a)           )
+        if self_ :add_feature(self.data, self.labels.keys())
+        if xy    :add_feature(*self.get_xy()               )
+        if hsv   :add_feature(*self.get_hsv()              )
+        if ex_g  :add_feature(*self.get_ex_g()             )
+        if mex_g :add_feature(*self.get_ex_g(True)         )
+        if ex_gr :add_feature(*self.get_ex_gr()            )
+        if ndi   :add_feature(*self.get_ndi()              )
+        if veg   :add_feature(*self.get_veg(veg_a)         )
 
         if features:
             frame = self.create(data=np.concatenate(features, axis=2),

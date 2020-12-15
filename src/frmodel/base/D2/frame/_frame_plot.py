@@ -69,7 +69,7 @@ class Frame2DPlot:
         :returns: A plt.Figure
         """
         for ax, d in self._create_grid(scale):
-            ax.imshow(d, cmap=colormap)
+            ax.imshow(d, cmap=colormap, origin='upper')
         return plt.gcf()
 
     def hist(self, scale=1, bins=50):
@@ -151,5 +151,5 @@ class _Frame2DPlot:
         """ Gets a plot object. Note that you need to call a plot function to plot. """
 
         self: 'Frame2D'
-        return Frame2DPlot(self.create(data=self.data_chn(labels) if labels else self.data,
-                                       labels=labels))
+        return Frame2DPlot(self.create(data=self.data_chn(labels).data if labels else self.data,
+                                       labels=labels if labels else self.labels))
