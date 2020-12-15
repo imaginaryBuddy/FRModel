@@ -83,7 +83,7 @@ def kmeans_scoring_12122020(test_path: str,
 
     # Score the prediction
     # The labels are in 1D, we reshape it to recreate the channels
-    score_mnl = Frame2D.scorer(predict_km_mnl.model.labels_, actual)['labels']\
+    score_mnl = Frame2D.scorer_pair(predict_km_mnl.model.labels_, actual)['labels']\
                    .reshape([-1, 3])  # Reshape label prediction to PRED, ACT, COUNT
 
     # We retrieve the xy using predict or actual, then stack it onto the score
@@ -134,8 +134,8 @@ def kmeans_scoring_12122020(test_path: str,
                  scaler=minmax_scale)
 
     # Contains the Label in 1D
-    score_mnf = Frame2D.scorer(predict_km_mnf.model.labels_,
-                               actual.data_flatten_xy()[predict_km_mnf.frame_1dmask, 0])['labels']
+    score_mnf = Frame2D.scorer_pair(predict_km_mnf.model.labels_,
+                                    actual.data_flatten_xy()[predict_km_mnf.frame_1dmask, 0])['labels']
 
     # We retrieve the xy again, but we need to mask it since we removed the MNL cluster
     score_mnf_xy = predict.get_xy()[0].reshape([-1, 2])[mask_mnl, :]

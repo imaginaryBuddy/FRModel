@@ -51,8 +51,8 @@ class _Frame2DScoring(ABC):
         return LabelEncoder().fit_transform(np.round(ar).astype(int).flatten()).reshape(ar.shape)
 
     @staticmethod
-    def scorer(predict: np.ndarray,
-               actual: 'Frame2D' or np.ndarray):
+    def scorer_pair(predict: np.ndarray,
+                    actual: 'Frame2D' or np.ndarray):
         """ A custom scoring algorithm.
 
         Note that these parameters are non-reversible,
@@ -104,10 +104,6 @@ class _Frame2DScoring(ABC):
                     score_pairs=counts_ar,
                     labels=labels)
 
-
-
-
-
     def score(self, score_frame: 'Frame2D', label_ix: int = -1, glcm_radius=None):
         """ Scores the current frame kmeans with a scoring image
 
@@ -126,60 +122,3 @@ class _Frame2DScoring(ABC):
                 "Homogeneity":  score[1],
                 "Completeness": score[2],
                 "V Measure":    score[3]}
-
-    def _pair_frames(self, score_frame: 'Frame2D'):
-        """"""
-
-        ...
-
-
-    @staticmethod
-    def score_custom(true_labels: np.ndarray,
-                     pred_labels: np.ndarray):
-        """ Scores the current Kmeans model with a scoring image
-
-        This is a custom algorithm.
-
-        This attempts to find the best label to prediction mapping and returns that maximum
-        score.
-
-        :param pred_labels: Predicted Labels
-        :param true_labels: Actual Labels
-        :return: Score out of 1.
-        """
-
-        # Count each unique pair occurrence and return count.
-        # Because return_count returns separately, we vstack it
-        # Then we transpose the data for iterrows() op
-        ar = \
-            np.vstack(
-                np.unique(axis=1, return_counts=True,
-                          ar=np.vstack([true_labels, pred_labels]))).transpose()
-
-        # This sorts by the last column (Counts)
-        ar: np.ndarray = ar[ar[:, -1].argsort()[::-1]]
-
-        # There's no simple way to get the maximum unique of 2 dimensions I believe
-        # We'll loop through the cells using a naive approach
-        # This approach is naive because if we were to permutate all possible
-        # combinations, we'll end up with a really large list.
-        # This is not ideal if we want to scale this up for more trees
-        # However, it's not a hard limitation.
-
-        # We have the following array structure
-        # PREDICT ACTUAL COUNT
-        # The catch is that predict and actual cannot appear more than once.
-
-        visited_pred = []
-        visited_act = []
-        counts = []
-        for r in ar:
-            if r[0] in visited_pred or r[1] in visited_act:
-                continue
-            else:
-                visited_pred.append(int(r[0]))
-                visited_act.append(int(r[1]))
-                counts.append(r)
-
-        ar = np.asarray(counts)
-        return np.sum(ar[:, -1]) / pred_labels.size
