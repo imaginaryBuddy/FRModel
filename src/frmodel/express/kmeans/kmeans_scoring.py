@@ -1,6 +1,6 @@
 from sklearn.cluster import KMeans
 from sklearn.metrics import homogeneity_completeness_v_measure
-from sklearn.preprocessing import scale
+from sklearn.preprocessing import scale, minmax_scale
 import pandas as pd
 import seaborn as sns
 import numpy as np
@@ -16,6 +16,7 @@ def kmeans_scoring_12122020(test_path: str,
                             img_scale: float = 0.5,
                             clusters_mnl: int = 3,
                             clusters_mnf: int = 5,
+                            scatter_size: float = 1.0,
                             verbose: bool = True):
 
     """ Runs the KMeans model developed at 12/12/2020
@@ -69,16 +70,16 @@ def kmeans_scoring_12122020(test_path: str,
         if any([k in ("glcm_con", "glcm_cor", "glcm_ent") for k in channels.keys()]):
             if 'glcm_radius' not in channels.keys():
                 raise Exception("glcm_radius must be explicitly specified on glcm features")
-            predict_rgb = predict_rgb.crop_glcm(glcm_radius=channels['glcm_radius'])
+            predict_rgb = predict_rgb.convolute(channels['glcm_radius'], method='average')
             actual = actual.crop_glcm(glcm_radius=channels['glcm_radius'])
 
     fit_indexes = list(range(predict.shape[-1]))
 
     # Predict using KMeans
-    predict_km_mnl = KMeans2D(predict,
+    predict_km_mnl = KMeans2D(predict_rgb,
                               KMeans(clusters_mnl, verbose=verbose),
-                              fit_indexes=fit_indexes,
-                              scaler=scale)
+                              fit_indexes=list(range(3)),
+                              scaler=minmax_scale)
 
     # Score the prediction
     # The labels are in 1D, we reshape it to recreate the channels
@@ -99,8 +100,9 @@ def kmeans_scoring_12122020(test_path: str,
                          col=grouping,  # Group By Predict
                          hue=color,
                          col_wrap=3,  # Wrap around on 3 column plots
-                         scatter_kws={'s': 1},
+                         scatter_kws={'s': scatter_size},
                          legend=True,
+                         aspect=predict.width() / predict.height(),
                          legend_out=True)  # Scatter Size
 
     """ MEANINGLESS CLASSIFICATION DETERMINANT
@@ -112,14 +114,8 @@ def kmeans_scoring_12122020(test_path: str,
     This will only rid off the least meaningful one, hence it'll fail on >1 MNL cluster
     """
 
-    labels = predict_km_mnl.model.labels_
-
-    # We take the labels, then do a groupby of the RGB, finding the mean for each unique label
-    means = [np.mean(predict_rgb.data_flatten_xy()[labels == i,:])
-             for i in np.unique(labels)]
-
     # Contains the meaningless cluster number as labelled by KMeans
-    ix_mnl: int = means.index(min(means))
+    ix_mnl: int = np.mean(predict_km_mnl.model.cluster_centers_, axis=1).argmin()
 
     # Contains the mask [XY] where you can mask against np.ndarrays
     # noinspection PyTypeChecker
@@ -129,12 +125,13 @@ def kmeans_scoring_12122020(test_path: str,
     
     For this part, we remove the MNL Cluster and perform another KMeans on it.
     """
+
     predict_km_mnf =\
         KMeans2D(predict,
                  KMeans(clusters_mnf, verbose=True),
                  fit_indexes=fit_indexes,
                  frame_1dmask=mask_mnl,
-                 scaler=scale)
+                 scaler=minmax_scale)
 
     # Contains the Label in 1D
     score_mnf = Frame2D.scorer(predict_km_mnf.model.labels_,
@@ -150,12 +147,13 @@ def kmeans_scoring_12122020(test_path: str,
 
     # Call lmplot
     fig_mnf = sns.lmplot('X', 'Y', data=score_mnf_df,
-                     fit_reg=False,  # Don't render regression
-                     col='PREDICT',  # Group By Predict
-                     hue='ACTUAL',
-                     col_wrap=3,  # Wrap around on 3 column plots
-                     scatter_kws={'s': 1},
-                     legend=False)  # Scatter Size
+                         fit_reg=False,  # Don't render regression
+                         col='PREDICT',  # Group By Predict
+                         hue='ACTUAL',
+                         col_wrap=3,  # Wrap around on 3 column plots
+                         scatter_kws={'s': scatter_size},
+                         aspect=predict.width() / predict.height(),
+                         legend=False)  # Scatter Size
 
     # Return both Figures, Score and the detected MNL Cluster
     return dict(fig_mnl=fig_mnl,
