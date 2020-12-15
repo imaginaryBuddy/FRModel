@@ -79,7 +79,7 @@ def kmeans_scoring_12122020(test_path: str,
     predict_km_mnl = KMeans2D(predict_rgb,
                               KMeans(clusters_mnl, verbose=verbose),
                               fit_indexes=list(range(3)),
-                              scaler=minmax_scale)
+                              scaler=scale)
 
     # Score the prediction
     # The labels are in 1D, we reshape it to recreate the channels
@@ -131,7 +131,7 @@ def kmeans_scoring_12122020(test_path: str,
                  KMeans(clusters_mnf, verbose=True),
                  fit_indexes=fit_indexes,
                  frame_1dmask=mask_mnl,
-                 scaler=minmax_scale)
+                 scaler=scale)
 
     # Contains the Label in 1D
     score_mnf = Frame2D.scorer_pair(predict_km_mnf.model.labels_,
