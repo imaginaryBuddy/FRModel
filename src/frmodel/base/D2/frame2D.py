@@ -102,10 +102,22 @@ class Frame2D(_Frame2DLoader,
     def _labels_to_ix(self, labels: str or List[str]):
         """ Converts keys to indexes for splicing """
 
+        if isinstance(labels, str): labels = [labels]
+        else: labels = self._flatten(labels)
+
         try:
-            return self._labels[labels] if isinstance(labels, str) else [self._labels[label] for label in labels]
+            return [self._labels[label] for label in labels]
         except KeyError:
             raise KeyError(f"Labels {[label for label in labels if label not in self._labels]} not found in the Frame.")
+
+    @staticmethod
+    def _flatten(l):
+        """ https://stackoverflow.com/questions/2158395/flatten-an-irregular-list-of-lists """
+        for el in l:
+            if isinstance(el, Iterable) and not isinstance(el, (str, bytes)):
+                yield from Frame2D._flatten(el)
+            else:
+                yield el
 
     def data_chn(self, labels: str or List[str]) -> Frame2D:
         """ Gets channels as another Frame2D
