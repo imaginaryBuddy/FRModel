@@ -41,7 +41,7 @@ def kmeans_matrix(test_path: str,
     """
     f = Frame2D.from_image(test_path, scale=scale)
     score = Frame2D.from_image(score_path, scale=scale)
-    frame = f.get_all_chns(glcm_verbose=verbose, glcm_radius=glcm_radius)
+    frame = f.get_all_chns(glcm=Frame2D.GLCM(verbose=verbose, radius=radius))
 
     try: os.makedirs(output_dir + "/" + imgs_dir)
     except OSError: pass

@@ -37,7 +37,7 @@ class _Frame2DImage(ABC):
         self: 'Frame2D'
         Image.fromarray(self.data_rgb().data.astype(np.uint8)).save(file_path, **kwargs)
 
-    def convolute(self, radius: int, method: str = 'nearest') -> Frame2D:
+    def convolute(self: 'Frame2D', radius: int, method: str = 'nearest') -> Frame2D:
         """ Convolutes the Frame. """
 
         # We trim the frame so that the new glcm can fit
@@ -52,7 +52,6 @@ class _Frame2DImage(ABC):
                               gaussian(kernel_diam + 1, radius))
             kernel = np.expand_dims(kernel, axis=-1)
 
-        self: 'Frame2D'
         return self.create(fftconvolve(self.data, kernel, mode='valid', axes=[0, 1]), self.labels)
 
     def _rescale(self,

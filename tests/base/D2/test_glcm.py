@@ -12,25 +12,22 @@ class GLCMTest(TestD2):
         ar = np.asarray([[5, 8, 9, 5],
                          [0, 0, 1, 7],
                          [6, 9, 2, 4],
-                         [5, 2, 4, 2]])
+                         [5, 2, 4, 2]]).transpose()[...,np.newaxis]
 
-        ar = np.tile(ar, [3, 1, 1]).swapaxes(0,1).swapaxes(1,2)
+        f = Frame2D(ar.astype(np.uint8), CONSTS.CHN.RED)
+        fc = f.get_chns(self_=False,
+                        glcm=Frame2D.GLCM(radius=1,
+                                     contrast=[CONSTS.CHN.RED],
+                                     correlation=[CONSTS.CHN.RED],
+                                     entropy=[CONSTS.CHN.RED])
+                        )
 
-        f = Frame2D(ar.astype(np.uint8), CONSTS.CHN.RGB)
-        fc = f.get_chns(glcm_con=True, glcm_cor=True, glcm_ent=True, glcm_radius=1)
-        ar2 = fc.data.squeeze()
+        """ The reason why I made calling this so verbose is to make it easy for development. """
 
-        self.assertAlmostEqual(ar2[0], ar2[1])
-        self.assertAlmostEqual(ar2[1], ar2[2])
-        self.assertAlmostEqual(ar2[2], 213)
-
-        self.assertAlmostEqual(ar2[3], ar2[4])
-        self.assertAlmostEqual(ar2[4], ar2[5])
-        self.assertAlmostEqual(ar2[5], -0.12209306360906494, places=4)
-
-        self.assertAlmostEqual(ar2[6], ar2[7])
-        self.assertAlmostEqual(ar2[7], ar2[8])
-        self.assertAlmostEqual(ar2[8], 1)
+        self.assertAlmostEqual(fc.data_chn(fc.CHN.GLCM.CON(fc.CHN.RED)).data.squeeze(), 213)
+        self.assertAlmostEqual(fc.data_chn(fc.CHN.GLCM.COR(fc.CHN.RED)).data.squeeze(), -0.12209306360906494,
+                               places=4)
+        self.assertAlmostEqual(fc.data_chn(fc.CHN.GLCM.ENT(fc.CHN.RED)).data.squeeze(), 1)
 
 
 if __name__ == '__main__':

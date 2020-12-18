@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from copy import deepcopy
-from typing import List, Tuple, Iterable
+from typing import List, Tuple, Iterable, Union, Any
 
 import numpy as np
 from sklearn.neighbors import KDTree
@@ -41,7 +40,7 @@ class Frame2D(_Frame2DLoader,
 
     def __init__(self, data: np.ndarray, labels: str or dict or List[str]):
         self._data = data
-        labels = [labels] if isinstance(labels, str) else labels
+        labels = [labels] if isinstance(labels, str) else list(self._util_flatten(labels))
 
         if data.ndim == 2: data = data[..., np.newaxis]
         assert data.ndim == 3 , f"Number of dimensions for initialization must be 2 or 3. (Given: {data.ndim})"
@@ -53,6 +52,9 @@ class Frame2D(_Frame2DLoader,
             labels = {k: e for e, k in enumerate(labels)}
 
         self._labels = labels
+
+    class CHN(CONSTS.CHN):
+        pass
 
     @staticmethod
     def create(data:np.ndarray, labels: dict or List[str]) -> Frame2D:
@@ -102,12 +104,15 @@ class Frame2D(_Frame2DLoader,
     def _labels_to_ix(self, labels: str or List[str]):
         """ Converts keys to indexes for splicing """
 
+        if isinstance(labels, str): labels = [labels]
+        else: labels = list(self._util_flatten(labels))
+
         try:
-            return self._labels[labels] if isinstance(labels, str) else [self._labels[label] for label in labels]
+            return [self._labels[label] for label in labels]
         except KeyError:
             raise KeyError(f"Labels {[label for label in labels if label not in self._labels]} not found in the Frame.")
 
-    def data_chn(self, labels: str or List[str]) -> Frame2D:
+    def data_chn(self, labels: Union[List, CONSTS.CHN, Any]) -> Frame2D:
         """ Gets channels as another Frame2D
 
         :param labels: Can be a single str or multiple in a List"""
@@ -165,3 +170,18 @@ class Frame2D(_Frame2DLoader,
 
     def width(self) -> int:
         return self.shape[1]
+
+    @staticmethod
+    def _get_chn_size(chns: Iterable[CONSTS.CHN]) -> int:
+        """ This gets the channel size """
+        return len(list(Frame2D._util_flatten(chns)))
+
+    @staticmethod
+    def _util_flatten(iterable):
+        """ Flattens potentially nested iterables """
+        """ https://stackoverflow.com/questions/2158395/flatten-an-irregular-list-of-lists """
+        for el in iterable:
+            if isinstance(el, Iterable) and not isinstance(el, (str, bytes)):
+                yield from Frame2D._util_flatten(el)
+            else:
+                yield el

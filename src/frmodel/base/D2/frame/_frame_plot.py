@@ -30,7 +30,7 @@ class Frame2DPlot:
         """
         channels = self.f.data.shape[-1]
         if self.subplot_shape is None:
-            rows = int(channels ** 0.5)
+            rows = ceil(channels ** 0.5)
             cols = ceil(channels / rows)
         else:
             rows = self.subplot_shape[0]
@@ -111,7 +111,8 @@ class Frame2DPlot:
         :param colorscale: The color scale to use when plotting.
         :returns: A plt.Figure
         """
-        d = self.f.get_chns(self_=True,xy=True).data_flatten_xy()
+        d = self.f.get_chns(self_=True,
+                            chns=[self.f.CHN.XY]).data_flatten_xy()
         if sample_size:
             d = d[np.random.choice(d.shape[0], replace=False, size=sample_size)]
 

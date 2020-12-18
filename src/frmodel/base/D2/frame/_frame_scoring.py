@@ -8,8 +8,6 @@ import numpy as np
 from sklearn.metrics import homogeneity_completeness_v_measure
 from sklearn.preprocessing import LabelEncoder
 
-from frmodel.base import CONSTS
-
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 

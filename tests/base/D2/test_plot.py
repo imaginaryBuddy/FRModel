@@ -5,7 +5,7 @@ from tests.base.D2.test_d2 import TestD2
 class DrawTest(TestD2):
 
     def test_plot(self):
-        fc = self.frame.get_chns(xy=True, hsv=True)
+        fc = self.frame.get_chns(self_=False, chns=[self.frame.CHN.XY, self.frame.CHN.HSV])
 
         fpl = fc.plot()
         ROWS = 3

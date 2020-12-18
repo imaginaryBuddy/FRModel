@@ -17,7 +17,8 @@ def channel_analysis(image_path: str,
     """
 
     f = Frame2D.from_image(image_path, scale=image_scale)
-    f = f.get_all_chns(xy=not exclude_xy, glcm_verbose=verbose)
+    f = f.get_all_chns(exc_chns=[Frame2D.CHN.XY] if exclude_xy else [],
+                       glcm=Frame2D.GLCM(verbose=verbose))
     fig = f.plot(f.labels).image(scale=plot_scale)
 
     return fig
