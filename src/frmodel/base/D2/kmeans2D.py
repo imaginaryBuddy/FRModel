@@ -39,7 +39,8 @@ class KMeans2D:
         self.frame_1dmask = frame_1dmask
 
     def frame_masked(self, with_xy: bool = True):
-        return self.frame.get_chns(self_=True, xy=True).data_flatten_xy()[self.frame_1dmask, :]
+        return self.frame.get_chns(self_=True, chns=[Frame2D.CHN.XY])\
+                   .data_flatten_xy()[self.frame_1dmask, :]
 
     def as_frame(self) -> Frame2D:
         """ Converts current model into Frame2D based on labels. Places label at the end of channel dimension

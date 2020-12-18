@@ -1,6 +1,6 @@
 from sklearn.cluster import KMeans
 from sklearn.metrics import homogeneity_completeness_v_measure
-from sklearn.preprocessing import scale, minmax_scale
+from sklearn.preprocessing import scale
 import pandas as pd
 import seaborn as sns
 import numpy as np
@@ -39,6 +39,7 @@ def kmeans_scoring_12122020(test_path: str,
     :param img_scale: The scaling of the test/score loaded in
     :param clusters_mnl: Clusters to use for Meaningless Clustering
     :param clusters_mnf: Clusters to use for Meaningful Clustering
+    :param scatter_size: Scatter size of plot
     :param verbose: Whether to output into console the details
     :return:
     """
