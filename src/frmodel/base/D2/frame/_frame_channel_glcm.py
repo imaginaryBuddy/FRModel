@@ -3,6 +3,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Tuple, List, TYPE_CHECKING
+from warnings import warn
 
 import numpy as np
 from scipy.signal import fftconvolve
@@ -109,7 +110,11 @@ class _Frame2DChannelGLCM(ABC):
             i += cor_len
             labels.extend(CONSTS.CHN.GLCM.COR(list(self._util_flatten(glcm.correlation))))
 
-        if glcm.correlation:
+        if glcm.entropy:
+            if any([c not in CONSTS.CHN.RGB for c in glcm.entropy]):
+                raise Exception("Note that for non-RGB Entropies, it will be wildly incorrect as it assumes a "
+                                "(0-255) value boundary")
+
             data[..., i:i + ent_len] =\
                 self._get_glcm_entropy_cy(*pair_ar(self.data_chn(glcm.contrast).data),
                                           radius=glcm.radius, verbose=glcm.verbose)
