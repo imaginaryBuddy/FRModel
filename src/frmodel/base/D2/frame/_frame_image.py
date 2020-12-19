@@ -32,7 +32,7 @@ class _Frame2DImage(ABC):
         """ Saves the current Frame file
 
         :param file_path: Path to save to
-        :param kwargs: These kwargs are passed into Image.save(**kwargs)
+        :param kwargs: These kwargs are passed into Image.save(\*\*kwargs)
         """
         Image.fromarray(self.data_rgb().data.astype(np.uint8)).save(file_path, **kwargs)
 

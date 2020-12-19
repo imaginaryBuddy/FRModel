@@ -8,6 +8,7 @@ from frmodel.base.D2 import Frame2D
 
 
 class KMeans2D:
+    """ A KMeans2D object separate from Frame2D as proposed, to avoid cluttering """
 
     def __init__(self,
                  frame: Frame2D,
@@ -54,4 +55,3 @@ class KMeans2D:
         """
 
         return self.frame.append(self.model.labels_.reshape(self.frame.shape[0:2]), CONSTS.CHN.KMEANS.LABEL)
-

@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import ABC
 from dataclasses import dataclass, field
 from typing import Tuple, List, TYPE_CHECKING
-from warnings import warn
 
 import numpy as np
 from scipy.signal import fftconvolve

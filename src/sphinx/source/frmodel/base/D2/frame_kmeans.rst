@@ -184,6 +184,4 @@ Example
 Module Info
 ===========
 
-.. automodule:: frmodel.base.D2.frame._frame_kmeans
-
 .. automodule:: frmodel.base.D2.kmeans2D
