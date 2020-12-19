@@ -8,13 +8,20 @@ As of ``0.0.4``, the API has been loosened to introduce more features.
 Creation
 ========
 
-This class can and should be created from ``Frame2D``, otherwise it might not work correctly.
+Grab this class ``from frmodel.base.D2.kmeans2D import KMeans2D``.
 
-However, if it's absolutely needed,
+``KMeans2D`` would have the signature of
 
-- ``model`` is a **fitted** ``KMeans`` instance.
-- ``data`` is a ``np.ndarray`` where it follows the **Channel Dimension** convention used.
-  This is to facilitate ``plot()`` to use the right axes.
+.. code-block:: python
+
+    def __init__(self,
+                 frame: Frame2D,
+                 model: KMeans,
+                 fit_indexes,
+                 frame_1dmask: np.ndarray = None,
+                 scaler=None):
+
+The ``frame`` argument is for a Frame2D.
 
 ----------------
 KMeans Modelling
@@ -40,11 +47,17 @@ Will use the 2nd, 3rd, 4th channels to perform kmeans on.
 
 That is, the **Y-Axis, Hue and Saturation**.
 
--------------
-Sample Weight
--------------
+--------------
+Frame 1-D Mask
+--------------
 
-A numpy array to set the weight for each record. Refer to ``KMeans.fit(sample_weight=)`` argument
+This mask is to remove certain data points from the ``Frame2D``. This is useful if you don't want to run K-Means on all
+data.
+
+The mask must be:
+- an ``np.ndarray`` of boolean or truthy values.
+- in 1-Dimension, hence, call ``flatten()`` before passing it as an arugment.
+- the same size as the ``Frame2D`` passed as argument.
 
 ------
 Scaler
@@ -52,54 +65,21 @@ Scaler
 
 Scales the data before running kmeans, must be a **Callable**
 
+If ``None``, no scaling is done!
+
 ===============
 Figure Plotting
 ===============
 
-``plot`` plots using ``seaborn.lmplot()``
-
-----------
-XY Indexes
-----------
-
-If your plot doesn't look right, it's likely due to the ``xy_indexes`` being incorrect.
-
-``seaborn`` will generate the image based on these coordinates.
-
-.. code-block:: python
-
-    frame_xy = f.get_chns(xy=True, hsv=True)
-    frame_xy.kmeans(fit_indexes=[1,2,3], xy_indexes=(0,1), ...)
-
-In this case, we need to set it to 0 and 1 as they are the first 2 channels.
-
-It is defaulted to 3 and 4 because if you include the rgb channels, it will be correct.
-
-.. code-block:: python
-
-    frame_xy = f.get_chns(self_=True, xy=True, hsv=True)
-    frame_xy.kmeans(fit_indexes=[1,2,3], xy_indexes=(3,4), ...)
-
-------------
-Scatter Size
-------------
-
-This sets the scatter plot size.
-
--------------------------------
-Y-Axis Inversion & Aspect Ratio
--------------------------------
-
-Implicitly, these will be called::
-
-    plt.gca().set_aspect('equal')
-    plt.gca().invert_yaxis()
-
-So the Y Axis may seem inverted, because the coordinate system starts from the top left.
+Plotting is done with :doc:`Frame2D Plotting <frame_plot>`.
 
 =====
 Score
 =====
+
+--------------
+Custom Scoring
+--------------
 
 To test out how well the clustering works, we can mimic **supervised learning**.
 
@@ -168,17 +148,28 @@ Example
     from sklearn.cluster import KMeans
     from sklearn.preprocessing import minmax_scale
 
+    from frmodel.base import CONSTS
     from frmodel.base.D2 import Frame2D
+    from frmodel.base.D2.kmeans2D import KMeans2D
+    from tests.base.D2.test_d2 import TestD2
 
+        f = Frame2D.from_image("path/to/file.png")
 
-    f = Frame2D.from_image("path/to/file.png")
-    frame_xy = f.get_chns(xy=True, hsv=True, mex_g=True, ex_gr=True, ndi=True)
+        C = f.CHN
+        frame_xy = f.get_chns(self_=False,
+                              chns=[C.XY, C.HSV, C.MEX_G, C.EX_GR, C.NDI])
 
-    km = frame_xy.kmeans(KMeans(n_clusters=3, verbose=False),
-                         fit_indexes=[2, 3, 4, 5, 6, 7],
-                         scaler=minmax_scale)
+        km = KMeans2D(frame_xy,
+                      KMeans(n_clusters=3, verbose=False),
+                      fit_indexes=[5, 6, 7],
+                      scaler=minmax_scale)
+        kmf = km.as_frame()
+        score = kmf.score(f)
+        self.assertAlmostEqual(score['Custom'], 1)
+        self.assertAlmostEqual(score['Homogeneity'], 1)
+        self.assertAlmostEqual(score['Completeness'], 1)
+        self.assertAlmostEqual(score['V Measure'], 1)
 
-    counts, score = km.score("path/to/score_file.png")
 
 ===========
 Module Info
