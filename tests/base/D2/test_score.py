@@ -21,7 +21,7 @@ class ScoreTest(TestD2):
 
         km = KMeans2D(frame_xy,
                       KMeans(n_clusters=3, verbose=False),
-                      fit_indexes=[5, 6, 7],
+                      fit_indexes=[C.MEX_G, C.EX_GR, C.NDI],
                       scaler=minmax_scale)
         kmf = km.as_frame()
         score = kmf.score(f)
