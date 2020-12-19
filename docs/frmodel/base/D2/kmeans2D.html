@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Frame KMeans &mdash; frmodel 0.0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="Video" href="video2D.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">KMeans2D</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creation">Creation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#kmeans-modelling">KMeans Modelling</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#fit-indexes">Fit Indexes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#frame-1-d-mask">Frame 1-D Mask</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#scaler">Scaler</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#figure-plotting">Figure Plotting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#score">Score</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#custom-scoring">Custom Scoring</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#score-file">Score File</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-frmodel.base.D2.kmeans2D">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+          <li><a href="D2.html">2D Classes</a> &raquo;</li>
+        
+      <li>Frame KMeans</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/frmodel/base/D2/kmeans2D.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="frame-kmeans">
+<h1>Frame KMeans<a class="headerlink" href="#frame-kmeans" title="Permalink to this headline">¶</a></h1>
+<p>As of <code class="docutils literal notranslate"><span class="pre">0.0.4</span></code>, the API has been loosened to introduce more features.</p>
+<div class="section" id="creation">
+<h2>Creation<a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h2>
+<p>Grab this class <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">frmodel.base.D2.kmeans2D</span> <span class="pre">import</span> <span class="pre">KMeans2D</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">KMeans2D</span></code> would have the signature of</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+             <span class="n">frame</span><span class="p">:</span> <span class="n">Frame2D</span><span class="p">,</span>
+             <span class="n">model</span><span class="p">:</span> <span class="n">KMeans</span><span class="p">,</span>
+             <span class="n">fit_indexes</span><span class="p">,</span>
+             <span class="n">frame_1dmask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+             <span class="n">scaler</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">frame</span></code> argument is for a Frame2D.</p>
+<div class="section" id="kmeans-modelling">
+<h3>KMeans Modelling<a class="headerlink" href="#kmeans-modelling" title="Permalink to this headline">¶</a></h3>
+<p>The API allows you to set up your own <code class="docutils literal notranslate"><span class="pre">KMeans</span></code> model object, hence most
+parameters such as <code class="docutils literal notranslate"><span class="pre">clusters</span></code> can be set-up outside <code class="docutils literal notranslate"><span class="pre">frmodel</span></code> pre-fitting.</p>
+</div>
+<div class="section" id="fit-indexes">
+<h3>Fit Indexes<a class="headerlink" href="#fit-indexes" title="Permalink to this headline">¶</a></h3>
+<p>The indexes to fit the kmeans to.</p>
+<p>For example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame_xy</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_chns</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hsv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">frame_xy</span><span class="o">.</span><span class="n">kmeans</span><span class="p">(</span><span class="n">fit_indexes</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will use the 2nd, 3rd, 4th channels to perform kmeans on.</p>
+<p>That is, the <strong>Y-Axis, Hue and Saturation</strong>.</p>
+</div>
+<div class="section" id="frame-1-d-mask">
+<h3>Frame 1-D Mask<a class="headerlink" href="#frame-1-d-mask" title="Permalink to this headline">¶</a></h3>
+<p>This mask is to remove certain data points from the <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code>. This is useful if you don’t want to run K-Means on all
+data.</p>
+<p>The mask must be:
+- an <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> of boolean or truthy values.
+- in 1-Dimension, hence, call <code class="docutils literal notranslate"><span class="pre">flatten()</span></code> before passing it as an arugment.
+- the same size as the <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code> passed as argument.</p>
+</div>
+<div class="section" id="scaler">
+<h3>Scaler<a class="headerlink" href="#scaler" title="Permalink to this headline">¶</a></h3>
+<p>Scales the data before running kmeans, must be a <strong>Callable</strong></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">None</span></code>, no scaling is done!</p>
+</div>
+</div>
+<div class="section" id="figure-plotting">
+<h2>Figure Plotting<a class="headerlink" href="#figure-plotting" title="Permalink to this headline">¶</a></h2>
+<p>Plotting is done with <a class="reference internal" href="frame_plot.html"><span class="doc">Frame2D Plotting</span></a>.</p>
+</div>
+<div class="section" id="score">
+<h2>Score<a class="headerlink" href="#score" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="custom-scoring">
+<h3>Custom Scoring<a class="headerlink" href="#custom-scoring" title="Permalink to this headline">¶</a></h3>
+<p>To test out how well the clustering works, we can mimic <strong>supervised learning</strong>.</p>
+<p>We can have another image (Score Image) that shows the expected grouping of clusters,
+by simply filling another image with same dimensions with different gray-scales.</p>
+<p>We then pair the labelled KMeans and Score gray-scale labels to find out the
+maximum score attainable.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">ORIGINAL</span><span class="p">]</span>
+    <span class="n">KMEANS</span>      <span class="n">SCORE</span>    <span class="n">COUNT</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">A</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">A</span>  <span class="mi">1000</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">A</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">B</span>  <span class="mi">500</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">B</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">A</span>  <span class="mi">2000</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">B</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">B</span>  <span class="mi">4000</span>
+</pre></div>
+</div>
+<p>If we wanted the highest score attainable, we look at the top values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">SORTED</span> <span class="n">BY</span> <span class="n">COUNT</span><span class="p">]</span>
+    <span class="n">KMEANS</span>      <span class="n">SCORE</span>    <span class="n">COUNT</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">B</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">B</span>  <span class="mi">4000</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">B</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">A</span>  <span class="mi">2000</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">A</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">A</span>  <span class="mi">1000</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">A</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">B</span>  <span class="mi">500</span>
+</pre></div>
+</div>
+<p>If we picked <code class="docutils literal notranslate"><span class="pre">[4]</span></code> here, we cannot pick <code class="docutils literal notranslate"><span class="pre">[3]</span></code> to attain a maximum score,
+this is because <code class="docutils literal notranslate"><span class="pre">KMEANS</span> <span class="pre">B</span></code> is connected to <code class="docutils literal notranslate"><span class="pre">SCORE</span> <span class="pre">B</span></code> already, we need to find another.</p>
+<p>The only other connection available is <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&lt;-&gt;</span> <span class="pre">A</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span>   <span class="n">KMEANS</span>      <span class="n">SCORE</span>    <span class="n">COUNT</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">B</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">B</span>  <span class="mi">4000</span>  <span class="p">[</span><span class="n">Accept</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">B</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">A</span>  <span class="mi">2000</span>  <span class="p">[</span><span class="n">Visited</span> <span class="n">KMEANS</span> <span class="n">Label</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">A</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">A</span>  <span class="mi">1000</span>  <span class="p">[</span><span class="n">Accept</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">LABEL</span> <span class="n">A</span> <span class="o">&lt;-&gt;</span> <span class="n">LABEL</span> <span class="n">B</span>  <span class="mi">500</span>   <span class="p">[</span><span class="n">Loop</span> <span class="n">Ended</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Hence, the follow <strong>pseudo-code</strong> is used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">kmeans_label</span><span class="p">,</span> <span class="n">score_label</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">array</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">kmeans_label</span> <span class="ow">or</span> <span class="n">score_label</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmeans_label</span><span class="p">)</span>
+        <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score_label</span><span class="p">)</span>
+        <span class="n">counts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="score-file">
+<h3>Score File<a class="headerlink" href="#score-file" title="Permalink to this headline">¶</a></h3>
+<p>A Score File is any image with a deliberate discrete amount of gray-scale values that mark clusters.</p>
+<p>Any area which has the same gray-scale value is deemed to be one cluster.</p>
+<ul class="simple">
+<li><p>Note that <strong>anti-aliasing</strong> can cause multiple unnecessary grayscale interpolated values.</p></li>
+<li><p>Note to save it in a <strong>lossless</strong> format like <code class="docutils literal notranslate"><span class="pre">png</span></code> to avoid artifacts.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">minmax_scale</span>
+
+<span class="kn">from</span> <span class="nn">frmodel.base</span> <span class="kn">import</span> <span class="n">CONSTS</span>
+<span class="kn">from</span> <span class="nn">frmodel.base.D2</span> <span class="kn">import</span> <span class="n">Frame2D</span>
+<span class="kn">from</span> <span class="nn">frmodel.base.D2.kmeans2D</span> <span class="kn">import</span> <span class="n">KMeans2D</span>
+<span class="kn">from</span> <span class="nn">tests.base.D2.test_d2</span> <span class="kn">import</span> <span class="n">TestD2</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.png&quot;</span><span class="p">)</span>
+
+    <span class="n">C</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">CHN</span>
+    <span class="n">frame_xy</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_chns</span><span class="p">(</span><span class="n">self_</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                          <span class="n">chns</span><span class="o">=</span><span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">MEX_G</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">EX_GR</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">NDI</span><span class="p">])</span>
+
+    <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans2D</span><span class="p">(</span><span class="n">frame_xy</span><span class="p">,</span>
+                  <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                  <span class="n">fit_to</span><span class="o">=</span><span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">MEX_G</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">EX_GR</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">NDI</span><span class="p">],</span>
+                  <span class="n">scaler</span><span class="o">=</span><span class="n">minmax_scale</span><span class="p">)</span>
+
+    <span class="n">kmf</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">as_frame</span><span class="p">()</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">kmf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">score</span><span class="p">[</span><span class="s1">&#39;Custom&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">score</span><span class="p">[</span><span class="s1">&#39;Homogeneity&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">score</span><span class="p">[</span><span class="s1">&#39;Completeness&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">score</span><span class="p">[</span><span class="s1">&#39;V Measure&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Here, we grab MEX_G, EX_GR, NDI to use for KMeans</p></li>
+<li><p>Then fit using them in <code class="docutils literal notranslate"><span class="pre">fit_to</span></code>. By default if we don’t specify these channels, all will be used anyways.</p></li>
+<li><p>We also pre-scale them with <code class="docutils literal notranslate"><span class="pre">minmax-scale</span></code>. Note it’s passed as a function without brackets</p></li>
+<li><p>We can convert the clustering as a frame to view its clusters or <code class="docutils literal notranslate"><span class="pre">score</span></code> it against something else.</p></li>
+<li><p>Note that because we scored it against itself, it should, ideally, converge to a perfect score.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Custom</span></code> is the custom scoring algorithm mentioned above.</p>
+</div>
+<div class="section" id="module-frmodel.base.D2.kmeans2D">
+<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.kmeans2D" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="frmodel.base.D2.kmeans2D.KMeans2D">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.kmeans2D.</code><code class="sig-name descname">KMeans2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span><span class="p">:</span> <span class="n"><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a></span></em>, <em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">sklearn.cluster._kmeans.KMeans</span></em>, <em class="sig-param"><span class="n">fit_to</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D.CHN" title="frmodel.base.D2.frame2D.Frame2D.CHN">frmodel.base.D2.frame2D.Frame2D.CHN</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame_1dmask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>numpy.ndarray<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scaler</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A KMeans2D object separate from Frame2D as proposed, to avoid cluttering</p>
+<dl class="py method">
+<dt id="frmodel.base.D2.kmeans2D.KMeans2D.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span><span class="p">:</span> <span class="n"><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a></span></em>, <em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">sklearn.cluster._kmeans.KMeans</span></em>, <em class="sig-param"><span class="n">fit_to</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D.CHN" title="frmodel.base.D2.frame2D.Frame2D.CHN">frmodel.base.D2.frame2D.Frame2D.CHN</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame_1dmask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>numpy.ndarray<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scaler</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a KMeans Object from current data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – KMeans Model</p></li>
+<li><p><strong>fit_to</strong> – The indexes to .fit() to, must be a list of the Channel Consts. If None, use all channels</p></li>
+<li><p><strong>scaler</strong> – The scaler to use, must be a callable(np.ndarray)</p></li>
+<li><p><strong>frame_1dmask</strong> – The 2D mask to exclude certain points. Must be in 2 Dimensions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>KMeans2D Instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.kmeans2D.KMeans2D.as_frame">
+<code class="sig-name descname">as_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D.as_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts current model into Frame2D based on labels. Places label at the end of channel dimension</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.kmeans2D.KMeans2D.frame_masked">
+<code class="sig-name descname">frame_masked</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">with_xy</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D.frame_masked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the masked frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>with_xy</strong> – Whether to append XY with it. This can help in determining the pixel locations of these data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>np.ndarray, a flattened Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="video2D.html" class="btn btn-neutral float-left" title="Video" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

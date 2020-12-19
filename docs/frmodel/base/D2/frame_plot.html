@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Frame Plotting &mdash; frmodel 0.0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Video" href="video2D.html" />
+    <link rel="prev" title="Frame Scaling" href="frame_scaling.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="frame2D.html">Frame2D</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="frame_partition.html">Partition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel.html">Channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel_glcm.html">GLCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Plotting</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#setting-subplot-shape">Setting Subplot Shape</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#setting-titles">Setting Titles</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.frame._frame_plot">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#module-frmodel.base.D2.frame2D">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kmeans2D.html">KMeans2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+          <li><a href="D2.html">2D Classes</a> &raquo;</li>
+        
+          <li><a href="frame2D.html">Frame</a> &raquo;</li>
+        
+      <li>Frame Plotting</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/frmodel/base/D2/frame_plot.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="frame-plotting">
+<h1>Frame Plotting<a class="headerlink" href="#frame-plotting" title="Permalink to this headline">¶</a></h1>
+<p>This provides a simple high-level interface of plotting a frame.</p>
+<p>To start</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.png&quot;</span><span class="p">)</span>
+<span class="n">fpl</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This gives you a <code class="docutils literal notranslate"><span class="pre">Frame2DPlot</span></code> object to call plotting functions with.</p>
+<p>If you only want to plot a few indexes, you can call it with arguments</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">robust_scale</span><span class="p">,</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.png&quot;</span><span class="p">)</span>
+<span class="n">fpl</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>If the file is an RGB image, it’ll just plot with R and G only.</p>
+<p>There are multiple ways to generate the plots, listed in the Module Info.</p>
+<div class="section" id="setting-subplot-shape">
+<h2>Setting Subplot Shape<a class="headerlink" href="#setting-subplot-shape" title="Permalink to this headline">¶</a></h2>
+<p>By default, if <code class="docutils literal notranslate"><span class="pre">Frame2DPlot.subplot_shape</span></code> is None, it’ll find the best shape to fit the plot.</p>
+<p>However, if you want to set a fixed shape, you can do so</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ROWS</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">COLS</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">fpl</span><span class="o">.</span><span class="n">subplot_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">ROWS</span><span class="p">,</span> <span class="n">COLS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-titles">
+<h2>Setting Titles<a class="headerlink" href="#setting-titles" title="Permalink to this headline">¶</a></h2>
+<p>By default, if <code class="docutils literal notranslate"><span class="pre">Frame2DPlot.titles</span></code> is None, it’ll generate titles of <strong>Index 0</strong>, <strong>Index 1</strong>, … and so on.</p>
+<p>If you do set the title, take note that the number of titles must match the number of channels, else an
+<code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> will be thrown.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Here, we load in an image on 25% scale then plot the images with 22 rows and 1 column.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SCALE</span> <span class="o">=</span> <span class="mf">0.25</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.png&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">SCALE</span><span class="p">)</span>
+<span class="n">fc</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_all_chns</span><span class="p">()</span>
+
+<span class="n">fpl</span> <span class="o">=</span> <span class="n">fc</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ROWS</span> <span class="o">=</span> <span class="mi">22</span>
+<span class="n">COLS</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">PLT_SCALE</span> <span class="o">=</span> <span class="mf">1.1</span>
+<span class="n">fpl</span><span class="o">.</span><span class="n">subplot_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">ROWS</span><span class="p">,</span> <span class="n">COLS</span><span class="p">)</span>
+<span class="n">fpl</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">PLT_SCALE</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-frmodel.base.D2.frame._frame_plot">
+<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_plot" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame._frame_plot.</code><code class="sig-name descname">Frame2DPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span><span class="p">:</span> <span class="n">Frame2D</span></em>, <em class="sig-param"><span class="n">subplot_shape</span><span class="p">:</span> <span class="n">tuple</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">titles</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot._create_grid">
+<code class="sig-name descname">_create_grid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot._create_grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Facilitates in create a subplot grid for plotting functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>scale</strong> – Scale of the plot</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An Axes reference generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.hist">
+<code class="sig-name descname">hist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">bins</span><span class="o">=</span><span class="default_value">50</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.hist" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each index, create a separate subplot hist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> – Scale of the subplots</p></li>
+<li><p><strong>bins</strong> – Number of bins to pass into hist</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.image">
+<code class="sig-name descname">image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">colormap</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'magma'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each index, create a separate subplot imshow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> – Scale of the subplots</p></li>
+<li><p><strong>colormap</strong> – The cmap of imshow. See plt.imshow for available cmaps.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.image3d">
+<code class="sig-name descname">image3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ix</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">z_scale</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">point_size</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">7</span></em>, <em class="sig-param"><span class="n">sample_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">10000</span></em>, <em class="sig-param"><span class="n">colorscale</span><span class="o">=</span><span class="default_value">['#440154', '#482878', '#3e4989', '#31688e', '#26828e', '#1f9e89', '#35b779', '#6ece58', '#b5de2b', '#fde725']</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.image3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot a single index with respect to its X and Y.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ix</strong> – A single index.</p></li>
+<li><p><strong>z_scale</strong> – The scale of the Z Axis. If lower than 1, it’ll look flatter, vice versa.</p></li>
+<li><p><strong>point_size</strong> – The size of the markers.</p></li>
+<li><p><strong>sample_size</strong> – The amount of points to sample. If None, use all points</p></li>
+<li><p><strong>colorscale</strong> – The color scale to use when plotting.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.kde">
+<code class="sig-name descname">kde</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">smoothing</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.kde" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each index, create a separate subplot hist.</p>
+<p>Note: smoothing may not work on some versions of seaborn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> – Scale of the subplots</p></li>
+<li><p><strong>smoothing</strong> – The amount of smoothing to apply to the KDE</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.set_browser_plotting">
+<em class="property">static </em><code class="sig-name descname">set_browser_plotting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.set_browser_plotting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes Plotly render on browser by changing the flag.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="video2D.html" class="btn btn-neutral float-right" title="Video" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="frame_scaling.html" class="btn btn-neutral float-left" title="Frame Scaling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

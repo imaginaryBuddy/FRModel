@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Frame Channel &mdash; frmodel 0.0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Frame Gray Level Co-occurrence Matrix" href="frame_channel_glcm.html" />
+    <link rel="prev" title="Frame Partitioning" href="frame_partition.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="frame2D.html">Frame2D</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="frame_partition.html">Partition</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Channel</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#getting-channels">Getting Channels</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#glcm">GLCM</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#xy">XY</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hsv">HSV</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ex-g">EX_G</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#mex-g">MEX_G</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ex-gr">EX_GR</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ndi">NDI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#veg">VEG</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.frame._frame_channel">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel_glcm.html">GLCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_plot.html">Plotting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#module-frmodel.base.D2.frame2D">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kmeans2D.html">KMeans2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+          <li><a href="D2.html">2D Classes</a> &raquo;</li>
+        
+          <li><a href="frame2D.html">Frame</a> &raquo;</li>
+        
+      <li>Frame Channel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/frmodel/base/D2/frame_channel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="frame-channel">
+<h1>Frame Channel<a class="headerlink" href="#frame-channel" title="Permalink to this headline">¶</a></h1>
+<p><em>Channel2D Class is deprecated from 0.0.3 onwards, replaced by the current in-built methods</em></p>
+<div class="section" id="getting-channels">
+<h2>Getting Channels<a class="headerlink" href="#getting-channels" title="Permalink to this headline">¶</a></h2>
+<p><strong>For Versions v0.0.5 and beyond</strong></p>
+<p>Due to the ever expanding number of <strong>vegetation indexes</strong>, <strong>0.0.5</strong> introduces a new methodology, detailed here
+<a class="reference external" href="https://github.com/Eve-ning/FRModel/pull/67">Pull Request #67</a>.</p>
+<p>As to cater to this research project, index calculations are readily available through <code class="docutils literal notranslate"><span class="pre">get_chns</span></code> or <code class="docutils literal notranslate"><span class="pre">get_all_chns</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">index_count</span></code> represents how many “layers” it has, similar to the cake analogy.</p>
+<p>While the prior functions of <code class="docutils literal notranslate"><span class="pre">get_...</span></code> is still available, it’s recommended to use <code class="docutils literal notranslate"><span class="pre">get_chns</span></code> or
+<code class="docutils literal notranslate"><span class="pre">get_all_chns</span></code> because it rids of boilerplate code. However, it’s not strictly forbidden.</p>
+<p>The new format, uses the following calling template</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">:</span> <span class="n">Frame2D</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_chns</span><span class="p">(</span><span class="n">self_</span><span class="p">:</span><span class="nb">bool</span><span class="p">,</span> <span class="n">chns</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="n">CHN</span><span class="p">],</span> <span class="n">glcm</span><span class="p">:</span> <span class="n">GLCM</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">:</span> <span class="n">Frame2D</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_chns</span><span class="p">(</span><span class="n">self_</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chns</span><span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">HSV</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">EX_G</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">VEG</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">CHN</span></code> argument can be grabbed from <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code> class or any instance, or <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">consts</span> <span class="pre">import</span> <span class="pre">CONSTS</span></code>, though
+the latter method is not recommended as it’s verbose.</p>
+<p>These <code class="docutils literal notranslate"><span class="pre">CHN</span></code> are actually strings, hence it’s perfectly valid to call as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">:</span> <span class="n">Frame2D</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_chns</span><span class="p">(</span><span class="n">self_</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">])</span> <span class="c1"># Other arguments omitted</span>
+</pre></div>
+</div>
+<p>However, it’s not recommended as it’s prone to capitalization errors and typos.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 71%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>CHN Constant</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Layers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RED</p></td>
+<td><p>Red Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>GREEN</p></td>
+<td><p>Green Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>BLUE</p></td>
+<td><p>Blue Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>RGB</p></td>
+<td><p>A Tuple of all Red, Green, Blue Channels</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>X</p></td>
+<td><p>X Position</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Y</p></td>
+<td><p>Y Position</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>XY</p></td>
+<td><p>A Tuple of X, Y Channels</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>HUE</p></td>
+<td><p>Hue Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>SATURATION</p></td>
+<td><p>Saturation Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>VALUE</p></td>
+<td><p>Value Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>HSV</p></td>
+<td><p>A Tuple of Hue, Saturation, Value Channels</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>NDI</p></td>
+<td><p>Normalized Difference Index Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>EX_G</p></td>
+<td><p>Excess Green Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>MEX_G</p></td>
+<td><p>Modified Excess Green Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>EX_GR</p></td>
+<td><p>Excess Green Minus Red Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>VEG</p></td>
+<td><p>Vegetation Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>NDVI</p></td>
+<td><p>Normalized Difference Vegetation Index Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>GNDVI</p></td>
+<td><p>Green Normalized Difference Vegetation Index Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>OSAVI</p></td>
+<td><p>Optimized Soil Adjusted Vegetation Index Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>NDRE</p></td>
+<td><p>Normalized Difference Red Edge Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>LCI</p></td>
+<td><p>Leaf Chrolophyll Index Channel</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">get_all_chns</span></code> and <code class="docutils literal notranslate"><span class="pre">get_chns</span></code> gets all channels above.</p>
+<p>The difference between those 2 is that, with <code class="docutils literal notranslate"><span class="pre">get_all_chns</span></code> you exclude channels you don’t need,
+depending on your choices, one may be more succinct than the other.</p>
+</div>
+<div class="section" id="glcm">
+<h2>GLCM<a class="headerlink" href="#glcm" title="Permalink to this headline">¶</a></h2>
+<p>GLCM is detailed in the <a class="reference internal" href="frame_channel_glcm.html"><span class="doc">GLCM Implementation Page</span></a>.</p>
+</div>
+<div class="section" id="xy">
+<h2>XY<a class="headerlink" href="#xy" title="Permalink to this headline">¶</a></h2>
+<p>The XY coordinate for every Pixel</p>
+</div>
+<div class="section" id="hsv">
+<h2>HSV<a class="headerlink" href="#hsv" title="Permalink to this headline">¶</a></h2>
+<p>HSV (Hue, Saturation, Value)</p>
+</div>
+<div class="section" id="ex-g">
+<h2>EX_G<a class="headerlink" href="#ex-g" title="Permalink to this headline">¶</a></h2>
+<p>Excess Green, defined as</p>
+<div class="math notranslate nohighlight">
+\[2G - 1R - 1B\]</div>
+</div>
+<div class="section" id="mex-g">
+<h2>MEX_G<a class="headerlink" href="#mex-g" title="Permalink to this headline">¶</a></h2>
+<p>Modified Excess Green, defined as</p>
+<div class="math notranslate nohighlight">
+\[1.262G - 0.884R - 0.331B\]</div>
+</div>
+<div class="section" id="ex-gr">
+<h2>EX_GR<a class="headerlink" href="#ex-gr" title="Permalink to this headline">¶</a></h2>
+<p>Excess Green Minus Red, defined as</p>
+<div class="math notranslate nohighlight">
+\[3G - 2.4R - B\]</div>
+</div>
+<div class="section" id="ndi">
+<h2>NDI<a class="headerlink" href="#ndi" title="Permalink to this headline">¶</a></h2>
+<p>Normalized Difference Index, defined as</p>
+<div class="math notranslate nohighlight">
+\[\frac{G - R}{G + R}\]</div>
+</div>
+<div class="section" id="veg">
+<h2>VEG<a class="headerlink" href="#veg" title="Permalink to this headline">¶</a></h2>
+<p>Vegetative Index, defined as</p>
+<div class="math notranslate nohighlight">
+\[\frac{g}{r^{a} * b^{1-a}}\]</div>
+</div>
+<div class="section" id="module-frmodel.base.D2.frame._frame_channel">
+<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_channel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame._frame_channel.</code><code class="sig-name descname">_Frame2DChannel</code><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="frame_channel_glcm.html#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM" title="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM"><code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM</span></code></a></p>
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_all_chns">
+<code class="sig-name descname">get_all_chns</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self_</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exc_chns</span><span class="p">:</span> <span class="n">Iterable<span class="p">[</span>Frame2D.CHN<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">glcm</span><span class="p">:</span> <span class="n">_Frame2DChannel.GLCM</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="frmodel.base.D2.frame._frame_channel._Frame2DChannel">_Frame2DChannel</a><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_all_chns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all channels, excludes any in exc_chns.</p>
+<p>Use get_chns to get selected ones</p>
+<p>Order is given by the argument order.
+R, G, B, X, Y, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG,
+ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – Include current frame</p></li>
+<li><p><strong>exc_chns</strong> – Excluded Channels</p></li>
+<li><p><strong>glcm</strong> – GLCM Object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Frame2D Object with requested channesls</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_chns">
+<code class="sig-name descname">get_chns</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self_</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">chns</span><span class="p">:</span> <span class="n">Iterable<span class="p">[</span>Frame2D.CHN<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">glcm</span><span class="p">:</span> <span class="n">_Frame2DChannel.GLCM</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="frmodel.base.D2.frame._frame_channel._Frame2DChannel">_Frame2DChannel</a><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_chns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets selected channels</p>
+<p>Use get_all_chns to get all but selected ones</p>
+<p>Order is given by the argument order.
+R, G, B, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG, X, Y,
+ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – Include current frame</p></li>
+<li><p><strong>chns</strong> – Channels</p></li>
+<li><p><strong>glcm</strong> – GLCM Object</p></li>
+</ul>
+</dd>
+</dl>
+<p>:returns</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_g">
+<code class="sig-name descname">get_ex_g</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the excessive green index</p>
+<p>Original: 2g - 1r - 1b</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>np.ndarray, similar shape to callee. Use get_chns to get as Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_gr">
+<code class="sig-name descname">get_ex_gr</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_gr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the excessive green minus excess red index</p>
+<p>2g - r - b - 1.4r + g = 3g - 2.4r - b</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>np.ndarray, similar shape to callee. Use get_chns to get as Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_hsv">
+<code class="sig-name descname">get_hsv</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_hsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a HSV</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>np.ndarray, similar shape to callee. Use get_chns to get as Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_mex_g">
+<code class="sig-name descname">get_mex_g</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_mex_g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Modified excessive green index</p>
+<p>1.262g - 0.884r - 0.331b</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>np.ndarray, similar shape to callee. Use get_chns to get as Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ndi">
+<code class="sig-name descname">get_ndi</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ndi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Normalized Difference Index</p>
+<p>(g - r) / (g + r)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>np.ndarray, similar shape to callee. Use get_chns to get as Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_veg">
+<code class="sig-name descname">get_veg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">const_a</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.667</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_veg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Vegetative Index</p>
+<p>g / {(r^a) * [b^(1 - a)]}</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>const_a</strong> – Constant A depends on the camera used.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>np.ndarray, similar shape to callee. Use get_chns to get as Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_xy">
+<code class="sig-name descname">get_xy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the XY Coord Array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>np.ndarray, similar shape to callee. Use get_chns to get as Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="frame_channel_glcm.html" class="btn btn-neutral float-right" title="Frame Gray Level Co-occurrence Matrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="frame_partition.html" class="btn btn-neutral float-left" title="Frame Partitioning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
