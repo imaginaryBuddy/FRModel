@@ -16,9 +16,6 @@ boilercode mess.
 
 Goal: Make sure that **Layer 1** doesn't write any OOP, only functional code.
 
-Focal Directories
-- ``frmodel``: Base Code implementation
-
 ================
 Middle (Layer 1)
 ================
@@ -28,9 +25,6 @@ knowledge in implementing clear-cut instructions instead of having to do low-end
 code.
 
 Goal: Make sure that **Layer 2** only needs minimal code.
-
-Focal Directories
-- ``nbs``: Notebook/Scratches
 
 ===============
 Front (Layer 2)

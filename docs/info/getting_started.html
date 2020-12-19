@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Layers" href="layers.html" />
+    <link rel="next" title="Base Classes" href="../frmodel/base.html" />
     <link rel="prev" title="Information" href="../info.html" /> 
 </head>
 
@@ -88,7 +88,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#wrapping">Wrapping</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="layers.html"> Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frmodel/base.html"> Repository Base</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html"> Changelog</a></li>
 </ul>
 </li>
@@ -161,7 +161,8 @@
             
   <div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<p>This document is directed to the users of the library.</p>
+<p>Most classes rely on np.ndarray representation, so most operations are similar and familiar.</p>
+<p>If you require the underlying np.ndarray, you just need to call <code class="docutils literal notranslate"><span class="pre">f.data</span></code> to grab it.</p>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>This short example illustrates how to load in an image (stored as a np.ndarray)</p>
@@ -169,22 +170,16 @@
 <span class="kn">from</span> <span class="nn">frmodel.base.D2.frame2D</span> <span class="kn">import</span> <span class="n">Frame2D</span>
 
 <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
-<span class="n">frames</span> <span class="o">=</span>\
-    <span class="n">frame</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">CONSTS</span><span class="o">.</span><span class="n">AXIS</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">Frame2D</span><span class="o">.</span><span class="n">SplitMethod</span><span class="o">.</span><span class="n">DROP</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">frames</span><span class="p">):</span> <span class="n">f</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;path/to/save</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">.jpg&quot;</span><span class="p">)</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">get_chns</span><span class="p">(</span><span class="n">self_</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chns</span><span class="o">=</span><span class="p">[</span><span class="n">frame</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">HSV</span><span class="p">])</span>
+<span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 </div>
-<p>If the image is <strong>Width x Height</strong> large,
-We then split it into <strong>200px x Height</strong> chunks using <code class="docutils literal notranslate"><span class="pre">split()</span></code></p>
-<ul class="simple">
-<li><p>Note that it slices vertically because we specified <code class="docutils literal notranslate"><span class="pre">CONSTS.AXIS.X</span></code>.</p></li>
-<li><p>It will also <code class="docutils literal notranslate"><span class="pre">DROP</span></code> any pieces that cannot be perfectly cut. E.g. 1920 will be sliced into 200 x 9 pieces.</p></li>
-</ul>
+<p>This simple example illustrates how to load a Frame2D and grab the HSV channel, then convert to np.ndarray.</p>
 </div>
 <div class="section" id="wrapping">
 <h2>Wrapping<a class="headerlink" href="#wrapping" title="Permalink to this headline">¶</a></h2>
 <p>Most classes here are just wrappers of existing library classes.
-If you would like to extract the underlying data, e.g. <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>, just call .data.</p>
+If you would like to extract the underlying data, e.g. <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>, just call <code class="docutils literal notranslate"><span class="pre">.data</span></code>.</p>
 <p>This is useful if you would like to utilize functions that the library doesn’t provide.
 However, it’s recommended to use the library functions as a lot of boilercode is hidden.</p>
 <p>Open up a <strong>Issue</strong> on GitHub to notify me to create a wrapper for a specific repeated function.</p>
@@ -199,7 +194,7 @@ However, it’s recommended to use the library functions as a lot of boilercode 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="layers.html" class="btn btn-neutral float-right" title="Layers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../frmodel/base.html" class="btn btn-neutral float-right" title="Base Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../info.html" class="btn btn-neutral float-left" title="Information" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

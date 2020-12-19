@@ -24,7 +24,7 @@ This short example illustrates how to load in an image (stored as a np.ndarray)
 This simple example illustrates how to load a Frame2D and grab the HSV channel, then convert to np.ndarray.
 
 ========
-Wrapping`
+Wrapping
 ========
 
 Most classes here are just wrappers of existing library classes.
