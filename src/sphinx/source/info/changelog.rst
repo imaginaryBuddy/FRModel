@@ -3,6 +3,35 @@ ChangeLog
 #########
 
 -----
+0.0.5
+-----
+
+- Cythonize Entropy
+- Integrate Cython Pipeline into current Package
+- Implement Homogeneity, Completeness, V Measure Scoring
+- Add Image Scaling
+- Add Image-like methods for ``Frame2D``
+- Add Test for Scoring
+- Add ``express`` for quick running of long scripts for quick replicaiton purposes
+    - While this is useful to backtrack on, most scripts get deprecated very quickly due to constant updates
+- Add Convolution method for integrating non-GLCM with GLCM channels
+- Add Plotting directly for ``Frame2D``
+    - 2D Per Channel Plotting
+    - 3D Channel Plotting
+- Add Scaling API to use lambda calls, e.g. ``minmax_scaling``
+- Rename ``from_rgbxy`` to ``from_nxy`` for short verbosity
+- Detach ``KMeans`` operation into separate ``KMeans2D`` to decrease bulkiness
+- Fix Correlation Algorithm
+    - Correlation was using a naive algorithm that was inaccurate to standards
+    - Reimplemented Correlation on Cython
+- Fix Entropy Algorithm
+    - Entropy had ``glcm_view`` that was reset on the wrong line
+- Force Scale Correlation and Entropy to standards. [-1, +1] and [0, 1] respectively for interpretability
+- Invert Entropy Result to align with defined meaning
+- Update Channel getting and setting to use new const string indexing convention
+    - See #67 PR for details on updating
+
+-----
 0.0.4
 -----
 
