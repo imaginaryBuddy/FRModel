@@ -54,8 +54,9 @@ class Video2D:
 
         return img_list
 
-    # OpenCV has a lot of issues detecting duration. This returns a negative value in a test, not reliable.
-    # def duration(self) -> int:
-    #     """ Gets the duration of the video """
-    #     self.vid.set(cv2.CAP_PROP_POS_AVI_RATIO, 1)
-    #     return self.vid.get(cv2.CAP_PROP_POS_MSEC)
+    """ Deprecated
+    OpenCV has a lot of issues detecting duration. This returns a negative value in a test, not reliable.
+    def duration(self) -> int:
+        self.vid.set(cv2.CAP_PROP_POS_AVI_RATIO, 1)
+        return self.vid.get(cv2.CAP_PROP_POS_MSEC)
+    """

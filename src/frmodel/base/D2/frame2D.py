@@ -39,6 +39,16 @@ class Frame2D(_Frame2DLoader,
     _labels: dict
 
     def __init__(self, data: np.ndarray, labels: str or dict or List[str]):
+        """ Initializes the Frame2D with data
+
+        Note that because this is the __init__, reinitializing using a instance will not return anything.
+
+        If you need to initialize a class dynamically using an instance, use .create
+
+        :param data: A Frame2D acceptable array, see Frame2D wiki for details
+        :param labels: Labels for the 2D array, it must be the same length as the data Channel Dimension
+        """
+
         self._data = data
         labels = [labels] if isinstance(labels, str) else list(self._util_flatten(labels))
 
@@ -54,21 +64,37 @@ class Frame2D(_Frame2DLoader,
         self._labels = labels
 
     class CHN(CONSTS.CHN):
+        """ This inherits the CONSTS CHN, nothing needs to be added here.
+
+        This makes it really easy to access the CONSTS without having to import it in.
+
+        e.g. f.CHN.XY
+        """
         pass
 
     @staticmethod
     def create(data:np.ndarray, labels: dict or List[str]) -> Frame2D:
         """ This is an init function that allows you to receive the class upon initiation.
 
-        This function will not modify the caller as it's static. """
+        This function will not modify the caller as it's static.
+
+        :param data: A Frame2D acceptable array, see Frame2D wiki for details
+        :param labels: Labels for the 2D array, it must be the same length as the data Channel Dimension
+        """
         return Frame2D(data, labels)
 
     @property
     def data(self) -> np.ndarray:
+        """ The underlying np.ndarray data.
+
+        :returns: np.ndarray, Shape = (Height, Width, Channels) """
         return self._data
 
     @property
     def labels(self) -> dict:
+        """ The dictionary of labels.
+
+        :returns: Dictionary, {'NAME'(str): ix(int)} """
         return self._labels
 
     def data_kdtree(self, leaf_size=40, metric='minkowski', **kwargs) -> KDTree:
@@ -84,6 +110,8 @@ class Frame2D(_Frame2DLoader,
         """ Flattens the data on XY only.
 
         This means that the first 2 dimensions will be merged together.
+
+        :returns: np.ndarray, Shape = (Height * Width, Channels)
         """
         return self.data.reshape([-1, self.shape[-1]])
 
@@ -96,13 +124,18 @@ class Frame2D(_Frame2DLoader,
         This is used to flatten the dimension while keeping all distinct values distinct.
 
         Note the new dtype is uint32.
+
+        :returns: np.ndarray, Shape = (Height * Width)
         """
 
         rgb = self.data_rgb().data.astype(dtype=np.uint32)
         return rgb[..., 0] + rgb[..., 1] * 256 + rgb[..., 2] * (256 ** 2)
 
     def _labels_to_ix(self, labels: str or List[str]):
-        """ Converts keys to indexes for splicing """
+        """ Converts keys to indexes for splicing
+
+        :returns: np.ndarray, [A, B, C, ...]
+        """
 
         if isinstance(labels, str): labels = [labels]
         else: labels = list(self._util_flatten(labels))
@@ -115,11 +148,18 @@ class Frame2D(_Frame2DLoader,
     def data_chn(self, labels: Union[List, CONSTS.CHN, Any]) -> Frame2D:
         """ Gets channels as another Frame2D
 
-        :param labels: Can be a single str or multiple in a List"""
+        This will still return (Height, Width, 1) even on 1 channel, use squeeze to explicitly remove last dim
+
+        :param labels: Can be a single str or multiple in a List
+        :returns: Frame2D, Shape=(Height, Width, Channels)
+        """
         return self.create(self.data[..., self._labels_to_ix(labels)], labels)
 
     def data_rgb(self) -> Frame2D:
-        """ Gets RGB as another Frame2D """
+        """ Gets RGB as another Frame2D
+
+        :returns: Frame2D, Shape=(Height, Width, RGB Channels)
+        """
         return self.data_chn(CONSTS.CHN.RGB)
 
     def append(self, ar: np.ndarray, labels: str or Tuple[str]) -> Frame2D:
@@ -132,7 +172,7 @@ class Frame2D(_Frame2DLoader,
 
         :param ar: The array to append to self array. Must be of the same dimensions for the first 2 axes
         :param labels: A list of string labels. Must be the same length as the number of channels to append
-        :return: Returns a new Frame2D.
+        :return: Returns a new Frame2D, Shape = (Height, Width, Channel A + B)
         """
         ar_shape = ar.shape
         self_shape = self.shape
@@ -154,15 +194,17 @@ class Frame2D(_Frame2DLoader,
         return Frame2D(buffer, [*self._labels, *labels])
 
     def size(self) -> int:
-        """ Returns the number of pixels """
+        """ Returns the number of pixels, Height * Width. """
         return self.data.size
 
     @property
     def shape(self) -> Tuple:
+        """ Returns the Shape, similar to np.ndarray """
         return self.data.shape
 
     @property
     def dtype(self):
+        """ Returns the dtype representation. """
         return self.data.dtype
 
     def height(self) -> int:
@@ -173,13 +215,16 @@ class Frame2D(_Frame2DLoader,
 
     @staticmethod
     def _get_chn_size(chns: Iterable[CONSTS.CHN]) -> int:
-        """ This gets the channel size """
+        """ This gets the channel size
+
+        That is, if you have [(R, G, B), X, H], this algorithm can flatten it can return 5.
+        """
         return len(list(Frame2D._util_flatten(chns)))
 
     @staticmethod
     def _util_flatten(iterable):
         """ Flattens potentially nested iterables """
-        """ https://stackoverflow.com/questions/2158395/flatten-an-irregular-list-of-lists """
+        """ Reference: https://stackoverflow.com/questions/2158395/flatten-an-irregular-list-of-lists """
         for el in iterable:
             if isinstance(el, Iterable) and not isinstance(el, (str, bytes)):
                 yield from Frame2D._util_flatten(el)
