@@ -21,7 +21,7 @@ class KMeans2D:
         """ Creates a KMeans Object from current data
 
         :param model: KMeans Model
-        :param fit_indexes: The indexes to .fit()
+        :param fit_indexes: The indexes to .fit() to, must be a list of the Channel Consts
         :param scaler: The scaler to use, must be a callable(np.ndarray)
         :param frame_1dmask: The 2D mask to exclude certain points. Must be in 2 Dimensions
         :returns: KMeans2D Instance
