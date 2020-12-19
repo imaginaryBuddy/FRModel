@@ -25,7 +25,7 @@ copyright = '2020, Eve-ning'
 author = 'Eve-ning'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.4'
+release = '0.0.5'
 
 
 # -- General configuration ---------------------------------------------------
@@ -50,7 +50,8 @@ autodoc_default_options = {
     'members': True,
     'show-inheritance': True,
     'special-members': '__init__',
-    'member-order': 'groupwise'
+    'member-order': 'groupwise',
+    'private-members': True
 }
 
 # -- Options for HTML output -------------------------------------------------

@@ -11,22 +11,36 @@ DRAW_MODE = "RGB"
 
 @dataclass
 class Draw2D:
+    """ This class is not extensively used yet, hence it may look lackluster.
+
+    If there's required immediate use, do inform me.
+    """
 
     canvas: Image.Image
     canvas_draw: ImageDraw.ImageDraw
 
     @staticmethod
     def new(height, width, default_color=(255,255,255)):
+        """ Creates a new Draw2D Class with a blank drawable Canvas """
+
         canvas = Image.new(DRAW_MODE, [height, width], color=default_color)
         return Draw2D(canvas, ImageDraw.Draw(canvas, mode=DRAW_MODE))
 
-    def save(self, file_path):
-        self.canvas.save(file_path)
-
     @staticmethod
     def load_image(file_path):
+        """ Creates a new Draw2D Class with a image as the Canvas """
+
         canvas = Image.open(file_path, mode=DRAW_MODE)
         return Draw2D(canvas, ImageDraw.Draw(canvas, mode=DRAW_MODE))
+
+    @staticmethod
+    def load_frame(frame: Frame2D) -> Draw2D:
+        """ Creates a new Draw2D Class with a frame as the Canvas """
+        canvas = Image.fromarray(frame.data_rgb().data, mode=DRAW_MODE)
+        return Draw2D(canvas, ImageDraw.Draw(canvas, DRAW_MODE))
+
+    def save(self, file_path):
+        self.canvas.save(file_path)
 
     def mark_single(self, x: int, y: int, label: Any = None,
                     radius: int = 2, outline: Tuple = (255, 255, 255),
@@ -40,6 +54,7 @@ class Draw2D:
         :param outline: Outline color of marker, also text color
         :param fill: Fill color of marker, no fill is None.
         """
+
         self.canvas_draw.ellipse([x - radius, y - radius,
                                   x + radius, y + radius],
                                  outline=outline, fill=fill)
@@ -58,6 +73,7 @@ class Draw2D:
         :param outline: Outline color of marker, also text color
         :param fill: Fill color of marker, no fill is None.
         """
+
         assert len(xs) == len(ys), "xy Lengths must be the same"
         if not labels: labels = [None] * len(xs)
         else: assert len(xs) == len(labels), "label Lengths must be the same as xy."
@@ -65,10 +81,6 @@ class Draw2D:
         for x, y, l in zip(xs, ys, labels):
             self.mark_single(x, y, l, radius, outline, fill)
 
-    @staticmethod
-    def load_frame(frame: Frame2D) -> Draw2D:
-        canvas = Image.fromarray(frame.data_rgb(), mode=DRAW_MODE)
-        return Draw2D(canvas, ImageDraw.Draw(canvas, DRAW_MODE))
 
     def draw(self):
         return ImageDraw.Draw(self.canvas)

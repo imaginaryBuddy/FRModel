@@ -1,107 +1,202 @@
 from __future__ import annotations
 
-from abc import abstractmethod
+from typing import TYPE_CHECKING, Tuple, Iterable
 
 import numpy as np
-from scipy.signal import fftconvolve
-from scipy.signal.windows import gaussian
 from skimage.color import rgb2hsv
 
 from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
-from frmodel.base.consts import CONSTS
 
-CHANNEL = CONSTS.CHANNEL
-MAX_RGB = 255
+if TYPE_CHECKING:
+    from frmodel.base.D2.frame2D import Frame2D
 
 
 class _Frame2DChannel(_Frame2DChannelGLCM):
 
-    data: np.ndarray
-    
-    @abstractmethod
-    def data_rgb(self): ...
-    
-    @abstractmethod
-    def data_chn(self, *args, **kwargs): ...
+    def get_all_chns(self: 'Frame2D',
+                     self_: bool = False,
+                     exc_chns: Iterable[Frame2D.CHN] = None,
+                     glcm: _Frame2DChannel.GLCM = None) -> _Frame2DChannel:
+        """ Gets all channels, excludes any in exc_chns.
 
-    @abstractmethod
-    def width(self): ...
+        Use get_chns to get selected ones
 
-    @abstractmethod
-    def height(self): ...
-    
-    @abstractmethod
-    def slide_xy(self, *args, **kwargs): ...
+        Order is given by the argument order.
+        R, G, B, X, Y, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG,
+        ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
 
-    # noinspection PyArgumentList
-    @classmethod
-    def init(cls, *args, **kwargs):
-        return cls(*args, **kwargs)
+        :param self_: Include current frame
+        :param exc_chns: Excluded Channels
+        :param glcm: GLCM Object
 
-    def get_hsv(self) -> np.ndarray:
-        """ Creates a HSV """
-        return rgb2hsv(self.data_rgb())
+        :returns: Frame2D Object with requested channesls
+        """
 
-    def get_ex_g(self, modified=False) -> np.ndarray:
+        self: 'Frame2D'
+        chns = [self.CHN.XY,
+                self.CHN.EX_G,
+                self.CHN.MEX_G,
+                self.CHN.HSV,
+                self.CHN.NDI,
+                self.CHN.VEG,
+                self.CHN.EX_GR]
+
+        return self.get_all_chns(self_, [c for c in chns if c not in exc_chns], glcm)
+
+    def get_chns(self: 'Frame2D',
+                 self_: bool = True,
+                 chns: Iterable[Frame2D.CHN] = None,
+                 glcm: _Frame2DChannel.GLCM = None) -> _Frame2DChannel:
+        """ Gets selected channels
+
+        Use get_all_chns to get all but selected ones
+
+        Order is given by the argument order.
+        R, G, B, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG, X, Y,
+        ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
+
+        :param self_: Include current frame
+        :param chns: Channels
+        :param glcm: GLCM Object
+
+        :returns
+        """
+
+        labels = []
+        chns = [] if not chns else chns
+
+        self: 'Frame2D'
+        data = np.zeros([*self.shape[0:2],
+                          self._get_chn_size(chns) + self.shape[-1] if self_ else
+                          self._get_chn_size(chns)])
+
+        _chn_mapping: dict = {
+            self.CHN.XY:    self.get_xy,
+            self.CHN.HSV:   self.get_hsv,
+            self.CHN.EX_G:  self.get_ex_g,
+            self.CHN.EX_GR: self.get_ex_gr,
+            self.CHN.MEX_G: self.get_mex_g,
+            self.CHN.NDI:   self.get_ndi,
+            self.CHN.VEG:   self.get_ex_g
+        }
+
+        it = 0
+
+        if self_:
+            data[..., it:self.shape[-1]] = self.data
+            labels = [self.labels.keys()]
+            it += self.shape[-1]
+
+        for chn in chns:
+            length = len(chn) if isinstance(chn, Tuple) else 1
+            try:
+                data[..., it:it+length] = _chn_mapping[chn]()
+                labels.append(chn)
+            except KeyError:
+                if chn in (self.CHN.X, self.CHN.Y):
+                    KeyError(f"You cannot get {chn} separately from XY, call with CHN.HSV")
+                elif chn in self.CHN.HSV:
+                    KeyError(f"You cannot get {chn} separately from HSV, call with CHN.HSV")
+                elif chn in (*self.CHN.RGB, self.CHN.RGB):
+                    KeyError(f"You cannot get {chn}, these are bases value and cannot be directly calculated")
+                else:
+                    KeyError(f"Failed to find channel {chn}, I recommend to use CONSTS.CHN to get the correct"
+                             f"strings to call")
+            it += length
+
+        frame: 'Frame2D' = self.create(data=data, labels=labels)
+
+        if glcm:
+            if frame.shape[-1] == 0:
+                # Cannot convolute a 0 set. We'll still entertain get_glcm only.
+                frame = self.create(*self.get_glcm(glcm))
+            else:
+                frame = frame.convolute(radius=glcm.radius).append(*self.get_glcm(glcm))
+
+        return frame
+
+    def get_hsv(self: 'Frame2D') -> np.ndarray:
+        """ Creates a HSV
+
+        :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
+        """
+        return rgb2hsv(self.data_rgb().data)
+
+    def get_ex_g(self: 'Frame2D') -> np.ndarray:
         """ Calculates the excessive green index
 
         Original: 2g - 1r - 1b
-        Modified: 1.262g - 0.884r - 0.331b
 
-        :param modified: Whether to use the modified or not. Refer to docstring
+        :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
         """
 
-        if modified:
-            return 1.262 * self.data_chn(CHANNEL.RED) - \
-                   0.884 * self.data_chn(CHANNEL.GREEN) - \
-                   0.331 * self.data_chn(CHANNEL.BLUE)
+        return 2 * self.data_chn(self.CHN.RED).data - \
+               self.data_chn(self.CHN.GREEN).data - \
+               self.data_chn(self.CHN.BLUE).data
 
-        else:
-            return 2 * self.data_chn(CHANNEL.RED) - \
-                   self.data_chn(CHANNEL.GREEN) - \
-                   self.data_chn(CHANNEL.BLUE)
+    def get_mex_g(self: 'Frame2D') -> np.ndarray:
+        """ Calculates the Modified excessive green index
 
-    def get_ex_gr(self) -> np.ndarray:
+        1.262g - 0.884r - 0.331b
+
+        :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
+        """
+
+        return 1.262 * self.data_chn(self.CHN.RED).data - \
+               0.884 * self.data_chn(self.CHN.GREEN).data - \
+               0.331 * self.data_chn(self.CHN.BLUE).data
+
+    def get_ex_gr(self: 'Frame2D') -> np.ndarray:
         """ Calculates the excessive green minus excess red index
 
         2g - r - b - 1.4r + g = 3g - 2.4r - b
+
+        :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
         """
 
-        return 3 * self.data_chn(CHANNEL.RED) - 2.4 * self.data_chn(CHANNEL.GREEN) - self.data_chn(CHANNEL.BLUE)
+        return 3   * self.data_chn(self.CHN.RED).data - \
+               2.4 * self.data_chn(self.CHN.GREEN).data - \
+                     self.data_chn(self.CHN.BLUE).data
 
-    def get_ndi(self):
+    def get_ndi(self: 'Frame2D') -> np.ndarray:
         """ Calculates the Normalized Difference Index
 
         (g - r) / (g + r)
+
+        :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
             x = np.nan_to_num(
-                np.true_divide(self.data_chn(CHANNEL.GREEN).astype(np.int) -
-                               self.data_chn(CHANNEL.RED).astype(np.int),
-                               self.data_chn(CHANNEL.GREEN).astype(np.int) +
-                               self.data_chn(CHANNEL.RED).astype(np.int)),
+                np.true_divide(self.data_chn(self.CHN.GREEN).data.astype(np.int) -
+                               self.data_chn(self.CHN.RED)  .data.astype(np.int),
+                               self.data_chn(self.CHN.GREEN).data.astype(np.int) +
+                               self.data_chn(self.CHN.RED)  .data.astype(np.int)),
                 copy=False, nan=0, neginf=0, posinf=0)
 
         return x
 
-    def get_veg(self, const_a: float = 0.667):
+    def get_veg(self: 'Frame2D', const_a: float = 0.667) -> np.ndarray:
         """ Calculates the Vegetative Index
 
         g / {(r^a) * [b^(1 - a)]}
 
         :param const_a: Constant A depends on the camera used.
+        :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_chn(CHANNEL.GREEN).astype(np.float) /
-                              (np.power(self.data_chn(CHANNEL.RED).astype(np.float), const_a) *
-                               np.power(self.data_chn(CHANNEL.BLUE).astype(np.float), 1 - const_a)),
+            x = np.nan_to_num(self.data_chn(self.CHN.GREEN).data.astype(np.float) /
+                              (np.power(self.data_chn(self.CHN.RED).data.astype(np.float), const_a) *
+                               np.power(self.data_chn(self.CHN.BLUE).data.astype(np.float), 1 - const_a)),
                               copy=False, nan=0, neginf=0, posinf=0)
         return x
 
-    def get_xy(self) -> np.ndarray:
-        """ Creates the XY Coord Array """
+    def get_xy(self: 'Frame2D') -> np.ndarray:
+        """ Creates the XY Coord Array
+
+        :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
+        """
 
         # We create a new array to copy self over we expand the last axis by 2
         buffer = np.zeros([*self.data.shape[0:-1], 2])
@@ -111,106 +206,3 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         buffer[..., 1] = np.tile(np.arange(0, self.height()), (self.width(), 1)).swapaxes(0, 1)
 
         return buffer
-
-    def get_chns(self, self_=False, xy=False, hsv=False, ex_g=False,
-                 mex_g=False, ex_gr=False, ndi=False, veg=False,
-                 veg_a=0.667, glcm_con=False, glcm_cor=False, glcm_ent=False,
-                 glcm_by_x=1, glcm_by_y=1,
-                 glcm_radius=5, glcm_verbose=False,
-                 glcm_entropy_mp=False, glcm_entropy_mp_procs=None,
-                 conv_gauss_stdev=4) -> _Frame2DChannel:
-        """ Gets selected channels
-
-        Order is given by the argument order.
-        R, G, B, X, Y, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG,
-        ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
-
-        :param self_: Include current frame
-        :param xy: XY Coordinates
-        :param hsv: Hue, Saturation, Value
-        :param ex_g: Excess Green
-        :param mex_g: Modified Excess Green
-        :param ex_gr: Excess Green Minus Red
-        :param ndi: Normalized Difference Index
-        :param veg: Vegetative Index
-        :param veg_a: Vegatative Index Const A
-        :param glcm_con: GLCM Contrast
-        :param glcm_cor: GLCM Correlation
-        :param glcm_ent: GLCM Entropy
-        :param glcm_by_x: GLCM By X Parameter
-        :param glcm_by_y: GLCM By Y Parameter
-        :param glcm_radius: GLCM Radius
-        :param glcm_verbose: Whether to have glcm entropy generation give feedback
-        :param glcm_entropy_mp: Whether to enable multiprocessing for GLCM Entropy
-        :param glcm_entropy_mp_procs: Number of processes to run for GLCM Entropy
-        :param conv_gauss_stdev: The stdev of the gaussian kernel used to convolute existing channels if GLCM is used
-        """
-        return self.get_all_chns(self_, xy, hsv, ex_g, mex_g, ex_gr, ndi,
-                                 veg, veg_a, glcm_con, glcm_cor, glcm_ent,
-                                 glcm_by_x, glcm_by_y, glcm_radius, glcm_verbose,
-                                 glcm_entropy_mp, glcm_entropy_mp_procs,
-                                 conv_gauss_stdev)
-
-    def get_all_chns(self, self_=True, xy=True, hsv=True, ex_g=True, mex_g=True,
-                     ex_gr=True, ndi=True, veg=True, veg_a=0.667,
-                     glcm_con=True, glcm_cor=True, glcm_ent=True,
-                     glcm_by_x=1, glcm_by_y=1, glcm_radius=5, glcm_verbose=False,
-                     glcm_entropy_mp=False, glcm_entropy_mp_procs=None,
-                     conv_gauss_stdev=4) -> _Frame2DChannel:
-        """ Gets all implemented channels, excluding possible.
-
-        Order is given by the argument order.
-        R, G, B, H, S, V, EX_G, MEX_G, EX_GR, NDI, VEG, X, Y,
-        ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB
-
-        :param self_: Include current frame
-        :param xy: XY Coordinates
-        :param hsv: Hue, Saturation, Value
-        :param ex_g: Excess Green
-        :param mex_g: Modified Excess Green
-        :param ex_gr: Excess Green Minus Red
-        :param ndi: Normalized Difference Index
-        :param veg: Vegetative Index
-        :param veg_a: Vegatative Index Const A
-        :param glcm_con: GLCM Contrast
-        :param glcm_cor: GLCM Correlation
-        :param glcm_ent: GLCM Entropy
-        :param glcm_by_x: GLCM By X Parameter
-        :param glcm_by_y: GLCM By Y Parameter
-        :param glcm_radius: GLCM Radius
-        :param glcm_verbose: Whether to have glcm entropy generation give feedback
-        :param glcm_entropy_mp: Whether to enable multiprocessing for GLCM Entropy
-        :param glcm_entropy_mp_procs: Number of processes to run for GLCM Entropy
-        :param conv_gauss_stdev: The stdev of the gaussian kernel used to convolute existing channels if GLCM is used
-        """
-
-        features = \
-            [self.data if self_ else None,
-             self.get_xy() if xy else None,
-             self.get_hsv() if hsv else None,
-             self.get_ex_g() if ex_g else None,
-             self.get_ex_g(True) if mex_g else None,
-             self.get_ex_gr() if ex_gr else None,
-             self.get_ndi() if ndi else None,
-             self.get_veg(veg_a) if veg else None]
-
-        frame = self.init(np.concatenate([f for f in features if f is not None], axis=2))
-
-        if glcm_con or glcm_cor or glcm_ent:
-            # We trim the frame so that the new glcm can fit
-            # We also average the shifted frame with the current
-
-            kernel_diam = glcm_radius * 2 + 1
-            kernel = np.outer(gaussian(kernel_diam + glcm_by_y, conv_gauss_stdev),
-                              gaussian(kernel_diam + glcm_by_x, conv_gauss_stdev))
-            kernel = np.expand_dims(kernel, axis=-1)
-            fft = fftconvolve(frame.data, kernel, mode='valid', axes=[0,1])
-            glcm = self.get_glcm(
-                contrast=glcm_con, correlation=glcm_cor, entropy=glcm_ent,
-                by_x=glcm_by_x, by_y=glcm_by_y, radius=glcm_radius, verbose=glcm_verbose,
-                entropy_mp=glcm_entropy_mp, entropy_mp_procs=glcm_entropy_mp_procs
-                )
-
-            return self.init(np.concatenate([fft, glcm], axis=2))
-
-        return frame

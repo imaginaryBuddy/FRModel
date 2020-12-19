@@ -1,27 +1,17 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from typing import List
+from abc import ABC
+from typing import List, TYPE_CHECKING
 
 import numpy as np
 
 from frmodel.base.consts import CONSTS
 
+if TYPE_CHECKING:
+    from frmodel.base.D2.frame2D import Frame2D
+
 
 class _Frame2DPartition(ABC):
-
-    data: np.ndarray
-
-    @abstractmethod
-    def width(self): ...
-
-    @abstractmethod
-    def height(self): ...
-
-    # noinspection PyArgumentList
-    @classmethod
-    def init(cls, *args, **kwargs):
-        return cls(*args, **kwargs)
 
     class SplitMethod:
         DROP = 0
@@ -29,7 +19,41 @@ class _Frame2DPartition(ABC):
 
         # Require to support padding? Not implemented yet.
 
-    def split_xy(self,
+    def split(self: 'Frame2D',
+              by: int,
+              axis_cut: CONSTS.AXIS = CONSTS.AXIS.Y,
+              method: SplitMethod = SplitMethod.DROP) -> List[_Frame2DPartition]:
+        """ Splits the current Frame into windows of specified size.
+
+        This operation is much faster but cannot have overlapping windows
+
+        :param by: Size of each piece
+        :param axis_cut: Axis to cut
+        :param method: Method of splitting
+        :return: List of Frame2D
+
+        """
+
+        # Pre-process by as modified by_
+        # np.split_array splits it by the number of slices generated,
+        # we need to transform this into the slice locations
+
+        if axis_cut == CONSTS.AXIS.Y:
+            by_ = np.arange(by, self.width(), by)
+        elif axis_cut == CONSTS.AXIS.X:
+            by_ = np.arange(by, self.height(), by)
+        else:
+            raise TypeError(f"Axis {axis_cut} is not recognised. Use CONSTS.AXIS class.")
+
+        spl = np.array_split(self.data, by_, axis=axis_cut)
+        if method == _Frame2DPartition.SplitMethod.CROP:
+            # By default, it'll just "crop" the edges
+            return [self.create(data=s, labels=self.labels) for s in spl]
+        elif method == _Frame2DPartition.SplitMethod.DROP:
+            # We will use a conditional to drop any images that is "cropped"
+            return [self.create(data=s, labels=self.labels) for s in spl if s.shape[axis_cut] == by]
+
+    def split_xy(self: 'Frame2D',
                  by: int,
                  method: SplitMethod = SplitMethod.DROP) -> List[List[_Frame2DPartition]]:
         """ Short hand for splitting by both axes.
@@ -53,39 +77,6 @@ class _Frame2DPartition(ABC):
         """
         return [f.split(by, axis_cut=CONSTS.AXIS.X, method=method)
                 for f in self.split(by, axis_cut=CONSTS.AXIS.Y, method=method)]
-
-    def split(self,
-              by: int,
-              axis_cut: CONSTS.AXIS = CONSTS.AXIS.Y,
-              method: SplitMethod = SplitMethod.DROP) -> List[_Frame2DPartition]:
-        """ Splits the current Frame into windows of specified size.
-
-        This operation is much faster but cannot have overlapping windows
-
-        :param by: Size of each piece
-        :param axis_cut: Axis to cut
-        :param method: Method of splitting
-        :return: List of Frame2D
-
-        """
-
-        # Pre-process by as modified by_
-        # np.split_array splits it by the number of slices generated,
-        # we need to transform this into the slice locations
-        if axis_cut == CONSTS.AXIS.Y:
-            by_ = np.arange(by, self.width(), by)
-        elif axis_cut == CONSTS.AXIS.X:
-            by_ = np.arange(by, self.height(), by)
-        else:
-            raise TypeError(f"Axis {axis_cut} is not recognised. Use CONSTS.AXIS class.")
-
-        spl = np.array_split(self.data, by_, axis=axis_cut)
-        if method == _Frame2DPartition.SplitMethod.CROP:
-            # By default, it'll just "crop" the edges
-            return [self.init(s) for s in spl]
-        elif method == _Frame2DPartition.SplitMethod.DROP:
-            # We will use a conditional to drop any images that is "cropped"
-            return [self.init(s) for s in spl if s.shape[axis_cut] == by]
 
     def slide_xy(self, by, stride=1) -> List[List[_Frame2DPartition]]:
         """ Short hand for sliding by both axes.
@@ -124,9 +115,12 @@ class _Frame2DPartition(ABC):
         :return: List of Frame2D
         """
 
+        self: 'Frame2D'
         if axis_cut == CONSTS.AXIS.Y:
-            return [self.init(self.data[:, i: i + by])
+            return [self.create(data=self.data[:, i: i + by],
+                                labels=self.labels)
                     for i in range(0, self.width() - by + 1, stride)]
         elif axis_cut == CONSTS.AXIS.X:
-            return [self.init(self.data[i: i + by, :])
+            return [self.create(data=self.data[i: i + by, :],
+                                labels=self.labels)
                     for i in range(0, self.height() - by + 1, stride)]

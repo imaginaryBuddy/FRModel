@@ -5,6 +5,7 @@ from typing import List
 
 import cv2
 
+from frmodel.base import CONSTS
 from frmodel.base.D2.frame2D import Frame2D
 
 
@@ -47,14 +48,15 @@ class Video2D:
             if success:
                 # CV2 uses BGR, we swap the channels here
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                img_list.append(Frame2D(image))
+                img_list.append(Frame2D(image, CONSTS.CHN.RGB))
             else:
                 img_list.append(failure_default)
 
         return img_list
 
-    # OpenCV has a lot of issues detecting duration. This returns a negative value in a test, not reliable.
-    # def duration(self) -> int:
-    #     """ Gets the duration of the video """
-    #     self.vid.set(cv2.CAP_PROP_POS_AVI_RATIO, 1)
-    #     return self.vid.get(cv2.CAP_PROP_POS_MSEC)
+    """ Deprecated
+    OpenCV has a lot of issues detecting duration. This returns a negative value in a test, not reliable.
+    def duration(self) -> int:
+        self.vid.set(cv2.CAP_PROP_POS_AVI_RATIO, 1)
+        return self.vid.get(cv2.CAP_PROP_POS_MSEC)
+    """

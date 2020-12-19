@@ -1,101 +1,59 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from typing import List
 
-from PIL import Image
-from scipy.stats import rankdata
-from seaborn import FacetGrid
-
-from sklearn.cluster import KMeans
 import numpy as np
-import pandas as pd
-import seaborn as sns
+from sklearn.cluster import KMeans
+
+from frmodel.base import CONSTS
+from frmodel.base.D2 import Frame2D
 
 
-@dataclass
 class KMeans2D:
+    """ A KMeans2D object separate from Frame2D as proposed, to avoid cluttering """
 
-    model: KMeans
-    data: np.ndarray
+    def __init__(self,
+                 frame: Frame2D,
+                 model: KMeans,
+                 fit_to: List[Frame2D.CHN] = None,
+                 frame_1dmask: np.ndarray = None,
+                 scaler=None):
+        """ Creates a KMeans Object from current data
 
-    def plot(self,
-             xy_indexes=(3 ,4),
-             scatter_size=0.2) -> FacetGrid:
-        """ Generates a plot with fitted KMeans
-
-        Implicitly set 1:1 ratio plotting
-        Implicitly inverts y-axis
-
-        :param xy_indexes: The indexes of X & Y for plotting
-        :param scatter_size: Size of marker
-        :return: A FacetGrid
+        :param model: KMeans Model
+        :param fit_to: The indexes to .fit() to, must be a list of the Channel Consts. If None, use all channels
+        :param scaler: The scaler to use, must be a callable(np.ndarray)
+        :param frame_1dmask: The 2D mask to exclude certain points. Must be in 2 Dimensions
+        :returns: KMeans2D Instance
         """
-        df = pd.DataFrame(np.append(self.data, self.model.labels_[..., np.newaxis], axis=-1))
-        df.columns = [f"c{e}" for e, _ in enumerate(df.columns)]
+        data = frame.data_chn(fit_to).data_flatten_xy() if fit_to else frame.data_flatten_xy()
 
-        fg = sns.lmplot(data=df,
-                        x=f'c{xy_indexes[0]}',
-                        y=f'c{xy_indexes[1]}',
-                        hue=df.columns[-1],
-                        fit_reg=False,
-                        legend=True,
-                        legend_out=True,
-                        scatter_kws={"s": scatter_size})
-        fg.ax.set_aspect('equal')
-        fg.ax.invert_yaxis()
+        if frame_1dmask is not None:
+            assert frame_1dmask.shape == data.shape[:-1],\
+                f"The Frame 2D Mask must match the size of first 2 Dimensions of frame exactly." \
+                f"(Mask Shape: {frame_1dmask.shape}, Frame 2D Shape: {data.shape[:-1]})"
+            data = data[frame_1dmask, ...]
+        if scaler:
+            data = scaler(data)
+        fit = model.fit(data)
+        self.model = fit
+        self.frame = frame
+        self.frame_1dmask = frame_1dmask
 
-        return fg
+    def frame_masked(self, with_xy: bool = True) -> np.ndarray:
+        """ Returns the masked frame
 
-    def score(self,
-              score_file_path: str):
-        """ Scores the current Kmeans model with a scoring image
+        :param with_xy: Whether to append XY with it. This can help in determining the pixel locations of these data.
+        :returns: np.ndarray, a flattened Frame2D
+        """
+        return self.frame.get_chns(self_=True, chns=[Frame2D.CHN.XY])\
+                   .data_flatten_xy()[self.frame_1dmask, :] if with_xy else\
+               self.frame.data_flatten_xy()[self.frame_1dmask, :]
 
-        :param score_file_path: The file path to the scoring image.
-        :return: Count Array, Score out of 1.
+    def as_frame(self) -> Frame2D:
+        """ Converts current model into Frame2D based on labels. Places label at the end of channel dimension
+
+        :return: Frame2D
         """
 
-        # Convert to array
-        im: Image.Image = Image.open(score_file_path).convert('LA')
-        ar = np.asarray(im)[..., 0]
-
-        # Convert Image Grayscale (0-255) to quantized rank
-        # This will only work if all Grayscale values are unique.
-        ar = rankdata(ar, method='dense') - 1
-
-        # Count each unique pair occurrence and return count.
-        # Because return_count returns separately, we vstack it
-        # Then we transpose the data for iterrows() op
-        ar = \
-            np.vstack(
-                np.unique(axis=1, return_counts=True,
-                          ar=np.vstack([self.model.labels_, ar]))).transpose()
-
-        # This sorts by the last column (Counts)
-        ar: np.ndarray = ar[ar[:, -1].argsort()[::-1]]
-
-        # There's no simple way to get the maximum unique of 2 dimensions I believe
-        # We'll loop through the cells using a naive approach
-        # This approach is naive because if we were to permutate all possible
-        # combinations, we'll end up with a really large list.
-        # This is not ideal if we want to scale this up for more trees
-        # However, it's not a hard limitation.
-
-        # We have the following array structure
-        # PREDICT ACTUAL COUNT
-        # The catch is that predict and actual cannot appear more than once.
-
-        visited_pred = []
-        visited_act = []
-        counts = []
-        for r in ar:
-            if r[0] in visited_pred or r[1] in visited_act:
-                continue
-            else:
-                visited_pred.append(int(r[0]))
-                visited_act.append(int(r[1]))
-                counts.append(r)
-
-        ar = np.asarray(counts)
-        return ar, np.sum(ar[:, -1]) / (im.size[0] * im.size[1])
-
-
+        return self.frame.append(self.model.labels_.reshape(self.frame.shape[0:2]), CONSTS.CHN.KMEANS.LABEL)
