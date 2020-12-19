@@ -79,7 +79,7 @@ def kmeans_scoring_12122020(test_path: str,
     # Predict using KMeans
     predict_km_mnl = KMeans2D(predict_rgb,
                               KMeans(clusters_mnl, verbose=verbose),
-                              fit_indexes=list(range(3)),
+                              fit_to=list(range(3)),
                               scaler=scale)
 
     # Score the prediction
@@ -130,7 +130,7 @@ def kmeans_scoring_12122020(test_path: str,
     predict_km_mnf =\
         KMeans2D(predict,
                  KMeans(clusters_mnf, verbose=True),
-                 fit_indexes=fit_indexes,
+                 fit_to=fit_indexes,
                  frame_1dmask=mask_mnl,
                  scaler=scale)
 
