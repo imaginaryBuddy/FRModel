@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import List
+
 import numpy as np
 from sklearn.cluster import KMeans
 
@@ -13,7 +15,7 @@ class KMeans2D:
     def __init__(self,
                  frame: Frame2D,
                  model: KMeans,
-                 fit_indexes,
+                 fit_indexes: List[Frame2D.CHN],
                  frame_1dmask: np.ndarray = None,
                  scaler=None):
         """ Creates a KMeans Object from current data
@@ -24,7 +26,7 @@ class KMeans2D:
         :param frame_1dmask: The 2D mask to exclude certain points. Must be in 2 Dimensions
         :returns: KMeans2D Instance
         """
-        data = frame.data_flatten_xy()[..., fit_indexes]
+        data = frame.data_chn(fit_indexes).data_flatten_xy()
 
         if frame_1dmask is not None:
             assert frame_1dmask.shape == data.shape[:-1],\
