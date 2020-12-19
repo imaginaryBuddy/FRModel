@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frame Partitioning &mdash; frmodel 0.0.4 documentation</title>
+  <title>Frame Partitioning &mdash; frmodel 0.0.5 documentation</title>
   
 
   
@@ -99,6 +99,7 @@
 <li class="toctree-l4"><a class="reference internal" href="frame_channel_glcm.html">GLCM</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame_kmeans.html">K-Means</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_plot.html">Plotting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame2D.html#module-frmodel.base.D2.frame2D">Module Info</a></li>
@@ -222,6 +223,107 @@ we can specify to either <code class="docutils literal notranslate"><span class=
 </div>
 <div class="section" id="module-frmodel.base.D2.frame._frame_partition">
 <span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_partition" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame._frame_partition.</code><code class="sig-name descname">_Frame2DPartition</code><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide">
+<code class="sig-name descname">slide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span></em>, <em class="sig-param"><span class="n">stride</span></em>, <em class="sig-param"><span class="n">axis_cut</span><span class="p">:</span> <span class="n">frmodel.base.consts.CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">frmodel.base.D2.frame._frame_partition._Frame2DPartition</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slides a window along an axis and grabs that window as a new Frame2D</p>
+<p>This operation is slower due to looping but allows for overlapping windows</p>
+<p>If the window meets the edge, it will be dropped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>by</strong> – Size of each piece</p></li>
+<li><p><strong>stride</strong> – Stride when sliding</p></li>
+<li><p><strong>axis_cut</strong> – Axis to cut</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide_xy">
+<code class="sig-name descname">slide_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">frmodel.base.D2.frame._frame_partition._Frame2DPartition</a><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short hand for sliding by both axes.</p>
+<p>Slides by X first, then Y.</p>
+<p>E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="mi">11</span> <span class="o">|</span> <span class="mi">16</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="mi">12</span> <span class="o">|</span> <span class="mi">17</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="mi">13</span> <span class="o">|</span> <span class="mi">18</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="mi">14</span> <span class="o">|</span> <span class="mi">19</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span> <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">15</span> <span class="o">|</span> <span class="mi">20</span> <span class="o">|</span>
+
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>by</strong> – Size of each piece</p></li>
+<li><p><strong>stride</strong> – Stride when sliding</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of List of Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.split">
+<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">axis_cut</span><span class="p">:</span> <span class="n">CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">_Frame2DPartition</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the current Frame into windows of specified size.</p>
+<p>This operation is much faster but cannot have overlapping windows</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>by</strong> – Size of each piece</p></li>
+<li><p><strong>axis_cut</strong> – Axis to cut</p></li>
+<li><p><strong>method</strong> – Method of splitting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.split_xy">
+<code class="sig-name descname">split_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">_Frame2DPartition</a><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.split_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short hand for splitting by both axes.</p>
+<p>Splits by X first, then Y.</p>
+<p>E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="mi">11</span> <span class="o">|</span> <span class="mi">16</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="mi">12</span> <span class="o">|</span> <span class="mi">17</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="mi">13</span> <span class="o">|</span> <span class="mi">18</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="mi">14</span> <span class="o">|</span> <span class="mi">19</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span> <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">15</span> <span class="o">|</span> <span class="mi">20</span> <span class="o">|</span>
+
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>by</strong> – Size of each piece</p></li>
+<li><p><strong>method</strong> – Method of splitting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of List of Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
