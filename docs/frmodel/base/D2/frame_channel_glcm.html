@@ -1,0 +1,424 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Frame Gray Level Co-occurrence Matrix &mdash; frmodel 0.0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Frame Scaling" href="frame_scaling.html" />
+    <link rel="prev" title="Frame Channel" href="frame_channel.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="frame2D.html">Frame2D</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="frame_partition.html">Partition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel.html">Channel</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">GLCM</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#glcm-class">GLCM Class</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#algorithm">Algorithm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.frame._frame_channel_glcm">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_plot.html">Plotting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#module-frmodel.base.D2.frame2D">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kmeans2D.html">KMeans2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+          <li><a href="D2.html">2D Classes</a> &raquo;</li>
+        
+          <li><a href="frame2D.html">Frame</a> &raquo;</li>
+        
+      <li>Frame Gray Level Co-occurrence Matrix</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/frmodel/base/D2/frame_channel_glcm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="frame-gray-level-co-occurrence-matrix">
+<h1>Frame Gray Level Co-occurrence Matrix<a class="headerlink" href="#frame-gray-level-co-occurrence-matrix" title="Permalink to this headline">¶</a></h1>
+<p><em>The GLCM2D Class is deprecated from 0.0.3 onwards, replaced by the current in-built methods</em></p>
+<div class="section" id="glcm-class">
+<h2>GLCM Class<a class="headerlink" href="#glcm-class" title="Permalink to this headline">¶</a></h2>
+<p><em>New in 0.0.5</em></p>
+<p>Due to the ever expanding number of <strong>vegetation indexes</strong>, <strong>0.0.5</strong> introduces a new methodology, detailed here
+<a class="reference external" href="https://github.com/Eve-ning/FRModel/pull/67">Pull Request #67</a>.</p>
+<p>Retrieved using <code class="docutils literal notranslate"><span class="pre">Frame2D.GLCM</span></code>.</p>
+<p>The purpose of getting this class is to pass as an argument for GLCM generation.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;0.0.5</span></code> code
+.. code-block:: python</p>
+<blockquote>
+<div><dl class="simple">
+<dt>out = f.get_chns(glcm_con=True, glcm_cor=True, glcm_ent=True,</dt><dd><p>glcm_by_x=1, glcm_by_y=1, glcm_radius=25, glcm_verbose=True,
+glcm_entropy_mp=True, glcm_entropy_mp_procs=2)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">&gt;=0.0.5</span></code> code
+.. code-block:: python</p>
+<blockquote>
+<div><dl class="simple">
+<dt>glcm = f.GLCM(by_x=1, by_y=1, radius=25, verbose=True,</dt><dd><p>contrast=[f.CHN.RGB],
+correlation=[f.CHN.RGB],
+entropy=[f.CHN.RGB])</p>
+</dd>
+</dl>
+<p>frame = f.get_chns(glcm=glcm)</p>
+</div></blockquote>
+<p>Assuming f is a <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code>.</p>
+<ul class="simple">
+<li><p>This grabs the GLCM Contrast, Correlation, Entropy.</p></li>
+<li><p>The GLCM is offset by 1 x 1.</p></li>
+<li><p>The Neighbour Convolution radius is 25.</p></li>
+<li><p>The function will output its progress with a progress bar.</p></li>
+<li><p>GLCM Entropy will use multiprocessing to speed up the entropy loop</p></li>
+<li><p>It will use 2 processes to loop.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">frame</span></code> will have the channel dimension length of 9, as contrast, correlation, entropy all act on RGB.</p>
+<p>Note that for <code class="docutils literal notranslate"><span class="pre">0.0.5</span></code> GLCM is not strictly for RGB, however, entropy must be a combination of RGB.</p>
+</div>
+<div class="section" id="algorithm">
+<h2>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h2>
+<p>The algorithm information has been redacted to avoid versioning issues with the research journal. An explanation of how
+it works can be found in the research journal.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}GLCM_{Contrast} = (i - j)^2 * P(i,j)\\
+GLCM_{Correlation} = \frac{\Delta(i)\Delta(j)}{\sigma(i)\sigma(j)} * P(i,j)\\
+GLCM_{Entropy} = \frac{GLCM(i,j)^2}{Size}\end{split}\]</div>
+</div>
+<div class="section" id="module-frmodel.base.D2.frame._frame_channel_glcm">
+<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_channel_glcm" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame._frame_channel_glcm.</code><code class="sig-name descname">_Frame2DChannelGLCM</code><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py class">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM">
+<em class="property">class </em><code class="sig-name descname">GLCM</code><span class="sig-paren">(</span><em class="sig-param">by_x: int = 1</em>, <em class="sig-param">by_y: int = 1</em>, <em class="sig-param">radius: int = 5</em>, <em class="sig-param">contrast: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">correlation: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">entropy: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">verbose: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This holds all GLCM parameters to pass into get_glcm</p>
+<p>Note that contrast, correlation, entropy takes arguments similarly to how get_chns work.</p>
+<p>e.g. contrast=[f.CHN.HSV]</p>
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">by_x: int = 1</em>, <em class="sig-param">by_y: int = 1</em>, <em class="sig-param">radius: int = 5</em>, <em class="sig-param">contrast: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">correlation: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">entropy: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">verbose: bool = True</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_contrast_py">
+<em class="property">static </em><code class="sig-name descname">_get_glcm_contrast_py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_contrast_py" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pure python implementation of Contrast.</p>
+<p>Cython isn’t needed as it’s purely vectorizable.</p>
+<p>Create the difference matrix, then convolve with a 1 filled kernel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ar_a</strong> – Offset ar A</p></li>
+<li><p><strong>ar_b</strong> – Offset ar B</p></li>
+<li><p><strong>radius</strong> – Radius of window</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_cy">
+<em class="property">static </em><code class="sig-name descname">_get_glcm_correlation_cy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n">bool</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>numpy.ndarray<span class="p">, </span>Tuple<span class="p">[</span>str<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_cy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Correlation In Cython</p>
+<p>Uses the basis GLCM definition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ar_a</strong> – Offset ar A</p></li>
+<li><p><strong>ar_b</strong> – Offset ar B</p></li>
+<li><p><strong>radius</strong> – Radius of window</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_naive_py">
+<em class="property">static </em><code class="sig-name descname">_get_glcm_correlation_naive_py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_naive_py" title="Permalink to this definition">¶</a></dt>
+<dd><p>Legacy Naive Correlation Calculation in Pure Python</p>
+<p>This is naive because the formula doesn’t seem to match up with the basis definition of Correlation.
+This omits the</p>
+<p>Using the following identity, we can vectorise it entirely!</p>
+<p>Var = E(X^2) - E(X)^2</p>
+<p>Corr = (a * b - (E(a) - E(b))) / std(a) * std(b)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ar_a</strong> – Offset ar A</p></li>
+<li><p><strong>ar_b</strong> – Offset ar B</p></li>
+<li><p><strong>radius</strong> – Radius of window</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_py">
+<em class="property">static </em><code class="sig-name descname">_get_glcm_correlation_py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_py" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses Pure Python to implement correlation GLCM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ar_a</strong> – Offset ar A</p></li>
+<li><p><strong>ar_b</strong> – Offset ar B</p></li>
+<li><p><strong>radius</strong> – Radius of window</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_cy">
+<em class="property">static </em><code class="sig-name descname">_get_glcm_entropy_cy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_cy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the entropy, uses the Cython entropy algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ar_a</strong> – Offset ar A</p></li>
+<li><p><strong>ar_b</strong> – Offset ar B</p></li>
+<li><p><strong>radius</strong> – Radius of window</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_py">
+<em class="property">static </em><code class="sig-name descname">_get_glcm_entropy_py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_py" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the entropy in Pure Python</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ar_a</strong> – Offset ar A</p></li>
+<li><p><strong>ar_b</strong> – Offset ar B</p></li>
+<li><p><strong>radius</strong> – Radius of window</p></li>
+<li><p><strong>verbose</strong> – Whether to show progress of entropy</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.get_glcm">
+<code class="sig-name descname">get_glcm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">glcm</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM" title="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM">GLCM</a></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>np.ndarray<span class="p">, </span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.get_glcm" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will get the GLCM statistics for this window</p>
+<p>Details on how GLCM works is shown on the wiki.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>glcm</strong> – A GLCM Class, this class holds all parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="frame_scaling.html" class="btn btn-neutral float-right" title="Frame Scaling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="frame_channel.html" class="btn btn-neutral float-left" title="Frame Channel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

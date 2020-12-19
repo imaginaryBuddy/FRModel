@@ -1,0 +1,379 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Frame Partitioning &mdash; frmodel 0.0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Frame Channel" href="frame_channel.html" />
+    <link rel="prev" title="Frame" href="frame2D.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="frame2D.html">Frame2D</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Partition</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#splitting">Splitting</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#sliding">Sliding</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.frame._frame_partition">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel.html">Channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel_glcm.html">GLCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_plot.html">Plotting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#module-frmodel.base.D2.frame2D">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kmeans2D.html">KMeans2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+          <li><a href="D2.html">2D Classes</a> &raquo;</li>
+        
+          <li><a href="frame2D.html">Frame</a> &raquo;</li>
+        
+      <li>Frame Partitioning</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/frmodel/base/D2/frame_partition.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="frame-partitioning">
+<h1>Frame Partitioning<a class="headerlink" href="#frame-partitioning" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Frame2D</span></code> provides a quick way to create windows</p>
+<div class="section" id="splitting">
+<h2>Splitting<a class="headerlink" href="#splitting" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+    <span class="n">by</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">CONSTS</span><span class="o">.</span><span class="n">AXIS</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
+    <span class="n">method</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">SplitMethod</span><span class="o">.</span><span class="n">DROP</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This splits the current frame into 50px-wide frames. If you specify <code class="docutils literal notranslate"><span class="pre">CONSTS.AXIS.Y</span></code> it’ll split into 50px-tall ones.</p>
+<p><code class="docutils literal notranslate"><span class="pre">split_xy</span></code> is a shortcut for splitting on both axes with the same <code class="docutils literal notranslate"><span class="pre">by</span></code> and <code class="docutils literal notranslate"><span class="pre">method</span></code> arguments.</p>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<p>In order to deal with irregular splitting on the edges (e.g. 1920 can’t be split perfectly into 50s),
+we can specify to either <code class="docutils literal notranslate"><span class="pre">DROP</span></code> or <code class="docutils literal notranslate"><span class="pre">CROP</span></code>.</p>
+<ul class="simple">
+<li><p><strong>DROP</strong> just omits that split from the result, creating a <code class="docutils literal notranslate"><span class="pre">list</span></code> of consistently sized <strong>Frames</strong>.</p></li>
+<li><p><strong>CROP</strong> crops out the edge, preserving all pixels but with irregular edge <code class="docutils literal notranslate"><span class="pre">list</span></code> elements.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="sliding">
+<h2>Sliding<a class="headerlink" href="#sliding" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Frame2D</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span><span class="o">.</span><span class="n">slide</span><span class="p">(</span>
+    <span class="n">by</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="n">stride</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">CONSTS</span><span class="o">.</span><span class="n">AXIS</span><span class="o">.</span><span class="n">X</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Sliding is different from splitting as it allows for overlapping regions.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">stride</span></code> argument specifies how far the window to shift on that axis.</p>
+<p><code class="docutils literal notranslate"><span class="pre">slide_xy</span></code> is a shortcut for splitting on both axes with the same <code class="docutils literal notranslate"><span class="pre">by</span></code> and <code class="docutils literal notranslate"><span class="pre">stride</span></code> arguments.</p>
+</div>
+<div class="section" id="module-frmodel.base.D2.frame._frame_partition">
+<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_partition" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition">
+<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame._frame_partition.</code><code class="sig-name descname">_Frame2DPartition</code><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide">
+<code class="sig-name descname">slide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span></em>, <em class="sig-param"><span class="n">stride</span></em>, <em class="sig-param"><span class="n">axis_cut</span><span class="p">:</span> <span class="n">frmodel.base.consts.CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">frmodel.base.D2.frame._frame_partition._Frame2DPartition</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slides a window along an axis and grabs that window as a new Frame2D</p>
+<p>This operation is slower due to looping but allows for overlapping windows</p>
+<p>If the window meets the edge, it will be dropped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>by</strong> – Size of each piece</p></li>
+<li><p><strong>stride</strong> – Stride when sliding</p></li>
+<li><p><strong>axis_cut</strong> – Axis to cut</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide_xy">
+<code class="sig-name descname">slide_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">frmodel.base.D2.frame._frame_partition._Frame2DPartition</a><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short hand for sliding by both axes.</p>
+<p>Slides by X first, then Y.</p>
+<p>E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="mi">11</span> <span class="o">|</span> <span class="mi">16</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="mi">12</span> <span class="o">|</span> <span class="mi">17</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="mi">13</span> <span class="o">|</span> <span class="mi">18</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="mi">14</span> <span class="o">|</span> <span class="mi">19</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span> <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">15</span> <span class="o">|</span> <span class="mi">20</span> <span class="o">|</span>
+
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>by</strong> – Size of each piece</p></li>
+<li><p><strong>stride</strong> – Stride when sliding</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of List of Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.split">
+<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">axis_cut</span><span class="p">:</span> <span class="n">CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">_Frame2DPartition</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the current Frame into windows of specified size.</p>
+<p>This operation is much faster but cannot have overlapping windows</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>by</strong> – Size of each piece</p></li>
+<li><p><strong>axis_cut</strong> – Axis to cut</p></li>
+<li><p><strong>method</strong> – Method of splitting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.split_xy">
+<code class="sig-name descname">split_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">_Frame2DPartition</a><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.split_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short hand for splitting by both axes.</p>
+<p>Splits by X first, then Y.</p>
+<p>E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="mi">11</span> <span class="o">|</span> <span class="mi">16</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="mi">12</span> <span class="o">|</span> <span class="mi">17</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="mi">13</span> <span class="o">|</span> <span class="mi">18</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="mi">14</span> <span class="o">|</span> <span class="mi">19</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span> <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">15</span> <span class="o">|</span> <span class="mi">20</span> <span class="o">|</span>
+
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>by</strong> – Size of each piece</p></li>
+<li><p><strong>method</strong> – Method of splitting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of List of Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="frame_channel.html" class="btn btn-neutral float-right" title="Frame Channel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="frame2D.html" class="btn btn-neutral float-left" title="Frame" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Eve-ning
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
