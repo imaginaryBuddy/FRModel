@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import ABC
 from dataclasses import dataclass, field
 from typing import Tuple, List, TYPE_CHECKING
-from warnings import warn
 
 import numpy as np
 from scipy.signal import fftconvolve
@@ -21,68 +20,31 @@ MAX_RGB = 255
 
 class _Frame2DChannelGLCM(ABC):
 
-    data: np.ndarray
-
     @dataclass
     class GLCM:
-        by_x: int = 1
-        by_y: int = 1
-        radius: int = 5
+        """ This holds all GLCM parameters to pass into get_glcm
+
+        Note that contrast, correlation, entropy takes arguments similarly to how get_chns work.
+
+        e.g. contrast=[f.CHN.HSV]
+        """
+        by_x:        int = 1
+        by_y:        int = 1
+        radius:      int = 5
         contrast:    List[CONSTS.CHN] = field(default_factory=[])
         correlation: List[CONSTS.CHN] = field(default_factory=[])
         entropy:     List[CONSTS.CHN] = field(default_factory=[])
-        verbose: bool = True
-    
-    @abstractmethod
-    def data_rgb(self): ...
+        verbose:     bool = True
 
-    def get_glcm(self, glcm:GLCM) -> Tuple[np.ndarray, List[str]]:
+    def get_glcm(self: 'Frame2D', glcm:GLCM) -> Tuple[np.ndarray, List[str]]:
         """ This will get the GLCM statistics for this window
 
-        In order:
+        Details on how GLCM works is shown on the wiki.
 
-        Contrast_R, Contrast_G, Contrast_B,
-        Correlation_R, Correlation_G, Correlation_B
-        Entropy_R, Entropy_G, Entropy_B
-
-        Note that the larger the GLCM stride, the more edge pixels will be removed.
-
-        There will be edge cropping here, so take note of the following:
-
-        1) Edge will be cropped on GLCM Making (That is shifting the frame with by_x and by_y).
-        2) Edge will be further cropped by GLCM Neighbour convolution.
-
-        If only a specific GLCM is needed, open up an issue on GitHub, I just don't think it's needed right now.
-
-        Consider this::
-
-            1) GLCM Making, by_x = 1, by_y = 1
-            o o o o o       | o o o o |       <B>            | o o o o |
-            o o o o o       | o o o o |   | o o o o |  func  | o o o o |
-            o o o o o  -->  | o o o o | + | o o o o |  --->  | o o o o |
-            o o o o o       | o o o o |   | o o o o |        | o o o o |
-            o o o o o           <A>       | o o o o |            <C>
-
-            2) GLCM Neighbour Summation, radius = 1
-                              o: Centre, +: Neighbour
-            | o o o o |       | + + + x | , | x + + + | , | x x x x | , | x x x x |
-            | o o o o |       | + o + x | , | x + o + | , | x + + + | , | + + + x |
-            | o o o o |  -->  | + + + x | , | x + + + | , | x + o + | , | + o + x |
-            | o o o o |       | x x x x | , | x x x x | , | x + + + | , | + + + x |
-                <C>
-            x x x x x  =>                 Note that it's slightly off centre because of (1)
-            x o o x x  =>  | o o |
-            x o o x x  =>  | o o |
-            x x x x x  =>
-            x x x x x  =>
-            Original       Transformed
-
-            The resultant size, if by_x = by_y
-            frame.size - by - radius * 2
+        :param glcm: A GLCM Class, this class holds all parameters.
         """
 
-        self: 'Frame2D'
-
+        # We get the lengths to preemptively create a GLCM np.ndarray
         con_len = self._get_chn_size(glcm.contrast)
         cor_len = self._get_chn_size(glcm.correlation)
         ent_len = self._get_chn_size(glcm.entropy)
@@ -142,8 +104,8 @@ class _Frame2DChannelGLCM(ABC):
 
     @staticmethod
     def _get_glcm_correlation_py(ar_a: np.ndarray,
-                              ar_b: np.ndarray,
-                              radius) -> np.ndarray:
+                                 ar_b: np.ndarray,
+                                 radius) -> np.ndarray:
         """ Uses Pure Python to implement correlation GLCM
 
         :param ar_a: Offset ar A

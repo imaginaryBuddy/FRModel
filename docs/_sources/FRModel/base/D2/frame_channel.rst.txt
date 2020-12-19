@@ -8,37 +8,93 @@ Frame Channel
 Getting Channels
 ================
 
-As to cater to this research project, index calculations are readily available with ``get_xx`` named functions.
+**For Versions v0.0.5 and beyond**
 
-Currently, ``frmodel`` supports the following:
+Due to the ever expanding number of **vegetation indexes**, **0.0.5** introduces a new methodology, detailed here
+`Pull Request #67 <https://github.com/Eve-ning/FRModel/pull/67>`_.
 
-``index_count`` represents how many "layers" it will take, similar to the cake analogy.
+As to cater to this research project, index calculations are readily available through ``get_chns`` or ``get_all_chns``.
 
-+---------------------+---------------------------------+-------------+
-| function            | description                     | index_count |
-+=====================+=================================+=============+
-| ``get_self``        | Gets channels including current | n           |
-+---------------------+---------------------------------+-------------+
-| ``get_xy``          | X, Y Coordinates                | 2           |
-+---------------------+---------------------------------+-------------+
-| ``get_hsv``         | Hue Saturation and Value        | 3           |
-+---------------------+---------------------------------+-------------+
-| ``get_ex_g(False)`` | Excess Green                    | 1           |
-+---------------------+---------------------------------+-------------+
-| ``get_ex_g(True)``  | (Modified) Excess Green         | 1           |
-+---------------------+---------------------------------+-------------+
-| ``get_ex_gr``       | Excess Green Minus Red          | 1           |
-+---------------------+---------------------------------+-------------+
-| ``get_ndi``         | Normalized Difference Index     | 1           |
-+---------------------+---------------------------------+-------------+
-| ``get_veg``         | Vegetative Index                | 1           |
-+---------------------+---------------------------------+-------------+
-| ``get_glcm``        | GLCM (All Statistics)           | 9           |
-+---------------------+---------------------------------+-------------+
+``index_count`` represents how many "layers" it has, similar to the cake analogy.
 
-Note that ``get_all_chn`` and ``get_chn`` gets all channels above, the order is as shown above too.
+While the prior functions of ``get_...`` is still available, it's recommended to use ``get_chns`` or
+``get_all_chns`` because it rids of boilerplate code. However, it's not strictly forbidden.
 
-The difference between those 2 is the default values,
+The new format, uses the following calling template
+
+.. code-block:: python
+
+    f: Frame2D
+    f.get_chns(self_:bool, chns:List[CHN], glcm: GLCM)
+
+For example
+
+.. code-block:: python
+
+    f: Frame2D
+    f.get_chns(self_=True, chns=[f.CHN.HSV, f.CHN.EX_G, f.CHN.VEG])
+
+The ``CHN`` argument can be grabbed from ``Frame2D`` class or any instance, or ``from consts import CONSTS``, though
+the latter method is not recommended as it's verbose.
+
+These ``CHN`` are actually strings, hence it's perfectly valid to call as
+
+.. code-block:: python
+
+    f: Frame2D
+    f.get_chns(self_=True, chns=['H', 'S']) # Other arguments omitted
+
+However, it's not recommended as it's prone to capitalization errors and typos.
+
++--------------+------------------------------------------------------+--------+
+| CHN Constant | Description                                          | Layers |
++==============+======================================================+========+
+| RED          | Red Channel                                          | 1      |
++--------------+------------------------------------------------------+--------+
+| GREEN        | Green Channel                                        | 1      |
++--------------+------------------------------------------------------+--------+
+| BLUE         | Blue Channel                                         | 1      |
++--------------+------------------------------------------------------+--------+
+| RGB          | A Tuple of all Red, Green, Blue Channels             | 3      |
++--------------+------------------------------------------------------+--------+
+| X            | X Position                                           | 1      |
++--------------+------------------------------------------------------+--------+
+| Y            | Y Position                                           | 1      |
++--------------+------------------------------------------------------+--------+
+| XY           | A Tuple of X, Y Channels                             | 2      |
++--------------+------------------------------------------------------+--------+
+| HUE          | Hue Channel                                          | 1      |
++--------------+------------------------------------------------------+--------+
+| SATURATION   | Saturation Channel                                   | 1      |
++--------------+------------------------------------------------------+--------+
+| VALUE        | Value Channel                                        | 1      |
++--------------+------------------------------------------------------+--------+
+| HSV          | A Tuple of Hue, Saturation, Value Channels           | 3      |
++--------------+------------------------------------------------------+--------+
+| NDI          | Normalized Difference Index Channel                  | 1      |
++--------------+------------------------------------------------------+--------+
+| EX_G         | Excess Green Channel                                 | 1      |
++--------------+------------------------------------------------------+--------+
+| MEX_G        | Modified Excess Green Channel                        | 1      |
++--------------+------------------------------------------------------+--------+
+| EX_GR        | Excess Green Minus Red Channel                       | 1      |
++--------------+------------------------------------------------------+--------+
+| VEG          | Vegetation Channel                                   | 1      |
++--------------+------------------------------------------------------+--------+
+| NDVI         | Normalized Difference Vegetation Index Channel       | 1      |
++--------------+------------------------------------------------------+--------+
+| GNDVI        | Green Normalized Difference Vegetation Index Channel | 1      |
++--------------+------------------------------------------------------+--------+
+| OSAVI        | Optimized Soil Adjusted Vegetation Index Channel     | 1      |
++--------------+------------------------------------------------------+--------+
+| NDRE         | Normalized Difference Red Edge Channel               | 1      |
++--------------+------------------------------------------------------+--------+
+| LCI          | Leaf Chrolophyll Index Channel                       | 1      |
++--------------+------------------------------------------------------+--------+
+
+Note that ``get_all_chns`` and ``get_chns`` gets all channels above.
+
+The difference between those 2 is that, with ``get_all_chns`` you exclude channels you don't need,
 depending on your choices, one may be more succinct than the other.
 
 ====

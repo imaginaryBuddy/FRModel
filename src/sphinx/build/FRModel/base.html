@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2D Classes" href="base/D2/D2.html" />
-    <link rel="prev" title="ChangeLog" href="../info/changelog.html" /> 
+    <link rel="prev" title="Getting Started" href="../info/getting_started.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,7 +82,16 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../info.html">Information</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../info/getting_started.html"> Getting Started</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"> Repository Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="base/D2/D2.html"> 2D Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#purpose">Purpose</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../info/changelog.html"> Changelog</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Base</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="base/D2/D2.html"> 2D Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#purpose">Purpose</a></li>
@@ -133,6 +142,8 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="../info.html">Information</a> &raquo;</li>
+        
       <li>Base Classes</li>
     
     
@@ -159,6 +170,7 @@
 <li class="toctree-l1"><a class="reference internal" href="base/D2/D2.html"> 2D Classes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="base/D2/frame2D.html">Frame2D</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base/D2/video2D.html">Video2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/D2/kmeans2D.html">KMeans2D</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base/D2/D2.html#data-representation">Data Representation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="base/D2/D2.html#loading">Loading</a></li>
 </ul>
@@ -171,19 +183,22 @@
 <p>However, we can make it better by making it specifically for a project to use.</p>
 <p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">PIL</span> <span class="pre">import</span> <span class="pre">Image</span></code></p>
 <p>This provides a generic package interface for us to use, in order to just extract the Red Channel, we likely need
-to go through multiple boilerplate code to extract it.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;img.png&quot;</span><span class="p">)</span>
-<span class="o">...</span> <span class="o">&lt;</span><span class="n">boilerplate</span><span class="o">&gt;</span>
+to go through multiple boilerplate code to extract it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;img.png&quot;</span><span class="p">)</span>
+<span class="o">...</span> <span class="o">&lt;</span><span class="n">boilerplate</span> <span class="n">code</span> <span class="n">to</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">red</span> <span class="n">channel</span><span class="o">&gt;</span>
 <span class="n">img_red</span>
 </pre></div>
 </div>
 <p>If we were to wrap it in a class like</p>
-<p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">URECA.base</span> <span class="pre">import</span> <span class="pre">Image</span></code></p>
-<p>We can likely create an interface that’s just.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;img.png&quot;</span><span class="p">)</span>
-<span class="n">img_red</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">red_channel</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">frmodel.base</span> <span class="pre">import</span> <span class="pre">Frame2D</span></code></p>
+<p>We create an interface that’s just.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">python</span>
 </pre></div>
 </div>
+<blockquote>
+<div><p>img = Frame2D.load(“img.png”)
+img_red = img.data_chn(img.CHN.RED)</p>
+</div></blockquote>
 <p>We cover a lot of these ugly code behind the interface.</p>
 </div>
 </div>
@@ -199,7 +214,7 @@ to go through multiple boilerplate code to extract it.:</p>
         <a href="base/D2/D2.html" class="btn btn-neutral float-right" title="2D Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../info/changelog.html" class="btn btn-neutral float-left" title="ChangeLog" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../info/getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

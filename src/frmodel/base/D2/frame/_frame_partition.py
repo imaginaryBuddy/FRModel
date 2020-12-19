@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import List, TYPE_CHECKING
 
 import numpy as np
@@ -13,21 +13,13 @@ if TYPE_CHECKING:
 
 class _Frame2DPartition(ABC):
 
-    data: np.ndarray
-
-    @abstractmethod
-    def width(self): ...
-
-    @abstractmethod
-    def height(self): ...
-
     class SplitMethod:
         DROP = 0
         CROP = 1
 
         # Require to support padding? Not implemented yet.
 
-    def split(self,
+    def split(self: 'Frame2D',
               by: int,
               axis_cut: CONSTS.AXIS = CONSTS.AXIS.Y,
               method: SplitMethod = SplitMethod.DROP) -> List[_Frame2DPartition]:
@@ -45,7 +37,6 @@ class _Frame2DPartition(ABC):
         # Pre-process by as modified by_
         # np.split_array splits it by the number of slices generated,
         # we need to transform this into the slice locations
-        self: 'Frame2D'
 
         if axis_cut == CONSTS.AXIS.Y:
             by_ = np.arange(by, self.width(), by)
@@ -62,7 +53,7 @@ class _Frame2DPartition(ABC):
             # We will use a conditional to drop any images that is "cropped"
             return [self.create(data=s, labels=self.labels) for s in spl if s.shape[axis_cut] == by]
 
-    def split_xy(self,
+    def split_xy(self: 'Frame2D',
                  by: int,
                  method: SplitMethod = SplitMethod.DROP) -> List[List[_Frame2DPartition]]:
         """ Short hand for splitting by both axes.

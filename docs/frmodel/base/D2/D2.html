@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2D Classes &mdash; frmodel 0.0.4 documentation</title>
+  <title>2D Classes &mdash; frmodel 0.0.5 documentation</title>
   
 
   
@@ -82,11 +82,32 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../info.html">Information</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../info/getting_started.html"> Getting Started</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../base.html"> Repository Base</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"> 2D Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans2D.html">KMeans2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-representation">Data Representation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#intuition">Intuition</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#channel-dimension">Channel Dimension</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../info/changelog.html"> Changelog</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> 2D Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kmeans2D.html">KMeans2D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#data-representation">Data Representation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#intuition">Intuition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#channel-dimension">Channel Dimension</a></li>
@@ -143,6 +164,8 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="../../../info.html">Information</a> &raquo;</li>
+        
           <li><a href="../../base.html">Base Classes</a> &raquo;</li>
         
       <li>2D Classes</li>
@@ -171,6 +194,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="frame2D.html">Frame2D</a></li>
 <li class="toctree-l1"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kmeans2D.html">KMeans2D</a></li>
 </ul>
 </div>
 <div class="section" id="data-representation">
@@ -216,7 +240,7 @@ It has the X, Y and the <strong>Z</strong> dimension. The <strong>Z</strong> dim
 <p>If we were to bring <strong>XY</strong> information down to the <strong>Channel Dimension</strong>, they will still be called the <strong>XY Channels.</strong>
 This is to keep convention and prevent confusion between Channels, Indices, Spatial Indices etc.</p>
 <p>Due to frequency of array indexing, it can become confusing to differentiate array indexes and index values.</p>
-<p>There are multiple ways to getting more <strong>channels</strong> in <a class="reference internal" href="frame2D.html"><span class="doc">Frame2D</span></a>.</p>
+<p>There are multiple ways to getting more <strong>channels</strong> in <a class="reference internal" href="frame_channel.html"><span class="doc">Frame2D Channels</span></a>.</p>
 </div>
 </div>
 <div class="section" id="loading">

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import TYPE_CHECKING
 from warnings import warn
 
@@ -12,16 +12,6 @@ if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
 class _Frame2DScoring(ABC):
-
-    data: np.ndarray
-
-    @abstractmethod
-    def crop(self,
-             top:int = 0,
-             right:int = 0,
-             bottom:int = 0,
-             left:int = 0) -> _Frame2DScoring:
-        ...
 
     @staticmethod
     def labelize(ar:np.ndarray) -> np.ndarray:
@@ -51,7 +41,7 @@ class _Frame2DScoring(ABC):
     @staticmethod
     def scorer_pair(predict: np.ndarray,
                     actual: 'Frame2D' or np.ndarray):
-        """ A custom scoring algorithm.
+        """ A custom scoring algorithm. Called by score
 
         Note that these parameters are non-reversible,
         that is scoring x against y is not the same as y against x.
@@ -61,7 +51,7 @@ class _Frame2DScoring(ABC):
 
         :param predict: Actual Labels. Must be a 1D label array
         :param actual: Predict Frame. Can be either Frame with RGB or 1D label array
-        :returns:
+        :returns: A Dictionary {score: float, score_pairs: np.ndarray of counts, labels: np.ndarray of labels}
         """
         predict:np.ndarray = predict.flatten()
 
@@ -102,13 +92,14 @@ class _Frame2DScoring(ABC):
                     score_pairs=counts_ar,
                     labels=labels)
 
-    def score(self, score_frame: 'Frame2D', label_ix: int = -1, glcm_radius=None):
+    def score(self: 'Frame2D', score_frame: 'Frame2D', label_ix: int = -1, glcm_radius=None):
         """ Scores the current frame kmeans with a scoring image
 
         :param label_ix: The label index to score against score_frame
         :param score_frame: The score as Frame2D
         :param glcm_radius: The radius of GLCM used if applicable. This will crop the Frame2D automatically to fit.
-        :return: A Dictionary of various scoring algorithm results
+        :return: A Dictionary of various scoring algorithm results,
+            {'Custom', 'Homogeneity', 'Completeness', 'V Measure'}
         """
         # Convert grayscale to labels
         if glcm_radius is not None: score_frame = score_frame.crop_glcm(glcm_radius)

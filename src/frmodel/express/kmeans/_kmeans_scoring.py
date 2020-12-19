@@ -54,7 +54,7 @@ def kmeans_matrix(test_path: str,
         for ixs in tqdm.tqdm(combos):
 
             km = KMeans2D(frame, KMeans(n_clusters=clusters, verbose=verbose),
-                          fit_indexes=ixs,
+                          fit_to=ixs,
                           scaler=scaler)
 
             sns.set_palette(sns.color_palette("magma"), n_colors=clusters)
@@ -80,7 +80,7 @@ def kmeans(f: Frame2D,
     km = KMeans2D(f,
                   model=KMeans(n_clusters=clusters,
                                verbose=verbose),
-                  fit_indexes=fit_indexes,
+                  fit_to=fit_indexes,
                   scaler=scaler)
 
     sns.set_palette(sns.color_palette("magma"), n_colors=clusters)
