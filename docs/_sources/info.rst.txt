@@ -8,5 +8,4 @@ Here is the basic information about the repository.
    :maxdepth: 2
 
     Getting Started <info/getting_started>
-    Repository Base <frmodel/base>
     Changelog <info/changelog>
