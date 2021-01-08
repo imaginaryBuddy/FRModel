@@ -68,13 +68,6 @@ class CONSTS:
         class KMEANS:
             LABEL = "KM_LABEL"
 
-        class MNL:
-            BINARY = "MNL_BINARY"
-            DISTANCE = "MNL_DISTANCE"
-            PEAKS = "MNL_PEAKS"
-            WATER = "MNL_WATER"
-            CANNY = "MNL_CANNY"
-
     class AXIS:
         X = 0
         Y = 1
