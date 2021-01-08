@@ -84,8 +84,26 @@ class _Frame2DLoader(ABC):
             del band_ds
 
         data = np.moveaxis(data, 0, -1)
-        data = resize(data, output_shape=[int(scale * data.shape[0]),
-                                          int(scale * data.shape[1])],
-                      order=0)
+        if scale != 1.0 :
+            data = resize(data, output_shape=[int(scale * data.shape[0]),
+                                              int(scale * data.shape[1])],
+                          order=0)
 
         return cls.create(data=np.ma.masked_invalid(data, copy=False), labels=labels)
+
+    def save(self: 'Frame2D', path: str):
+        """ Saves the Frame2D underlying np.ndarray & dict as a .npz (.npy zip)
+
+        The recommended extension is .npz
+        """
+
+        np.savez(path, data=self.data, labels=self.labels,
+                 mask=self.data.mask if isinstance(self.data, np.ma.MaskedArray) else None)
+
+    @classmethod
+    def load(cls: 'Frame2D', path: str):
+        """ Loads the Frame2D from a .npz"""
+        files = np.load(path, allow_pickle=True)
+        return cls.create(
+            data=files['data'] if files['mask'] is None else np.ma.MaskedArray(data=files['data'], mask=files['mask']),
+            labels=files['labels'].tolist())
