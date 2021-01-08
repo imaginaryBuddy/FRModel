@@ -27,6 +27,7 @@ python
 scipy
 scikit-image
 scikit-learn
+osgeo
 ```
 
 # License

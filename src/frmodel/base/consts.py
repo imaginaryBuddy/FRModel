@@ -8,12 +8,14 @@ class CONSTS:
     """
 
     class CHN:
+
+        # RGB
         X           = "X"
         Y           = "Y"
         XY          = (X, Y)
-        RED         = "R"
-        GREEN       = "G"
-        BLUE        = "B"
+        RED         = "R"  # 650 +- 16
+        GREEN       = "G"  # 560 +- 16
+        BLUE        = "B"  # 450 +- 16
         RGB         = (RED, GREEN, BLUE)
         HUE         = "H"
         SATURATION  = "S"
@@ -24,11 +26,32 @@ class CONSTS:
         MEX_G       = "MEX_G"
         EX_GR       = "EX_GR"
         VEG         = "VEG"
+
+        # Spectral
+        RED_EDGE    = "RE"   # 730 +- 16
+        NIR         = "NIR"  # 840 +- 26
         NDVI        = "NDVI"
         GNDVI       = "GNDVI"
         OSAVI       = "OSAVI"
         NDRE        = "NDRE"
         LCI         = "LCI"
+        MSAVI       = "MSAVI"
+        CCCI        = "CCCI"
+
+        """
+        NDWI        = "NDWI"
+        
+        ARVI        = "ARVI"
+        BWDRVI
+        CCCI
+        CIgreen
+        CIrededge
+        CVI
+        CI
+        CTVI
+        GDVI
+        EVI
+        EVI2"""
 
         class GLCM:
             @staticmethod
