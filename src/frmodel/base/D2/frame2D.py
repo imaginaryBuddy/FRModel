@@ -90,6 +90,10 @@ class Frame2D(_Frame2DLoader,
         :returns: np.ndarray, Shape = (Height, Width, Channels) """
         return self._data
 
+    @data.setter
+    def data(self, obj) -> None:
+        self._data = obj
+
     @property
     def labels(self) -> dict:
         """ The dictionary of labels.
@@ -206,6 +210,9 @@ class Frame2D(_Frame2DLoader,
     def dtype(self):
         """ Returns the dtype representation. """
         return self.data.dtype
+
+    def astype(self, new_type):
+        self.data = self.data.astype(new_type)
 
     def height(self) -> int:
         return self.shape[0]

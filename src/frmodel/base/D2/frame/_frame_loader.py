@@ -4,8 +4,11 @@ from abc import ABC
 from math import ceil
 from typing import TYPE_CHECKING
 
+from osgeo import gdal
+
 import numpy as np
 from PIL import Image
+from skimage.transform import resize
 
 from frmodel.base import CONSTS
 
@@ -24,8 +27,7 @@ class _Frame2DLoader(ABC):
         :param scale_method: The method of scaling. See Image.resize
 
         :returns: Frame2D"""
-        img = Image.open(file_path)
-        img: Image.Image
+        img: Image.Image = Image.open(file_path)
         if scale != 1.0:
             img = img.resize([int(scale * s) for s in img.size], resample=scale_method)
         # noinspection PyTypeChecker
@@ -59,3 +61,31 @@ class _Frame2DLoader(ABC):
              ar[:, xy_pos[0]].astype(int)] = ar[:]
 
         return cls.create(data=fill, labels=labels)
+
+    @classmethod
+    def from_image_spec(cls: 'Frame2D',
+                        file_path_red: str,
+                        file_path_green: str,
+                        file_path_blue: str,
+                        file_path_red_edge: str,
+                        file_path_nir: str,
+                        scale: float = 1.0) -> _Frame2DLoader:
+
+        labels = [*cls.CHN.RGB, cls.CHN.RED_EDGE, cls.CHN.NIR]
+
+        band_ds: gdal.Dataset = gdal.Open(file_path_red)
+        data = np.zeros(shape=(5, band_ds.RasterYSize, band_ds.RasterXSize), dtype=np.float)
+        data[0, ...] = band_ds.GetRasterBand(1).ReadAsArray()
+        del band_ds
+
+        for e, fp in enumerate((file_path_green, file_path_blue, file_path_red_edge, file_path_nir)):
+            band_ds: gdal.Dataset = gdal.Open(fp)
+            data[e + 1, ...] = band_ds.GetRasterBand(1).ReadAsArray()
+            del band_ds
+
+        data = np.moveaxis(data, 0, -1)
+        data = resize(data, output_shape=[int(scale * data.shape[0]),
+                                          int(scale * data.shape[1])],
+                      order=0)
+
+        return cls.create(data=np.ma.masked_invalid(data, copy=False), labels=labels)

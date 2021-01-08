@@ -6,12 +6,23 @@ import numpy as np
 from skimage.color import rgb2hsv
 
 from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
+from frmodel.base.D2.frame._frame_channel_spec import _Frame2DChannelSpec
 
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
 
-class _Frame2DChannel(_Frame2DChannelGLCM):
+class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
+
+    def _r(self: 'Frame2D'):
+        """ Short forms for easy calling, not recommended to use outside of class scope """
+        return self.data_chn(self.CHN.RED).data
+    def _g(self: 'Frame2D'):
+        """ Short forms for easy calling, not recommended to use outside of class scope """
+        return self.data_chn(self.CHN.GREEN).data
+    def _b(self: 'Frame2D'):
+        """ Short forms for easy calling, not recommended to use outside of class scope """
+        return self.data_chn(self.CHN.BLUE).data
 
     def get_all_chns(self: 'Frame2D',
                      self_: bool = False,
@@ -130,9 +141,9 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
         """
 
-        return 2 * self.data_chn(self.CHN.RED).data - \
-               self.data_chn(self.CHN.GREEN).data - \
-               self.data_chn(self.CHN.BLUE).data
+        return 2 * self._r() - \
+               self._g() - \
+               self._b()
 
     def get_mex_g(self: 'Frame2D') -> np.ndarray:
         """ Calculates the Modified excessive green index
@@ -142,9 +153,9 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
         """
 
-        return 1.262 * self.data_chn(self.CHN.RED).data - \
-               0.884 * self.data_chn(self.CHN.GREEN).data - \
-               0.331 * self.data_chn(self.CHN.BLUE).data
+        return 1.262 * self._r() - \
+               0.884 * self._g() - \
+               0.331 * self._b()
 
     def get_ex_gr(self: 'Frame2D') -> np.ndarray:
         """ Calculates the excessive green minus excess red index
@@ -154,9 +165,9 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         :return: np.ndarray, similar shape to callee. Use get_chns to get as Frame2D
         """
 
-        return 3   * self.data_chn(self.CHN.RED).data - \
-               2.4 * self.data_chn(self.CHN.GREEN).data - \
-                     self.data_chn(self.CHN.BLUE).data
+        return 3   * self._r() - \
+               2.4 * self._g() - \
+                     self._b()
 
     def get_ndi(self: 'Frame2D') -> np.ndarray:
         """ Calculates the Normalized Difference Index
@@ -168,9 +179,9 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
 
         with np.errstate(divide='ignore', invalid='ignore'):
             x = np.nan_to_num(
-                np.true_divide(self.data_chn(self.CHN.GREEN).data.astype(np.int) -
+                np.true_divide(self._g().astype(np.int) -
                                self.data_chn(self.CHN.RED)  .data.astype(np.int),
-                               self.data_chn(self.CHN.GREEN).data.astype(np.int) +
+                               self._g().astype(np.int) +
                                self.data_chn(self.CHN.RED)  .data.astype(np.int)),
                 copy=False, nan=0, neginf=0, posinf=0)
 
@@ -186,9 +197,9 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         """
 
         with np.errstate(divide='ignore', invalid='ignore'):
-            x = np.nan_to_num(self.data_chn(self.CHN.GREEN).data.astype(np.float) /
-                              (np.power(self.data_chn(self.CHN.RED).data.astype(np.float), const_a) *
-                               np.power(self.data_chn(self.CHN.BLUE).data.astype(np.float), 1 - const_a)),
+            x = np.nan_to_num(self._g().astype(np.float) /
+                              (np.power(self._r().astype(np.float), const_a) *
+                               np.power(self._b().astype(np.float), 1 - const_a)),
                               copy=False, nan=0, neginf=0, posinf=0)
         return x
 
