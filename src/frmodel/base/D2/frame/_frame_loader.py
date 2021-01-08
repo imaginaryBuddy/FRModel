@@ -4,8 +4,11 @@ from abc import ABC
 from math import ceil
 from typing import TYPE_CHECKING
 
+from osgeo import gdal
+
 import numpy as np
 from PIL import Image
+from skimage.transform import resize
 
 from frmodel.base import CONSTS
 
@@ -24,8 +27,7 @@ class _Frame2DLoader(ABC):
         :param scale_method: The method of scaling. See Image.resize
 
         :returns: Frame2D"""
-        img = Image.open(file_path)
-        img: Image.Image
+        img: Image.Image = Image.open(file_path)
         if scale != 1.0:
             img = img.resize([int(scale * s) for s in img.size], resample=scale_method)
         # noinspection PyTypeChecker

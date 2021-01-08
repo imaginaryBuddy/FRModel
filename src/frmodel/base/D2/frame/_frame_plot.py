@@ -41,7 +41,7 @@ class Frame2DPlot:
         fig.set_figheight(self.f.data.shape[0] / 60 * rows * scale)
         fig.set_figwidth(self.f.data.shape[1] / 60 * cols * scale)
 
-        titles = self.titles if self.titles else [f"Index {i}" for i in range(channels)]
+        titles = self.titles if self.titles else self.f.labels
 
         assert len(titles) == channels, "Title Length must be same as number of Channels"
 
