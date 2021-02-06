@@ -15,7 +15,8 @@ class _Cloud3DFrame(ABC):
     def to_frame(self,
                  sample_size=None, transformed=True,
                  width=None, height=None,
-                 method: CONSTS.INTERP3D = CONSTS.INTERP3D.NEAREST) -> Frame2D:
+                 method: CONSTS.INTERP3D = CONSTS.INTERP3D.NEAREST,
+                 clamp_cubic: bool = True) -> Frame2D:
         """ Converts the Cloud3D into a Frame2D
 
         :param sample_size: The number of random points to use for interpolation
@@ -23,6 +24,7 @@ class _Cloud3DFrame(ABC):
         :param width: Width of resulting image
         :param height: Height of resulting image
         :param method: Method of interpolation, use CONSTS.INTERP3D for various methods
+        :param clamp_cubic: Whether to clamp the cubic RGB output or not
         :return: A Frame2D with Z, R, G, B columns
         """
         # Grab array data and scale it down to desired height and width
@@ -51,6 +53,9 @@ class _Cloud3DFrame(ABC):
         ar_intp[..., 1] = griddata(ar[..., 0:2], ar[..., 3], grid, method)
         ar_intp[..., 2] = griddata(ar[..., 0:2], ar[..., 4], grid, method)
         ar_intp[..., 3] = griddata(ar[..., 0:2], ar[..., 5], grid, method)
+
+        if method == CONSTS.INTERP3D.CUBIC and clamp_cubic:
+            ar_intp[..., 1:4] = self.interp_sig_clamp(ar_intp[..., 1:4])
 
         return Frame2D(ar_intp.swapaxes(0, 1), labels=(CONSTS.CHN.Z, *CONSTS.CHN.RGB))
 
