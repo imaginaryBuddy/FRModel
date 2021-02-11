@@ -6,11 +6,7 @@ This project is under the **Nanyang Technological University** (NTU) **Undergrad
 
 # Install
 
-```
-conda install -c eve-ning frmodel 
-```
-
-[Anaconda Cloud Website](https://anaconda.org/eve-ning/frmodel)
+It is recommended to fork for the latest updates, conda installation will not be updated unless explicitly requested
 
 # Required Packages
 
