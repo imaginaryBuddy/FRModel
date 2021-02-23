@@ -38,6 +38,7 @@ class Frame2D(_Frame2DLoader,
     _data: np.ndarray
     _labels: dict
 
+
     def __init__(self, data: np.ndarray, labels: str or dict or List[str]):
         """ Initializes the Frame2D with data
 
@@ -62,6 +63,9 @@ class Frame2D(_Frame2DLoader,
             labels = {k: e for e, k in enumerate(labels)}
 
         self._labels = labels
+
+    def func(self):
+        print("hello")
 
     class CHN(CONSTS.CHN):
         """ This inherits the CONSTS CHN, nothing needs to be added here.
