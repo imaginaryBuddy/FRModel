@@ -101,18 +101,21 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
         for chn in chns:
             length = len(chn) if isinstance(chn, Tuple) else 1
             try:
-                data[..., it:it+length] = _chn_mapping[chn]()
+                try:
+                    # The case where the channel is already calculated
+                    data[..., it:it+length] = self.data_chn(chn).data
+                except KeyError:
+                    # The case where the channel is missing
+                    data[..., it:it+length] = _chn_mapping[chn]()
                 labels.append(chn)
             except KeyError:
                 if chn in (self.CHN.X, self.CHN.Y):
-                    KeyError(f"You cannot get {chn} separately from XY, call with CHN.HSV")
+                    raise KeyError(f"You cannot get {chn} separately from XY, call with CHN.HSV")
                 elif chn in self.CHN.HSV:
-                    KeyError(f"You cannot get {chn} separately from HSV, call with CHN.HSV")
-                elif chn in (*self.CHN.RGB, self.CHN.RGB):
-                    KeyError(f"You cannot get {chn}, these are bases value and cannot be directly calculated")
+                    raise KeyError(f"You cannot get {chn} separately from HSV, call with CHN.HSV")
                 else:
-                    KeyError(f"Failed to find channel {chn}, I recommend to use CONSTS.CHN to get the correct"
-                             f"strings to call")
+                    raise KeyError(f"Failed to find channel {chn}, I recommend to use CONSTS.CHN to get the correct"
+                                   f"strings to call")
             it += length
 
         frame: 'Frame2D' = self.create(data=data, labels=labels)

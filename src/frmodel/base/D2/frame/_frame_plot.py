@@ -11,6 +11,8 @@ import plotly.io as pio
 import seaborn as sns
 from matplotlib.gridspec import GridSpec
 
+from frmodel.base import CONSTS
+
 if TYPE_CHECKING:
     from frmodel.base.D2 import Frame2D
 
@@ -96,38 +98,60 @@ class Frame2DPlot:
             sns.kdeplot(d.flatten(), ax=ax, bw_adjust=smoothing)
         return plt.gcf()
 
-    def image3d(self, ix: int,
-                z_scale:int = 1,
-                point_size:float = 7,
-                sample_size:int or None = 10000,
-                colorscale=px.colors.sequential.Viridis
-                ):
+    def surface3d(self,
+                  chn: CONSTS.CHN,
+                  nan_value: float = 0):
+        """ Plots a surface 3d plot on Plotly
+
+        :param chn: The channel to plot as height
+        :param nan_value: The value to replace NaNs"""
+
+        g = self.f.data_chn(chn).data
+        g[np.isnan(g)] = nan_value
+
+        return go.Figure(data=[
+            go.Surface(z=g[..., 0]),
+        ])
+
+    def scatter3d(self,
+                  chn: CONSTS.CHN,
+                  colored: bool = False,
+                  z_scale:int = 1,
+                  point_size:float = 7,
+                  sample_size:int or None = 10000,
+                  colorscale=px.colors.sequential.Viridis
+                  ):
         """ Plot a single index with respect to its X and Y.
 
-        :param ix: A single index.
+        :param chn: A single channel.
+        :param colored: Whether to have the point cloud coloured with RGB channels. Only works if RGB exists.
         :param z_scale: The scale of the Z Axis. If lower than 1, it'll look flatter, vice versa.
         :param point_size: The size of the markers.
         :param sample_size: The amount of points to sample. If None, use all points
         :param colorscale: The color scale to use when plotting.
         :returns: A plt.Figure
         """
-        d = self.f.get_chns(self_=True,
-                            chns=[self.f.CHN.XY]).data_flatten_xy()
+        if colored:
+            d = self.f.get_chns(self_=False, chns=[self.f.CHN.XY, chn, self.f.CHN.RGB]).data_flatten_xy()
+        else:
+            d = self.f.get_chns(self_=False, chns=[self.f.CHN.XY, chn]).data_flatten_xy()
+
         if sample_size:
             d = d[np.random.choice(d.shape[0], replace=False, size=sample_size)]
 
-        if ix < 0: ix -= 2
+        # Remove NaN Cases
+        d = d[~np.any(np.isnan(d), axis=1), ...]
 
         data = [
             go.Scatter3d(
-                x=d[..., -2],
-                y=d[..., -1],
-                z=d[..., ix],
+                x=d[..., 0],
+                y=d[..., 1],
+                z=d[..., 2],
                 mode='markers',
 
                 marker=dict(size=np.ones(d.shape[0]) * point_size,
                             line=dict(width=0),
-                            color=d[..., ix],
+                            color=[f'rgb({int(r[3])},{int(r[4])},{int(r[5])})' for r in d] if colored else d[..., 2],
                             colorscale=colorscale),
             )
         ]

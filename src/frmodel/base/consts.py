@@ -12,7 +12,9 @@ class CONSTS:
         # RGB
         X           = "X"
         Y           = "Y"
+        Z           = "Z"
         XY          = (X, Y)
+        XYZ         = (X, Y, Z)
         RED         = "R"  # 650 +- 16
         GREEN       = "G"  # 560 +- 16
         BLUE        = "B"  # 450 +- 16
@@ -79,3 +81,8 @@ class CONSTS:
         X = 0
         Y = 1
         Z = 2
+
+    class INTERP3D:
+        NEAREST = 'nearest'
+        LINEAR  = 'linear'
+        CUBIC   = 'cubic'
