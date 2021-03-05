@@ -13,10 +13,10 @@ class TestD2Fixture(unittest.TestCase):
     def setUp(cls) -> None:
         cls.frame_box = Frame2D.from_image(f"{_DIR}/box.png")
         cls.frame = Frame2D.from_image(f"{_DIR}/sample.jpg")
-        cls.frame_window = cls.frame.split_xy(100)[0][0]
         cls.window = 100
         cls._RSC = _RSC
         cls.channels = 3
+
 
 if __name__ == '__main__':
     unittest.main()
