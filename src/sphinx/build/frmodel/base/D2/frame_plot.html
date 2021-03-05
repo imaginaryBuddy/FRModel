@@ -24,8 +24,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -237,11 +235,11 @@
 <span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_plot" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot">
-<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame._frame_plot.</code><code class="sig-name descname">Frame2DPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span><span class="p">:</span> <span class="n">Frame2D</span></em>, <em class="sig-param"><span class="n">subplot_shape</span><span class="p">:</span> <span class="n">tuple</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">titles</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">frmodel.base.D2.frame._frame_plot.</span></code><code class="sig-name descname"><span class="pre">Frame2DPlot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Frame2D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplot_shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tuple</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titles</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot._create_grid">
-<code class="sig-name descname">_create_grid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot._create_grid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_create_grid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot._create_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Facilitates in create a subplot grid for plotting functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -255,7 +253,7 @@
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.hist">
-<code class="sig-name descname">hist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">bins</span><span class="o">=</span><span class="default_value">50</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.hist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">hist</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.hist" title="Permalink to this definition">¶</a></dt>
 <dd><p>For each index, create a separate subplot hist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -272,7 +270,7 @@
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.image">
-<code class="sig-name descname">image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">colormap</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'magma'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'magma'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.image" title="Permalink to this definition">¶</a></dt>
 <dd><p>For each index, create a separate subplot imshow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -288,28 +286,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.image3d">
-<code class="sig-name descname">scatter3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ix</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">z_scale</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">point_size</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">7</span></em>, <em class="sig-param"><span class="n">sample_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">10000</span></em>, <em class="sig-param"><span class="n">colorscale</span><span class="o">=</span><span class="default_value">['#440154', '#482878', '#3e4989', '#31688e', '#26828e', '#1f9e89', '#35b779', '#6ece58', '#b5de2b', '#fde725']</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.image3d" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot a single index with respect to its X and Y.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ix</strong> – A single index.</p></li>
-<li><p><strong>z_scale</strong> – The scale of the Z Axis. If lower than 1, it’ll look flatter, vice versa.</p></li>
-<li><p><strong>point_size</strong> – The size of the markers.</p></li>
-<li><p><strong>sample_size</strong> – The amount of points to sample. If None, use all points</p></li>
-<li><p><strong>colorscale</strong> – The color scale to use when plotting.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A plt.Figure</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.kde">
-<code class="sig-name descname">kde</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">smoothing</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.kde" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">kde</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.kde" title="Permalink to this definition">¶</a></dt>
 <dd><p>For each index, create a separate subplot hist.</p>
 <p>Note: smoothing may not work on some versions of seaborn.</p>
 <dl class="field-list simple">
@@ -326,9 +304,44 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.scatter3d">
+<code class="sig-name descname"><span class="pre">scatter3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">frmodel.base.consts.CONSTS.CHN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colored</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorscale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['#440154',</span> <span class="pre">'#482878',</span> <span class="pre">'#3e4989',</span> <span class="pre">'#31688e',</span> <span class="pre">'#26828e',</span> <span class="pre">'#1f9e89',</span> <span class="pre">'#35b779',</span> <span class="pre">'#6ece58',</span> <span class="pre">'#b5de2b',</span> <span class="pre">'#fde725']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.scatter3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot a single index with respect to its X and Y.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chn</strong> – A single channel.</p></li>
+<li><p><strong>colored</strong> – Whether to have the point cloud coloured with RGB channels. Only works if RGB exists.</p></li>
+<li><p><strong>z_scale</strong> – The scale of the Z Axis. If lower than 1, it’ll look flatter, vice versa.</p></li>
+<li><p><strong>point_size</strong> – The size of the markers.</p></li>
+<li><p><strong>sample_size</strong> – The amount of points to sample. If None, use all points</p></li>
+<li><p><strong>colorscale</strong> – The color scale to use when plotting.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.set_browser_plotting">
-<em class="property">static </em><code class="sig-name descname">set_browser_plotting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.set_browser_plotting" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">set_browser_plotting</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.set_browser_plotting" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes Plotly render on browser by changing the flag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_plot.Frame2DPlot.surface3d">
+<code class="sig-name descname"><span class="pre">surface3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">frmodel.base.consts.CONSTS.CHN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_plot.Frame2DPlot.surface3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots a surface 3d plot on Plotly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chn</strong> – The channel to plot as height</p></li>
+<li><p><strong>nan_value</strong> – The value to replace NaNs</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
