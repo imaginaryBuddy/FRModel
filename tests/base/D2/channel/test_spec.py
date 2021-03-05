@@ -10,10 +10,10 @@ class TestSpecChannel(TestD2FixtureSpec):
         f = self.frame
         c = f.CHN
         self.assertEqual(0, f.labels[c.RED])
-        self.assertEqual(0, f.labels[c.GREEN])
-        self.assertEqual(0, f.labels[c.BLUE])
-        self.assertEqual(0, f.labels[c.RED_EDGE])
-        self.assertEqual(0, f.labels[c.NIR])
+        self.assertEqual(1, f.labels[c.GREEN])
+        self.assertEqual(2, f.labels[c.BLUE])
+        self.assertEqual(3, f.labels[c.RED_EDGE])
+        self.assertEqual(4, f.labels[c.NIR])
 
     def test_get_present(self):
         """ Gets the channels that is already present. Synonymous with data_chn """
