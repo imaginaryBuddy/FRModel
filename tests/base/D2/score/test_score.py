@@ -14,8 +14,7 @@ class ScoreTest(TestD2Fixture):
     def test_box(self):
         C = CONSTS.CHN
 
-        f = Frame2D.from_image("box.png")
-        frame_xy = f.get_chns(self_=False,
+        frame_xy = self.frame_box.get_chns(self_=False,
                               chns=[C.XY, C.HSV, C.MEX_G, C.EX_GR, C.NDI])
 
         km = KMeans2D(frame_xy,
@@ -23,7 +22,7 @@ class ScoreTest(TestD2Fixture):
                       fit_to=[C.MEX_G, C.EX_GR, C.NDI],
                       scaler=minmax_scale)
         kmf = km.as_frame()
-        score = kmf.score(f)
+        score = kmf.score(self.frame_box)
         self.assertAlmostEqual(score['Custom'], 1)
         self.assertAlmostEqual(score['Homogeneity'], 1)
         self.assertAlmostEqual(score['Completeness'], 1)
