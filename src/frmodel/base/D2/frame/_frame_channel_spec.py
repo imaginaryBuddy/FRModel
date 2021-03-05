@@ -17,6 +17,7 @@ from frmodel.base.D2.frame._cy_entropy import cy_entropy
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
+
 class _Frame2DChannelSpec(ABC):
     """ This is a separate class to handle spectral channels, so as to not clutter the main class too much"""
 

@@ -82,13 +82,25 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
                           self._get_chn_size(chns)])
 
         _chn_mapping: dict = {
-            self.CHN.XY:    self.get_xy,
-            self.CHN.HSV:   self.get_hsv,
-            self.CHN.EX_G:  self.get_ex_g,
-            self.CHN.EX_GR: self.get_ex_gr,
-            self.CHN.MEX_G: self.get_mex_g,
-            self.CHN.NDI:   self.get_ndi,
-            self.CHN.VEG:   self.get_ex_g
+            self.CHN.XY     :self.get_xy,
+            self.CHN.HSV    :self.get_hsv,
+            self.CHN.EX_G   :self.get_ex_g,
+            self.CHN.EX_GR  :self.get_ex_gr,
+            self.CHN.MEX_G  :self.get_mex_g,
+            self.CHN.NDI    :self.get_ndi,
+            self.CHN.VEG    :self.get_ex_g,
+
+            self.CHN.NDVI   :self.get_ndvi,
+            self.CHN.BNDVI  :self.get_bndvi,
+            self.CHN.GNDVI  :self.get_gndvi,
+            self.CHN.GARI   :self.get_gari,
+            self.CHN.GLI    :self.get_gli,
+            self.CHN.GBNDVI :self.get_gbndvi,
+            self.CHN.GRNDVI :self.get_grndvi,
+            self.CHN.NDRE   :self.get_ndre,
+            self.CHN.LCI    :self.get_lci,
+            self.CHN.MSAVI  :self.get_msavi,
+            self.CHN.OSAVI  :self.get_osavi
         }
 
         it = 0

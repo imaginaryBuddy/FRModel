@@ -33,13 +33,16 @@ class CONSTS:
         RED_EDGE    = "RE"   # 730 +- 16
         NIR         = "NIR"  # 840 +- 26
         NDVI        = "NDVI"
+        BNDVI       = "BNDVI"
         GNDVI       = "GNDVI"
-        OSAVI       = "OSAVI"
+        GARI        = "GARI"
+        GLI         = "GLI"
+        GBNDVI      = "GBNDVI"
+        GRNDVI      = "GRNDVI"
         NDRE        = "NDRE"
         LCI         = "LCI"
         MSAVI       = "MSAVI"
-        CCCI        = "CCCI"
-
+        OSAVI       = "OSAVI"
         """
         NDWI        = "NDWI"
         
