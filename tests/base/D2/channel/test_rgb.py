@@ -1,9 +1,6 @@
 import unittest
 
-from frmodel.base.D2.draw2D import Draw2D
 from tests.base.D2Fixture.test_fixture import TestD2Fixture
-
-import numpy as np
 
 
 class TestRGBChannel(TestD2Fixture):
@@ -35,9 +32,9 @@ class TestRGBChannel(TestD2Fixture):
         """ Gets the channels that is already present. Synonymous with data_chn """
         f = self.frame
         c = f.CHN
-        self.assertEqual(c.RED,   f.get_chns(self_=False, chns=[c.RED])  .labels(c.RED))
-        self.assertEqual(c.GREEN, f.get_chns(self_=False, chns=[c.GREEN]).labels(c.GREEN))
-        self.assertEqual(c.BLUE,  f.get_chns(self_=False, chns=[c.BLUE]) .labels(c.BLUE))
+        self.assertEqual(0, f.get_chns(self_=False, chns=[c.RED])  .labels[c.RED])
+        self.assertEqual(0, f.get_chns(self_=False, chns=[c.GREEN]).labels[c.GREEN])
+        self.assertEqual(0, f.get_chns(self_=False, chns=[c.BLUE]) .labels[c.BLUE])
 
     def test_get_calculate(self):
         """ Calculates channels that are absent """
@@ -45,9 +42,9 @@ class TestRGBChannel(TestD2Fixture):
         c = f.CHN
         g = f.get_chns(self_=False, chns=[c.HSV])  # This should give us the HSV Channels only
 
-        self.assertEqual(c.HUE,        g.data_chn([c.HUE]).labels(c.HUE))
-        self.assertEqual(c.SATURATION, g.data_chn([c.SATURATION]).labels(c.SATURATION))
-        self.assertEqual(c.VALUE,      g.data_chn([c.VALUE]).labels(c.VALUE))
+        self.assertEqual(0, g.data_chn([c.HUE]).labels[c.HUE])
+        self.assertEqual(0, g.data_chn([c.SATURATION]).labels[c.SATURATION])
+        self.assertEqual(0, g.data_chn([c.VALUE]).labels[c.VALUE])
 
         # Red isn't present anymore due to self_=False
         self.assertRaises(KeyError,    g.data_chn, [c.RED])

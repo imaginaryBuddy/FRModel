@@ -1,8 +1,7 @@
-import pathlib
+import os
 import unittest
 
 from frmodel.base.D2 import Frame2D
-import os
 
 _DIR = os.path.dirname(os.path.realpath(__file__))
 _RSC = _DIR + "/../../../rsc"
