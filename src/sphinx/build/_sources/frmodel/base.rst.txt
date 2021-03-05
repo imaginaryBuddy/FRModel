@@ -6,6 +6,7 @@ Base Classes
    :maxdepth: 2
 
     2D Classes <base/D2/D2>
+    3D Classes <base/D3/cloud3D>
 
 =======
 Purpose
