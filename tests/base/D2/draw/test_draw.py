@@ -1,9 +1,9 @@
 import unittest
 
+import numpy as np
+
 from frmodel.base.D2.draw2D import Draw2D
 from tests.base.D2Fixture.test_fixture import TestD2Fixture
-
-import numpy as np
 
 
 class TestDraw(TestD2Fixture):

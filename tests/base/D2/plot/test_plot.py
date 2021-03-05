@@ -2,6 +2,7 @@ import unittest
 
 from tests.base.D2Fixture.test_fixture import TestD2Fixture
 
+
 class TestPlot(TestD2Fixture):
 
     def test_plot(self):

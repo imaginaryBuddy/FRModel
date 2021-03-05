@@ -4,7 +4,6 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import minmax_scale
 
 from frmodel.base import CONSTS
-from frmodel.base.D2 import Frame2D
 from frmodel.base.D2.kmeans2D import KMeans2D
 from tests.base.D2Fixture.test_fixture import TestD2Fixture
 

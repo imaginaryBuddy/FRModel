@@ -1,10 +1,10 @@
 import unittest
 
+import numpy as np
 
 from frmodel.base.D2.frame2D import Frame2D
 from frmodel.base.consts import CONSTS
 from tests.base.D2Fixture.test_fixture import TestD2Fixture
-import numpy as np
 
 
 class TestGLCM(TestD2Fixture):
