@@ -1,1 +1,0 @@
-xcopy /s ./docs ./src/sphinx/build
