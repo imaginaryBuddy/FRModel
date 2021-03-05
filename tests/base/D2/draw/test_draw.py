@@ -6,7 +6,7 @@ from tests.base.D2Fixture.test_fixture import TestD2Fixture
 import numpy as np
 
 
-class DrawTest(TestD2Fixture):
+class TestDraw(TestD2Fixture):
 
     def test_draw_multiple(self):
         draw = Draw2D.load_frame(self.frame)

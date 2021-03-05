@@ -9,7 +9,7 @@ from frmodel.base.D2.kmeans2D import KMeans2D
 from tests.base.D2Fixture.test_fixture import TestD2Fixture
 
 
-class ScoreTest(TestD2Fixture):
+class TestScore(TestD2Fixture):
 
     def test_box(self):
         C = CONSTS.CHN

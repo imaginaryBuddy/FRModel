@@ -6,7 +6,7 @@ from frmodel.base.consts import CONSTS
 from tests.base.D2Fixture.test_fixture import TestD2Fixture
 
 
-class FrameTest(TestD2Fixture):
+class TestFrame(TestD2Fixture):
 
     def test_split_xy(self):
         # Split by both X and Y
