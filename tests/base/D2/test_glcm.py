@@ -3,10 +3,10 @@ import unittest
 
 from frmodel.base.D2.frame2D import Frame2D
 from frmodel.base.consts import CONSTS
-from tests.base.D2.test_d2 import TestD2
+from tests.base.D2Fixture.test_fixture import TestD2Fixture
 import numpy as np
 
-class GLCMTest(TestD2):
+class GLCMTest(TestD2Fixture):
 
     def test_glcm(self):
         ar = np.asarray([[5, 8, 9, 5],

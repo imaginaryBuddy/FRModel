@@ -1,12 +1,12 @@
 import unittest
 
 from frmodel.base.D2.draw2D import Draw2D
-from tests.base.D2.test_d2 import TestD2
+from tests.base.D2Fixture.test_fixture import TestD2Fixture
 
 import numpy as np
 
 
-class DrawTest(TestD2):
+class DrawTest(TestD2Fixture):
 
     def test_draw_multiple(self):
         draw = Draw2D.load_frame(self.frame)

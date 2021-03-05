@@ -6,10 +6,10 @@ from sklearn.preprocessing import minmax_scale
 from frmodel.base import CONSTS
 from frmodel.base.D2 import Frame2D
 from frmodel.base.D2.kmeans2D import KMeans2D
-from tests.base.D2.test_d2 import TestD2
+from tests.base.D2Fixture.test_fixture import TestD2Fixture
 
 
-class ScoreTest(TestD2):
+class ScoreTest(TestD2Fixture):
 
     def test_box(self):
         C = CONSTS.CHN

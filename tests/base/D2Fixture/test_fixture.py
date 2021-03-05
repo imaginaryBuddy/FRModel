@@ -5,7 +5,7 @@ import os
 
 _RSC = os.path.dirname(os.path.realpath(__file__)) + "/../../../rsc"
 
-class TestD2(unittest.TestCase):
+class TestD2Fixture(unittest.TestCase):
 
     @classmethod
     def setUp(cls) -> None:

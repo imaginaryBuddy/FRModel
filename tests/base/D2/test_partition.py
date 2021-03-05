@@ -3,10 +3,10 @@ import unittest
 
 from frmodel.base.D2.frame2D import Frame2D
 from frmodel.base.consts import CONSTS
-from tests.base.D2.test_d2 import TestD2
+from tests.base.D2Fixture.test_fixture import TestD2Fixture
 
 
-class FrameTest(TestD2):
+class FrameTest(TestD2Fixture):
 
     def test_split_xy(self):
         # Split by both X and Y
