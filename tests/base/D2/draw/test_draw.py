@@ -10,19 +10,21 @@ class DrawTest(TestD2Fixture):
 
     def test_draw_multiple(self):
         draw = Draw2D.load_frame(self.frame)
-        x = np.linspace(0, 1500, 200)
-        y = np.random.randint(100, 300, 200)
+        x = np.linspace(0, self.frame.width(), 200)
+        y = np.random.randint(0, self.frame.height(), 200)
         draw.mark_multiple(x,
                            y,
                            outline=(255, 0, 0),
                            labels=[f"{i:.0f}, {j:.0f}" for i, j in zip(x, y)])
+        draw.save("./DrawMultipleRandom.png")
 
     def test_draw_single(self):
         draw = Draw2D.load_frame(self.frame)
-        draw.mark_single(100,
-                         200,
+        draw.mark_single(self.frame.width() // 2,
+                         self.frame.height() // 2,
                          outline=(255, 0, 0),
-                         label="100, 200")
+                         label="Mid Point")
+        draw.save("./DrawSingle.png")
 
 if __name__ == '__main__':
     unittest.main()

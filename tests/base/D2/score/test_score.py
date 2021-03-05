@@ -14,8 +14,7 @@ class ScoreTest(TestD2Fixture):
     def test_box(self):
         C = CONSTS.CHN
 
-        f = Frame2D.from_image(self._RSC + "/imgs/basic/box.png")
-        # frame_xy = f.get_chns(xy=True, hsv=True, mex_g=True, ex_gr=True, ndi=True)
+        f = Frame2D.from_image("box.png")
         frame_xy = f.get_chns(self_=False,
                               chns=[C.XY, C.HSV, C.MEX_G, C.EX_GR, C.NDI])
 
