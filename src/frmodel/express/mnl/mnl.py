@@ -4,6 +4,7 @@ from sklearn.preprocessing import minmax_scale
 from frmodel.base.D2.frame2D import Frame2D
 from scipy import ndimage as ndi
 import numpy as np
+from pathlib import Path
 
 from skimage.segmentation import watershed
 import matplotlib.pyplot as plt
@@ -14,43 +15,51 @@ from scipy.ndimage.morphology import binary_dilation
 
 FIG_SIZE = 10
 
-MNL_PATH = "mnl/"
 
 NIR_THRESHOLD = 90 / 256
+
+
+# noinspection PyPep8Naming
 def BIN_FILTER(inp: Frame2D):
+    # noinspection PyTypeChecker
     return inp.data_chn(inp.CHN.NIR).data < NIR_THRESHOLD * (2 ** 14)
 
 
-BLOB_REMOVAL_PATH = MNL_PATH + "blob_removal.png"
 BLOB_CONNECTIVITY = 2
 BLOB_MIN_SIZE = 1000
 TEXT_X = 0.5
 TEXT_Y = 1.02
 
-EDT_PATH = MNL_PATH + "edt.png"
-
-PEAKS_PATH = MNL_PATH + "peaks.png"
 PEAKS_FOOTPRINT = 200
-
-WATERSHED_PATH = MNL_PATH + "watershed.png"
-
-CANNY_PATH = MNL_PATH + "canny.png"
 CANNY_THICKNESS = 5
+
 
 def meaningless_segmentation(inp: 'Frame2D',
                              bin_filter=BIN_FILTER,
                              blob_connectivity=BLOB_CONNECTIVITY,
                              blob_min_size=BLOB_MIN_SIZE,
                              peaks_footprint=PEAKS_FOOTPRINT,
-                             canny_thickness=CANNY_THICKNESS):
+                             canny_thickness=CANNY_THICKNESS,
+                             output_dir="mnl/"):
+
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+
+    blob_removal_path = output_dir + "blob_removal.png"
+    edt_path          = output_dir + "edt.png"
+    peaks_path        = output_dir + "peaks.png"
+    watershed_path    = output_dir + "watershed.png"
+    canny_path        = output_dir + "canny.png"
 
     # ============ BINARIZATION ============
     print("Binarizing Image...", end=" ")
 
-    fig, ax = plt.subplots(1, 3, figsize=(FIG_SIZE, FIG_SIZE // 2), sharey=True)
+    # noinspection PyTypeChecker
+    fig, ax = plt.subplots(1, 3, figsize=(FIG_SIZE, FIG_SIZE // 2),
+                           sharey=True)
 
     binary = np.where(bin_filter(inp), 0, 1).squeeze()
     if isinstance(inp.data, np.ma.MaskedArray):
+        # noinspection PyUnresolvedReferences
         binary = np.logical_and(binary, ~inp.data.mask[..., 0])
 
     print(f"Binarized.")
@@ -74,9 +83,11 @@ def meaningless_segmentation(inp: 'Frame2D',
     ax[2].text(TEXT_X, TEXT_Y, 'PATCH MEANINGFUL',
                horizontalalignment='center', transform=ax[2].transAxes)
     fig.tight_layout()
-    fig.savefig(BLOB_REMOVAL_PATH)
+    fig.savefig(blob_removal_path)
+    fig.clf()
 
-    print(f"Removed Blobs with size < {blob_min_size}, connectivity = {blob_connectivity}.")
+    print(f"Removed Blobs with size < {blob_min_size}, "
+          f"connectivity = {blob_connectivity}.")
     # ============ DISTANCE ============
     print("Creating Distance Image...", end=" ")
     distances = distance_transform_edt(binary.astype(bool))
@@ -87,7 +98,8 @@ def meaningless_segmentation(inp: 'Frame2D',
     fig: plt.Figure
     fig.colorbar(i, ax=ax)
     fig.tight_layout()
-    fig.savefig(EDT_PATH)
+    fig.savefig(edt_path)
+    fig.clf()
 
     print(f"Created Distance Image.")
     # ============ PEAK FINDING ============
@@ -106,7 +118,8 @@ def meaningless_segmentation(inp: 'Frame2D',
             horizontalalignment='center', transform=ax.transAxes)
 
     fig.tight_layout()
-    fig.savefig(PEAKS_PATH)
+    fig.savefig(peaks_path)
+    fig.clf()
 
     print(f"Found {peaks.shape[0]} peaks with Footprint {peaks_footprint}.")
     # ============ WATERSHED ============
@@ -121,7 +134,8 @@ def meaningless_segmentation(inp: 'Frame2D',
     ax.scatter(peaks[..., 1], peaks[..., 0], c='red', s=1)
 
     fig.tight_layout()
-    fig.savefig(WATERSHED_PATH)
+    fig.savefig(watershed_path)
+    fig.clf()
 
     print(f"Created Watershed Image.")
     # ============ CANNY EDGE ============
@@ -132,7 +146,8 @@ def meaningless_segmentation(inp: 'Frame2D',
     ax.imshow(inp.data_rgb().scale(minmax_scale).data)
     ax.imshow(binary_dilation(canny, structure=np.ones((canny_thickness, canny_thickness))),
               cmap='gray', alpha=0.5)
-    fig.savefig(CANNY_PATH)
+    fig.savefig(canny_path)
+    fig.clf()
 
     print(f"Created Canny Edge Image.")
 
