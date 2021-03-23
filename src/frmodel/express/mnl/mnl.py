@@ -41,7 +41,20 @@ def meaningless_segmentation(inp: 'Frame2D',
                              peaks_footprint=PEAKS_FOOTPRINT,
                              canny_thickness=CANNY_THICKNESS,
                              output_dir="mnl/"):
+    """ Runs the Meaningless Segmentation as depicted in the journal
 
+    The output_dir will be automatically created if it doesn't exist.
+    Default: "mnl/"
+
+    :param inp: Input Frame2D, can be MaskedData
+    :param bin_filter: A function that takes in Frame2D and returns a boolean mask
+    :param blob_connectivity: Connectivity of morphology.remove_small_objects
+    :param blob_min_size: Min Size of morphology.remove_small_objects
+    :param peaks_footprint: Footprint of Local Peak Max
+    :param canny_thickness: Thickness of Canny line
+    :param output_dir: Output directory, will be created if doesn't exist
+    :return: Dictionary of "frame": Frame2D, "peaks": np.ndarray
+    """
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     blob_removal_path = output_dir + "blob_removal.png"
