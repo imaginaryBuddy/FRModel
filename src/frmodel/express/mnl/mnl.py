@@ -14,16 +14,7 @@ from skimage import morphology
 from scipy.ndimage.morphology import binary_dilation
 
 FIG_SIZE = 10
-
-
 NIR_THRESHOLD = 90 / 256
-
-
-# noinspection PyPep8Naming
-def BIN_FILTER(inp: Frame2D):
-    # noinspection PyTypeChecker
-    return inp.data_chn(inp.CHN.NIR).data < NIR_THRESHOLD * (2 ** 14)
-
 
 BLOB_CONNECTIVITY = 2
 BLOB_MIN_SIZE = 1000
@@ -32,6 +23,12 @@ TEXT_Y = 1.02
 
 PEAKS_FOOTPRINT = 200
 CANNY_THICKNESS = 5
+
+
+# noinspection PyPep8Naming
+def BIN_FILTER(inp: Frame2D):
+    # noinspection PyTypeChecker
+    return inp.data_chn(inp.CHN.NIR).data < NIR_THRESHOLD * (2 ** 14)
 
 
 def meaningless_segmentation(inp: 'Frame2D',
