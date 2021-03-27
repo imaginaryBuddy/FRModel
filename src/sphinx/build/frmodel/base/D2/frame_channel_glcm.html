@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frame Gray Level Co-occurrence Matrix &mdash; frmodel 0.0.5 documentation</title>
+  <title>Frame Gray Level Co-occurrence Matrix &mdash; frmodel 0.0.6 documentation</title>
   
 
   
@@ -24,7 +24,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
@@ -108,6 +107,7 @@
 <li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../D3/cloud3D.html"> 3D Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
 </ul>
 </li>
@@ -239,18 +239,18 @@ GLCM_{Entropy} = \frac{GLCM(i,j)^2}{Size}\end{split}\]</div>
 <span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_channel_glcm" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM">
-<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame._frame_channel_glcm.</code><code class="sig-name descname">_Frame2DChannelGLCM</code><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">frmodel.base.D2.frame._frame_channel_glcm.</span></code><code class="sig-name descname"><span class="pre">_Frame2DChannelGLCM</span></code><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <dl class="py class">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM">
-<em class="property">class </em><code class="sig-name descname">GLCM</code><span class="sig-paren">(</span><em class="sig-param">by_x: int = 1</em>, <em class="sig-param">by_y: int = 1</em>, <em class="sig-param">radius: int = 5</em>, <em class="sig-param">contrast: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">correlation: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">entropy: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">verbose: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">GLCM</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by_x:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">by_y:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5</span></em>, <em class="sig-param"><span class="pre">contrast:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">correlation:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">entropy:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This holds all GLCM parameters to pass into get_glcm</p>
 <p>Note that contrast, correlation, entropy takes arguments similarly to how get_chns work.</p>
 <p>e.g. contrast=[f.CHN.HSV]</p>
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">by_x: int = 1</em>, <em class="sig-param">by_y: int = 1</em>, <em class="sig-param">radius: int = 5</em>, <em class="sig-param">contrast: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">correlation: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">entropy: List[frmodel.base.consts.CONSTS.CHN] = &lt;factory&gt;</em>, <em class="sig-param">verbose: bool = True</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by_x:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">by_y:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5</span></em>, <em class="sig-param"><span class="pre">contrast:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">correlation:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">entropy:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -258,7 +258,7 @@ GLCM_{Entropy} = \frac{GLCM(i,j)^2}{Size}\end{split}\]</div>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_contrast_py">
-<em class="property">static </em><code class="sig-name descname">_get_glcm_contrast_py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_contrast_py" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_contrast_py</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_contrast_py" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pure python implementation of Contrast.</p>
 <p>Cython isn’t needed as it’s purely vectorizable.</p>
 <p>Create the difference matrix, then convolve with a 1 filled kernel</p>
@@ -275,7 +275,7 @@ GLCM_{Entropy} = \frac{GLCM(i,j)^2}{Size}\end{split}\]</div>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_cy">
-<em class="property">static </em><code class="sig-name descname">_get_glcm_correlation_cy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n">bool</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>numpy.ndarray<span class="p">, </span>Tuple<span class="p">[</span>str<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_cy" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_correlation_cy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_cy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Correlation In Cython</p>
 <p>Uses the basis GLCM definition.</p>
 <dl class="field-list simple">
@@ -291,7 +291,7 @@ GLCM_{Entropy} = \frac{GLCM(i,j)^2}{Size}\end{split}\]</div>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_naive_py">
-<em class="property">static </em><code class="sig-name descname">_get_glcm_correlation_naive_py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_naive_py" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_correlation_naive_py</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_naive_py" title="Permalink to this definition">¶</a></dt>
 <dd><p>Legacy Naive Correlation Calculation in Pure Python</p>
 <p>This is naive because the formula doesn’t seem to match up with the basis definition of Correlation.
 This omits the</p>
@@ -311,7 +311,7 @@ This omits the</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_py">
-<em class="property">static </em><code class="sig-name descname">_get_glcm_correlation_py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_py" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_correlation_py</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_correlation_py" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses Pure Python to implement correlation GLCM</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -326,7 +326,7 @@ This omits the</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_cy">
-<em class="property">static </em><code class="sig-name descname">_get_glcm_entropy_cy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_cy" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_entropy_cy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_cy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the entropy, uses the Cython entropy algorithm</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -341,7 +341,7 @@ This omits the</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_py">
-<em class="property">static </em><code class="sig-name descname">_get_glcm_entropy_py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ar_a</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">ar_b</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_py" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_entropy_py</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM._get_glcm_entropy_py" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the entropy in Pure Python</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -357,7 +357,7 @@ This omits the</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.get_glcm">
-<code class="sig-name descname">get_glcm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">glcm</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM" title="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM">GLCM</a></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>np.ndarray<span class="p">, </span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.get_glcm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_glcm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">glcm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM" title="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM"><span class="pre">GLCM</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">np.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.get_glcm" title="Permalink to this definition">¶</a></dt>
 <dd><p>This will get the GLCM statistics for this window</p>
 <p>Details on how GLCM works is shown on the wiki.</p>
 <dl class="field-list simple">

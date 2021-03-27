@@ -63,11 +63,7 @@ class _Cloud3DFrame(ABC):
     def interp_sig_clamp(x: np.ndarray, alpha: float = 255, beta: float = 50):
         """ Used to clamp the RGB values based on the following formula
 
-                 a
-        ------------------
-                   x-a/2
-        1 + exp( - ----- )
-                     b
+        a / { 1 + exp [ - ( x - a / 2 ) / b ] }
 
         :param x: Input
         :param alpha: Amplitude, makes clamping from [0, a]

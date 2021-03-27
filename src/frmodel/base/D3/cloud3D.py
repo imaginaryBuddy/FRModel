@@ -10,7 +10,6 @@ import numpy as np
 import pandas as pd
 from laspy.file import File
 
-from frmodel.base.D2 import Frame2D
 from frmodel.base.D3.cloud._cloud_frame import _Cloud3DFrame
 
 

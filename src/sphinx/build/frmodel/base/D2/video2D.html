@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Video &mdash; frmodel 0.0.5 documentation</title>
+  <title>Video &mdash; frmodel 0.0.6 documentation</title>
   
 
   
@@ -24,8 +24,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -97,6 +95,7 @@
 <li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../D3/cloud3D.html"> 3D Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
 </ul>
 </li>
@@ -193,19 +192,19 @@
 <h2>Grabbing Frames<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-frmodel.base.D2.video2D"></span><dl class="py class">
 <dt id="frmodel.base.D2.video2D.Video2D">
-<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.video2D.</code><code class="sig-name descname">Video2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vid</span><span class="p">:</span> <span class="n">cv2.VideoCapture</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.video2D.Video2D" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">frmodel.base.D2.video2D.</span></code><code class="sig-name descname"><span class="pre">Video2D</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">cv2.VideoCapture</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.video2D.Video2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class holds the data as OpenCV2.VideoCapture.</p>
 <p>Extract the actual Capture with .vid property</p>
 <dl class="py method">
 <dt id="frmodel.base.D2.video2D.Video2D.from_video">
-<em class="property">static </em><code class="sig-name descname">from_video</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.video2D.Video2D" title="frmodel.base.D2.video2D.Video2D">frmodel.base.D2.video2D.Video2D</a><a class="headerlink" href="#frmodel.base.D2.video2D.Video2D.from_video" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_video</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.video2D.Video2D" title="frmodel.base.D2.video2D.Video2D"><span class="pre">frmodel.base.D2.video2D.Video2D</span></a><a class="headerlink" href="#frmodel.base.D2.video2D.Video2D.from_video" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an instance using the file path.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.video2D.Video2D.to_frames">
-<code class="sig-name descname">to_frames</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offsets_msec</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">failure_default</span><span class="p">:</span> <span class="n">None</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.video2D.Video2D.to_frames" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">to_frames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offsets_msec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failure_default</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">None</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D"><span class="pre">frmodel.base.D2.frame2D.Frame2D</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.video2D.Video2D.to_frames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts images from the video.</p>
 <p>Returns frmodel.Image</p>
 <dl class="field-list simple">

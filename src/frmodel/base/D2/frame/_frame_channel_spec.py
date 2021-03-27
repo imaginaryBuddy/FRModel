@@ -17,6 +17,7 @@ from frmodel.base.D2.frame._cy_entropy import cy_entropy
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
+
 class _Frame2DChannelSpec(ABC):
     """ This is a separate class to handle spectral channels, so as to not clutter the main class too much"""
 
@@ -37,20 +38,20 @@ class _Frame2DChannelSpec(ABC):
         """ Green Normalized Difference Vegetation Index """
         return (self._n() - self._g()) / (self._n() + self._g())
     def get_gari(self: 'Frame2D') -> np.ndarray:
-        """ Green Normalized Difference Vegetation Index """
+        """ Green Atmospherically Resistant Vegetation Index """
         b_r = self._b() - self._r()
         return (self._n() - (self._g() - b_r)) / (self._n() - (self._g() + b_r))
     def get_gli(self: 'Frame2D') -> np.ndarray:
-        """ Green Normalized Difference Vegetation Index """
+        """ Green Leaf Index """
         return (2 * self._g() - self._r() - self._b()) / (2 * self._g() + self._r() + self._b())
     def get_gbndvi(self: 'Frame2D') -> np.ndarray:
-        """ Blue Normalized Difference Vegetation Index """
+        """ Green Blue NDVI """
         return (self._n() - self._b()) / (self._n() + self._b())
     def get_grndvi(self: 'Frame2D') -> np.ndarray:
-        """ Green Normalized Difference Vegetation Index """
+        """ Green Red NDVI """
         return (self._n() - self._g()) / (self._n() + self._g())
     def get_ndre(self: 'Frame2D') -> np.ndarray:
-        """ Normaled Difference Red Edge """
+        """ Normalized Difference Red Edge """
         return (self._n() - self._e()) / (self._n() + self._e())
     def get_lci(self: 'Frame2D') -> np.ndarray:
         """ Leaf Chlorophyll Index  """
@@ -60,6 +61,7 @@ class _Frame2DChannelSpec(ABC):
         aux = (2 * self._n() + 1)
         return (aux - np.sqrt(aux ** 2 - 8 * (self._n() - self._r()))) / 2
     def get_osavi(self: 'Frame2D') -> np.ndarray:
+        """ Optimized Soil Adjusted Vegetation Index """
         return (self._n() - self._r()) / (self._n() + self._r() + 0.16)
 
 """

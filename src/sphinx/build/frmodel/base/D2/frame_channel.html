@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frame Channel &mdash; frmodel 0.0.5 documentation</title>
+  <title>Frame Channel &mdash; frmodel 0.0.6 documentation</title>
   
 
   
@@ -24,7 +24,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
@@ -89,6 +88,7 @@
 <li class="toctree-l4"><a class="reference internal" href="frame_partition.html">Partition</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Channel</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#getting-channels">Getting Channels</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#formulas">Formulas</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#glcm">GLCM</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#xy">XY</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#hsv">HSV</a></li>
@@ -97,6 +97,17 @@
 <li class="toctree-l5"><a class="reference internal" href="#ex-gr">EX_GR</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#ndi">NDI</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#veg">VEG</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ndvi">NDVI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#bndvi">BNDVI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#gndvi">GNDVI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#gari">GARI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#gli">GLI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#gbndvi">GBNDVI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#grndvi">GRNDVI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ndre">NDRE</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#lci">LCI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#msavi">MSAVI</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#osavi">OSAVI</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.frame._frame_channel">Module Info</a></li>
 </ul>
 </li>
@@ -114,6 +125,7 @@
 <li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../D3/cloud3D.html"> 3D Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
 </ul>
 </li>
@@ -298,12 +310,28 @@ the latter method is not recommended as it’s verbose.</p>
 <td><p>Normalized Difference Vegetation Index Channel</p></td>
 <td><p>1</p></td>
 </tr>
-<tr class="row-odd"><td><p>GNDVI</p></td>
+<tr class="row-odd"><td><p>BNDVI</p></td>
+<td><p>Blue Normalized Difference Vegetation Index Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>GNDVI</p></td>
 <td><p>Green Normalized Difference Vegetation Index Channel</p></td>
 <td><p>1</p></td>
 </tr>
-<tr class="row-even"><td><p>OSAVI</p></td>
-<td><p>Optimized Soil Adjusted Vegetation Index Channel</p></td>
+<tr class="row-odd"><td><p>GARO</p></td>
+<td><p>Green Atmospherically Resistant Vegetation Index</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>GLI</p></td>
+<td><p>Green Leaf Index</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>GBNDVI</p></td>
+<td><p>Green Blue NDVI</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>GRNDVI</p></td>
+<td><p>Green Red NDVI</p></td>
 <td><p>1</p></td>
 </tr>
 <tr class="row-odd"><td><p>NDRE</p></td>
@@ -311,7 +339,15 @@ the latter method is not recommended as it’s verbose.</p>
 <td><p>1</p></td>
 </tr>
 <tr class="row-even"><td><p>LCI</p></td>
-<td><p>Leaf Chrolophyll Index Channel</p></td>
+<td><p>Leaf Chlorophyll Index Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSAVI</p></td>
+<td><p>Modified Soil Adjusted Vegetation Index Channel</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>OSAVI</p></td>
+<td><p>Optimized Soil Adjusted Vegetation Index Channel</p></td>
 <td><p>1</p></td>
 </tr>
 </tbody>
@@ -319,6 +355,12 @@ the latter method is not recommended as it’s verbose.</p>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">get_all_chns</span></code> and <code class="docutils literal notranslate"><span class="pre">get_chns</span></code> gets all channels above.</p>
 <p>The difference between those 2 is that, with <code class="docutils literal notranslate"><span class="pre">get_all_chns</span></code> you exclude channels you don’t need,
 depending on your choices, one may be more succinct than the other.</p>
+</div>
+<div class="section" id="formulas">
+<h2>Formulas<a class="headerlink" href="#formulas" title="Permalink to this headline">¶</a></h2>
+<p>Below, we list all formulas that are used to calculate each index.</p>
+<p>R: Red Wide, G: Green Wide, B: Blue Wide.</p>
+<p>r: Red Narrow, g: Green Narrow, b: Blue Narrow, e: Red Edge, n: Near Infared</p>
 </div>
 <div class="section" id="glcm">
 <h2>GLCM<a class="headerlink" href="#glcm" title="Permalink to this headline">¶</a></h2>
@@ -360,17 +402,102 @@ depending on your choices, one may be more succinct than the other.</p>
 <h2>VEG<a class="headerlink" href="#veg" title="Permalink to this headline">¶</a></h2>
 <p>Vegetative Index, defined as</p>
 <div class="math notranslate nohighlight">
-\[\frac{g}{r^{a} * b^{1-a}}\]</div>
+\[\frac{G}{R^{a} * B^{1-a}}\]</div>
+</div>
+<div class="section" id="ndvi">
+<h2>NDVI<a class="headerlink" href="#ndvi" title="Permalink to this headline">¶</a></h2>
+<p>Normalized Difference Vegetation Index</p>
+<div class="math notranslate nohighlight">
+\[\frac{n - r}{n + r}\]</div>
+</div>
+<div class="section" id="bndvi">
+<h2>BNDVI<a class="headerlink" href="#bndvi" title="Permalink to this headline">¶</a></h2>
+<p>Blue Normalized Difference Vegetation Index</p>
+<div class="math notranslate nohighlight">
+\[\frac{n - b}{n + b}\]</div>
+</div>
+<div class="section" id="gndvi">
+<h2>GNDVI<a class="headerlink" href="#gndvi" title="Permalink to this headline">¶</a></h2>
+<p>Green Normalized Difference Vegetation Index</p>
+<div class="math notranslate nohighlight">
+\[\frac{n - g}{n + g}\]</div>
+</div>
+<div class="section" id="gari">
+<h2>GARI<a class="headerlink" href="#gari" title="Permalink to this headline">¶</a></h2>
+<p>Green Atmospherically Resistant Vegetation Index</p>
+<div class="math notranslate nohighlight">
+\[\frac{n - g + b - r}{n - g - b + r}\]</div>
+</div>
+<div class="section" id="gli">
+<h2>GLI<a class="headerlink" href="#gli" title="Permalink to this headline">¶</a></h2>
+<p>Green Leaf Index</p>
+<div class="math notranslate nohighlight">
+\[\frac{2 * g - r - b}{2 * g + r + b}\]</div>
+</div>
+<div class="section" id="gbndvi">
+<h2>GBNDVI<a class="headerlink" href="#gbndvi" title="Permalink to this headline">¶</a></h2>
+<p>Green Blue Normalized Difference Vegetation Index</p>
+<div class="math notranslate nohighlight">
+\[\frac{n - b}{n + b}\]</div>
+</div>
+<div class="section" id="grndvi">
+<h2>GRNDVI<a class="headerlink" href="#grndvi" title="Permalink to this headline">¶</a></h2>
+<p>Green Red Normalized Difference Vegetation Index</p>
+<div class="math notranslate nohighlight">
+\[\frac{n - g}{n + g}\]</div>
+</div>
+<div class="section" id="ndre">
+<h2>NDRE<a class="headerlink" href="#ndre" title="Permalink to this headline">¶</a></h2>
+<p>Normalized Difference Red Edge</p>
+<div class="math notranslate nohighlight">
+\[\frac{n - e}{n + e}\]</div>
+</div>
+<div class="section" id="lci">
+<h2>LCI<a class="headerlink" href="#lci" title="Permalink to this headline">¶</a></h2>
+<p>Leaf Chlorophyll Index</p>
+<div class="math notranslate nohighlight">
+\[\frac{n - e}{n + r}\]</div>
+</div>
+<div class="section" id="msavi">
+<h2>MSAVI<a class="headerlink" href="#msavi" title="Permalink to this headline">¶</a></h2>
+<p>Modified Soil Adjusted Vegetation Index</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X = (2n + 1) \\
+(X - \sqrt{X^2 - 8 (n - r)}) / 2\end{split}\]</div>
+</div>
+<div class="section" id="osavi">
+<h2>OSAVI<a class="headerlink" href="#osavi" title="Permalink to this headline">¶</a></h2>
+<p>Optimized Soil Adjusted Vegetation Index</p>
+<div class="math notranslate nohighlight">
+\[\frac{n - r}{n + r + 0.16}\]</div>
 </div>
 <div class="section" id="module-frmodel.base.D2.frame._frame_channel">
 <span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_channel" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel">
-<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame._frame_channel.</code><code class="sig-name descname">_Frame2DChannel</code><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="frame_channel_glcm.html#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM" title="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM"><code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">frmodel.base.D2.frame._frame_channel.</span></code><code class="sig-name descname"><span class="pre">_Frame2DChannel</span></code><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="frame_channel_glcm.html#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM" title="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM"><code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_channel_spec._Frame2DChannelSpec</span></code></p>
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel._b">
+<code class="sig-name descname"><span class="pre">_b</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel._b" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short forms for easy calling, not recommended to use outside of class scope</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel._g">
+<code class="sig-name descname"><span class="pre">_g</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel._g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short forms for easy calling, not recommended to use outside of class scope</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel._r">
+<code class="sig-name descname"><span class="pre">_r</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel._r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short forms for easy calling, not recommended to use outside of class scope</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_all_chns">
-<code class="sig-name descname">get_all_chns</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self_</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exc_chns</span><span class="p">:</span> <span class="n">Iterable<span class="p">[</span>Frame2D.CHN<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">glcm</span><span class="p">:</span> <span class="n">_Frame2DChannel.GLCM</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="frmodel.base.D2.frame._frame_channel._Frame2DChannel">_Frame2DChannel</a><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_all_chns" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_all_chns</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_chns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D.CHN</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glcm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">_Frame2DChannel.GLCM</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="frmodel.base.D2.frame._frame_channel._Frame2DChannel"><span class="pre">_Frame2DChannel</span></a><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_all_chns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all channels, excludes any in exc_chns.</p>
 <p>Use get_chns to get selected ones</p>
 <p>Order is given by the argument order.
@@ -392,7 +519,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_chns">
-<code class="sig-name descname">get_chns</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self_</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">chns</span><span class="p">:</span> <span class="n">Iterable<span class="p">[</span>Frame2D.CHN<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">glcm</span><span class="p">:</span> <span class="n">_Frame2DChannel.GLCM</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="frmodel.base.D2.frame._frame_channel._Frame2DChannel">_Frame2DChannel</a><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_chns" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_chns</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D.CHN</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glcm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">_Frame2DChannel.GLCM</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="frmodel.base.D2.frame._frame_channel._Frame2DChannel"><span class="pre">_Frame2DChannel</span></a><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_chns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets selected channels</p>
 <p>Use get_all_chns to get all but selected ones</p>
 <p>Order is given by the argument order.
@@ -412,7 +539,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_g">
-<code class="sig-name descname">get_ex_g</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_g" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_ex_g</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the excessive green index</p>
 <p>Original: 2g - 1r - 1b</p>
 <dl class="field-list simple">
@@ -424,7 +551,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_gr">
-<code class="sig-name descname">get_ex_gr</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_gr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_ex_gr</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ex_gr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the excessive green minus excess red index</p>
 <p>2g - r - b - 1.4r + g = 3g - 2.4r - b</p>
 <dl class="field-list simple">
@@ -436,7 +563,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_hsv">
-<code class="sig-name descname">get_hsv</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_hsv" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_hsv</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_hsv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a HSV</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -447,7 +574,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_mex_g">
-<code class="sig-name descname">get_mex_g</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_mex_g" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_mex_g</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_mex_g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the Modified excessive green index</p>
 <p>1.262g - 0.884r - 0.331b</p>
 <dl class="field-list simple">
@@ -459,7 +586,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ndi">
-<code class="sig-name descname">get_ndi</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ndi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_ndi</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_ndi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the Normalized Difference Index</p>
 <p>(g - r) / (g + r)</p>
 <dl class="field-list simple">
@@ -471,7 +598,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_veg">
-<code class="sig-name descname">get_veg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">const_a</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.667</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_veg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_veg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">const_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.667</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_veg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the Vegetative Index</p>
 <p>g / {(r^a) * [b^(1 - a)]}</p>
 <dl class="field-list simple">
@@ -486,7 +613,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_xy">
-<code class="sig-name descname">get_xy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_xy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_xy</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_xy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the XY Coord Array</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
