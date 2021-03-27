@@ -31,9 +31,9 @@ class _Frame2DChannelGLCM(ABC):
         by_x:        int = 1
         by_y:        int = 1
         radius:      int = 5
-        contrast:    List[CONSTS.CHN] = field(default_factory=[])
-        correlation: List[CONSTS.CHN] = field(default_factory=[])
-        entropy:     List[CONSTS.CHN] = field(default_factory=[])
+        contrast:    List[CONSTS.CHN] = field(default_factory=lambda: [])
+        correlation: List[CONSTS.CHN] = field(default_factory=lambda: [])
+        entropy:     List[CONSTS.CHN] = field(default_factory=lambda: [])
         verbose:     bool = True
 
     def get_glcm(self: 'Frame2D', glcm:GLCM) -> Tuple[np.ndarray, List[str]]:
