@@ -36,23 +36,15 @@ class _Frame2DImage(ABC):
         """
         Image.fromarray(self.data_rgb().data.astype(np.uint8)).save(file_path, **kwargs)
 
-    def convolute(self: 'Frame2D', radius: int, method: str = 'nearest') -> Frame2D:
-        """ Convolutes the Frame.
+    def convolute(self: 'Frame2D', radius: int) -> Frame2D:
+        """ Convolutes the Frame, average per window
 
         :param radius: The radius of the convolution.
-        :param method: "nearest" or "average". If argument is not 'nearest', it'll use average by default.
         """
 
         kernel_diam = radius * 2 + 1
+        data = np.average(np.average(self.view_windows(kernel_diam, kernel_diam, 1, 1), axis=2), axis=2)
+        return self.create(data, self.labels)
 
-        if method == 'nearest':
-            kernel = np.zeros([kernel_diam + 1, kernel_diam + 1, 1])
-            kernel[kernel.shape[0] // 2,
-                   kernel.shape[1] // 2] = 1
-
-        else:  # 'average'
-            kernel = np.outer(gaussian(kernel_diam + 1, radius),
-                              gaussian(kernel_diam + 1, radius))
-            kernel = np.expand_dims(kernel, axis=-1)
-
-        return self.create(fftconvolve(self.data, kernel, mode='valid', axes=[0, 1]), self.labels)
+    def nanmask(self: 'Frame2D'):
+        return np.isnan(self.data).any(axis=-1)
