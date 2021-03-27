@@ -137,7 +137,10 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
                 # Cannot convolute a 0 set. We'll still entertain get_glcm only.
                 frame = self.create(*self.get_glcm(glcm))
             else:
-                frame = frame.convolute(radius=glcm.radius).append(*self.get_glcm(glcm))
+                frame = frame\
+                    .convolute(radius=glcm.radius)\
+                    .crop(0, glcm.by, glcm.by)\
+                    .append(*self.get_glcm(glcm))
 
         return frame
 
