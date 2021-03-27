@@ -11,10 +11,10 @@ if TYPE_CHECKING:
 
 class _Frame2DScaling(ABC):
 
-    def normalize(self: 'Frame2D', **kwargs) -> _Frame2DScaling:
+    def normalize(self: 'Frame2D', **kwargs) -> 'Frame2D':
         return self.scale(sk_normalize, **kwargs)
 
-    def minmax_scale(self: 'Frame2D', **kwargs) -> _Frame2DScaling:
+    def minmax_scale(self: 'Frame2D', **kwargs) -> 'Frame2D':
         return self.scale(sk_minmax_scale, **kwargs)
 
     def scale(self: 'Frame2D', scaler, **scaler_kwargs):

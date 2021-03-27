@@ -103,7 +103,7 @@ class _Frame2DPartition(ABC):
     def split(self: 'Frame2D',
               by: int,
               axis_cut: CONSTS.AXIS = CONSTS.AXIS.Y,
-              method: SplitMethod = SplitMethod.DROP) -> List[_Frame2DPartition]:
+              method: SplitMethod = SplitMethod.DROP) -> List['Frame2D']:
         """ Splits the current Frame into windows of specified size.
 
         This operation is much faster but cannot have overlapping windows
@@ -138,7 +138,7 @@ class _Frame2DPartition(ABC):
 
     def split_xy(self: 'Frame2D',
                  by: int,
-                 method: SplitMethod = SplitMethod.DROP) -> List[List[_Frame2DPartition]]:
+                 method: SplitMethod = SplitMethod.DROP) -> List[List['Frame2D']]:
         """ Short hand for splitting by both axes.
 
         Splits by X first, then Y.
@@ -164,7 +164,7 @@ class _Frame2DPartition(ABC):
         return [f.split(by, axis_cut=CONSTS.AXIS.X, method=method)
                 for f in self.split(by, axis_cut=CONSTS.AXIS.Y, method=method)]
 
-    def slide_xy(self, by, stride=1) -> List[List[_Frame2DPartition]]:
+    def slide_xy(self, by, stride=1) -> List[List['Frame2D']]:
         """ Short hand for sliding by both axes.
 
         Slides by X first, then Y.
@@ -191,7 +191,7 @@ class _Frame2DPartition(ABC):
         return [f.slide(by=by, stride=stride, axis_cut=CONSTS.AXIS.X)
                 for f in self.slide(by=by, stride=stride, axis_cut=CONSTS.AXIS.Y)]
 
-    def slide(self: 'Frame2D', by, stride, axis_cut: CONSTS.AXIS = CONSTS.AXIS.Y) -> List[_Frame2DPartition]:
+    def slide(self: 'Frame2D', by, stride, axis_cut: CONSTS.AXIS = CONSTS.AXIS.Y) -> List['Frame2D']:
         """ Slides a window along an axis and grabs that window as a new Frame2D
 
         This operation is slower due to looping but allows for overlapping windows

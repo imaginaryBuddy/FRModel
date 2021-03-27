@@ -27,7 +27,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
     def get_all_chns(self: 'Frame2D',
                      self_: bool = False,
                      exc_chns: Iterable[Frame2D.CHN] = None,
-                     glcm: _Frame2DChannel.GLCM = None) -> _Frame2DChannel:
+                     glcm: _Frame2DChannel.GLCM = None) -> 'Frame2D':
         """ Gets all channels, excludes any in exc_chns.
 
         Use get_chns to get selected ones
@@ -57,7 +57,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
     def get_chns(self: 'Frame2D',
                  self_: bool = True,
                  chns: Iterable[Frame2D.CHN] = None,
-                 glcm: _Frame2DChannel.GLCM = None) -> _Frame2DChannel:
+                 glcm: _Frame2DChannel.GLCM = None) -> 'Frame2D':
         """ Gets selected channels
 
         Use get_all_chns to get all but selected ones
@@ -82,25 +82,25 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
                           self._get_chn_size(chns)])
 
         _chn_mapping: dict = {
-            self.CHN.XY     :self.get_xy,
-            self.CHN.HSV    :self.get_hsv,
-            self.CHN.EX_G   :self.get_ex_g,
-            self.CHN.EX_GR  :self.get_ex_gr,
-            self.CHN.MEX_G  :self.get_mex_g,
-            self.CHN.NDI    :self.get_ndi,
-            self.CHN.VEG    :self.get_ex_g,
+            self.CHN.XY     : self.get_xy,
+            self.CHN.HSV    : self.get_hsv,
+            self.CHN.EX_G   : self.get_ex_g,
+            self.CHN.EX_GR  : self.get_ex_gr,
+            self.CHN.MEX_G  : self.get_mex_g,
+            self.CHN.NDI    : self.get_ndi,
+            self.CHN.VEG    : self.get_ex_g,
 
-            self.CHN.NDVI   :self.get_ndvi,
-            self.CHN.BNDVI  :self.get_bndvi,
-            self.CHN.GNDVI  :self.get_gndvi,
-            self.CHN.GARI   :self.get_gari,
-            self.CHN.GLI    :self.get_gli,
-            self.CHN.GBNDVI :self.get_gbndvi,
-            self.CHN.GRNDVI :self.get_grndvi,
-            self.CHN.NDRE   :self.get_ndre,
-            self.CHN.LCI    :self.get_lci,
-            self.CHN.MSAVI  :self.get_msavi,
-            self.CHN.OSAVI  :self.get_osavi
+            self.CHN.NDVI   : self.get_ndvi,
+            self.CHN.BNDVI  : self.get_bndvi,
+            self.CHN.GNDVI  : self.get_gndvi,
+            self.CHN.GARI   : self.get_gari,
+            self.CHN.GLI    : self.get_gli,
+            self.CHN.GBNDVI : self.get_gbndvi,
+            self.CHN.GRNDVI : self.get_grndvi,
+            self.CHN.NDRE   : self.get_ndre,
+            self.CHN.LCI    : self.get_lci,
+            self.CHN.MSAVI  : self.get_msavi,
+            self.CHN.OSAVI  : self.get_osavi
         }
 
         it = 0
