@@ -4,10 +4,9 @@ from abc import ABC
 from math import ceil
 from typing import TYPE_CHECKING
 
-from osgeo import gdal
-
 import numpy as np
 from PIL import Image
+from osgeo import gdal
 from skimage.transform import resize
 
 from frmodel.base import CONSTS

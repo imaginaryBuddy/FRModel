@@ -5,8 +5,6 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 from PIL import Image
-from scipy.signal import fftconvolve
-from scipy.signal.windows import gaussian
 
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
