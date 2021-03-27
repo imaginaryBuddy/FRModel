@@ -28,8 +28,7 @@ class _Frame2DChannelGLCM(ABC):
 
         e.g. contrast=[f.CHN.HSV]
         """
-        by_x:        int = 1
-        by_y:        int = 1
+        by:          int = 1
         radius:      int = 5
         contrast:    List[CONSTS.CHN] = field(default_factory=lambda: [])
         correlation: List[CONSTS.CHN] = field(default_factory=lambda: [])
@@ -52,7 +51,7 @@ class _Frame2DChannelGLCM(ABC):
         data = np.zeros(shape=[*self.crop_glcm(glcm.radius).shape[0:2], con_len + cor_len + ent_len])
 
         def pair_ar(ar: np.ndarray):
-            return ar[:-glcm.by_y, :-glcm.by_x], ar[glcm.by_y:, glcm.by_x:]
+            return ar[:-glcm.by, :-glcm.by], ar[glcm.by:, glcm.by:]
 
         labels = []
 
