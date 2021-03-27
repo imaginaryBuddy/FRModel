@@ -172,7 +172,7 @@ class Frame2DPlot:
 class _Frame2DPlot:
     data: np.ndarray
 
-    def plot(self: 'Frame2D', labels: str or List[str] = None) -> 'Frame2D':
+    def plot(self: 'Frame2D', labels: str or List[str] = None) -> Frame2DPlot:
         """ Gets a plot object. Note that you need to call a plot function to plot.
 
         :param labels: The labels to plot with.
