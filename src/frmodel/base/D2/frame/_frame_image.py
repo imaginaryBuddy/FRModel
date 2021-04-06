@@ -19,7 +19,7 @@ class _Frame2DImage(ABC):
              bottom:int = 0,
              left:int = 0) -> _Frame2DImage:
         """ Crops the frame by specifying how many rows/columns to remove from each side."""
-        return self.create(self.data[top:-bottom or None, left:-right or None, ...],
+        return self.create(self[top:-bottom or None, left:-right or None, ...],
                            self.labels)
 
     def crop_glcm(self: 'Frame2D', glcm_radius: int):
@@ -32,7 +32,7 @@ class _Frame2DImage(ABC):
         :param file_path: Path to save to
         :param kwargs: These kwargs are passed into Image.save(\*\*kwargs)
         """
-        Image.fromarray(self.data_rgb().data.astype(np.uint8)).save(file_path, **kwargs)
+        Image.fromarray(self.data_rgb().astype(np.uint8)).save(file_path, **kwargs)
 
     def convolute(self: 'Frame2D', radius: int) -> Frame2D:
         """ Convolutes the Frame, average per window
@@ -45,4 +45,4 @@ class _Frame2DImage(ABC):
         return self.create(data, self.labels)
 
     def nanmask(self: 'Frame2D'):
-        return np.isnan(self.data).any(axis=-1)
+        return np.isnan(self).any(axis=-1)

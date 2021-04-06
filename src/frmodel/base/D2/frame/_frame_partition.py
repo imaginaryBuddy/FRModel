@@ -36,7 +36,7 @@ class _Frame2DPartition(ABC):
         """
 
         view: np.ndarray =\
-            view_as_windows(self.data,
+            view_as_windows(self,
                             (height, width, self.shape[-1]),
                             (height_step, width_step, 1)).squeeze(2)
         # [HW, WW, H, W, C]
@@ -75,7 +75,7 @@ class _Frame2DPartition(ABC):
         :param width: Width of expected block, must be int divisor of original width
         """
         view: np.ndarray =\
-            view_as_blocks(self.data,
+            view_as_blocks(self,
                            (height, width, self.shape[-1])).squeeze(2)
         # [HW, WW, H, W, C]
         return view
@@ -128,7 +128,7 @@ class _Frame2DPartition(ABC):
         else:
             raise TypeError(f"Axis {axis_cut} is not recognised. Use CONSTS.AXIS class.")
 
-        spl = np.array_split(self.data, by_, axis=axis_cut)
+        spl = np.array_split(self, by_, axis=axis_cut)
         if method == _Frame2DPartition.SplitMethod.CROP:
             # By default, it'll just "crop" the edges
             return [self.create(data=s, labels=self.labels) for s in spl]
@@ -207,10 +207,10 @@ class _Frame2DPartition(ABC):
         warn(f"slide is deprecated, use view_windows instead", DeprecationWarning, stacklevel=2)
 
         if axis_cut == CONSTS.AXIS.Y:
-            return [self.create(data=self.data[:, i: i + by],
+            return [self.create(data=self[:, i: i + by],
                                 labels=self.labels)
                     for i in range(0, self.width() - by + 1, stride)]
         elif axis_cut == CONSTS.AXIS.X:
-            return [self.create(data=self.data[i: i + by, :],
+            return [self.create(data=self[i: i + by, :],
                                 labels=self.labels)
                     for i in range(0, self.height() - by + 1, stride)]

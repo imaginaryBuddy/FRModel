@@ -106,7 +106,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
         it = 0
 
         if self_:
-            data[..., it:self.shape[-1]] = self.data
+            data[..., it:self.shape[-1]] = self
             labels = [self.labels.keys()]
             it += self.shape[-1]
 
@@ -230,7 +230,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
         """
 
         # We create a new array to copy self over we expand the last axis by 2
-        buffer = np.zeros([*self.data.shape[0:-1], 2])
+        buffer = np.zeros([*self.shape[0:-1], 2])
 
         # Create X & Y then copy over
         buffer[..., 0] = np.tile(np.arange(0, self.width()), (self.height(), 1))

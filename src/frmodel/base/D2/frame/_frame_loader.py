@@ -96,8 +96,8 @@ class _Frame2DLoader(ABC):
         The recommended extension is .npz
         """
 
-        np.savez(path, data=self.data, labels=self.labels,
-                 mask=self.data.mask if isinstance(self.data, np.ma.MaskedArray) else None)
+        np.savez(path, data=self, labels=self.labels,
+                 mask=self.mask if isinstance(self, np.ma.MaskedArray) else None)
 
     @classmethod
     def load(cls: 'Frame2D', path: str):
