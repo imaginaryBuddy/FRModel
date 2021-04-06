@@ -4,10 +4,9 @@ from abc import ABC
 from math import ceil
 from typing import TYPE_CHECKING
 
-from osgeo import gdal
-
 import numpy as np
 from PIL import Image
+from osgeo import gdal
 from skimage.transform import resize
 
 from frmodel.base import CONSTS
@@ -19,7 +18,7 @@ if TYPE_CHECKING:
 class _Frame2DLoader(ABC):
 
     @classmethod
-    def from_image(cls: 'Frame2D', file_path: str, scale:float = 1.0, scale_method=Image.NEAREST) -> _Frame2DLoader:
+    def from_image(cls: 'Frame2D', file_path: str, scale:float = 1.0, scale_method=Image.NEAREST) -> 'Frame2D':
         """ Creates an instance using the file path.
 
         :param file_path: Path to image
@@ -36,7 +35,7 @@ class _Frame2DLoader(ABC):
         return cls.create(data=ar, labels=CONSTS.CHN.RGB)
 
     @classmethod
-    def from_nxy_(cls: 'Frame2D', ar: np.ndarray, labels, xy_pos=(3, 4),  width=None, height=None) -> _Frame2DLoader:
+    def from_nxy_(cls: 'Frame2D', ar: np.ndarray, labels, xy_pos=(3, 4),  width=None, height=None) -> 'Frame2D':
         """ Rebuilds the frame with XY values. XY should be of integer values, otherwise, will be casted.
 
         Note that RGB channels SHOULD be on index 0, 1, 2 else some functions may break. However, can be ignored.
@@ -69,7 +68,7 @@ class _Frame2DLoader(ABC):
                         file_path_blue: str,
                         file_path_red_edge: str,
                         file_path_nir: str,
-                        scale: float = 1.0) -> _Frame2DLoader:
+                        scale: float = 1.0) -> 'Frame2D':
 
         labels = [*cls.CHN.RGB, cls.CHN.RED_EDGE, cls.CHN.NIR]
 

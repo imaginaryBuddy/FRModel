@@ -1,19 +1,9 @@
 from __future__ import annotations
 
 from abc import ABC
-from dataclasses import dataclass, field
-from typing import Tuple, List, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import numpy as np
-from scipy.signal import fftconvolve
-from skimage.util.shape import view_as_windows
-from sklearn.preprocessing import normalize
-from tqdm import tqdm
-
-from frmodel.base import CONSTS
-from frmodel.base.D2.frame._cy_corr import cy_corr
-from frmodel.base.D2.frame._cy_entropy import cy_entropy
-
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
