@@ -124,7 +124,7 @@ class Frame2D(_Frame2DLoader,
         rgb = self.data_rgb().astype(dtype=np.uint32)
         return rgb[..., 0] + rgb[..., 1] * 256 + rgb[..., 2] * (256 ** 2)
 
-    def _labels_to_ix(self, labels: str or List[str]):
+    def _labels_to_ix(self, labels: str or List[str]) -> List[int]:
         """ Converts keys to indexes for splicing
 
         :returns: np.ndarray, [A, B, C, ...]
@@ -187,9 +187,24 @@ class Frame2D(_Frame2DLoader,
 
         return Frame2D(buffer, [*self._labels, *labels])
 
-    def __getitem__(self, *args, **kwargs):
-        assert len(args[0]) >= 3, "Cannot slice Channel index using numpy slicing."
-        return super(Frame2D, self).__getitem__(*args, **kwargs)
+    def __getitem__(self, *args, **kwargs) -> 'Frame2D':
+        # assert len(args[0]) < 3, "Cannot slice Channel index using numpy slicing."
+        arg = list(args[0])
+        if arg[0] == Ellipsis:
+            arg = [slice(None, None, None), slice(None, None, None), arg[-1]]
+
+        if len(arg) < 3:
+            # For this, we pass to numpy to handle XY slicing
+            return super(Frame2D, self).__getitem__(*args, **kwargs)
+        elif len(arg) == 3:
+            # Handle Channel Indexing here
+            if isinstance(arg[2], (Iterable, str)):
+                # Means, we get a list of indexes to index
+                return super(Frame2D, self).__getitem__((*arg[:-1], self._labels_to_ix(arg[2])))
+            else:
+                raise KeyError(f"Cannot slice the Channel Index, use Indexes. {arg} provided")
+        else:
+            raise KeyError(f"Too many indexes. {len(arg)} provided.")
 
     def height(self) -> int:
         return self.shape[0]
@@ -204,8 +219,6 @@ class Frame2D(_Frame2DLoader,
         That is, if you have [(R, G, B), X, H], this algorithm can flatten it can return 5.
         """
         return len(list(Frame2D._util_flatten(chns)))
-
-
 
     @staticmethod
     def _util_flatten(iterable):
