@@ -23,45 +23,46 @@ from frmodel.base.consts import CONSTS
 
 MAX_RGB = 255
 
+
 class Frame2D(_Frame2DLoader,
               _Frame2DPartition,
               _Frame2DChannel,
               _Frame2DScaling,
               _Frame2DImage,
               _Frame2DPlot,
-              _Frame2DScoring,
-              np.ndarray):
+              _Frame2DScoring):
     """ A Frame is an alias to an Image.
 
     The underlying representation is a 2D array, each cell is a array of channels
     """
 
+    _data: np.ndarray
     _labels: dict
 
-    def __new__(cls, ar, labels: str or dict or List[str], *args, **kwargs) -> 'Frame2D':
-        obj = np.asarray(ar).view(cls)
+    def __init__(self, data: np.ndarray, labels: str or dict or List[str]):
+        """ Initializes the Frame2D with data
 
-        labels = [labels] if isinstance(labels, str) else list(Frame2D._util_flatten(labels))
+        Note that because this is the __init__, reinitializing using a instance will not return anything.
 
-        assert obj.shape[-1] == len(labels), \
-            f"Number of labels ({len(labels)}) must be same as number of Channels ({obj.shape[-1]})."
+        If you need to initialize a class dynamically using an instance, use .create
+
+        :param data: A Frame2D acceptable array, see Frame2D wiki for details
+        :param labels: Labels for the 2D array, it must be the same length as the data Channel Dimension
+        """
+
+        self._data = data
+        labels = [labels] if isinstance(labels, str) else list(self._util_flatten(labels))
+
+        if data.ndim == 2: data = data[..., np.newaxis]
+        assert data.ndim == 3 , f"Number of dimensions for initialization must be 2 or 3. (Given: {data.ndim})"
+        assert data.shape[-1] == len(labels),\
+            f"Number of labels ({len(labels)}) must be same as number of Channels ({data.shape[-1]})."
 
         if isinstance(labels, Iterable) and not isinstance(labels, dict):
             # Converts list to enumerated dict
             labels = {k: e for e, k in enumerate(labels)}
 
-        obj._labels = labels
-        return obj
-
-    def __array_finalize__(self, obj):
-        """ Check array after viewing """
-
-        if obj is None: return
-        self._labels = getattr(obj, 'labels', None)
-        if obj.ndim == 2:
-            obj[:] = obj[..., np.newaxis]
-
-        assert obj.ndim == 3, f"Number of dimensions for initialization must be 2 or 3. (Given: {obj.ndim})"
+        self._labels = labels
 
     class CHN(CONSTS.CHN):
         """ This inherits the CONSTS CHN, nothing needs to be added here.
@@ -82,6 +83,17 @@ class Frame2D(_Frame2DLoader,
         :param labels: Labels for the 2D array, it must be the same length as the data Channel Dimension
         """
         return Frame2D(data, labels)
+
+    @property
+    def data(self) -> np.ndarray:
+        """ The underlying np.ndarray data.
+
+        :returns: np.ndarray, Shape = (Height, Width, Channels) """
+        return self._data
+
+    @data.setter
+    def data(self, obj) -> None:
+        self._data = obj
 
     @property
     def labels(self) -> dict:
@@ -106,7 +118,7 @@ class Frame2D(_Frame2DLoader,
 
         :returns: np.ndarray, Shape = (Height * Width, Channels)
         """
-        return self.reshape([-1, self.shape[-1]])
+        return self.data.reshape([-1, self.shape[-1]])
 
     def data_rgb_flatten(self) -> np.ndarray:
         """ Flattens the RGB data by merging all RGB channels
@@ -121,7 +133,7 @@ class Frame2D(_Frame2DLoader,
         :returns: np.ndarray, Shape = (Height * Width)
         """
 
-        rgb = self.data_rgb().astype(dtype=np.uint32)
+        rgb = self.data_rgb().data.astype(dtype=np.uint32)
         return rgb[..., 0] + rgb[..., 1] * 256 + rgb[..., 2] * (256 ** 2)
 
     def _labels_to_ix(self, labels: str or List[str]) -> List[int]:
@@ -146,7 +158,7 @@ class Frame2D(_Frame2DLoader,
         :param labels: Can be a single str or multiple in a List
         :returns: Frame2D, Shape=(Height, Width, Channels)
         """
-        return self.create(self[..., self._labels_to_ix(labels)], labels)
+        return self.create(self.data[..., self._labels_to_ix(labels)], labels)
 
     def data_rgb(self) -> Frame2D:
         """ Gets RGB as another Frame2D
@@ -181,9 +193,8 @@ class Frame2D(_Frame2DLoader,
         assert len(labels) == ar_shape[-1], f"Mismatch Label Length, Target: {ar_shape[-1]}, Labels: {len(labels)}"
 
         buffer = np.zeros((*self_shape[0:2], ar_shape[-1] + self_shape[-1]), self.dtype)
-        buffer[..., :self.shape[-1]] = self
+        buffer[..., :self.shape[-1]] = self.data
         buffer[..., self.shape[-1]:] = ar
-        self.__getitem__()
 
         return Frame2D(buffer, [*self._labels, *labels])
 
@@ -193,18 +204,46 @@ class Frame2D(_Frame2DLoader,
         if arg[0] == Ellipsis:
             arg = [slice(None, None, None), slice(None, None, None), arg[-1]]
 
+        if isinstance(arg[0], int):
+            arg[0] = slice(arg[0], arg[0]+1, None)
+        if isinstance(arg[1], int):
+            arg[1] = slice(arg[1], arg[1]+1, None)
+
         if len(arg) < 3:
             # For this, we pass to numpy to handle XY slicing
-            return super(Frame2D, self).__getitem__(*args, **kwargs)
+            return self.create(self.data.__getitem__(*args, **kwargs),
+                               self.labels)
         elif len(arg) == 3:
             # Handle Channel Indexing here
             if isinstance(arg[2], (Iterable, str)):
                 # Means, we get a list of indexes to index
-                return super(Frame2D, self).__getitem__((*arg[:-1], self._labels_to_ix(arg[2])))
+                if len(set(arg[2])) != len(list(arg[2])):
+                    raise KeyError("Cannot index duplicate labels.")
+                return self.create(
+                    self.data.__getitem__((*arg[:-1], self._labels_to_ix(arg[2]))),
+                    labels=arg[2]
+                )
             else:
                 raise KeyError(f"Cannot slice the Channel Index, use Indexes. {arg} provided")
         else:
             raise KeyError(f"Too many indexes. {len(arg)} provided.")
+
+    def size(self) -> int:
+        """ Returns the number of pixels, Height * Width. """
+        return self.data.size
+
+    @property
+    def shape(self) -> Tuple:
+        """ Returns the Shape, similar to np.ndarray """
+        return self.data.shape
+
+    @property
+    def dtype(self):
+        """ Returns the dtype representation. """
+        return self.data.dtype
+
+    def astype(self, new_type):
+        self.data = self.data.astype(new_type)
 
     def height(self) -> int:
         return self.shape[0]
