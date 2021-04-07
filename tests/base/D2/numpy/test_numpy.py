@@ -13,27 +13,31 @@ class TestNumPy(TestD2Fixture):
     def test_slice(self):
         """ Tests the NumPy Slicing for the XY Dims """
         f = self.frame[10:20, 15:25]
-        self.assertEqual(300, f.size)
+        self.assertEqual(300, f.size())
 
     def test_channel_index(self):
         """ Tests indexing a channel """
         f = self.frame[0, 0, self.c.RED]
-        self.assertEqual(1, f.size)
+        self.assertEqual(1, f.size())
 
     def test_channel_multi_index(self):
         """ Tests indexing multiple channels """
         f = self.frame[0, 0, [self.c.RED, self.c.BLUE]]
-        self.assertEqual(2, f.size)
+        self.assertEqual(2, f.size())
+        self.assertEqual((1, 1, 2), f.shape)
 
     def test_duplicate_channel(self):
         """ Tests if we can duplicate a channel """
-        f = self.frame[0, 0, [self.c.RED, self.c.RED]]
-        self.assertEqual(2, f.size)
+        try:
+            self.frame[0, 0, [self.c.RED, self.c.RED]]
+        except KeyError:
+            return
+        self.fail()
 
     def test_step(self):
         """ Tests slicing with stepping of 2 """
         f = self.frame[0:10:2, 10:20:2]
-        self.assertEqual(75, f.size)
+        self.assertEqual(75, f.size())
 
     def test_ellipsis(self):
         """ Tests ellipsis for xy with channel indexing """
