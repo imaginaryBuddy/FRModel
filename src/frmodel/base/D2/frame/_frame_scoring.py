@@ -104,7 +104,7 @@ class _Frame2DScoring(ABC):
         # Convert grayscale to labels
         if glcm_radius is not None: score_frame = score_frame.crop_glcm(glcm_radius)
         true = self.labelize(score_frame.data[...,0]).flatten()
-        pred = self[..., label_ix].flatten()
+        pred = self.data[..., label_ix].flatten()
 
         score = self.scorer_pair(true, pred)['score'],\
                 *homogeneity_completeness_v_measure(true, pred)

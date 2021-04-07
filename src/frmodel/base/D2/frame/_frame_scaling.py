@@ -19,13 +19,13 @@ class _Frame2DScaling(ABC):
         return self.scale(sk_minmax_scale, **kwargs)
 
     def scale(self: 'Frame2D', scaler, **scaler_kwargs) -> 'Frame2D':
-        shape = self.shape
+        shape = self.data.shape
         return self.create(data=scaler(self.data_flatten_xy(), **scaler_kwargs).reshape(shape),
                            labels=self.labels)
 
     def scale_discrete(self: 'Frame2D', minimum=0, maximum=255, dtype=np.uint8) -> 'Frame2D':
         return self.create(
-            sk_minmax_scale(self.flatten(),
+            sk_minmax_scale(self.data.flatten(),
                             feature_range=(minimum, maximum),
                             copy=False).astype(dtype).reshape(self.shape),
             labels=self.labels)
