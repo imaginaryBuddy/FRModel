@@ -1,4 +1,4 @@
-from typing import Tuple, Iterable
+from typing import Tuple, Iterable, List
 
 
 class CONSTS:
@@ -61,7 +61,7 @@ class CONSTS:
         class GLCM:
             @staticmethod
             def _head(pref, suf):
-                return tuple(f"{pref}_{s}" for s in suf) if isinstance(suf, Iterable) else f"{pref}_{suf}"
+                return tuple(f"{pref}_{s}" for s in suf) if isinstance(suf, List) else f"{pref}_{suf}"
 
             @staticmethod
             def CON(x): return CONSTS.CHN.GLCM._head("CON", x)
