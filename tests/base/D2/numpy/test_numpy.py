@@ -15,6 +15,13 @@ class TestNumPy(TestD2Fixture):
         f = self.frame[10:20, 15:25]
         self.assertEqual(300, f.size())
 
+    def test_slice_w_obj(self):
+        """ Tests the NumPy Slicing for the XY Dims """
+        s1 = slice(10, 20, None)
+        s2 = slice(15, 25, None)
+        f = self.frame[s1, s2]
+        self.assertEqual(300, f.size())
+
     def test_channel_index(self):
         """ Tests indexing a channel """
         f = self.frame[0, 0, self.c.RED]
