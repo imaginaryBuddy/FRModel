@@ -23,6 +23,7 @@ from frmodel.base.consts import CONSTS
 
 MAX_RGB = 255
 
+
 class Frame2D(_Frame2DLoader,
               _Frame2DPartition,
               _Frame2DChannel,
@@ -37,7 +38,6 @@ class Frame2D(_Frame2DLoader,
 
     _data: np.ndarray
     _labels: dict
-
 
     def __init__(self, data: np.ndarray, labels: str or dict or List[str]):
         """ Initializes the Frame2D with data
@@ -63,9 +63,6 @@ class Frame2D(_Frame2DLoader,
             labels = {k: e for e, k in enumerate(labels)}
 
         self._labels = labels
-
-    def func(self):
-        print("hello")
 
     class CHN(CONSTS.CHN):
         """ This inherits the CONSTS CHN, nothing needs to be added here.
@@ -139,7 +136,7 @@ class Frame2D(_Frame2DLoader,
         rgb = self.data_rgb().data.astype(dtype=np.uint32)
         return rgb[..., 0] + rgb[..., 1] * 256 + rgb[..., 2] * (256 ** 2)
 
-    def _labels_to_ix(self, labels: str or List[str]):
+    def _labels_to_ix(self, labels: str or List[str]) -> List[int]:
         """ Converts keys to indexes for splicing
 
         :returns: np.ndarray, [A, B, C, ...]
@@ -200,6 +197,39 @@ class Frame2D(_Frame2DLoader,
         buffer[..., self.shape[-1]:] = ar
 
         return Frame2D(buffer, [*self._labels, *labels])
+
+    def __getitem__(self, *args, **kwargs) -> 'Frame2D':
+        # assert len(args[0]) < 3, "Cannot slice Channel index using numpy slicing."
+        arg = list(args[0])
+        if arg[0] == Ellipsis:
+            arg = [slice(None, None, None), slice(None, None, None), arg[-1]]
+
+        if isinstance(arg[0], int):
+            arg[0] = slice(arg[0], arg[0]+1, None)
+        if isinstance(arg[1], int):
+            arg[1] = slice(arg[1], arg[1]+1, None)
+
+        if len(arg) < 3:
+            # For this, we pass to numpy to handle XY slicing
+            return self.create(self.data.__getitem__(*args, **kwargs),
+                               self.labels)
+        elif len(arg) == 3:
+            # Handle Channel Indexing here
+            if isinstance(arg[2], (Iterable, str)):
+                # Means, we get a list of indexes to index
+                if len(set(arg[2])) != len(list(arg[2])):
+                    raise KeyError("Cannot index duplicate labels.")
+                return self.create(
+                    self.data.__getitem__((*arg[:-1], self._labels_to_ix(arg[2]))),
+                    labels=arg[2]
+                )
+            else:
+                raise KeyError(f"Cannot slice the Channel Index, use Indexes. {arg} provided")
+        else:
+            raise KeyError(f"Too many indexes. {len(arg)} provided.")
+
+    def __setitem__(self, *args, **kwargs):
+        self.data.__setitem__(*args, **kwargs)
 
     def size(self) -> int:
         """ Returns the number of pixels, Height * Width. """
