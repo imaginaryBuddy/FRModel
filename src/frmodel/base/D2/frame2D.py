@@ -228,6 +228,9 @@ class Frame2D(_Frame2DLoader,
         else:
             raise KeyError(f"Too many indexes. {len(arg)} provided.")
 
+    def __setitem__(self, *args, **kwargs):
+        self.data.__setitem__(*args, **kwargs)
+
     def size(self) -> int:
         """ Returns the number of pixels, Height * Width. """
         return self.data.size
