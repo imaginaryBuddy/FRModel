@@ -245,8 +245,9 @@ class Frame2D(_Frame2DLoader,
         """ Returns the dtype representation. """
         return self.data.dtype
 
-    def astype(self, new_type):
+    def astype(self, new_type) -> 'Frame2D':
         self.data = self.data.astype(new_type)
+        return self
 
     def height(self) -> int:
         return self.shape[0]

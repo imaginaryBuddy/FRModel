@@ -83,11 +83,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../info.html">Information</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html"> Getting Started</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> Changelog</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">0.0.5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">0.0.4</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">0.0.3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">0.0.2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">0.0.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">0.0.6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">0.0.5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">0.0.4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">0.0.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">0.0.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">0.0.1</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +163,19 @@
   <div class="section" id="changelog">
 <h1>ChangeLog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>0.0.5<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>0.0.6<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add Support for Spectral Channels</p></li>
+<li><p>Add Support to load Spectral TIFF files</p></li>
+<li><p>Implement Meaningless Segmentation</p></li>
+<li><p>Restructure Partitioning to use <code class="docutils literal notranslate"><span class="pre">view_as_windows</span></code> and <code class="docutils literal notranslate"><span class="pre">view_as_blocks</span></code>.</p></li>
+<li><p>Implement NumPy Get Slicing</p></li>
+<li><p>Fix issue with <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code> functions not type hinting return correctly</p></li>
+<li><p>Implement Discrete Scaling</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>0.0.5<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Cythonize Entropy</p></li>
 <li><p>Integrate Cython Pipeline into current Package</p></li>
@@ -215,8 +228,8 @@
 </li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2>0.0.4<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>0.0.4<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Separated implementation for <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code></p></li>
 <li><p>Improved performance for GLCM statistics</p></li>
@@ -233,8 +246,8 @@
 <li><p>Implement <code class="docutils literal notranslate"><span class="pre">score</span></code> -ing system to evaluate <code class="docutils literal notranslate"><span class="pre">KMeans2D</span></code> clustering performance.</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>0.0.3<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>0.0.3<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Implement Index Grabbing with <code class="docutils literal notranslate"><span class="pre">get_xx</span></code> ops.</p></li>
 <li><p>Added shorthand for multiple Index Grabbing with <code class="docutils literal notranslate"><span class="pre">get_idxs</span></code> and <code class="docutils literal notranslate"><span class="pre">get_all_idxs</span></code>.</p></li>
@@ -247,15 +260,15 @@
 <li><p>Force rename <strong>index</strong> to <strong>channel</strong> for differentiation.</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>0.0.2<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>0.0.2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Replace structured array with general <code class="docutils literal notranslate"><span class="pre">dtyping</span></code> for efficient coding</p></li>
 <li><p>Implement indexes with new data structure</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h2>0.0.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>0.0.1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p><strong>Initial Commit</strong>
 - No changes if there’s nothing to change!</p>
 </div>
@@ -281,7 +294,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Eve-ning
+        &copy; Copyright 2021, Eve-ning (John Chang)
 
     </p>
   </div>

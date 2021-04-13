@@ -31,7 +31,7 @@ Example
 ``>=0.0.5`` code
 .. code-block:: python
 
-    glcm = f.GLCM(by_x=1, by_y=1, radius=25, verbose=True,
+    glcm = f.GLCM(by=1, radius=25, verbose=True,
                   contrast=[f.CHN.RGB],
                   correlation=[f.CHN.RGB],
                   entropy=[f.CHN.RGB])

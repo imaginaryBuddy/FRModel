@@ -10,6 +10,7 @@ Frame
     GLCM <frame_channel_glcm>
     Scaling <frame_scaling>
     Plotting <frame_plot>
+    NumPy Slicing <frame_numpy>
 
 =========
 Intuition

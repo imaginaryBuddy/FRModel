@@ -72,9 +72,9 @@ class _Frame2DChannelGLCM(ABC):
             labels.extend(CONSTS.CHN.GLCM.COR(list(self._util_flatten(glcm.correlation))))
 
         if glcm.entropy:
-            if any([c not in CONSTS.CHN.RGB for c in glcm.entropy]):
-                raise Exception("Note that for non-RGB Entropies, it will be wildly incorrect as it assumes a "
-                                "(0-255) value boundary")
+            if self.data.min() < 0 or self.data.max() > 255:
+                raise Exception(f"Minimum and Maximum for Entropy must be [0, 255], "
+                                f"received [{self.data.min()}, {self.data.max()}]")
 
             data[..., i:i + ent_len] =\
                 self._get_glcm_entropy_cy(*pair_ar(self.data_chn(glcm.contrast).data),
