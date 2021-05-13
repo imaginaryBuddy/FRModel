@@ -4,12 +4,12 @@
 {
     "distutils": {
         "depends": [],
-        "name": "src.frmodel.base.D2.frame._cy_entropy",
+        "name": "FRModel.src.frmodel.base.D2.frame._cy_entropy",
         "sources": [
             "src\\frmodel\\base\\D2\\frame\\_cy_entropy.pyx"
         ]
     },
-    "module_name": "src.frmodel.base.D2.frame._cy_entropy"
+    "module_name": "FRModel.src.frmodel.base.D2.frame._cy_entropy"
 }
 END: Cython Metadata */
 
@@ -615,8 +615,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__src__frmodel__base__D2__frame___cy_entropy
-#define __PYX_HAVE_API__src__frmodel__base__D2__frame___cy_entropy
+#define __PYX_HAVE__FRModel__src__frmodel__base__D2__frame___cy_entropy
+#define __PYX_HAVE_API__FRModel__src__frmodel__base__D2__frame___cy_entropy
 /* Early includes */
 #include <string.h>
 #include <stdio.h>
@@ -972,7 +972,7 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
 #endif
 
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":697
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":697
  * # in Cython to enable them only on the right systems.
  * 
  * ctypedef npy_int8       int8_t             # <<<<<<<<<<<<<<
@@ -981,7 +981,7 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
  */
 typedef npy_int8 __pyx_t_5numpy_int8_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":698
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":698
  * 
  * ctypedef npy_int8       int8_t
  * ctypedef npy_int16      int16_t             # <<<<<<<<<<<<<<
@@ -990,7 +990,7 @@ typedef npy_int8 __pyx_t_5numpy_int8_t;
  */
 typedef npy_int16 __pyx_t_5numpy_int16_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":699
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":699
  * ctypedef npy_int8       int8_t
  * ctypedef npy_int16      int16_t
  * ctypedef npy_int32      int32_t             # <<<<<<<<<<<<<<
@@ -999,7 +999,7 @@ typedef npy_int16 __pyx_t_5numpy_int16_t;
  */
 typedef npy_int32 __pyx_t_5numpy_int32_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":700
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":700
  * ctypedef npy_int16      int16_t
  * ctypedef npy_int32      int32_t
  * ctypedef npy_int64      int64_t             # <<<<<<<<<<<<<<
@@ -1008,7 +1008,7 @@ typedef npy_int32 __pyx_t_5numpy_int32_t;
  */
 typedef npy_int64 __pyx_t_5numpy_int64_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":704
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":704
  * #ctypedef npy_int128     int128_t
  * 
  * ctypedef npy_uint8      uint8_t             # <<<<<<<<<<<<<<
@@ -1017,7 +1017,7 @@ typedef npy_int64 __pyx_t_5numpy_int64_t;
  */
 typedef npy_uint8 __pyx_t_5numpy_uint8_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":705
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":705
  * 
  * ctypedef npy_uint8      uint8_t
  * ctypedef npy_uint16     uint16_t             # <<<<<<<<<<<<<<
@@ -1026,7 +1026,7 @@ typedef npy_uint8 __pyx_t_5numpy_uint8_t;
  */
 typedef npy_uint16 __pyx_t_5numpy_uint16_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":706
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":706
  * ctypedef npy_uint8      uint8_t
  * ctypedef npy_uint16     uint16_t
  * ctypedef npy_uint32     uint32_t             # <<<<<<<<<<<<<<
@@ -1035,7 +1035,7 @@ typedef npy_uint16 __pyx_t_5numpy_uint16_t;
  */
 typedef npy_uint32 __pyx_t_5numpy_uint32_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":707
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":707
  * ctypedef npy_uint16     uint16_t
  * ctypedef npy_uint32     uint32_t
  * ctypedef npy_uint64     uint64_t             # <<<<<<<<<<<<<<
@@ -1044,7 +1044,7 @@ typedef npy_uint32 __pyx_t_5numpy_uint32_t;
  */
 typedef npy_uint64 __pyx_t_5numpy_uint64_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":711
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":711
  * #ctypedef npy_uint128    uint128_t
  * 
  * ctypedef npy_float32    float32_t             # <<<<<<<<<<<<<<
@@ -1053,7 +1053,7 @@ typedef npy_uint64 __pyx_t_5numpy_uint64_t;
  */
 typedef npy_float32 __pyx_t_5numpy_float32_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":712
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":712
  * 
  * ctypedef npy_float32    float32_t
  * ctypedef npy_float64    float64_t             # <<<<<<<<<<<<<<
@@ -1062,7 +1062,7 @@ typedef npy_float32 __pyx_t_5numpy_float32_t;
  */
 typedef npy_float64 __pyx_t_5numpy_float64_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":721
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":721
  * # The int types are mapped a bit surprising --
  * # numpy.int corresponds to 'l' and numpy.long to 'q'
  * ctypedef npy_long       int_t             # <<<<<<<<<<<<<<
@@ -1071,7 +1071,7 @@ typedef npy_float64 __pyx_t_5numpy_float64_t;
  */
 typedef npy_long __pyx_t_5numpy_int_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":722
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":722
  * # numpy.int corresponds to 'l' and numpy.long to 'q'
  * ctypedef npy_long       int_t
  * ctypedef npy_longlong   long_t             # <<<<<<<<<<<<<<
@@ -1080,7 +1080,7 @@ typedef npy_long __pyx_t_5numpy_int_t;
  */
 typedef npy_longlong __pyx_t_5numpy_long_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":723
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":723
  * ctypedef npy_long       int_t
  * ctypedef npy_longlong   long_t
  * ctypedef npy_longlong   longlong_t             # <<<<<<<<<<<<<<
@@ -1089,7 +1089,7 @@ typedef npy_longlong __pyx_t_5numpy_long_t;
  */
 typedef npy_longlong __pyx_t_5numpy_longlong_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":725
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":725
  * ctypedef npy_longlong   longlong_t
  * 
  * ctypedef npy_ulong      uint_t             # <<<<<<<<<<<<<<
@@ -1098,7 +1098,7 @@ typedef npy_longlong __pyx_t_5numpy_longlong_t;
  */
 typedef npy_ulong __pyx_t_5numpy_uint_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":726
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":726
  * 
  * ctypedef npy_ulong      uint_t
  * ctypedef npy_ulonglong  ulong_t             # <<<<<<<<<<<<<<
@@ -1107,7 +1107,7 @@ typedef npy_ulong __pyx_t_5numpy_uint_t;
  */
 typedef npy_ulonglong __pyx_t_5numpy_ulong_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":727
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":727
  * ctypedef npy_ulong      uint_t
  * ctypedef npy_ulonglong  ulong_t
  * ctypedef npy_ulonglong  ulonglong_t             # <<<<<<<<<<<<<<
@@ -1116,7 +1116,7 @@ typedef npy_ulonglong __pyx_t_5numpy_ulong_t;
  */
 typedef npy_ulonglong __pyx_t_5numpy_ulonglong_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":729
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":729
  * ctypedef npy_ulonglong  ulonglong_t
  * 
  * ctypedef npy_intp       intp_t             # <<<<<<<<<<<<<<
@@ -1125,7 +1125,7 @@ typedef npy_ulonglong __pyx_t_5numpy_ulonglong_t;
  */
 typedef npy_intp __pyx_t_5numpy_intp_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":730
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":730
  * 
  * ctypedef npy_intp       intp_t
  * ctypedef npy_uintp      uintp_t             # <<<<<<<<<<<<<<
@@ -1134,7 +1134,7 @@ typedef npy_intp __pyx_t_5numpy_intp_t;
  */
 typedef npy_uintp __pyx_t_5numpy_uintp_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":732
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":732
  * ctypedef npy_uintp      uintp_t
  * 
  * ctypedef npy_double     float_t             # <<<<<<<<<<<<<<
@@ -1143,7 +1143,7 @@ typedef npy_uintp __pyx_t_5numpy_uintp_t;
  */
 typedef npy_double __pyx_t_5numpy_float_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":733
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":733
  * 
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t             # <<<<<<<<<<<<<<
@@ -1152,7 +1152,7 @@ typedef npy_double __pyx_t_5numpy_float_t;
  */
 typedef npy_double __pyx_t_5numpy_double_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":734
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":734
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t
  * ctypedef npy_longdouble longdouble_t             # <<<<<<<<<<<<<<
@@ -1161,23 +1161,23 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "src/frmodel/base/D2/frame/_cy_entropy.pyx":4
+/* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":4
  * cimport numpy as np
  * cimport cython
  * ctypedef np.uint16_t DTYPE_t16             # <<<<<<<<<<<<<<
  * ctypedef np.uint32_t DTYPE_t32
  * from cython.parallel cimport prange
  */
-typedef __pyx_t_5numpy_uint16_t __pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16;
+typedef __pyx_t_5numpy_uint16_t __pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16;
 
-/* "src/frmodel/base/D2/frame/_cy_entropy.pyx":5
+/* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":5
  * cimport cython
  * ctypedef np.uint16_t DTYPE_t16
  * ctypedef np.uint32_t DTYPE_t32             # <<<<<<<<<<<<<<
  * from cython.parallel cimport prange
  * from tqdm import tqdm
  */
-typedef __pyx_t_5numpy_uint32_t __pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t32;
+typedef __pyx_t_5numpy_uint32_t __pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t32;
 /* Declarations.proto */
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -1209,7 +1209,7 @@ struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":736
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":736
  * ctypedef npy_longdouble longdouble_t
  * 
  * ctypedef npy_cfloat      cfloat_t             # <<<<<<<<<<<<<<
@@ -1218,7 +1218,7 @@ struct __pyx_memoryviewslice_obj;
  */
 typedef npy_cfloat __pyx_t_5numpy_cfloat_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":737
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":737
  * 
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t             # <<<<<<<<<<<<<<
@@ -1227,7 +1227,7 @@ typedef npy_cfloat __pyx_t_5numpy_cfloat_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":738
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":738
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t
  * ctypedef npy_clongdouble clongdouble_t             # <<<<<<<<<<<<<<
@@ -1236,7 +1236,7 @@ typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
  */
 typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":740
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":740
  * ctypedef npy_clongdouble clongdouble_t
  * 
  * ctypedef npy_cdouble     complex_t             # <<<<<<<<<<<<<<
@@ -2153,7 +2153,7 @@ static int __Pyx_ValidateAndInit_memviewslice(
                 PyObject *original_obj);
 
 /* ObjectToMemviewSlice.proto */
-static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16(PyObject *, int writable_flag);
+static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16(PyObject *, int writable_flag);
 
 /* ObjectToMemviewSlice.proto */
 static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_5numpy_uint32_t(PyObject *, int writable_flag);
@@ -2212,7 +2212,7 @@ static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, c
 
 /* Module declarations from 'cython' */
 
-/* Module declarations from 'src.frmodel.base.D2.frame._cy_entropy' */
+/* Module declarations from 'FRModel.src.frmodel.base.D2.frame._cy_entropy' */
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
 static PyTypeObject *__pyx_memoryview_type = 0;
@@ -2258,14 +2258,14 @@ static void __pyx_memoryview_slice_assign_scalar(__Pyx_memviewslice *, int, size
 static void __pyx_memoryview__slice_assign_scalar(char *, Py_ssize_t *, Py_ssize_t *, int, size_t, void *); /*proto*/
 static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *, PyObject *); /*proto*/
 static PyObject *__pyx_format_from_typeinfo(__Pyx_TypeInfo *); /*proto*/
-static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16 = { "DTYPE_t16", NULL, sizeof(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16), { 0 }, 0, IS_UNSIGNED(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16), 0 };
+static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16 = { "DTYPE_t16", NULL, sizeof(__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16), { 0 }, 0, IS_UNSIGNED(__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_unsigned_short = { "unsigned short", NULL, sizeof(unsigned short), { 0 }, 0, IS_UNSIGNED(unsigned short) ? 'U' : 'I', IS_UNSIGNED(unsigned short), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_uint32_t = { "uint32_t", NULL, sizeof(__pyx_t_5numpy_uint32_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_5numpy_uint32_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_5numpy_uint32_t), 0 };
-#define __Pyx_MODULE_NAME "src.frmodel.base.D2.frame._cy_entropy"
-extern int __pyx_module_is_main_src__frmodel__base__D2__frame___cy_entropy;
-int __pyx_module_is_main_src__frmodel__base__D2__frame___cy_entropy = 0;
+#define __Pyx_MODULE_NAME "FRModel.src.frmodel.base.D2.frame._cy_entropy"
+extern int __pyx_module_is_main_FRModel__src__frmodel__base__D2__frame___cy_entropy;
+int __pyx_module_is_main_FRModel__src__frmodel__base__D2__frame___cy_entropy = 0;
 
-/* Implementation of 'src.frmodel.base.D2.frame._cy_entropy' */
+/* Implementation of 'FRModel.src.frmodel.base.D2.frame._cy_entropy' */
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ValueError;
@@ -2396,6 +2396,7 @@ static const char __pyx_k_Can_only_create_a_buffer_that_is[] = "Can only create 
 static const char __pyx_k_Cannot_assign_to_read_only_memor[] = "Cannot assign to read-only memoryview";
 static const char __pyx_k_Cannot_create_writable_memory_vi[] = "Cannot create writable memory view from read-only memoryview";
 static const char __pyx_k_Empty_shape_tuple_for_cython_arr[] = "Empty shape tuple for cython.array";
+static const char __pyx_k_FRModel_src_frmodel_base_D2_fram[] = "FRModel.src.frmodel.base.D2.frame._cy_entropy";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xb0[] = "Incompatible checksums (%s vs 0xb068931 = (name))";
 static const char __pyx_k_Indirect_dimensions_not_supporte[] = "Indirect dimensions not supported";
@@ -2409,7 +2410,6 @@ static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath
 static const char __pyx_k_src_frmodel_base_D2_frame__cy_en[] = "src\\frmodel\\base\\D2\\frame\\_cy_entropy.pyx";
 static const char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
-static const char __pyx_k_src_frmodel_base_D2_frame__cy_en_2[] = "src.frmodel.base.D2.frame._cy_entropy";
 static PyObject *__pyx_n_s_ASCII;
 static PyObject *__pyx_kp_s_Buffer_view_does_not_expose_stri;
 static PyObject *__pyx_kp_s_Can_only_create_a_buffer_that_is;
@@ -2419,6 +2419,7 @@ static PyObject *__pyx_kp_s_Cannot_index_with_type_s;
 static PyObject *__pyx_n_s_Ellipsis;
 static PyObject *__pyx_kp_s_Empty_shape_tuple_for_cython_arr;
 static PyObject *__pyx_kp_s_Entropy_Progress;
+static PyObject *__pyx_n_s_FRModel_src_frmodel_base_D2_fram;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_ImportError;
@@ -2516,7 +2517,6 @@ static PyObject *__pyx_n_s_setstate_cython;
 static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_kp_s_src_frmodel_base_D2_frame__cy_en;
-static PyObject *__pyx_n_s_src_frmodel_base_D2_frame__cy_en_2;
 static PyObject *__pyx_n_s_start;
 static PyObject *__pyx_n_s_step;
 static PyObject *__pyx_n_s_stop;
@@ -2546,7 +2546,7 @@ static PyObject *__pyx_n_s_wi_cols;
 static PyObject *__pyx_n_s_wi_r;
 static PyObject *__pyx_n_s_wi_rows;
 static PyObject *__pyx_n_s_zeros;
-static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_c, unsigned int __pyx_v_radius, int __pyx_v_verbose); /* proto */
+static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_c, unsigned int __pyx_v_radius, int __pyx_v_verbose); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -2631,7 +2631,7 @@ static PyObject *__pyx_codeobj__30;
 static PyObject *__pyx_codeobj__37;
 /* Late includes */
 
-/* "src/frmodel/base/D2/frame/_cy_entropy.pyx":12
+/* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":12
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,             # <<<<<<<<<<<<<<
@@ -2640,10 +2640,10 @@ static PyObject *__pyx_codeobj__37;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy[] = " Entropy Calculation in Cython\n\n    Requirements:\n    Array C is defined as 256 * A + B.\n    Array C Must be of np.uint16.\n    This is to get a 1-to-1 unique tuple-like mapping.\n\n    Limitations:\n    Array Values cannot exceed 255, excluding 255.\n    Array Values must be 3 dim, last dim will be iterated through\n    Entropy result will overflow on > unsigned int\n    Maximum GLCM occurrence cannot exceed 65535\n\n    Verbose, whether to output progress with a progress bar\n\n    Uses entropy_256_2dim for looping last dimension\n\n    ";
-static PyMethodDef __pyx_mdef_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy = {"cy_entropy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy};
-static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy[] = " Entropy Calculation in Cython\n\n    Requirements:\n    Array C is defined as 256 * A + B.\n    Array C Must be of np.uint16.\n    This is to get a 1-to-1 unique tuple-like mapping.\n\n    Limitations:\n    Array Values cannot exceed 255, excluding 255.\n    Array Values must be 3 dim, last dim will be iterated through\n    Entropy result will overflow on > unsigned int\n    Maximum GLCM occurrence cannot exceed 65535\n\n    Verbose, whether to output progress with a progress bar\n\n    Uses entropy_256_2dim for looping last dimension\n\n    ";
+static PyMethodDef __pyx_mdef_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy = {"cy_entropy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy};
+static PyObject *__pyx_pw_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_c = 0;
   unsigned int __pyx_v_radius;
   int __pyx_v_verbose;
@@ -2705,12 +2705,12 @@ static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entro
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("cy_entropy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 12, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("src.frmodel.base.D2.frame._cy_entropy.cy_entropy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FRModel.src.frmodel.base.D2.frame._cy_entropy.cy_entropy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_c), __pyx_ptype_5numpy_ndarray, 1, "c", 0))) __PYX_ERR(0, 12, __pyx_L1_error)
-  __pyx_r = __pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy(__pyx_self, __pyx_v_c, __pyx_v_radius, __pyx_v_verbose);
+  __pyx_r = __pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy(__pyx_self, __pyx_v_c, __pyx_v_radius, __pyx_v_verbose);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2721,7 +2721,7 @@ static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entro
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_c, unsigned int __pyx_v_radius, int __pyx_v_verbose) {
+static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entropy(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_c, unsigned int __pyx_v_radius, int __pyx_v_verbose) {
   __Pyx_memviewslice __pyx_v_c_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   unsigned short __pyx_v_w_size;
   unsigned short __pyx_v_wi_rows;
@@ -2787,23 +2787,23 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   __pyx_pybuffernd_c.rcbuffer = &__pyx_pybuffer_c;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c.rcbuffer->pybuffer, (PyObject*)__pyx_v_c, &__Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) __PYX_ERR(0, 12, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_c.rcbuffer->pybuffer, (PyObject*)__pyx_v_c, &__Pyx_TypeInfo_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) __PYX_ERR(0, 12, __pyx_L1_error)
   }
   __pyx_pybuffernd_c.diminfo[0].strides = __pyx_pybuffernd_c.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_c.diminfo[0].shape = __pyx_pybuffernd_c.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_c.diminfo[1].strides = __pyx_pybuffernd_c.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_c.diminfo[1].shape = __pyx_pybuffernd_c.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_c.diminfo[2].strides = __pyx_pybuffernd_c.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_c.diminfo[2].shape = __pyx_pybuffernd_c.rcbuffer->pybuffer.shape[2];
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":48
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":48
  *     # This is the explicit number of rows and columns the window has
  * 
  *     cdef DTYPE_t16 [:, :, :] c_view = c             # <<<<<<<<<<<<<<
  * 
  *     cdef unsigned short w_size = radius * 2 + 1
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16(((PyObject *)__pyx_v_c), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16(((PyObject *)__pyx_v_c), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 48, __pyx_L1_error)
   __pyx_v_c_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":50
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":50
  *     cdef DTYPE_t16 [:, :, :] c_view = c
  * 
  *     cdef unsigned short w_size = radius * 2 + 1             # <<<<<<<<<<<<<<
@@ -2812,7 +2812,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_w_size = ((__pyx_v_radius * 2) + 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":51
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":51
  * 
  *     cdef unsigned short w_size = radius * 2 + 1
  *     cdef unsigned short wi_rows = (<unsigned int> c.shape[0]) - w_size + 1             # <<<<<<<<<<<<<<
@@ -2821,7 +2821,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_wi_rows = ((((unsigned int)(__pyx_v_c->dimensions[0])) - __pyx_v_w_size) + 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":52
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":52
  *     cdef unsigned short w_size = radius * 2 + 1
  *     cdef unsigned short wi_rows = (<unsigned int> c.shape[0]) - w_size + 1
  *     cdef unsigned short wi_cols = (<unsigned int> c.shape[1]) - w_size + 1             # <<<<<<<<<<<<<<
@@ -2830,7 +2830,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_wi_cols = ((((unsigned int)(__pyx_v_c->dimensions[1])) - __pyx_v_w_size) + 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":53
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":53
  *     cdef unsigned short wi_rows = (<unsigned int> c.shape[0]) - w_size + 1
  *     cdef unsigned short wi_cols = (<unsigned int> c.shape[1]) - w_size + 1
  *     cdef short wi_r = 0, wi_c = 0             # <<<<<<<<<<<<<<
@@ -2840,7 +2840,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   __pyx_v_wi_r = 0;
   __pyx_v_wi_c = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":55
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":55
  *     cdef short wi_r = 0, wi_c = 0
  * 
  *     cdef unsigned int w_rows = (<unsigned int> c.shape[0]) - w_size - 1             # <<<<<<<<<<<<<<
@@ -2849,7 +2849,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_w_rows = ((((unsigned int)(__pyx_v_c->dimensions[0])) - __pyx_v_w_size) - 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":56
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":56
  * 
  *     cdef unsigned int w_rows = (<unsigned int> c.shape[0]) - w_size - 1
  *     cdef unsigned int w_cols = (<unsigned int> c.shape[1]) - w_size - 1             # <<<<<<<<<<<<<<
@@ -2858,7 +2858,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_w_cols = ((((unsigned int)(__pyx_v_c->dimensions[1])) - __pyx_v_w_size) - 1);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":57
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":57
  *     cdef unsigned int w_rows = (<unsigned int> c.shape[0]) - w_size - 1
  *     cdef unsigned int w_cols = (<unsigned int> c.shape[1]) - w_size - 1
  *     cdef short w_r = 0, w_c = 0             # <<<<<<<<<<<<<<
@@ -2868,7 +2868,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   __pyx_v_w_r = 0;
   __pyx_v_w_c = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":59
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":59
  *     cdef short w_r = 0, w_c = 0
  * 
  *     cdef unsigned char w_channels = <char>c.shape[2]             # <<<<<<<<<<<<<<
@@ -2877,7 +2877,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_w_channels = ((char)(__pyx_v_c->dimensions[2]));
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":60
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":60
  * 
  *     cdef unsigned char w_channels = <char>c.shape[2]
  *     cdef char w_ch = 0             # <<<<<<<<<<<<<<
@@ -2886,7 +2886,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_w_ch = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":62
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":62
  *     cdef char w_ch = 0
  * 
  *     entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)             # <<<<<<<<<<<<<<
@@ -2937,7 +2937,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   __pyx_v_entropy_ar = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":63
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":63
  * 
  *     entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
  *     cdef np.uint32_t[:, :, :] entropy_view = entropy_ar             # <<<<<<<<<<<<<<
@@ -2949,7 +2949,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   __pyx_t_7.memview = NULL;
   __pyx_t_7.data = NULL;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":64
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":64
  *     entropy_ar = np.zeros([wi_rows, wi_cols, w_channels], dtype=np.uint32)
  *     cdef np.uint32_t[:, :, :] entropy_view = entropy_ar
  *     entropy_view[:, :, :] = 0             # <<<<<<<<<<<<<<
@@ -2987,7 +2987,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
       }
   }
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":66
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":66
  *     entropy_view[:, :, :] = 0
  * 
  *     cdef int glcm_size = <unsigned int>65536             # <<<<<<<<<<<<<<
@@ -2996,7 +2996,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_glcm_size = ((unsigned int)0x10000);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":68
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":68
  *     cdef int glcm_size = <unsigned int>65536
  *     cdef unsigned short glcm[65536]
  *     cdef unsigned short [:] glcm_view = glcm             # <<<<<<<<<<<<<<
@@ -3018,7 +3018,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   __pyx_t_9.memview = NULL;
   __pyx_t_9.data = NULL;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":69
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":69
  *     cdef unsigned short glcm[65536]
  *     cdef unsigned short [:] glcm_view = glcm
  *     cdef int glcm_i = 0             # <<<<<<<<<<<<<<
@@ -3027,7 +3027,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_glcm_i = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":71
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":71
  *     cdef int glcm_i = 0
  * 
  *     cdef unsigned int entropy = 0             # <<<<<<<<<<<<<<
@@ -3036,7 +3036,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_entropy = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":72
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":72
  * 
  *     cdef unsigned int entropy = 0
  *     cdef unsigned char entropy_power = 2             # <<<<<<<<<<<<<<
@@ -3045,7 +3045,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
   __pyx_v_entropy_power = 2;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":83
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":83
  *     # prange will not work if there are any Python objects within
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):             # <<<<<<<<<<<<<<
@@ -3120,7 +3120,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_wi_r = __pyx_t_12;
 
-    /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":84
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":84
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
  *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -3163,7 +3163,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                               __pyx_v_w_ch = ((char)'?');
                               __pyx_v_w_r = ((short)0xbad0bad0);
 
-                              /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":85
+                              /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":85
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
  *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
  *             for w_ch in prange(w_channels, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -3192,7 +3192,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                   __pyx_v_w_c = ((short)0xbad0bad0);
                                                   __pyx_v_w_r = ((short)0xbad0bad0);
 
-                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":86
+                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":86
  *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):
  *             for w_ch in prange(w_channels, schedule='dynamic'):
  *                 glcm_view[:] = 0             # <<<<<<<<<<<<<<
@@ -3214,7 +3214,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                       }
                                                   }
 
-                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":87
+                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":87
  *             for w_ch in prange(w_channels, schedule='dynamic'):
  *                 glcm_view[:] = 0
  *                 for w_r in prange(w_size, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -3240,7 +3240,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                                       /* Initialize private variables to invalid values */
                                                                       __pyx_v_w_c = ((short)0xbad0bad0);
 
-                                                                      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":88
+                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":88
  *                 glcm_view[:] = 0
  *                 for w_r in prange(w_size, schedule='dynamic'):
  *                     for w_c in prange(w_size, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -3264,7 +3264,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                                                       {
                                                                                           __pyx_v_w_c = (short)(0 + 1 * __pyx_t_23);
 
-                                                                                          /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":89
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":89
  *                 for w_r in prange(w_size, schedule='dynamic'):
  *                     for w_c in prange(w_size, schedule='dynamic'):
  *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1             # <<<<<<<<<<<<<<
@@ -3274,7 +3274,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                                                           __pyx_t_25 = (__pyx_v_wi_r + __pyx_v_w_r);
                                                                                           __pyx_t_26 = (__pyx_v_wi_c + __pyx_v_w_c);
                                                                                           __pyx_t_27 = __pyx_v_w_ch;
-                                                                                          __pyx_t_28 = ((int)(*((__pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_c_view.data + __pyx_t_25 * __pyx_v_c_view.strides[0]) ) + __pyx_t_26 * __pyx_v_c_view.strides[1]) ) + __pyx_t_27 * __pyx_v_c_view.strides[2]) ))));
+                                                                                          __pyx_t_28 = ((int)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_c_view.data + __pyx_t_25 * __pyx_v_c_view.strides[0]) ) + __pyx_t_26 * __pyx_v_c_view.strides[1]) ) + __pyx_t_27 * __pyx_v_c_view.strides[2]) ))));
                                                                                           *((unsigned short *) ( /* dim=0 */ (__pyx_v_glcm_view.data + __pyx_t_28 * __pyx_v_glcm_view.strides[0]) )) += 1;
                                                                                       }
                                                                                   }
@@ -3287,7 +3287,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                       }
                                                   }
 
-                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":91
+                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":91
  *                         glcm_view[<int>c_view[wi_r + w_r, wi_c + w_c, w_ch]] += 1
  * 
  *                 entropy = 0             # <<<<<<<<<<<<<<
@@ -3296,7 +3296,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
  */
                                                   __pyx_v_entropy = 0;
 
-                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":92
+                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":92
  * 
  *                 entropy = 0
  *                 for glcm_i in prange(glcm_size, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -3320,7 +3320,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                                   {
                                                                       __pyx_v_glcm_i = (int)(0 + 1 * __pyx_t_30);
 
-                                                                      /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":93
+                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":93
  *                 entropy = 0
  *                 for glcm_i in prange(glcm_size, schedule='dynamic'):
  *                     entropy += glcm_view[glcm_i] ** entropy_power             # <<<<<<<<<<<<<<
@@ -3335,7 +3335,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
                                                       }
                                                   }
 
-                                                  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":94
+                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":94
  *                 for glcm_i in prange(glcm_size, schedule='dynamic'):
  *                     entropy += glcm_view[glcm_i] ** entropy_power
  *                 entropy_view[wi_r, wi_c, w_ch] += entropy             # <<<<<<<<<<<<<<
@@ -3364,7 +3364,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
           #endif
         }
 
-        /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":84
+        /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":84
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):
  *         for wi_c in prange(wi_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -3383,7 +3383,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
         }
     }
 
-    /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":83
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":83
  *     # prange will not work if there are any Python objects within
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(wi_rows), disable=not verbose, desc="Entropy Progress"):             # <<<<<<<<<<<<<<
@@ -3393,7 +3393,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":96
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":96
  *                 entropy_view[wi_r, wi_c, w_ch] += entropy
  * 
  *     return (w_size ** 2) / entropy_ar             # <<<<<<<<<<<<<<
@@ -3408,7 +3408,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":12
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":12
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,             # <<<<<<<<<<<<<<
@@ -3433,7 +3433,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
     __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_c.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("src.frmodel.base.D2.frame._cy_entropy.cy_entropy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FRModel.src.frmodel.base.D2.frame._cy_entropy.cy_entropy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -3448,7 +3448,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_cy_entrop
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":742
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":742
  * ctypedef npy_cdouble     complex_t
  * 
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
@@ -3465,7 +3465,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew1", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":743
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":743
  * 
  * cdef inline object PyArray_MultiIterNew1(a):
  *     return PyArray_MultiIterNew(1, <void*>a)             # <<<<<<<<<<<<<<
@@ -3479,7 +3479,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":742
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":742
  * ctypedef npy_cdouble     complex_t
  * 
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
@@ -3498,7 +3498,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":745
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":745
  *     return PyArray_MultiIterNew(1, <void*>a)
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
@@ -3515,7 +3515,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew2", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":746
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":746
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)             # <<<<<<<<<<<<<<
@@ -3529,7 +3529,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":745
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":745
  *     return PyArray_MultiIterNew(1, <void*>a)
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
@@ -3548,7 +3548,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":748
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":748
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
@@ -3565,7 +3565,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew3", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":749
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":749
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)             # <<<<<<<<<<<<<<
@@ -3579,7 +3579,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":748
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":748
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
@@ -3598,7 +3598,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":751
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":751
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
@@ -3615,7 +3615,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew4", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":752
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":752
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)             # <<<<<<<<<<<<<<
@@ -3629,7 +3629,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":751
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":751
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
@@ -3648,7 +3648,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":754
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":754
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
@@ -3665,7 +3665,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew5", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":755
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":755
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)             # <<<<<<<<<<<<<<
@@ -3679,7 +3679,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":754
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":754
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
@@ -3698,7 +3698,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":757
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":757
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):             # <<<<<<<<<<<<<<
@@ -3712,7 +3712,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("PyDataType_SHAPE", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":758
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":758
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):             # <<<<<<<<<<<<<<
@@ -3722,7 +3722,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   __pyx_t_1 = (PyDataType_HASSUBARRAY(__pyx_v_d) != 0);
   if (__pyx_t_1) {
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":759
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":759
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):
  *         return <tuple>d.subarray.shape             # <<<<<<<<<<<<<<
@@ -3734,7 +3734,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
     __pyx_r = ((PyObject*)__pyx_v_d->subarray->shape);
     goto __pyx_L0;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":758
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":758
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):             # <<<<<<<<<<<<<<
@@ -3743,7 +3743,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
  */
   }
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":761
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":761
  *         return <tuple>d.subarray.shape
  *     else:
  *         return ()             # <<<<<<<<<<<<<<
@@ -3757,7 +3757,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
     goto __pyx_L0;
   }
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":757
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":757
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):             # <<<<<<<<<<<<<<
@@ -3772,7 +3772,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":763
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":763
  *         return ()
  * 
  * cdef inline char* _util_dtypestring(dtype descr, char* f, char* end, int* offset) except NULL:             # <<<<<<<<<<<<<<
@@ -3804,7 +3804,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_util_dtypestring", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":768
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":768
  * 
  *     cdef dtype child
  *     cdef int endian_detector = 1             # <<<<<<<<<<<<<<
@@ -3813,7 +3813,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
   __pyx_v_endian_detector = 1;
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":769
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":769
  *     cdef dtype child
  *     cdef int endian_detector = 1
  *     cdef bint little_endian = ((<char*>&endian_detector)[0] != 0)             # <<<<<<<<<<<<<<
@@ -3822,7 +3822,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
   __pyx_v_little_endian = ((((char *)(&__pyx_v_endian_detector))[0]) != 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":772
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":772
  *     cdef tuple fields
  * 
  *     for childname in descr.names:             # <<<<<<<<<<<<<<
@@ -3845,7 +3845,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __Pyx_XDECREF_SET(__pyx_v_childname, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":773
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":773
  * 
  *     for childname in descr.names:
  *         fields = descr.fields[childname]             # <<<<<<<<<<<<<<
@@ -3862,7 +3862,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __Pyx_XDECREF_SET(__pyx_v_fields, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":774
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":774
  *     for childname in descr.names:
  *         fields = descr.fields[childname]
  *         child, new_offset = fields             # <<<<<<<<<<<<<<
@@ -3897,7 +3897,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __Pyx_XDECREF_SET(__pyx_v_new_offset, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":776
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":776
  *         child, new_offset = fields
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:             # <<<<<<<<<<<<<<
@@ -3914,7 +3914,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_6 = ((((__pyx_v_end - __pyx_v_f) - ((int)__pyx_t_5)) < 15) != 0);
     if (unlikely(__pyx_t_6)) {
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":777
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":777
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")             # <<<<<<<<<<<<<<
@@ -3927,7 +3927,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __PYX_ERR(1, 777, __pyx_L1_error)
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":776
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":776
  *         child, new_offset = fields
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:             # <<<<<<<<<<<<<<
@@ -3936,7 +3936,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
     }
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":779
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":779
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")
  * 
  *         if ((child.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -3956,7 +3956,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     }
     __pyx_L8_next_or:;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":780
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":780
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  *             (child.byteorder == c'<' and not little_endian)):             # <<<<<<<<<<<<<<
@@ -3973,7 +3973,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_6 = __pyx_t_7;
     __pyx_L7_bool_binop_done:;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":779
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":779
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")
  * 
  *         if ((child.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -3982,7 +3982,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
     if (unlikely(__pyx_t_6)) {
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":781
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":781
  *         if ((child.byteorder == c'>' and little_endian) or
  *             (child.byteorder == c'<' and not little_endian)):
  *             raise ValueError(u"Non-native byte order not supported")             # <<<<<<<<<<<<<<
@@ -3995,7 +3995,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __PYX_ERR(1, 781, __pyx_L1_error)
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":779
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":779
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")
  * 
  *         if ((child.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -4004,7 +4004,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
     }
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":791
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":791
  * 
  *         # Output padding bytes
  *         while offset[0] < new_offset:             # <<<<<<<<<<<<<<
@@ -4020,7 +4020,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (!__pyx_t_6) break;
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":792
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":792
  *         # Output padding bytes
  *         while offset[0] < new_offset:
  *             f[0] = 120 # "x"; pad byte             # <<<<<<<<<<<<<<
@@ -4029,7 +4029,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       (__pyx_v_f[0]) = 0x78;
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":793
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":793
  *         while offset[0] < new_offset:
  *             f[0] = 120 # "x"; pad byte
  *             f += 1             # <<<<<<<<<<<<<<
@@ -4038,7 +4038,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       __pyx_v_f = (__pyx_v_f + 1);
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":794
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":794
  *             f[0] = 120 # "x"; pad byte
  *             f += 1
  *             offset[0] += 1             # <<<<<<<<<<<<<<
@@ -4049,7 +4049,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       (__pyx_v_offset[__pyx_t_8]) = ((__pyx_v_offset[__pyx_t_8]) + 1);
     }
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":796
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":796
  *             offset[0] += 1
  * 
  *         offset[0] += child.itemsize             # <<<<<<<<<<<<<<
@@ -4059,7 +4059,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_8 = 0;
     (__pyx_v_offset[__pyx_t_8]) = ((__pyx_v_offset[__pyx_t_8]) + __pyx_v_child->elsize);
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":798
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":798
  *         offset[0] += child.itemsize
  * 
  *         if not PyDataType_HASFIELDS(child):             # <<<<<<<<<<<<<<
@@ -4069,7 +4069,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_6 = ((!(PyDataType_HASFIELDS(__pyx_v_child) != 0)) != 0);
     if (__pyx_t_6) {
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":799
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":799
  * 
  *         if not PyDataType_HASFIELDS(child):
  *             t = child.type_num             # <<<<<<<<<<<<<<
@@ -4081,7 +4081,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __Pyx_XDECREF_SET(__pyx_v_t, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":800
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":800
  *         if not PyDataType_HASFIELDS(child):
  *             t = child.type_num
  *             if end - f < 5:             # <<<<<<<<<<<<<<
@@ -4091,7 +4091,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __pyx_t_6 = (((__pyx_v_end - __pyx_v_f) < 5) != 0);
       if (unlikely(__pyx_t_6)) {
 
-        /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":801
+        /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":801
  *             t = child.type_num
  *             if end - f < 5:
  *                 raise RuntimeError(u"Format string allocated too short.")             # <<<<<<<<<<<<<<
@@ -4104,7 +4104,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __PYX_ERR(1, 801, __pyx_L1_error)
 
-        /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":800
+        /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":800
  *         if not PyDataType_HASFIELDS(child):
  *             t = child.type_num
  *             if end - f < 5:             # <<<<<<<<<<<<<<
@@ -4113,7 +4113,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":804
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":804
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  *             if   t == NPY_BYTE:        f[0] =  98 #"b"             # <<<<<<<<<<<<<<
@@ -4131,7 +4131,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":805
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":805
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  *             if   t == NPY_BYTE:        f[0] =  98 #"b"
  *             elif t == NPY_UBYTE:       f[0] =  66 #"B"             # <<<<<<<<<<<<<<
@@ -4149,7 +4149,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":806
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":806
  *             if   t == NPY_BYTE:        f[0] =  98 #"b"
  *             elif t == NPY_UBYTE:       f[0] =  66 #"B"
  *             elif t == NPY_SHORT:       f[0] = 104 #"h"             # <<<<<<<<<<<<<<
@@ -4167,7 +4167,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":807
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":807
  *             elif t == NPY_UBYTE:       f[0] =  66 #"B"
  *             elif t == NPY_SHORT:       f[0] = 104 #"h"
  *             elif t == NPY_USHORT:      f[0] =  72 #"H"             # <<<<<<<<<<<<<<
@@ -4185,7 +4185,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":808
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":808
  *             elif t == NPY_SHORT:       f[0] = 104 #"h"
  *             elif t == NPY_USHORT:      f[0] =  72 #"H"
  *             elif t == NPY_INT:         f[0] = 105 #"i"             # <<<<<<<<<<<<<<
@@ -4203,7 +4203,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":809
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":809
  *             elif t == NPY_USHORT:      f[0] =  72 #"H"
  *             elif t == NPY_INT:         f[0] = 105 #"i"
  *             elif t == NPY_UINT:        f[0] =  73 #"I"             # <<<<<<<<<<<<<<
@@ -4221,7 +4221,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":810
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":810
  *             elif t == NPY_INT:         f[0] = 105 #"i"
  *             elif t == NPY_UINT:        f[0] =  73 #"I"
  *             elif t == NPY_LONG:        f[0] = 108 #"l"             # <<<<<<<<<<<<<<
@@ -4239,7 +4239,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":811
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":811
  *             elif t == NPY_UINT:        f[0] =  73 #"I"
  *             elif t == NPY_LONG:        f[0] = 108 #"l"
  *             elif t == NPY_ULONG:       f[0] = 76  #"L"             # <<<<<<<<<<<<<<
@@ -4257,7 +4257,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":812
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":812
  *             elif t == NPY_LONG:        f[0] = 108 #"l"
  *             elif t == NPY_ULONG:       f[0] = 76  #"L"
  *             elif t == NPY_LONGLONG:    f[0] = 113 #"q"             # <<<<<<<<<<<<<<
@@ -4275,7 +4275,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":813
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":813
  *             elif t == NPY_ULONG:       f[0] = 76  #"L"
  *             elif t == NPY_LONGLONG:    f[0] = 113 #"q"
  *             elif t == NPY_ULONGLONG:   f[0] = 81  #"Q"             # <<<<<<<<<<<<<<
@@ -4293,7 +4293,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":814
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":814
  *             elif t == NPY_LONGLONG:    f[0] = 113 #"q"
  *             elif t == NPY_ULONGLONG:   f[0] = 81  #"Q"
  *             elif t == NPY_FLOAT:       f[0] = 102 #"f"             # <<<<<<<<<<<<<<
@@ -4311,7 +4311,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":815
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":815
  *             elif t == NPY_ULONGLONG:   f[0] = 81  #"Q"
  *             elif t == NPY_FLOAT:       f[0] = 102 #"f"
  *             elif t == NPY_DOUBLE:      f[0] = 100 #"d"             # <<<<<<<<<<<<<<
@@ -4329,7 +4329,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":816
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":816
  *             elif t == NPY_FLOAT:       f[0] = 102 #"f"
  *             elif t == NPY_DOUBLE:      f[0] = 100 #"d"
  *             elif t == NPY_LONGDOUBLE:  f[0] = 103 #"g"             # <<<<<<<<<<<<<<
@@ -4347,7 +4347,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":817
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":817
  *             elif t == NPY_DOUBLE:      f[0] = 100 #"d"
  *             elif t == NPY_LONGDOUBLE:  f[0] = 103 #"g"
  *             elif t == NPY_CFLOAT:      f[0] = 90; f[1] = 102; f += 1 # Zf             # <<<<<<<<<<<<<<
@@ -4367,7 +4367,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":818
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":818
  *             elif t == NPY_LONGDOUBLE:  f[0] = 103 #"g"
  *             elif t == NPY_CFLOAT:      f[0] = 90; f[1] = 102; f += 1 # Zf
  *             elif t == NPY_CDOUBLE:     f[0] = 90; f[1] = 100; f += 1 # Zd             # <<<<<<<<<<<<<<
@@ -4387,7 +4387,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":819
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":819
  *             elif t == NPY_CFLOAT:      f[0] = 90; f[1] = 102; f += 1 # Zf
  *             elif t == NPY_CDOUBLE:     f[0] = 90; f[1] = 100; f += 1 # Zd
  *             elif t == NPY_CLONGDOUBLE: f[0] = 90; f[1] = 103; f += 1 # Zg             # <<<<<<<<<<<<<<
@@ -4407,7 +4407,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":820
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":820
  *             elif t == NPY_CDOUBLE:     f[0] = 90; f[1] = 100; f += 1 # Zd
  *             elif t == NPY_CLONGDOUBLE: f[0] = 90; f[1] = 103; f += 1 # Zg
  *             elif t == NPY_OBJECT:      f[0] = 79 #"O"             # <<<<<<<<<<<<<<
@@ -4425,7 +4425,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":822
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":822
  *             elif t == NPY_OBJECT:      f[0] = 79 #"O"
  *             else:
  *                 raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)             # <<<<<<<<<<<<<<
@@ -4444,7 +4444,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       }
       __pyx_L15:;
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":823
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":823
  *             else:
  *                 raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)
  *             f += 1             # <<<<<<<<<<<<<<
@@ -4453,7 +4453,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       __pyx_v_f = (__pyx_v_f + 1);
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":798
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":798
  *         offset[0] += child.itemsize
  * 
  *         if not PyDataType_HASFIELDS(child):             # <<<<<<<<<<<<<<
@@ -4463,7 +4463,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       goto __pyx_L13;
     }
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":827
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":827
  *             # Cython ignores struct boundary information ("T{...}"),
  *             # so don't output it
  *             f = _util_dtypestring(child, f, end, offset)             # <<<<<<<<<<<<<<
@@ -4476,7 +4476,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     }
     __pyx_L13:;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":772
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":772
  *     cdef tuple fields
  * 
  *     for childname in descr.names:             # <<<<<<<<<<<<<<
@@ -4486,7 +4486,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":828
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":828
  *             # so don't output it
  *             f = _util_dtypestring(child, f, end, offset)
  *     return f             # <<<<<<<<<<<<<<
@@ -4496,7 +4496,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   __pyx_r = __pyx_v_f;
   goto __pyx_L0;
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":763
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":763
  *         return ()
  * 
  * cdef inline char* _util_dtypestring(dtype descr, char* f, char* end, int* offset) except NULL:             # <<<<<<<<<<<<<<
@@ -4521,7 +4521,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":943
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":943
  *     int _import_umath() except -1
  * 
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
@@ -4533,7 +4533,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_array_base", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":944
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":944
  * 
  * cdef inline void set_array_base(ndarray arr, object base):
  *     Py_INCREF(base) # important to do this before stealing the reference below!             # <<<<<<<<<<<<<<
@@ -4542,7 +4542,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  */
   Py_INCREF(__pyx_v_base);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":945
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":945
  * cdef inline void set_array_base(ndarray arr, object base):
  *     Py_INCREF(base) # important to do this before stealing the reference below!
  *     PyArray_SetBaseObject(arr, base)             # <<<<<<<<<<<<<<
@@ -4551,7 +4551,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  */
   (void)(PyArray_SetBaseObject(__pyx_v_arr, __pyx_v_base));
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":943
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":943
  *     int _import_umath() except -1
  * 
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
@@ -4563,7 +4563,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   __Pyx_RefNannyFinishContext();
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":947
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":947
  *     PyArray_SetBaseObject(arr, base)
  * 
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
@@ -4578,7 +4578,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("get_array_base", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":948
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":948
  * 
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)             # <<<<<<<<<<<<<<
@@ -4587,7 +4587,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
  */
   __pyx_v_base = PyArray_BASE(__pyx_v_arr);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":949
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":949
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)
  *     if base is NULL:             # <<<<<<<<<<<<<<
@@ -4597,7 +4597,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   __pyx_t_1 = ((__pyx_v_base == NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":950
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":950
  *     base = PyArray_BASE(arr)
  *     if base is NULL:
  *         return None             # <<<<<<<<<<<<<<
@@ -4608,7 +4608,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":949
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":949
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)
  *     if base is NULL:             # <<<<<<<<<<<<<<
@@ -4617,7 +4617,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
  */
   }
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":951
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":951
  *     if base is NULL:
  *         return None
  *     return <object>base             # <<<<<<<<<<<<<<
@@ -4629,7 +4629,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   __pyx_r = ((PyObject *)__pyx_v_base);
   goto __pyx_L0;
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":947
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":947
  *     PyArray_SetBaseObject(arr, base)
  * 
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
@@ -4644,7 +4644,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":955
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":955
  * # Versions of the import_* functions which are more suitable for
  * # Cython code.
  * cdef inline int import_array() except -1:             # <<<<<<<<<<<<<<
@@ -4668,7 +4668,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("import_array", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":956
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":956
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -4684,7 +4684,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":957
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":957
  * cdef inline int import_array() except -1:
  *     try:
  *         __pyx_import_array()             # <<<<<<<<<<<<<<
@@ -4693,7 +4693,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  */
       __pyx_t_4 = _import_array(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(1, 957, __pyx_L3_error)
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":956
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":956
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -4707,7 +4707,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     goto __pyx_L8_try_end;
     __pyx_L3_error:;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":958
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":958
  *     try:
  *         __pyx_import_array()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -4722,7 +4722,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":959
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":959
  *         __pyx_import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
@@ -4738,7 +4738,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":956
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":956
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -4753,7 +4753,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     __pyx_L8_try_end:;
   }
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":955
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":955
  * # Versions of the import_* functions which are more suitable for
  * # Cython code.
  * cdef inline int import_array() except -1:             # <<<<<<<<<<<<<<
@@ -4776,7 +4776,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":961
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":961
  *         raise ImportError("numpy.core.multiarray failed to import")
  * 
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
@@ -4800,7 +4800,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("import_umath", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":962
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":962
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -4816,7 +4816,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":963
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":963
  * cdef inline int import_umath() except -1:
  *     try:
  *         _import_umath()             # <<<<<<<<<<<<<<
@@ -4825,7 +4825,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  */
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(1, 963, __pyx_L3_error)
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":962
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":962
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -4839,7 +4839,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     goto __pyx_L8_try_end;
     __pyx_L3_error:;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":964
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":964
  *     try:
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -4854,7 +4854,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":965
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":965
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
@@ -4870,7 +4870,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":962
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":962
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -4885,7 +4885,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __pyx_L8_try_end:;
   }
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":961
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":961
  *         raise ImportError("numpy.core.multiarray failed to import")
  * 
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
@@ -4908,7 +4908,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
   return __pyx_r;
 }
 
-/* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":967
+/* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":967
  *         raise ImportError("numpy.core.umath failed to import")
  * 
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
@@ -4932,7 +4932,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("import_ufunc", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":968
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":968
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -4948,7 +4948,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":969
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":969
  * cdef inline int import_ufunc() except -1:
  *     try:
  *         _import_umath()             # <<<<<<<<<<<<<<
@@ -4957,7 +4957,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  */
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(1, 969, __pyx_L3_error)
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":968
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":968
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -4971,7 +4971,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     goto __pyx_L8_try_end;
     __pyx_L3_error:;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":970
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":970
  *     try:
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -4986,7 +4986,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":971
+      /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":971
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
@@ -5002,7 +5002,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":968
+    /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":968
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -5017,7 +5017,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __pyx_L8_try_end:;
   }
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":967
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":967
  *         raise ImportError("numpy.core.umath failed to import")
  * 
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
@@ -18529,7 +18529,7 @@ static PyBufferProcs __pyx_tp_as_buffer_array = {
 
 static PyTypeObject __pyx_type___pyx_array = {
   PyVarObject_HEAD_INIT(0, 0)
-  "src.frmodel.base.D2.frame._cy_entropy.array", /*tp_name*/
+  "FRModel.src.frmodel.base.D2.frame._cy_entropy.array", /*tp_name*/
   sizeof(struct __pyx_array_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_array, /*tp_dealloc*/
@@ -18648,7 +18648,7 @@ static PyMethodDef __pyx_methods_Enum[] = {
 
 static PyTypeObject __pyx_type___pyx_MemviewEnum = {
   PyVarObject_HEAD_INIT(0, 0)
-  "src.frmodel.base.D2.frame._cy_entropy.Enum", /*tp_name*/
+  "FRModel.src.frmodel.base.D2.frame._cy_entropy.Enum", /*tp_name*/
   sizeof(struct __pyx_MemviewEnum_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_Enum, /*tp_dealloc*/
@@ -18909,7 +18909,7 @@ static PyBufferProcs __pyx_tp_as_buffer_memoryview = {
 
 static PyTypeObject __pyx_type___pyx_memoryview = {
   PyVarObject_HEAD_INIT(0, 0)
-  "src.frmodel.base.D2.frame._cy_entropy.memoryview", /*tp_name*/
+  "FRModel.src.frmodel.base.D2.frame._cy_entropy.memoryview", /*tp_name*/
   sizeof(struct __pyx_memoryview_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_memoryview, /*tp_dealloc*/
@@ -19047,7 +19047,7 @@ static struct PyGetSetDef __pyx_getsets__memoryviewslice[] = {
 
 static PyTypeObject __pyx_type___pyx_memoryviewslice = {
   PyVarObject_HEAD_INIT(0, 0)
-  "src.frmodel.base.D2.frame._cy_entropy._memoryviewslice", /*tp_name*/
+  "FRModel.src.frmodel.base.D2.frame._cy_entropy._memoryviewslice", /*tp_name*/
   sizeof(struct __pyx_memoryviewslice_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc__memoryviewslice, /*tp_dealloc*/
@@ -19177,6 +19177,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Ellipsis, __pyx_k_Ellipsis, sizeof(__pyx_k_Ellipsis), 0, 0, 1, 1},
   {&__pyx_kp_s_Empty_shape_tuple_for_cython_arr, __pyx_k_Empty_shape_tuple_for_cython_arr, sizeof(__pyx_k_Empty_shape_tuple_for_cython_arr), 0, 0, 1, 0},
   {&__pyx_kp_s_Entropy_Progress, __pyx_k_Entropy_Progress, sizeof(__pyx_k_Entropy_Progress), 0, 0, 1, 0},
+  {&__pyx_n_s_FRModel_src_frmodel_base_D2_fram, __pyx_k_FRModel_src_frmodel_base_D2_fram, sizeof(__pyx_k_FRModel_src_frmodel_base_D2_fram), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
@@ -19274,7 +19275,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_kp_s_src_frmodel_base_D2_frame__cy_en, __pyx_k_src_frmodel_base_D2_frame__cy_en, sizeof(__pyx_k_src_frmodel_base_D2_frame__cy_en), 0, 0, 1, 0},
-  {&__pyx_n_s_src_frmodel_base_D2_frame__cy_en_2, __pyx_k_src_frmodel_base_D2_frame__cy_en_2, sizeof(__pyx_k_src_frmodel_base_D2_frame__cy_en_2), 0, 0, 1, 1},
   {&__pyx_n_s_start, __pyx_k_start, sizeof(__pyx_k_start), 0, 0, 1, 1},
   {&__pyx_n_s_step, __pyx_k_step, sizeof(__pyx_k_step), 0, 0, 1, 1},
   {&__pyx_n_s_stop, __pyx_k_stop, sizeof(__pyx_k_stop), 0, 0, 1, 1},
@@ -19326,7 +19326,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":777
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":777
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")             # <<<<<<<<<<<<<<
@@ -19337,7 +19337,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":781
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":781
  *         if ((child.byteorder == c'>' and little_endian) or
  *             (child.byteorder == c'<' and not little_endian)):
  *             raise ValueError(u"Non-native byte order not supported")             # <<<<<<<<<<<<<<
@@ -19348,7 +19348,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":801
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":801
  *             t = child.type_num
  *             if end - f < 5:
  *                 raise RuntimeError(u"Format string allocated too short.")             # <<<<<<<<<<<<<<
@@ -19359,7 +19359,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":959
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":959
  *         __pyx_import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
@@ -19370,7 +19370,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "../../AppData/Local/Continuum/anaconda3/envs/FRModel/lib/site-packages/numpy/__init__.pxd":965
+  /* "../../../ProgramFiles/Anaconda/envs/FRModel/lib/site-packages/numpy/__init__.pxd":965
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
@@ -19573,7 +19573,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":12
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":12
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,             # <<<<<<<<<<<<<<
@@ -20008,14 +20008,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_src__frmodel__base__D2__frame___cy_entropy) {
+  if (__pyx_module_is_main_FRModel__src__frmodel__base__D2__frame___cy_entropy) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name_2, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "src.frmodel.base.D2.frame._cy_entropy")) {
-      if (unlikely(PyDict_SetItemString(modules, "src.frmodel.base.D2.frame._cy_entropy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "FRModel.src.frmodel.base.D2.frame._cy_entropy")) {
+      if (unlikely(PyDict_SetItemString(modules, "FRModel.src.frmodel.base.D2.frame._cy_entropy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -20036,7 +20036,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":1
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":1
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * cimport cython
@@ -20046,7 +20046,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":7
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":7
  * ctypedef np.uint32_t DTYPE_t32
  * from cython.parallel cimport prange
  * from tqdm import tqdm             # <<<<<<<<<<<<<<
@@ -20067,19 +20067,19 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":12
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":12
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * def cy_entropy(np.ndarray[DTYPE_t16, ndim=3] c,             # <<<<<<<<<<<<<<
  *                unsigned int radius,
  *                bint verbose):
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy, NULL, __pyx_n_s_src_frmodel_base_D2_frame__cy_en_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_1cy_entropy, NULL, __pyx_n_s_FRModel_src_frmodel_base_D2_fram); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_cy_entropy, __pyx_t_2) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "src/frmodel/base/D2/frame/_cy_entropy.pyx":1
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_entropy.pyx":1
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * cimport cython
@@ -20250,11 +20250,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init src.frmodel.base.D2.frame._cy_entropy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init FRModel.src.frmodel.base.D2.frame._cy_entropy", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init src.frmodel.base.D2.frame._cy_entropy");
+    PyErr_SetString(PyExc_ImportError, "init FRModel.src.frmodel.base.D2.frame._cy_entropy");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -24936,7 +24936,7 @@ no_fail:
 }
 
 /* ObjectToMemviewSlice */
-  static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16(PyObject *obj, int writable_flag) {
+  static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16(PyObject *obj, int writable_flag) {
     __Pyx_memviewslice result = { 0, 0, { 0 }, { 0 }, { 0 } };
     __Pyx_BufFmt_StackElem stack[1];
     int axes_specs[] = { (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED), (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED), (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED) };
@@ -24947,7 +24947,7 @@ no_fail:
     }
     retcode = __Pyx_ValidateAndInit_memviewslice(axes_specs, 0,
                                                  PyBUF_RECORDS_RO | writable_flag, 3,
-                                                 &__Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16, stack,
+                                                 &__Pyx_TypeInfo_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_11_cy_entropy_DTYPE_t16, stack,
                                                  &result, obj);
     if (unlikely(retcode == -1))
         goto __pyx_fail;

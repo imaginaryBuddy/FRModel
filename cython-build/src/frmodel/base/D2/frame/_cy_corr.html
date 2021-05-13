@@ -382,9 +382,9 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding: 0 5px
 </pre><pre class="cython line score-0">&#xA0;<span class="">002</span>: <span class="k">cimport</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">003</span>: <span class="k">cimport</span> <span class="nn">cython</span></pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">004</span>: <span class="k">ctypedef</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8_t</span> <span class="n">DTYPE_t8</span></pre>
-<pre class='cython code score-0 '>typedef __pyx_t_5numpy_uint8_t __pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8;
+<pre class='cython code score-0 '>typedef __pyx_t_5numpy_uint8_t __pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8;
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">005</span>: <span class="k">ctypedef</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16_t</span> <span class="n">DTYPE_t16</span></pre>
-<pre class='cython code score-0 '>typedef __pyx_t_5numpy_uint16_t __pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t16;
+<pre class='cython code score-0 '>typedef __pyx_t_5numpy_uint16_t __pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t16;
 </pre><pre class="cython line score-0">&#xA0;<span class="">006</span>: <span class="k">ctypedef</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32_t</span> <span class="n">DTYPE_t32</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">007</span>: <span class="k">from</span> <span class="nn">cython.parallel</span> <span class="k">cimport</span> <span class="n">prange</span></pre>
 <pre class="cython line score-19" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">008</span>: <span class="k">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span></pre>
@@ -406,10 +406,10 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding: 0 5px
 <pre class="cython line score-0">&#xA0;<span class="">011</span>: <span class="nd">@cython</span><span class="o">.</span><span class="n">wraparound</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></pre>
 <pre class="cython line score-92" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">012</span>: <span class="k">def</span> <span class="nf">cy_corr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="n">DTYPE_t8</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mf">3</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span></pre>
 <pre class='cython code score-92 '>/* Python wrapper */
-static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr[] = " Entropy Calculation in Cython\n\n    Requirements:\n    Array C is defined as 256 * A + B.\n    Array C Must be of np.uint16.\n    This is to get a 1-to-1 unique tuple-like mapping.\n\n    Limitations:\n    Array Values cannot exceed 255, excluding 255.\n    Array Values must be 3 dim, last dim will be iterated through\n    Entropy result will overflow on &gt; unsigned int\n    Maximum GLCM occurrence cannot exceed 65535\n\n    Verbose, whether to output progress with a progress bar\n\n    Uses entropy_256_2dim for looping last dimension\n\n    ";
-static PyMethodDef __pyx_mdef_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr = {"cy_corr", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr};
-static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr[] = " Entropy Calculation in Cython\n\n    Requirements:\n    Array C is defined as 256 * A + B.\n    Array C Must be of np.uint16.\n    This is to get a 1-to-1 unique tuple-like mapping.\n\n    Limitations:\n    Array Values cannot exceed 255, excluding 255.\n    Array Values must be 3 dim, last dim will be iterated through\n    Entropy result will overflow on &gt; unsigned int\n    Maximum GLCM occurrence cannot exceed 65535\n\n    Verbose, whether to output progress with a progress bar\n\n    Uses entropy_256_2dim for looping last dimension\n\n    ";
+static PyMethodDef __pyx_mdef_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr = {"cy_corr", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr};
+static PyObject *__pyx_pw_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_a = 0;
   PyArrayObject *__pyx_v_b = 0;
   unsigned int __pyx_v_radius;
@@ -479,13 +479,13 @@ static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr(PyOb
   __pyx_L5_argtuple_error:;
   <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("cy_corr", 1, 4, 4, <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)); <span class='error_goto'>__PYX_ERR(0, 12, __pyx_L3_error)</span>
   __pyx_L3_error:;
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.frmodel.base.D2.frame._cy_corr.cy_corr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("FRModel.src.frmodel.base.D2.frame._cy_corr.cy_corr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!<span class='pyx_c_api'>__Pyx_ArgTypeTest</span>(((PyObject *)__pyx_v_a), __pyx_ptype_5numpy_ndarray, 1, "a", 0))) <span class='error_goto'>__PYX_ERR(0, 12, __pyx_L1_error)</span>
   if (unlikely(!<span class='pyx_c_api'>__Pyx_ArgTypeTest</span>(((PyObject *)__pyx_v_b), __pyx_ptype_5numpy_ndarray, 1, "b", 0))) <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L1_error)</span>
-  __pyx_r = __pyx_pf_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(__pyx_self, __pyx_v_a, __pyx_v_b, __pyx_v_radius, __pyx_v_verbose);
+  __pyx_r = __pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(__pyx_self, __pyx_v_a, __pyx_v_b, __pyx_v_radius, __pyx_v_verbose);
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -499,7 +499,7 @@ static PyObject *__pyx_pw_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr(PyOb
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_a, PyArrayObject *__pyx_v_b, unsigned int __pyx_v_radius, int __pyx_v_verbose) {
+static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_a, PyArrayObject *__pyx_v_b, unsigned int __pyx_v_radius, int __pyx_v_verbose) {
   __Pyx_memviewslice __pyx_v_a_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_b_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   unsigned short __pyx_v_w_size;
@@ -541,12 +541,12 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(CYTHO
   __pyx_pybuffernd_b.rcbuffer = &amp;__pyx_pybuffer_b;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(<span class='pyx_c_api'>__Pyx_GetBufferAndValidate</span>(&amp;__pyx_pybuffernd_a.rcbuffer-&gt;pybuffer, (PyObject*)__pyx_v_a, &amp;__Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) <span class='error_goto'>__PYX_ERR(0, 12, __pyx_L1_error)</span>
+    if (unlikely(<span class='pyx_c_api'>__Pyx_GetBufferAndValidate</span>(&amp;__pyx_pybuffernd_a.rcbuffer-&gt;pybuffer, (PyObject*)__pyx_v_a, &amp;__Pyx_TypeInfo_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) <span class='error_goto'>__PYX_ERR(0, 12, __pyx_L1_error)</span>
   }
   __pyx_pybuffernd_a.diminfo[0].strides = __pyx_pybuffernd_a.rcbuffer-&gt;pybuffer.strides[0]; __pyx_pybuffernd_a.diminfo[0].shape = __pyx_pybuffernd_a.rcbuffer-&gt;pybuffer.shape[0]; __pyx_pybuffernd_a.diminfo[1].strides = __pyx_pybuffernd_a.rcbuffer-&gt;pybuffer.strides[1]; __pyx_pybuffernd_a.diminfo[1].shape = __pyx_pybuffernd_a.rcbuffer-&gt;pybuffer.shape[1]; __pyx_pybuffernd_a.diminfo[2].strides = __pyx_pybuffernd_a.rcbuffer-&gt;pybuffer.strides[2]; __pyx_pybuffernd_a.diminfo[2].shape = __pyx_pybuffernd_a.rcbuffer-&gt;pybuffer.shape[2];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(<span class='pyx_c_api'>__Pyx_GetBufferAndValidate</span>(&amp;__pyx_pybuffernd_b.rcbuffer-&gt;pybuffer, (PyObject*)__pyx_v_b, &amp;__Pyx_TypeInfo_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) <span class='error_goto'>__PYX_ERR(0, 12, __pyx_L1_error)</span>
+    if (unlikely(<span class='pyx_c_api'>__Pyx_GetBufferAndValidate</span>(&amp;__pyx_pybuffernd_b.rcbuffer-&gt;pybuffer, (PyObject*)__pyx_v_b, &amp;__Pyx_TypeInfo_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) <span class='error_goto'>__PYX_ERR(0, 12, __pyx_L1_error)</span>
   }
   __pyx_pybuffernd_b.diminfo[0].strides = __pyx_pybuffernd_b.rcbuffer-&gt;pybuffer.strides[0]; __pyx_pybuffernd_b.diminfo[0].shape = __pyx_pybuffernd_b.rcbuffer-&gt;pybuffer.shape[0]; __pyx_pybuffernd_b.diminfo[1].strides = __pyx_pybuffernd_b.rcbuffer-&gt;pybuffer.strides[1]; __pyx_pybuffernd_b.diminfo[1].shape = __pyx_pybuffernd_b.rcbuffer-&gt;pybuffer.shape[1]; __pyx_pybuffernd_b.diminfo[2].strides = __pyx_pybuffernd_b.rcbuffer-&gt;pybuffer.strides[2]; __pyx_pybuffernd_b.diminfo[2].shape = __pyx_pybuffernd_b.rcbuffer-&gt;pybuffer.shape[2];
 /* … */
@@ -567,7 +567,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(CYTHO
     <span class='pyx_c_api'>__Pyx_SafeReleaseBuffer</span>(&amp;__pyx_pybuffernd_a.rcbuffer-&gt;pybuffer);
     <span class='pyx_c_api'>__Pyx_SafeReleaseBuffer</span>(&amp;__pyx_pybuffernd_b.rcbuffer-&gt;pybuffer);
   <span class='pyx_c_api'>__Pyx_ErrRestore</span>(__pyx_type, __pyx_value, __pyx_tb);}
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.frmodel.base.D2.frame._cy_corr.cy_corr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("FRModel.src.frmodel.base.D2.frame._cy_corr.cy_corr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -587,7 +587,7 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(CYTHO
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__24);
   <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__24);
 /* … */
-  __pyx_t_2 = PyCFunction_NewEx(&amp;__pyx_mdef_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr, NULL, __pyx_n_s_src_frmodel_base_D2_frame__cy_co_2);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)</span>
+  __pyx_t_2 = PyCFunction_NewEx(&amp;__pyx_mdef_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_1cy_corr, NULL, __pyx_n_s_FRModel_src_frmodel_base_D2_fram);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
   if (<span class='py_c_api'>PyDict_SetItem</span>(__pyx_d, __pyx_n_s_cy_corr, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 12, __pyx_L1_error)</span>
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
@@ -629,12 +629,12 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(CYTHO
 <pre class="cython line score-0">&#xA0;<span class="">047</span>:     <span class="c"># This is the explicit number of rows and columns the window has</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">048</span>: </pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">049</span>:     <span class="k">cdef</span> <span class="kt">DTYPE_t8</span> [<span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="n">a_view</span> <span class="o">=</span> <span class="n">a</span></pre>
-<pre class='cython code score-0 '>  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8(((PyObject *)__pyx_v_a), PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 49, __pyx_L1_error)</span>
+<pre class='cython code score-0 '>  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8(((PyObject *)__pyx_v_a), PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 49, __pyx_L1_error)</span>
   __pyx_v_a_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">050</span>:     <span class="k">cdef</span> <span class="kt">DTYPE_t8</span> [<span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="n">b_view</span> <span class="o">=</span> <span class="n">b</span></pre>
-<pre class='cython code score-0 '>  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8(((PyObject *)__pyx_v_b), PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 50, __pyx_L1_error)</span>
+<pre class='cython code score-0 '>  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_nn___pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8(((PyObject *)__pyx_v_b), PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 50, __pyx_L1_error)</span>
   __pyx_v_b_view = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
@@ -897,23 +897,23 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(CYTHO
 <pre class='cython code score-0 '>                                                      __pyx_t_23 = (__pyx_v_wi_r + __pyx_v_w_r);
                                                       __pyx_t_24 = (__pyx_v_wi_c + __pyx_v_w_c);
                                                       __pyx_t_25 = __pyx_v_w_ch;
-                                                      __pyx_v_mean_a = (__pyx_v_mean_a + ((int)(*((__pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_a_view.data + __pyx_t_23 * __pyx_v_a_view.strides[0]) ) + __pyx_t_24 * __pyx_v_a_view.strides[1]) ) + __pyx_t_25 * __pyx_v_a_view.strides[2]) )))));
+                                                      __pyx_v_mean_a = (__pyx_v_mean_a + ((int)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_a_view.data + __pyx_t_23 * __pyx_v_a_view.strides[0]) ) + __pyx_t_24 * __pyx_v_a_view.strides[1]) ) + __pyx_t_25 * __pyx_v_a_view.strides[2]) )))));
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">102</span>:                         <span class="n">mean_b</span> <span class="o">+=</span> <span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span><span class="n">b_view</span><span class="p">[</span><span class="n">wi_r</span> <span class="o">+</span> <span class="n">w_r</span><span class="p">,</span> <span class="n">wi_c</span> <span class="o">+</span> <span class="n">w_c</span><span class="p">,</span> <span class="n">w_ch</span><span class="p">]</span></pre>
 <pre class='cython code score-0 '>                                                      __pyx_t_25 = (__pyx_v_wi_r + __pyx_v_w_r);
                                                       __pyx_t_24 = (__pyx_v_wi_c + __pyx_v_w_c);
                                                       __pyx_t_23 = __pyx_v_w_ch;
-                                                      __pyx_v_mean_b = (__pyx_v_mean_b + ((int)(*((__pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_view.data + __pyx_t_25 * __pyx_v_b_view.strides[0]) ) + __pyx_t_24 * __pyx_v_b_view.strides[1]) ) + __pyx_t_23 * __pyx_v_b_view.strides[2]) )))));
+                                                      __pyx_v_mean_b = (__pyx_v_mean_b + ((int)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_view.data + __pyx_t_25 * __pyx_v_b_view.strides[0]) ) + __pyx_t_24 * __pyx_v_b_view.strides[1]) ) + __pyx_t_23 * __pyx_v_b_view.strides[2]) )))));
 </pre><pre class="cython line score-0">&#xA0;<span class="">103</span>: </pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">104</span>:                         <span class="n">mean_a2</span> <span class="o">+=</span> <span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span><span class="n">a_view</span><span class="p">[</span><span class="n">wi_r</span> <span class="o">+</span> <span class="n">w_r</span><span class="p">,</span> <span class="n">wi_c</span> <span class="o">+</span> <span class="n">w_c</span><span class="p">,</span> <span class="n">w_ch</span><span class="p">]</span> <span class="o">**</span> <span class="mf">2</span></pre>
 <pre class='cython code score-0 '>                                                      __pyx_t_23 = (__pyx_v_wi_r + __pyx_v_w_r);
                                                       __pyx_t_24 = (__pyx_v_wi_c + __pyx_v_w_c);
                                                       __pyx_t_25 = __pyx_v_w_ch;
-                                                      __pyx_v_mean_a2 = (__pyx_v_mean_a2 + ((int)__Pyx_pow_long(((long)(*((__pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_a_view.data + __pyx_t_23 * __pyx_v_a_view.strides[0]) ) + __pyx_t_24 * __pyx_v_a_view.strides[1]) ) + __pyx_t_25 * __pyx_v_a_view.strides[2]) )))), 2)));
+                                                      __pyx_v_mean_a2 = (__pyx_v_mean_a2 + ((int)__Pyx_pow_long(((long)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_a_view.data + __pyx_t_23 * __pyx_v_a_view.strides[0]) ) + __pyx_t_24 * __pyx_v_a_view.strides[1]) ) + __pyx_t_25 * __pyx_v_a_view.strides[2]) )))), 2)));
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">105</span>:                         <span class="n">mean_b2</span> <span class="o">+=</span> <span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span><span class="n">b_view</span><span class="p">[</span><span class="n">wi_r</span> <span class="o">+</span> <span class="n">w_r</span><span class="p">,</span> <span class="n">wi_c</span> <span class="o">+</span> <span class="n">w_c</span><span class="p">,</span> <span class="n">w_ch</span><span class="p">]</span> <span class="o">**</span> <span class="mf">2</span></pre>
 <pre class='cython code score-0 '>                                                      __pyx_t_25 = (__pyx_v_wi_r + __pyx_v_w_r);
                                                       __pyx_t_24 = (__pyx_v_wi_c + __pyx_v_w_c);
                                                       __pyx_t_23 = __pyx_v_w_ch;
-                                                      __pyx_v_mean_b2 = (__pyx_v_mean_b2 + ((int)__Pyx_pow_long(((long)(*((__pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_view.data + __pyx_t_25 * __pyx_v_b_view.strides[0]) ) + __pyx_t_24 * __pyx_v_b_view.strides[1]) ) + __pyx_t_23 * __pyx_v_b_view.strides[2]) )))), 2)));
+                                                      __pyx_v_mean_b2 = (__pyx_v_mean_b2 + ((int)__Pyx_pow_long(((long)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_view.data + __pyx_t_25 * __pyx_v_b_view.strides[0]) ) + __pyx_t_24 * __pyx_v_b_view.strides[1]) ) + __pyx_t_23 * __pyx_v_b_view.strides[2]) )))), 2)));
                                                   }
                                               }
                                           }
@@ -1037,12 +1037,12 @@ static PyObject *__pyx_pf_3src_7frmodel_4base_2D2_5frame_8_cy_corr_cy_corr(CYTHO
 <pre class='cython code score-0 '>                                                      __pyx_t_23 = (__pyx_v_wi_r + __pyx_v_w_r);
                                                       __pyx_t_24 = (__pyx_v_wi_c + __pyx_v_w_c);
                                                       __pyx_t_25 = __pyx_v_w_ch;
-                                                      __pyx_v_del_a = (((int)(*((__pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_a_view.data + __pyx_t_23 * __pyx_v_a_view.strides[0]) ) + __pyx_t_24 * __pyx_v_a_view.strides[1]) ) + __pyx_t_25 * __pyx_v_a_view.strides[2]) )))) - __pyx_v_mean_a);
+                                                      __pyx_v_del_a = (((int)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_a_view.data + __pyx_t_23 * __pyx_v_a_view.strides[0]) ) + __pyx_t_24 * __pyx_v_a_view.strides[1]) ) + __pyx_t_25 * __pyx_v_a_view.strides[2]) )))) - __pyx_v_mean_a);
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">119</span>:                         <span class="n">del_b</span> <span class="o">=</span> <span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span><span class="n">b_view</span><span class="p">[</span><span class="n">wi_r</span> <span class="o">+</span> <span class="n">w_r</span><span class="p">,</span> <span class="n">wi_c</span> <span class="o">+</span> <span class="n">w_c</span><span class="p">,</span> <span class="n">w_ch</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean_b</span></pre>
 <pre class='cython code score-0 '>                                                      __pyx_t_25 = (__pyx_v_wi_r + __pyx_v_w_r);
                                                       __pyx_t_24 = (__pyx_v_wi_c + __pyx_v_w_c);
                                                       __pyx_t_23 = __pyx_v_w_ch;
-                                                      __pyx_v_del_b = (((int)(*((__pyx_t_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_view.data + __pyx_t_25 * __pyx_v_b_view.strides[0]) ) + __pyx_t_24 * __pyx_v_b_view.strides[1]) ) + __pyx_t_23 * __pyx_v_b_view.strides[2]) )))) - __pyx_v_mean_b);
+                                                      __pyx_v_del_b = (((int)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_8_cy_corr_DTYPE_t8 *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_view.data + __pyx_t_25 * __pyx_v_b_view.strides[0]) ) + __pyx_t_24 * __pyx_v_b_view.strides[1]) ) + __pyx_t_23 * __pyx_v_b_view.strides[2]) )))) - __pyx_v_mean_b);
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">120</span>:                         <span class="n">del_ab</span> <span class="o">+=</span> <span class="n">del_a</span> <span class="o">*</span> <span class="n">del_b</span></pre>
 <pre class='cython code score-0 '>                                                      __pyx_v_del_ab = (__pyx_v_del_ab + (__pyx_v_del_a * __pyx_v_del_b));
                                                   }
