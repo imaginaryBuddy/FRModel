@@ -35,6 +35,7 @@ class _Frame2DChannelGLCM(ABC):
         entropy:     List[CONSTS.CHN] = field(default_factory=lambda: [])
         verbose:     bool = True
 
+
     def get_glcm(self: 'Frame2D', glcm:GLCM) -> Tuple[np.ndarray, List[str]]:
         """ This will get the GLCM statistics for this window
 
@@ -66,7 +67,7 @@ class _Frame2DChannelGLCM(ABC):
 
         if glcm.correlation:
             data[..., i:i + cor_len] =\
-                self._get_glcm_correlation_cy(*pair_ar(self.data_chn(glcm.contrast).data),
+                self._get_glcm_correlation_cy(*pair_ar(self.data_chn(glcm.correlation).data),
                                               radius=glcm.radius, verbose=glcm.verbose)
             i += cor_len
             labels.extend(CONSTS.CHN.GLCM.COR(list(self._util_flatten(glcm.correlation))))
@@ -77,7 +78,7 @@ class _Frame2DChannelGLCM(ABC):
                                 f"received [{self.data.min()}, {self.data.max()}]")
 
             data[..., i:i + ent_len] =\
-                self._get_glcm_entropy_cy(*pair_ar(self.data_chn(glcm.contrast).data),
+                self._get_glcm_entropy_cy(*pair_ar(self.data_chn(glcm.entropy).data),
                                           radius=glcm.radius, verbose=glcm.verbose)
             labels.extend(CONSTS.CHN.GLCM.ENT(list(self._util_flatten(glcm.entropy))))
 

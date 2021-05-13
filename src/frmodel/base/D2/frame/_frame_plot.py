@@ -40,8 +40,8 @@ class Frame2DPlot:
 
         gs = GridSpec(rows, cols, wspace=0)
         fig: plt.Figure = plt.gcf()
-        fig.set_figheight(self.f.data.shape[0] / 60 * rows * scale)
-        fig.set_figwidth(self.f.data.shape[1] / 60 * cols * scale)
+        fig.set_figheight(int(self.f.data.shape[0] / 60 * rows * scale))
+        fig.set_figwidth(int(self.f.data.shape[1] / 60 * cols * scale))
 
         titles = self.titles if self.titles else self.f.labels
 
