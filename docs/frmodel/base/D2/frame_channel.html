@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frame Channel &mdash; frmodel 0.0.5 documentation</title>
+  <title>Frame Channel &mdash; frmodel 0.0.6 documentation</title>
   
 
   
@@ -497,7 +497,7 @@ depending on your choices, one may be more succinct than the other.</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_all_chns">
-<code class="sig-name descname"><span class="pre">get_all_chns</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_chns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D.CHN</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glcm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">_Frame2DChannel.GLCM</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="frmodel.base.D2.frame._frame_channel._Frame2DChannel"><span class="pre">_Frame2DChannel</span></a><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_all_chns" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_all_chns</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_chns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D.CHN</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glcm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">_Frame2DChannel.GLCM</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Frame2D</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_all_chns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all channels, excludes any in exc_chns.</p>
 <p>Use get_chns to get selected ones</p>
 <p>Order is given by the argument order.
@@ -519,7 +519,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_chns">
-<code class="sig-name descname"><span class="pre">get_chns</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D.CHN</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glcm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">_Frame2DChannel.GLCM</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="frmodel.base.D2.frame._frame_channel._Frame2DChannel"><span class="pre">_Frame2DChannel</span></a><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_chns" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_chns</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D.CHN</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glcm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">_Frame2DChannel.GLCM</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Frame2D</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel.get_chns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets selected channels</p>
 <p>Use get_all_chns to get all but selected ones</p>
 <p>Order is given by the argument order.
@@ -647,7 +647,7 @@ ConR, ConG, ConB, CorrR, CorrG, CorrB, EntR, EntG, EntB</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Eve-ning
+        &copy; Copyright 2021, Eve-ning (John Chang)
 
     </p>
   </div>

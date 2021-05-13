@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frame Gray Level Co-occurrence Matrix &mdash; frmodel 0.0.5 documentation</title>
+  <title>Frame Gray Level Co-occurrence Matrix &mdash; frmodel 0.0.6 documentation</title>
   
 
   
@@ -207,7 +207,7 @@ glcm_entropy_mp=True, glcm_entropy_mp_procs=2)</p>
 .. code-block:: python</p>
 <blockquote>
 <div><dl class="simple">
-<dt>glcm = f.GLCM(by_x=1, by_y=1, radius=25, verbose=True,</dt><dd><p>contrast=[f.CHN.RGB],
+<dt>glcm = f.GLCM(by=1, radius=25, verbose=True,</dt><dd><p>contrast=[f.CHN.RGB],
 correlation=[f.CHN.RGB],
 entropy=[f.CHN.RGB])</p>
 </dd>
@@ -243,14 +243,14 @@ GLCM_{Entropy} = \frac{GLCM(i,j)^2}{Size}\end{split}\]</div>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <dl class="py class">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM">
-<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">GLCM</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by_x:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">by_y:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5</span></em>, <em class="sig-param"><span class="pre">contrast:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">correlation:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">entropy:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">GLCM</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5</span></em>, <em class="sig-param"><span class="pre">contrast:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">correlation:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">entropy:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This holds all GLCM parameters to pass into get_glcm</p>
 <p>Note that contrast, correlation, entropy takes arguments similarly to how get_chns work.</p>
 <p>e.g. contrast=[f.CHN.HSV]</p>
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by_x:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">by_y:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5</span></em>, <em class="sig-param"><span class="pre">contrast:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">correlation:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">entropy:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5</span></em>, <em class="sig-param"><span class="pre">contrast:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">correlation:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">entropy:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -392,7 +392,7 @@ This omits the</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Eve-ning
+        &copy; Copyright 2021, Eve-ning (John Chang)
 
     </p>
   </div>
