@@ -5,14 +5,15 @@ from typing import TYPE_CHECKING, Tuple, Iterable
 import numpy as np
 from skimage.color import rgb2hsv
 
-from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
+from frmodel.base.D2.frame._frame_channel_fast_glcm import _Frame2DChannelFastGLCM
+# from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
 from frmodel.base.D2.frame._frame_channel_spec import _Frame2DChannelSpec
 
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
 
-class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
+class _Frame2DChannel(_Frame2DChannelFastGLCM, _Frame2DChannelSpec):
 
     def _r(self: 'Frame2D'):
         """ Short forms for easy calling, not recommended to use outside of class scope """
@@ -100,7 +101,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
             self.CHN.NDRE   : self.get_ndre,
             self.CHN.LCI    : self.get_lci,
             self.CHN.MSAVI  : self.get_msavi,
-            self.CHN.OSAVI  : self.get_osavi
+            self.CHN.OSAVI  : self.get_osavi,
         }
 
         it = 0
@@ -137,9 +138,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM, _Frame2DChannelSpec):
                 # Cannot convolute a 0 set. We'll still entertain get_glcm only.
                 frame = self.create(*self.get_glcm(glcm))
             else:
-                frame = frame\
-                    .convolute(radius=glcm.radius)\
-                    .crop(0, glcm.by, glcm.by)\
+                frame = frame.crop_glcm(glcm.radius)\
                     .append(*self.get_glcm(glcm))
 
         frame.data = np.ma.array(frame.data,

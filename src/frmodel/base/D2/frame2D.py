@@ -21,8 +21,6 @@ from frmodel.base.D2.frame._frame_scaling import _Frame2DScaling
 from frmodel.base.D2.frame._frame_scoring import _Frame2DScoring
 from frmodel.base.consts import CONSTS
 
-MAX_RGB = 255
-
 
 class Frame2D(_Frame2DLoader,
               _Frame2DPartition,

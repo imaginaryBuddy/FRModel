@@ -80,6 +80,10 @@ class CONSTS:
             WATER = "MNL_WATER"
             CANNY = "MNL_CANNY"
 
+    class BOUNDS:
+        MAX_RGB = 256
+        MIN_RGB = 0
+
     class AXIS:
         X = 0
         Y = 1
