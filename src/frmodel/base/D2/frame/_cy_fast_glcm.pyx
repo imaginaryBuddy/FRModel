@@ -64,21 +64,20 @@ def cy_fast_glcm(np.ndarray[DTYPE_t8, ndim=5] windows_a,
 
     glcm        = np.zeros([glcm_max_value, glcm_max_value,
                             window_rows, window_cols, channels], dtype=np.uint8)
-    # print(glcm.shape[0],glcm.shape[1],glcm.shape[2],glcm.shape[3],glcm.shape[4],)
     contrast    = np.zeros([window_rows, window_cols, channels], dtype=np.uint16)
     correlation = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
-    entropy     = np.zeros([window_rows, window_cols, channels], dtype=np.uint16)
+    asm         = np.zeros([window_rows, window_cols, channels], dtype=np.uint16)
 
     # i, j, wi_r, wi_c, ch
     cdef unsigned char  [:, :, :, :, :] glcm_v        = glcm
     cdef unsigned short [:, :, :]       contrast_v    = contrast
     cdef float          [:, :, :]       correlation_v = correlation
-    cdef unsigned short [:, :, :]       entropy_v     = entropy
+    cdef unsigned short [:, :, :]       asm_v         = asm
 
     glcm_v       [:, :, :, :, :] = 0
     contrast_v   [:, :, :]       = 0
     correlation_v[:, :, :]       = 0
-    entropy_v    [:, :, :]       = 0
+    asm_v        [:, :, :]       = 0
 
     i_mean = np.mean(windows_a, axis=(2, 3), dtype=np.float32)
     j_mean = np.mean(windows_b, axis=(2, 3), dtype=np.float32)
@@ -128,7 +127,7 @@ def cy_fast_glcm(np.ndarray[DTYPE_t8, ndim=5] windows_a,
     #                     glcm_val = glcm_v[i, j, wi_r, wi_c, ch]
     #                     if glcm_val != 0:
     #                         contrast_v [wi_r, wi_c, ch] += glcm_val * ((i - j) ** 2)
-    #                         entropy_v  [wi_r, wi_c, ch] += glcm_val ** 2
+    #                         asm_v      [wi_r, wi_c, ch] += glcm_val ** 2
     #
     #                         # Correlation
     #                         i_m = i_mean_v[wi_r, wi_c, ch]
@@ -147,7 +146,7 @@ def cy_fast_glcm(np.ndarray[DTYPE_t8, ndim=5] windows_a,
                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch]
                         if glcm_val != 0:
                             contrast_v [wi_r, wi_c, ch] += glcm_val * ((i - j) ** 2)
-                            entropy_v  [wi_r, wi_c, ch] += glcm_val ** 2
+                            asm_v      [wi_r, wi_c, ch] += glcm_val ** 2
 
                             # Correlation
                             i_m = i_mean_v[wi_r, wi_c, ch]
@@ -159,9 +158,7 @@ def cy_fast_glcm(np.ndarray[DTYPE_t8, ndim=5] windows_a,
                                 correlation_v[wi_r, wi_c, ch] += glcm_val * (
                                     1
                                 )
-                            # correlation_v[wi_r, wi_c, ch] += glcm_val
-    # print(glcm_max_value)
 
-    return contrast, correlation, entropy
+    return contrast, correlation, asm
 
 

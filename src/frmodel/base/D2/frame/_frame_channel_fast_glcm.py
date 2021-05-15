@@ -20,7 +20,9 @@ class _Frame2DChannelFastGLCM(ABC):
     class GLCM:
         """ This holds all GLCM parameters to pass into get_glcm
 
-        Note that contrast, correlation, entropy takes arguments similarly to how get_chns work.
+        Note that contrast, correlation, asm takes arguments similarly to how get_chns work.
+
+        Entropy has been replaced by ASM. Angular Second Moment
 
         e.g. contrast=[f.CHN.HSV]
         """
@@ -29,7 +31,7 @@ class _Frame2DChannelFastGLCM(ABC):
         bins:        int = 8
         contrast:    List[CONSTS.CHN] = field(default_factory=lambda: [])
         correlation: List[CONSTS.CHN] = field(default_factory=lambda: [])
-        entropy:     List[CONSTS.CHN] = field(default_factory=lambda: [])
+        asm:         List[CONSTS.CHN] = field(default_factory=lambda: [])
         verbose:     bool = True
 
     def get_glcm(self: 'Frame2D', glcm:GLCM) -> Tuple[np.ndarray, List[str]]:
@@ -60,7 +62,7 @@ class _Frame2DChannelFastGLCM(ABC):
         # We get the lengths to preemptively create a GLCM np.ndarray
         con_len = self._get_chn_size(glcm.contrast)
         cor_len = self._get_chn_size(glcm.correlation)
-        ent_len = self._get_chn_size(glcm.entropy)
+        ent_len = self._get_chn_size(glcm.asm)
 
         data = np.zeros(shape=[windows_h, windows_w, con_len + cor_len + ent_len])
 
@@ -78,77 +80,8 @@ class _Frame2DChannelFastGLCM(ABC):
             i += cor_len
             labels.extend(CONSTS.CHN.GLCM.COR(list(self._util_flatten(glcm.correlation))))
 
-        if glcm.entropy:
-            data[..., i:i + ent_len] = result[2][..., self._labels_to_ix(glcm.entropy)]
-            labels.extend(CONSTS.CHN.GLCM.ENT(list(self._util_flatten(glcm.entropy))))
+        if glcm.asm:
+            data[..., i:i + ent_len] = result[2][..., self._labels_to_ix(glcm.asm)]
+            labels.extend(CONSTS.CHN.GLCM.ENT(list(self._util_flatten(glcm.asm))))
 
         return data, labels
-
-    @staticmethod
-    def _get_glcm_contrast(a: np.ndarray,
-                           b: np.ndarray,
-                           glcm: np.ndarray) -> np.ndarray:
-        """ Pure python implementation of Contrast.
-
-        Cython isn't needed as it's purely vectorizable.
-
-        Create the difference matrix, then convolve with a 1 filled kernel
-
-        :param a: Windows A
-        :param b: Offset Windows B
-        :param glcm: The GLCM
-        """
-
-        windows = (a - b) ** 2
-        con = np.sum(windows, axis=(2,3))
-        return con / glcm.sum()
-
-    @staticmethod
-    def _get_glcm_mean(a: np.ndarray,
-                       b: np.ndarray) -> np.ndarray:
-
-        a_mean = np.mean(a, axis=(2,3))
-        b_mean = np.mean(b, axis=(2,3))
-        return (a_mean + b_mean) // 2
-
-    @staticmethod
-    def _get_glcm_stdev(a: np.ndarray,
-                        b: np.ndarray) -> np.ndarray:
-
-        a_mean = np.mean(a, axis=(2,3))
-        b_mean = np.mean(b, axis=(2,3))
-        return a_mean + b_mean
-
-    @staticmethod
-    def _get_glcm_correlation(a: np.ndarray,
-                              b: np.ndarray,
-                              glcm: np.ndarray) -> np.ndarray:
-        """ Correlation
-
-        :param a: Windows A
-        :param b: Offset Windows B
-        :param glcm: The GLCM Probability
-        """
-
-        a_ = np.sum(a, axis=(2,3))
-        b_ = np.sum(b, axis=(2,3))
-
-        a_mean = np.mean(a, axis=(2,3), dtype=np.float16)
-        b_mean = np.mean(b, axis=(2,3), dtype=np.float16)
-        a_std  = np.std(a, axis=(2,3), dtype=np.float16)
-        b_std  = np.std(b, axis=(2,3), dtype=np.float16)
-
-        with np.errstate(all='ignore'):
-            return np.where(a_std * b_std != 0, (a_ - a_mean) * (b_ * b_mean) / a_std * b_std, 0) * \
-                   np.sum(glcm, axis=(0,1)) / np.sum(glcm)
-
-    @staticmethod
-    def _get_glcm_entropy(glcm: np.ndarray) -> np.ndarray:
-        """ Gets the entropy
-
-        :param glcm: Offset ar A
-        """
-
-        glcm_p = glcm / glcm.sum()
-        ent = glcm_p * (-np.log(glcm_p + np.finfo(float).eps))
-        return np.sum(ent, axis=(0,1))
