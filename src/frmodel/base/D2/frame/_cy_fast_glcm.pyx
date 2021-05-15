@@ -156,7 +156,7 @@ def cy_fast_glcm(np.ndarray[DTYPE_t8, ndim=5] windows_a,
                             #
                             if i_s != 0 and j_s != 0:
                                 correlation_v[wi_r, wi_c, ch] += glcm_val * (
-                                    1
+                                    (i - i_m) * (j - j_m) / (i_s * j_s)
                                 )
 
     return contrast, correlation, asm
