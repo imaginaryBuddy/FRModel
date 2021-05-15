@@ -28,9 +28,10 @@ class _Frame2DChannelFastGLCM(ABC):
         by:          int = 1
         radius:      int = 2
         bins:        int = 8
-        contrast:    List[CONSTS.CHN] = field(default_factory=lambda: [])
-        correlation: List[CONSTS.CHN] = field(default_factory=lambda: [])
-        asm:         List[CONSTS.CHN] = field(default_factory=lambda: [])
+        channels: List[CONSTS.CHN] = field(default_factory=lambda: [])
+        # contrast:    List[CONSTS.CHN] = field(default_factory=lambda: [])
+        # correlation: List[CONSTS.CHN] = field(default_factory=lambda: [])
+        # asm:         List[CONSTS.CHN] = field(default_factory=lambda: [])
         verbose:     bool = True
 
     def get_glcm(self: 'Frame2D', glcm:GLCM) -> Tuple[np.ndarray, List[str]]:
@@ -41,6 +42,7 @@ class _Frame2DChannelFastGLCM(ABC):
         :param glcm: A GLCM Class, this class holds all parameters.
         """
 
+        N_FEATURES = 5
         if glcm.bins % 2 != 0:
             raise Exception("glcm.bins must be a multiple of 2.")
 
@@ -57,30 +59,23 @@ class _Frame2DChannelFastGLCM(ABC):
 
         # FAST GLCM
         result = cy_fast_glcm(windows_a, windows_b, True)
+        n_chns = len(list(self._util_flatten(glcm.channels)))
 
         # We get the lengths to preemptively create a GLCM np.ndarray
-        con_len = self._get_chn_size(glcm.contrast)
-        cor_len = self._get_chn_size(glcm.correlation)
-        ent_len = self._get_chn_size(glcm.asm)
-
-        data = np.zeros(shape=[windows_h, windows_w, con_len + cor_len + ent_len])
+        data = np.zeros(shape=[windows_h, windows_w, n_chns * N_FEATURES], dtype=np.float)
 
         labels = []
 
-        i = 0
+        data[..., 0: n_chns]         = result[0]
+        data[..., n_chns:n_chns*2]   = result[1]
+        data[..., n_chns*2:n_chns*3] = result[2]
+        data[..., n_chns*3:n_chns*4] = result[3]
+        data[..., n_chns*4:n_chns*5] = result[4]
 
-        if glcm.contrast:
-            data[..., i:i + con_len] = result[0][..., self._labels_to_ix(glcm.contrast)]
-            i += con_len
-            labels.extend(CONSTS.CHN.GLCM.CON(list(self._util_flatten(glcm.contrast))))
-
-        if glcm.correlation:
-            data[..., i:i + cor_len] = result[1][..., self._labels_to_ix(glcm.correlation)]
-            i += cor_len
-            labels.extend(CONSTS.CHN.GLCM.COR(list(self._util_flatten(glcm.correlation))))
-
-        if glcm.asm:
-            data[..., i:i + ent_len] = result[2][..., self._labels_to_ix(glcm.asm)]
-            labels.extend(CONSTS.CHN.GLCM.ENT(list(self._util_flatten(glcm.asm))))
+        labels.extend(CONSTS.CHN.GLCM.CON( list(self._util_flatten(glcm.channels))))
+        labels.extend(CONSTS.CHN.GLCM.COR( list(self._util_flatten(glcm.channels))))
+        labels.extend(CONSTS.CHN.GLCM.ASM( list(self._util_flatten(glcm.channels))))
+        labels.extend(CONSTS.CHN.GLCM.MEAN(list(self._util_flatten(glcm.channels))))
+        labels.extend(CONSTS.CHN.GLCM.VAR( list(self._util_flatten(glcm.channels))))
 
         return data, labels

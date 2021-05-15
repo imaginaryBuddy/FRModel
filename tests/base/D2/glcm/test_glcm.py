@@ -29,7 +29,7 @@ class TestGLCM(TestD2Fixture):
         self.assertAlmostEqual(fc.data_chn(fc.CHN.GLCM.CON(fc.CHN.RED)).data.squeeze(), 213)
         self.assertAlmostEqual(fc.data_chn(fc.CHN.GLCM.COR(fc.CHN.RED)).data.squeeze(), -0.12209306360906494,
                                places=4)
-        self.assertAlmostEqual(fc.data_chn(fc.CHN.GLCM.ENT(fc.CHN.RED)).data.squeeze(), 1)
+        self.assertAlmostEqual(fc.data_chn(fc.CHN.GLCM.ASM(fc.CHN.RED)).data.squeeze(), 1)
 
 
 if __name__ == '__main__':

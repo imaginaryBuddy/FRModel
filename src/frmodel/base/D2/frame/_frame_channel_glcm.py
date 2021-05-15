@@ -80,7 +80,7 @@ class _Frame2DChannelGLCM(ABC):
             data[..., i:i + ent_len] =\
                 self._get_glcm_entropy_cy(*pair_ar(self.data_chn(glcm.entropy).data),
                                           radius=glcm.radius, verbose=glcm.verbose)
-            labels.extend(CONSTS.CHN.GLCM.ENT(list(self._util_flatten(glcm.entropy))))
+            labels.extend(CONSTS.CHN.GLCM.ASM(list(self._util_flatten(glcm.entropy))))
 
         return data, labels
 
