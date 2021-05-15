@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from abc import ABC
 from dataclasses import dataclass, field
 from typing import Tuple, List, TYPE_CHECKING
@@ -39,75 +40,46 @@ class _Frame2DChannelFastGLCM(ABC):
         :param glcm: A GLCM Class, this class holds all parameters.
         """
 
-        scaled = self.scale_values(to_min=CONSTS.BOUNDS.MIN_RGB, to_max=CONSTS.BOUNDS.MAX_RGB - 1).astype(np.uint16)
+        if glcm.bins % 2 != 0:
+            raise Exception("glcm.bins must be a multiple of 2.")
+
+        scaled = self.scale_values(to_min=CONSTS.BOUNDS.MIN_RGB, to_max=CONSTS.BOUNDS.MAX_RGB - 1).astype(np.uint8)
 
         windows = (scaled.view_windows(glcm.radius * 2 + 1,
                                        glcm.radius * 2 + 1, glcm.by, glcm.by) //
-                   (CONSTS.BOUNDS.MAX_RGB // glcm.bins)).astype(np.uint16)
+                   (CONSTS.BOUNDS.MAX_RGB // glcm.bins)).astype(np.uint8)
 
         windows_a, windows_b = windows[:-glcm.by, :-glcm.by], windows[glcm.by:, glcm.by:]
         # Combination Window
-        windows = windows_a + windows_b * glcm.bins
+        windows_h = windows_a.shape[0]
+        windows_w = windows_a.shape[1]
 
-        channels = self.shape[-1]
-        windows_h = windows.shape[0]
-        windows_w = windows.shape[1]
-
-        bin_combined_maximum = glcm.bins ** 2
-
-        result = np.zeros((bin_combined_maximum,
-                           windows_h,  # Windows Height
-                           windows_w,  # Windows Width
-                           channels), dtype=np.uint8)
-
-        result = cy_fast_glcm(windows, result, True)
-
-        glcm_ar = result.reshape([glcm.bins, glcm.bins,
-                                  windows_h,  # Windows Height
-                                  windows_w,  # Windows Width
-                                  channels])
+        # FAST GLCM
+        result = cy_fast_glcm(windows_a, windows_b, True)
 
         # We get the lengths to preemptively create a GLCM np.ndarray
         con_len = self._get_chn_size(glcm.contrast)
         cor_len = self._get_chn_size(glcm.correlation)
         ent_len = self._get_chn_size(glcm.entropy)
 
-        data = np.zeros(shape=
-                        [windows_h,
-                         windows_w,
-                         con_len + cor_len + ent_len])
+        data = np.zeros(shape=[windows_h, windows_w, con_len + cor_len + ent_len])
 
         labels = []
 
         i = 0
 
         if glcm.contrast:
-            data[..., i:i + con_len] =\
-                self._get_glcm_contrast(
-                    windows_a[..., self._labels_to_ix(glcm.contrast)],
-                    windows_b[..., self._labels_to_ix(glcm.contrast)],
-                    glcm_ar  [..., self._labels_to_ix(glcm.contrast)])
+            data[..., i:i + con_len] = result[0][..., self._labels_to_ix(glcm.contrast)]
             i += con_len
             labels.extend(CONSTS.CHN.GLCM.CON(list(self._util_flatten(glcm.contrast))))
 
         if glcm.correlation:
-            data[..., i:i + cor_len] =\
-                self._get_glcm_correlation(
-                    windows_a[..., self._labels_to_ix(glcm.correlation)],
-                    windows_b[..., self._labels_to_ix(glcm.correlation)],
-                    glcm_ar  [..., self._labels_to_ix(glcm.correlation)])
+            data[..., i:i + cor_len] = result[1][..., self._labels_to_ix(glcm.correlation)]
             i += cor_len
             labels.extend(CONSTS.CHN.GLCM.COR(list(self._util_flatten(glcm.correlation))))
 
         if glcm.entropy:
-            if self.data.min() < CONSTS.BOUNDS.MIN_RGB or \
-               self.data.max() >= CONSTS.BOUNDS.MAX_RGB:
-                raise Exception(f"Minimum and Maximum for Entropy must be "
-                                f"[{CONSTS.BOUNDS.MIN_RGB}, {CONSTS.BOUNDS.MAX_RGB}), "
-                                f"received [{self.data.min()}, {self.data.max()}]")
-
-            data[..., i:i + ent_len] =\
-                self._get_glcm_entropy(glcm_ar[..., self._labels_to_ix(glcm.entropy)])
+            data[..., i:i + ent_len] = result[2][..., self._labels_to_ix(glcm.entropy)]
             labels.extend(CONSTS.CHN.GLCM.ENT(list(self._util_flatten(glcm.entropy))))
 
         return data, labels
@@ -132,6 +104,22 @@ class _Frame2DChannelFastGLCM(ABC):
         return con / glcm.sum()
 
     @staticmethod
+    def _get_glcm_mean(a: np.ndarray,
+                       b: np.ndarray) -> np.ndarray:
+
+        a_mean = np.mean(a, axis=(2,3))
+        b_mean = np.mean(b, axis=(2,3))
+        return (a_mean + b_mean) // 2
+
+    @staticmethod
+    def _get_glcm_stdev(a: np.ndarray,
+                        b: np.ndarray) -> np.ndarray:
+
+        a_mean = np.mean(a, axis=(2,3))
+        b_mean = np.mean(b, axis=(2,3))
+        return a_mean + b_mean
+
+    @staticmethod
     def _get_glcm_correlation(a: np.ndarray,
                               b: np.ndarray,
                               glcm: np.ndarray) -> np.ndarray:
@@ -142,14 +130,17 @@ class _Frame2DChannelFastGLCM(ABC):
         :param glcm: The GLCM Probability
         """
 
-        a_mean = np.mean(a)
-        b_mean = np.mean(b)
-        a_std  = np.std(a)
-        b_std  = np.std(b)
+        a_ = np.sum(a, axis=(2,3))
+        b_ = np.sum(b, axis=(2,3))
 
-        return (np.sum(a,axis=(2,3)) - a_mean * a.shape[2] * a.shape[3]) * \
-               (np.sum(b,axis=(2,3)) - b_mean * b.shape[2] * b.shape[3]) / \
-               (a_std * b_std * a.shape[2] * a.shape[2])
+        a_mean = np.mean(a, axis=(2,3), dtype=np.float16)
+        b_mean = np.mean(b, axis=(2,3), dtype=np.float16)
+        a_std  = np.std(a, axis=(2,3), dtype=np.float16)
+        b_std  = np.std(b, axis=(2,3), dtype=np.float16)
+
+        with np.errstate(all='ignore'):
+            return np.where(a_std * b_std != 0, (a_ - a_mean) * (b_ * b_mean) / a_std * b_std, 0) * \
+                   np.sum(glcm, axis=(0,1)) / np.sum(glcm)
 
     @staticmethod
     def _get_glcm_entropy(glcm: np.ndarray) -> np.ndarray:
