@@ -215,7 +215,7 @@ class Frame2D(_Frame2DLoader,
             # Handle Channel Indexing here
             if isinstance(arg[2], (Iterable, str)):
                 # Means, we get a list of indexes to index
-                if len(set(arg[2])) != len(list(arg[2])):
+                if len(set(arg[2])) != len(list(arg[2])) and not isinstance(arg[2], str):
                     raise KeyError("Cannot index duplicate labels.")
                 return self.create(
                     self.data.__getitem__((*arg[:-1], self._labels_to_ix(arg[2]))),
