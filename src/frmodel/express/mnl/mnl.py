@@ -1,17 +1,17 @@
-import skimage
-from scipy.ndimage import distance_transform_edt
-from sklearn.preprocessing import minmax_scale
-from frmodel.base.D2.frame2D import Frame2D
-from scipy import ndimage as ndi
-import numpy as np
 from pathlib import Path
 
-from skimage.segmentation import watershed
 import matplotlib.pyplot as plt
-from skimage.feature import peak_local_max
-
-from skimage import morphology
+import numpy as np
+import skimage
+from scipy import ndimage as ndi
+from scipy.ndimage import distance_transform_edt
 from scipy.ndimage.morphology import binary_dilation
+from skimage import morphology
+from skimage.feature import peak_local_max
+from skimage.segmentation import watershed
+from sklearn.preprocessing import minmax_scale
+
+from frmodel.base.D2.frame2D import Frame2D
 
 FIG_SIZE = 10
 NIR_THRESHOLD = 90 / 256

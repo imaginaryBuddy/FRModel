@@ -4,6 +4,7 @@ from abc import ABC
 from typing import TYPE_CHECKING
 
 import numpy as np
+
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
