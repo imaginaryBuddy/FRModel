@@ -35,6 +35,7 @@ class _Frame2DChannelGLCM(ABC):
 
 
     def get_glcm(self: 'Frame2D', glcm:GLCM) -> Tuple[np.ndarray, List[str]]:
+        raise DeprecationWarning("The original GLCM has been deprecated, do not use this.")
         """ This will get the GLCM statistics for this window
 
         Details on how GLCM works is shown on the wiki.
