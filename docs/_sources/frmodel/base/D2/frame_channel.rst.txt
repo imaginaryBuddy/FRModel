@@ -109,6 +109,29 @@ Note that ``get_all_chns`` and ``get_chns`` gets all channels above.
 The difference between those 2 is that, with ``get_all_chns`` you exclude channels you don't need,
 depending on your choices, one may be more succinct than the other.
 
+=======
+Slicing
+=======
+*New in 0.0.6*
+
+You can now slice like NumPy for the dimensions
+.. code-block:: python
+
+    f: Frame2D
+    f[..., f.CHN.RED]
+    f[0:100, 200:300, f.CHN.RGB]
+
+==============
+Retriving GLCM
+==============
+
+For GLCM, you need to specify its texture and the channel
+
+.. code-block:: python
+
+    f: Frame2D
+    f[..., f.CHN.GLCM.COR(f.CHN.RED)]
+
 ========
 Formulas
 ========

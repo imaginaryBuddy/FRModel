@@ -24,7 +24,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -89,6 +88,7 @@
 <li class="toctree-l4"><a class="reference internal" href="frame_channel.html">Channel</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">GLCM</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#glcm-class">GLCM Class</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#binning">Binning</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#example">Example</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#algorithm">Algorithm</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#module-frmodel.base.D2.frame._frame_channel_glcm">Module Info</a></li>
@@ -96,6 +96,7 @@
 </li>
 <li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame_plot.html">Plotting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_numpy.html">NumPy Slicing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame2D.html#module-frmodel.base.D2.frame2D">Module Info</a></li>
@@ -183,7 +184,8 @@
             
   <div class="section" id="frame-gray-level-co-occurrence-matrix">
 <h1>Frame Gray Level Co-occurrence Matrix<a class="headerlink" href="#frame-gray-level-co-occurrence-matrix" title="Permalink to this headline">¶</a></h1>
-<p><em>The GLCM2D Class is deprecated from 0.0.3 onwards, replaced by the current in-built methods</em></p>
+<p><em>The GLCM2D Class is deprecated from 0.0.3 onwards, replaced by the current in-built methods</em>
+<em>Selective GLCM deprecated from 0.0.6 onwards, the GLCM arguments are replaced with channel.</em></p>
 <div class="section" id="glcm-class">
 <h2>GLCM Class<a class="headerlink" href="#glcm-class" title="Permalink to this headline">¶</a></h2>
 <p><em>New in 0.0.5</em></p>
@@ -191,6 +193,15 @@
 <a class="reference external" href="https://github.com/Eve-ning/FRModel/pull/67">Pull Request #67</a>.</p>
 <p>Retrieved using <code class="docutils literal notranslate"><span class="pre">Frame2D.GLCM</span></code>.</p>
 <p>The purpose of getting this class is to pass as an argument for GLCM generation.</p>
+<p><em>From 0.0.6 onwards</em></p>
+<p>For every recieved <code class="docutils literal notranslate"><span class="pre">channel</span></code>, all 5 features are now all generated regardless.</p>
+</div>
+<div class="section" id="binning">
+<h2>Binning<a class="headerlink" href="#binning" title="Permalink to this headline">¶</a></h2>
+<p><em>New in 0.0.6</em></p>
+<p>Using the argument <code class="docutils literal notranslate"><span class="pre">bins</span></code> in the GLCM Class, data is binned before being processed.
+This makes GLCM extremely fast.</p>
+<p>Recommended to use 4, 8, 16.</p>
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
@@ -214,26 +225,31 @@ entropy=[f.CHN.RGB])</p>
 </dl>
 <p>frame = f.get_chns(glcm=glcm)</p>
 </div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">&gt;=0.0.6</span></code> code
+.. code-block:: python</p>
+<blockquote>
+<div><dl class="simple">
+<dt>glcm = f.GLCM(by=1, radius=2, verbose=True, bins=8</dt><dd><p>channel=[f.CHN.RGB])</p>
+</dd>
+</dl>
+<p>frame = f.get_chns(glcm=glcm)</p>
+</div></blockquote>
 <p>Assuming f is a <code class="docutils literal notranslate"><span class="pre">Frame2D</span></code>.</p>
 <ul class="simple">
-<li><p>This grabs the GLCM Contrast, Correlation, Entropy.</p></li>
+<li><p>This grabs the GLCM features.</p></li>
 <li><p>The GLCM is offset by 1 x 1.</p></li>
 <li><p>The Neighbour Convolution radius is 25.</p></li>
 <li><p>The function will output its progress with a progress bar.</p></li>
 <li><p>GLCM Entropy will use multiprocessing to speed up the entropy loop</p></li>
 <li><p>It will use 2 processes to loop.</p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">frame</span></code> will have the channel dimension length of 9, as contrast, correlation, entropy all act on RGB.</p>
 <p>Note that for <code class="docutils literal notranslate"><span class="pre">0.0.5</span></code> GLCM is not strictly for RGB, however, entropy must be a combination of RGB.</p>
 </div>
 <div class="section" id="algorithm">
 <h2>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h2>
 <p>The algorithm information has been redacted to avoid versioning issues with the research journal. An explanation of how
 it works can be found in the research journal.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}GLCM_{Contrast} = (i - j)^2 * P(i,j)\\
-GLCM_{Correlation} = \frac{\Delta(i)\Delta(j)}{\sigma(i)\sigma(j)} * P(i,j)\\
-GLCM_{Entropy} = \frac{GLCM(i,j)^2}{Size}\end{split}\]</div>
+<p>It references this tutorial <a class="reference external" href="https://prism.ucalgary.ca/handle/1880/51900">GLCM Texture: A Tutorial v. 3.0 March 2017</a></p>
 </div>
 <div class="section" id="module-frmodel.base.D2.frame._frame_channel_glcm">
 <span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_channel_glcm" title="Permalink to this headline">¶</a></h2>
@@ -351,18 +367,6 @@ This omits the</p>
 <li><p><strong>radius</strong> – Radius of window</p></li>
 <li><p><strong>verbose</strong> – Whether to show progress of entropy</p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.get_glcm">
-<code class="sig-name descname"><span class="pre">get_glcm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">glcm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM" title="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.GLCM"><span class="pre">GLCM</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">np.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM.get_glcm" title="Permalink to this definition">¶</a></dt>
-<dd><p>This will get the GLCM statistics for this window</p>
-<p>Details on how GLCM works is shown on the wiki.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>glcm</strong> – A GLCM Class, this class holds all parameters.</p>
 </dd>
 </dl>
 </dd></dl>
