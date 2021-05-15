@@ -32,6 +32,7 @@ class CONSTS:
         # Spectral
         RED_EDGE    = "RE"   # 730 +- 16
         NIR         = "NIR"  # 840 +- 26
+        RGBRENIR    = (RED, GREEN, BLUE, RED_EDGE, NIR)
         NDVI        = "NDVI"
         BNDVI       = "BNDVI"
         GNDVI       = "GNDVI"
