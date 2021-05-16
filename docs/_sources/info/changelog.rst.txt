@@ -13,6 +13,10 @@ ChangeLog
 - Implement NumPy Get Slicing
 - Fix issue with ``Frame2D`` functions not type hinting return correctly
 - Implement Discrete Scaling
+- Implement Fast GLCM
+- Implement GLCM Mean, Variance Texture
+- Reimplement GLCM ASM inplace of Entropy
+- Restructure GLCM for Cythonize
 
 -----
 0.0.5

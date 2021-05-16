@@ -236,14 +236,15 @@ We can then grab the np.ndarray using <code class="docutils literal notranslate"
 
 <dl class="py class">
 <dt id="frmodel.base.D2.frame2D.Frame2D.GLCM">
-<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">GLCM</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5</span></em>, <em class="sig-param"><span class="pre">contrast:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">correlation:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">entropy:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.GLCM" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">GLCM</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">2</span></em>, <em class="sig-param"><span class="pre">bins:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></em>, <em class="sig-param"><span class="pre">channels:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.GLCM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This holds all GLCM parameters to pass into get_glcm</p>
-<p>Note that contrast, correlation, entropy takes arguments similarly to how get_chns work.</p>
+<p>Note that contrast, correlation, asm takes arguments similarly to how get_chns work.</p>
+<p>Entropy has been replaced by ASM. Angular Second Moment</p>
 <p>e.g. contrast=[f.CHN.HSV]</p>
 <dl class="py method">
 <dt id="frmodel.base.D2.frame2D.Frame2D.GLCM.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5</span></em>, <em class="sig-param"><span class="pre">contrast:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">correlation:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">entropy:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.GLCM.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">2</span></em>, <em class="sig-param"><span class="pre">bins:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></em>, <em class="sig-param"><span class="pre">channels:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.GLCM.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -288,105 +289,6 @@ We can then grab the np.ndarray using <code class="docutils literal notranslate"
 <em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_chn_size</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">frmodel.base.consts.CONSTS.CHN</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D._get_chn_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>This gets the channel size</p>
 <p>That is, if you have [(R, G, B), X, H], this algorithm can flatten it can return 5.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D._get_glcm_contrast_py">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_contrast_py</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D._get_glcm_contrast_py" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pure python implementation of Contrast.</p>
-<p>Cython isn’t needed as it’s purely vectorizable.</p>
-<p>Create the difference matrix, then convolve with a 1 filled kernel</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ar_a</strong> – Offset ar A</p></li>
-<li><p><strong>ar_b</strong> – Offset ar B</p></li>
-<li><p><strong>radius</strong> – Radius of window</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D._get_glcm_correlation_cy">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_correlation_cy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D._get_glcm_correlation_cy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Correlation In Cython</p>
-<p>Uses the basis GLCM definition.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ar_a</strong> – Offset ar A</p></li>
-<li><p><strong>ar_b</strong> – Offset ar B</p></li>
-<li><p><strong>radius</strong> – Radius of window</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D._get_glcm_correlation_naive_py">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_correlation_naive_py</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D._get_glcm_correlation_naive_py" title="Permalink to this definition">¶</a></dt>
-<dd><p>Legacy Naive Correlation Calculation in Pure Python</p>
-<p>This is naive because the formula doesn’t seem to match up with the basis definition of Correlation.
-This omits the</p>
-<p>Using the following identity, we can vectorise it entirely!</p>
-<p>Var = E(X^2) - E(X)^2</p>
-<p>Corr = (a * b - (E(a) - E(b))) / std(a) * std(b)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ar_a</strong> – Offset ar A</p></li>
-<li><p><strong>ar_b</strong> – Offset ar B</p></li>
-<li><p><strong>radius</strong> – Radius of window</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D._get_glcm_correlation_py">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_correlation_py</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D._get_glcm_correlation_py" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uses Pure Python to implement correlation GLCM</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ar_a</strong> – Offset ar A</p></li>
-<li><p><strong>ar_b</strong> – Offset ar B</p></li>
-<li><p><strong>radius</strong> – Radius of window</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D._get_glcm_entropy_cy">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_entropy_cy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D._get_glcm_entropy_cy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the entropy, uses the Cython entropy algorithm</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ar_a</strong> – Offset ar A</p></li>
-<li><p><strong>ar_b</strong> – Offset ar B</p></li>
-<li><p><strong>radius</strong> – Radius of window</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="frmodel.base.D2.frame2D.Frame2D._get_glcm_entropy_py">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_glcm_entropy_py</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ar_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ar_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D._get_glcm_entropy_py" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the entropy in Pure Python</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ar_a</strong> – Offset ar A</p></li>
-<li><p><strong>ar_b</strong> – Offset ar B</p></li>
-<li><p><strong>radius</strong> – Radius of window</p></li>
-<li><p><strong>verbose</strong> – Whether to show progress of entropy</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -825,6 +727,25 @@ to flattening and the shape is preserved.</p>
 <code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the Frame2D underlying np.ndarray &amp; dict as a .npz (.npy zip)</p>
 <p>The recommended extension is .npz</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame2D.Frame2D.scale_values">
+<code class="sig-name descname"><span class="pre">scale_values</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D"><span class="pre">Frame2D</span></a><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.scale_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linearly Scales data to another range. Modifies itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>from_min</strong> – The minimum, if none, data minimum will be used</p></li>
+<li><p><strong>from_max</strong> – The maximum, if none, data maximum will be used</p></li>
+<li><p><strong>to_min</strong> – The minimum to scale to (default 0)</p></li>
+<li><p><strong>to_max</strong> – The maximum to scale to (default 255)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self, the data will be modified internally regardless</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

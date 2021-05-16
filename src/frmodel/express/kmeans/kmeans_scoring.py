@@ -1,12 +1,13 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.metrics import homogeneity_completeness_v_measure
 from sklearn.preprocessing import scale
-import pandas as pd
-import seaborn as sns
-import numpy as np
 
 from frmodel.base.D2 import Frame2D
 from frmodel.base.D2.kmeans2D import KMeans2D
+
 
 def kmeans_scoring_12122020(test_path: str,
                             score_path: str,

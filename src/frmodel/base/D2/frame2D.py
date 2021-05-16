@@ -21,8 +21,6 @@ from frmodel.base.D2.frame._frame_scaling import _Frame2DScaling
 from frmodel.base.D2.frame._frame_scoring import _Frame2DScoring
 from frmodel.base.consts import CONSTS
 
-MAX_RGB = 255
-
 
 class Frame2D(_Frame2DLoader,
               _Frame2DPartition,
@@ -217,7 +215,7 @@ class Frame2D(_Frame2DLoader,
             # Handle Channel Indexing here
             if isinstance(arg[2], (Iterable, str)):
                 # Means, we get a list of indexes to index
-                if len(set(arg[2])) != len(list(arg[2])):
+                if len(set(arg[2])) != len(list(arg[2])) and not isinstance(arg[2], str):
                     raise KeyError("Cannot index duplicate labels.")
                 return self.create(
                     self.data.__getitem__((*arg[:-1], self._labels_to_ix(arg[2]))),

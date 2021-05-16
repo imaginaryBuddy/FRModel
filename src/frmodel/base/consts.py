@@ -1,4 +1,4 @@
-from typing import Tuple, Iterable, List
+from typing import List
 
 
 class CONSTS:
@@ -32,6 +32,7 @@ class CONSTS:
         # Spectral
         RED_EDGE    = "RE"   # 730 +- 16
         NIR         = "NIR"  # 840 +- 26
+        RGBRENIR    = (RED, GREEN, BLUE, RED_EDGE, NIR)
         NDVI        = "NDVI"
         BNDVI       = "BNDVI"
         GNDVI       = "GNDVI"
@@ -68,7 +69,11 @@ class CONSTS:
             @staticmethod
             def COR(x): return CONSTS.CHN.GLCM._head("COR", x)
             @staticmethod
-            def ENT(x): return CONSTS.CHN.GLCM._head("ENT", x)
+            def ASM(x): return CONSTS.CHN.GLCM._head("ASM", x)
+            @staticmethod
+            def MEAN(x): return CONSTS.CHN.GLCM._head("MEAN", x)
+            @staticmethod
+            def VAR(x): return CONSTS.CHN.GLCM._head("STDEV", x)
 
         class KMEANS:
             LABEL = "KM_LABEL"
@@ -79,6 +84,10 @@ class CONSTS:
             PEAKS = "MNL_PEAKS"
             WATER = "MNL_WATER"
             CANNY = "MNL_CANNY"
+
+    class BOUNDS:
+        MAX_RGB = 256
+        MIN_RGB = 0
 
     class AXIS:
         X = 0
