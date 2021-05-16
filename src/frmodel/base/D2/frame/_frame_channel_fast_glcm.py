@@ -43,8 +43,8 @@ class _Frame2DChannelFastGLCM(ABC):
         """
 
         N_FEATURES = 5
-        if glcm.bins % 2 != 0:
-            raise Exception("glcm.bins must be a multiple of 2.")
+        if glcm.bins <= 0 or (glcm.bins & glcm.bins - 1) != 0:
+            raise Exception("glcm.bins must be a power of 2.")
 
         scaled = self.scale_values(to_min=CONSTS.BOUNDS.MIN_RGB, to_max=CONSTS.BOUNDS.MAX_RGB - 1).astype(np.uint8)
 
