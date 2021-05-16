@@ -10,6 +10,7 @@ import plotly.graph_objs as go
 import plotly.io as pio
 import seaborn as sns
 from matplotlib.gridspec import GridSpec
+from sklearn.preprocessing import minmax_scale
 
 from frmodel.base import CONSTS
 
@@ -71,7 +72,9 @@ class Frame2DPlot:
         :returns: A plt.Figure
         """
         for ax, d in self._create_grid(scale):
-            ax.imshow(d, cmap=colormap, origin='upper')
+            d: np.ma.MaskedArray
+            ax.imshow(minmax_scale(d.flatten(), feature_range=(0,1)).reshape(d.shape),
+                      cmap=colormap, origin='upper')
         return plt.gcf()
 
     def hist(self, scale=1, bins=50):
