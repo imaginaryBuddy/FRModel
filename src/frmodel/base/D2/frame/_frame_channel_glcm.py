@@ -16,8 +16,6 @@ from frmodel.base.D2.frame._cy_entropy import cy_entropy
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
-MAX_RGB = 255
-
 class _Frame2DChannelGLCM(ABC):
 
     @dataclass
@@ -37,6 +35,7 @@ class _Frame2DChannelGLCM(ABC):
 
 
     def get_glcm(self: 'Frame2D', glcm:GLCM) -> Tuple[np.ndarray, List[str]]:
+        raise DeprecationWarning("The original GLCM has been deprecated, do not use this.")
         """ This will get the GLCM statistics for this window
 
         Details on how GLCM works is shown on the wiki.
@@ -73,14 +72,15 @@ class _Frame2DChannelGLCM(ABC):
             labels.extend(CONSTS.CHN.GLCM.COR(list(self._util_flatten(glcm.correlation))))
 
         if glcm.entropy:
-            if self.data.min() < 0 or self.data.max() > 255:
-                raise Exception(f"Minimum and Maximum for Entropy must be [0, 255], "
-                                f"received [{self.data.min()}, {self.data.max()}]")
+            if self.data.min() < CONSTS.BOUNDS.MIN_RGB or self.data.max() >= CONSTS.BOUNDS.MAX_RGB:
+                raise Exception(
+                    f"Minimum and Maximum for Entropy must be [{CONSTS.BOUNDS.MIN_RGB}, {CONSTS.BOUNDS.MAX_RGB}), "
+                    f"received [{self.data.min()}, {self.data.max()}]")
 
             data[..., i:i + ent_len] =\
                 self._get_glcm_entropy_cy(*pair_ar(self.data_chn(glcm.entropy).data),
                                           radius=glcm.radius, verbose=glcm.verbose)
-            labels.extend(CONSTS.CHN.GLCM.ENT(list(self._util_flatten(glcm.entropy))))
+            labels.extend(CONSTS.CHN.GLCM.ASM(list(self._util_flatten(glcm.entropy))))
 
         return data, labels
 
@@ -215,7 +215,7 @@ class _Frame2DChannelGLCM(ABC):
         :param ar_b: Offset ar B
         :param radius: Radius of window
         """
-        rgb_c = ar_a + ar_b * (MAX_RGB + 1)
+        rgb_c = ar_a + ar_b * CONSTS.BOUNDS.MAX_RGB
 
         return cy_entropy(rgb_c.astype(np.uint16), radius, verbose)
 
@@ -241,7 +241,7 @@ class _Frame2DChannelGLCM(ABC):
         ar_a = ar_a.astype(np.uint8)
         ar_b = ar_b.astype(np.uint8)
 
-        cells = view_as_windows(ar_a * (MAX_RGB + 1) + ar_b,
+        cells = view_as_windows(ar_a * CONSTS.BOUNDS.MAX_RGB + ar_b,
                                 [radius * 2 + 1, radius * 2 + 1, 3], step=1).squeeze()
 
         out = np.zeros((ar_a.shape[0] - radius * 2,

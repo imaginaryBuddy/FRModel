@@ -20,3 +20,4 @@ sphinx/build/
 *.mp4
 sphinx/batch.log
 tests/*.png
+/build/

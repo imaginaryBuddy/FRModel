@@ -1,9 +1,10 @@
+from abc import ABC, abstractmethod
+
+import numpy as np
 from scipy.interpolate import griddata
 
 from frmodel.base import CONSTS
 from frmodel.base.D2 import Frame2D
-from abc import ABC, abstractmethod
-import numpy as np
 
 
 class _Cloud3DFrame(ABC):

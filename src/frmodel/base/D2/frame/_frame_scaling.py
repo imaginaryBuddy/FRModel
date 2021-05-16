@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 
 from sklearn.preprocessing import minmax_scale as sk_minmax_scale
 from sklearn.preprocessing import normalize as sk_normalize
-import numpy as np
 
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
@@ -36,5 +35,5 @@ class _Frame2DScaling(ABC):
         """
         from_min = self.data.min() if from_min is None else from_min
         from_max = self.data.max() if from_max is None else from_max
-        self[:] = (self.data - from_min) / (from_max - from_min) * (to_max - to_min) + to_min
-        return self
+        return self.create(data=(self.data - from_min) / (from_max - from_min) * (to_max - to_min) + to_min,
+                           labels=self.labels)

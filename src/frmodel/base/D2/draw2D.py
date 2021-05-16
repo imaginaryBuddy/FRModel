@@ -3,7 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Tuple, Any
 
-import numpy as np
 from PIL import Image, ImageDraw
 
 from frmodel.base.D2 import Frame2D
