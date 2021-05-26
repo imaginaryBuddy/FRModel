@@ -239,6 +239,11 @@ class Frame2D(_Frame2DLoader,
         return self.data.shape
 
     @property
+    def channels(self) -> List:
+        """ Returns the channels as a list """
+        return list(self.labels.keys())
+
+    @property
     def dtype(self):
         """ Returns the dtype representation. """
         return self.data.dtype

@@ -59,15 +59,15 @@ def cy_fast_glcm(np.ndarray[DTYPE_t8, ndim=5] windows_i,
 
     cdef unsigned char channels = <char>windows_i.shape[4]
     cdef char ch = 0
-    cdef char i = 0
-    cdef char j = 0
+    cdef short i = 0
+    cdef short j = 0
 
     # Vals are just temporary variables so as to facilitate clean code.
-    cdef float glcm_val = 0
-    cdef float mean_i_val = 0
-    cdef float mean_j_val = 0
-    cdef float var_i_val = 0
-    cdef float var_j_val = 0
+    cdef float glcm_val   = 0.0
+    cdef float mean_i_val = 0.0
+    cdef float mean_j_val = 0.0
+    cdef float var_i_val  = 0.0
+    cdef float var_j_val  = 0.0
 
     # Finds the maximum out of the 2 windows
     # We do this instead of a user input because it's cheap and it reduces the required amount of
@@ -117,8 +117,8 @@ def cy_fast_glcm(np.ndarray[DTYPE_t8, ndim=5] windows_i,
             for ch in prange(channels, schedule='dynamic'):
                 for c_r in prange(cell_rows, schedule='dynamic'):
                     for c_c in prange(cell_cols, schedule='dynamic'):
-                        i = <char>i_v[wi_r, wi_c, c_r, c_c, ch]
-                        j = <char>j_v[wi_r, wi_c, c_r, c_c, ch]
+                        i = <short>i_v[wi_r, wi_c, c_r, c_c, ch]
+                        j = <short>j_v[wi_r, wi_c, c_r, c_c, ch]
                         glcm_v[i, j, wi_r, wi_c, ch] += 1
 
     # ------------------------
@@ -179,7 +179,8 @@ def cy_fast_glcm(np.ndarray[DTYPE_t8, ndim=5] windows_i,
                         if glcm_val != 0:
                             if var_i_val != 0 and var_j_val != 0:
                                 correlation_v[wi_r, wi_c, ch] += glcm_val * (
-                                    (i - mean_i_val) * (j - mean_j_val) / sqrt(var_i_val * var_j_val)
+                                    (i - mean_i_val) * (j - mean_j_val) /
+                                    sqrt(var_i_val * var_j_val)
                                 )
                         mean_v[wi_r, wi_c, ch] = (mean_i_val + mean_j_val) / 2
                         var_v[wi_r, wi_c, ch]  = (var_i_val + var_j_val) / 2

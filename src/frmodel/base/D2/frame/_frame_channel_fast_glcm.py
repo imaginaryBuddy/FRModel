@@ -28,10 +28,10 @@ class _Frame2DChannelFastGLCM(ABC):
         by:          int = 1
         radius:      int = 2
         bins:        int = 8
-        channels: List[CONSTS.CHN] = field(default_factory=lambda: [])
-        # contrast:    List[CONSTS.CHN] = field(default_factory=lambda: [])
-        # correlation: List[CONSTS.CHN] = field(default_factory=lambda: [])
-        # asm:         List[CONSTS.CHN] = field(default_factory=lambda: [])
+
+        channels:     List[CONSTS.CHN] = field(default_factory=lambda: [])
+        channel_maxs: List[float]      = field(default_factory=lambda: [])
+        channel_mins: List[float]      = field(default_factory=lambda: [])
         verbose:     bool = True
 
     def get_glcm(self: 'Frame2D', glcm:GLCM) -> Tuple[np.ndarray, List[str]]:
@@ -46,7 +46,13 @@ class _Frame2DChannelFastGLCM(ABC):
         if glcm.bins <= 0 or (glcm.bins & glcm.bins - 1) != 0:
             raise Exception("glcm.bins must be a power of 2.")
 
-        scaled = self.scale_values(to_min=CONSTS.BOUNDS.MIN_RGB, to_max=CONSTS.BOUNDS.MAX_RGB - 1).astype(np.uint8)
+        print(glcm.channel_mins if glcm.channel_mins else None)
+        print(glcm.channel_maxs if glcm.channel_maxs else None)
+        scaled = self.scale_values_independent(
+            from_min=glcm.channel_mins if glcm.channel_mins else None,
+            from_max=glcm.channel_maxs if glcm.channel_maxs else None,
+            to_min=CONSTS.BOUNDS.MIN_RGB,
+            to_max=CONSTS.BOUNDS.MAX_RGB - 1).astype(np.uint8)
 
         windows = (scaled.view_windows(glcm.radius * 2 + 1,
                                        glcm.radius * 2 + 1, glcm.by, glcm.by) //
