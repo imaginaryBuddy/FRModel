@@ -4,7 +4,7 @@ from abc import ABC
 from typing import TYPE_CHECKING
 
 import numpy as np
-from sklearn.preprocessing import minmax_scale as sk_minmax_scale
+from sklearn.preprocessing import minmax_scale as sk_minmax_scale, minmax_scale
 from sklearn.preprocessing import normalize as sk_normalize
 
 if TYPE_CHECKING:
@@ -61,4 +61,9 @@ class _Frame2DScaling(ABC):
             from_max = np.asarray(from_max)
 
         return self.create(data=(self.data - from_min) / (from_max - from_min) * (to_max - to_min) + to_min,
+                           labels=self.labels)
+
+    def scale_values_on_band(self: 'Frame2D', to_min: int, to_max: int):
+        return self.create(data=minmax_scale(self.data.reshape([-1, self.shape[-1]]), axis=-1)
+                           .reshape(self.shape) * (to_max - to_min),
                            labels=self.labels)

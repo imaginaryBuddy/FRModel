@@ -29,6 +29,8 @@ class _Frame2DChannelFastGLCM(ABC):
         radius:      int = 2
         bins:        int = 8
 
+        scale_on_bands: bool = False
+
         channels:     List[CONSTS.CHN] = field(default_factory=lambda: [])
         channel_maxs: List[float]      = field(default_factory=lambda: [])
         channel_mins: List[float]      = field(default_factory=lambda: [])
@@ -46,17 +48,21 @@ class _Frame2DChannelFastGLCM(ABC):
         if glcm.bins <= 0 or (glcm.bins & glcm.bins - 1) != 0:
             raise Exception("glcm.bins must be a power of 2.")
 
-        print(glcm.channel_mins if glcm.channel_mins else None)
-        print(glcm.channel_maxs if glcm.channel_maxs else None)
-        scaled = self.scale_values_independent(
-            from_min=glcm.channel_mins if glcm.channel_mins else None,
-            from_max=glcm.channel_maxs if glcm.channel_maxs else None,
-            to_min=CONSTS.BOUNDS.MIN_RGB,
-            to_max=CONSTS.BOUNDS.MAX_RGB - 1).astype(np.uint8)
+        if glcm.scale_on_bands:
+            scaled = self.scale_values_on_band(to_min=0, to_max=glcm.bins - 1).astype(np.uint8)
+            windows = scaled.view_windows(glcm.radius * 2 + 1, glcm.radius * 2 + 1,
+                                          glcm.by, glcm.by)
+        else:
+            scaled = self.scale_values_independent(
+                from_min=glcm.channel_mins if glcm.channel_mins else None,
+                from_max=glcm.channel_maxs if glcm.channel_maxs else None,
+                to_min=CONSTS.BOUNDS.MIN_RGB,
+                to_max=CONSTS.BOUNDS.MAX_RGB - 1).astype(np.uint8)
 
-        windows = (scaled.view_windows(glcm.radius * 2 + 1,
-                                       glcm.radius * 2 + 1, glcm.by, glcm.by) //
-                   (CONSTS.BOUNDS.MAX_RGB // glcm.bins)).astype(np.uint8)
+            windows = (scaled.view_windows(glcm.radius * 2 + 1,
+                                           glcm.radius * 2 + 1, glcm.by, glcm.by) //
+                       (CONSTS.BOUNDS.MAX_RGB // glcm.bins)).astype(np.uint8)
+
 
         windows_a, windows_b = windows[:-glcm.by, :-glcm.by], windows[glcm.by:, glcm.by:]
         # Combination Window
