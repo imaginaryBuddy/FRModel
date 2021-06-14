@@ -102,8 +102,3 @@ class CONSTS:
         X = 0
         Y = 1
         Z = 2
-
-    class INTERP3D:
-        NEAREST = 'nearest'
-        LINEAR  = 'linear'
-        CUBIC   = 'cubic'

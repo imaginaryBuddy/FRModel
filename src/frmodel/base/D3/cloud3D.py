@@ -8,8 +8,8 @@ from xml.etree import ElementTree
 import gdal
 import numpy as np
 import pandas as pd
+import utm
 from laspy.file import File
-
 from frmodel.base.D3.cloud._cloud_frame import _Cloud3DFrame
 
 
@@ -26,6 +26,16 @@ class Cloud3D(_Cloud3DFrame):
         :return: A Cloud3D instance
         """
         return Cloud3D(File(las_path, mode='r'))
+
+    def to_latlong(self):
+        utm_ = np.vstack([self.f.X, self.f.Y, self.f.Z]).astype(np.float)
+        fmin = self.f.header.min
+        fmax = self.f.header.max
+        for i in range(3):
+            c = utm_[i]
+            utm_[i] = (c - np.min(c)) / (np.max(c) - np.min(c)) * (fmax[i] - fmin[i]) + fmin[i]
+
+        utm_[0], utm_[1] = utm.to_latlon(utm_[0], utm_[1], 48, 'N')
 
     def data(self, sample_size: Union[int, float] = None, transformed: bool = True):
         """ Gets the data as a NumPy Array
