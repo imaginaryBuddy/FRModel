@@ -96,7 +96,7 @@ class _Cloud3DFrame(ABC):
         Z = np.where(Z < 0, 0, Z)
         Z = np.nan_to_num(Z)
         # Not sure why the Y is inverted, something to do with the lat long
-        return Frame2D(Z[:,::-1].T, labels=[Frame2D.CHN.Z])
+        return Frame2D(Z[:,::-1].T[..., np.newaxis], labels=[Frame2D.CHN.Z])
     #
     # def to_frame1(self,
     #              sample_size=None, transformed=True,
