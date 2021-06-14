@@ -21,7 +21,6 @@ from frmodel.base.D2.frame._frame_scaling import _Frame2DScaling
 from frmodel.base.D2.frame._frame_scoring import _Frame2DScoring
 from frmodel.base.consts import CONSTS
 
-MAX_RGB = 255
 
 class Frame2D(_Frame2DLoader,
               _Frame2DPartition,
@@ -131,7 +130,7 @@ class Frame2D(_Frame2DLoader,
         rgb = self.data_rgb().data.astype(dtype=np.uint32)
         return rgb[..., 0] + rgb[..., 1] * 256 + rgb[..., 2] * (256 ** 2)
 
-    def _labels_to_ix(self, labels: str or List[str]):
+    def _labels_to_ix(self, labels: str or List[str]) -> List[int]:
         """ Converts keys to indexes for splicing
 
         :returns: np.ndarray, [A, B, C, ...]
@@ -193,6 +192,39 @@ class Frame2D(_Frame2DLoader,
 
         return Frame2D(buffer, [*self._labels, *labels])
 
+    def __getitem__(self, *args, **kwargs) -> 'Frame2D':
+        # assert len(args[0]) < 3, "Cannot slice Channel index using numpy slicing."
+        arg = list(args[0])
+        if arg[0] == Ellipsis:
+            arg = [slice(None, None, None), slice(None, None, None), arg[-1]]
+
+        if isinstance(arg[0], int):
+            arg[0] = slice(arg[0], arg[0]+1, None)
+        if isinstance(arg[1], int):
+            arg[1] = slice(arg[1], arg[1]+1, None)
+
+        if len(arg) < 3:
+            # For this, we pass to numpy to handle XY slicing
+            return self.create(self.data.__getitem__(*args, **kwargs),
+                               self.labels)
+        elif len(arg) == 3:
+            # Handle Channel Indexing here
+            if isinstance(arg[2], (Iterable, str)):
+                # Means, we get a list of indexes to index
+                if len(set(arg[2])) != len(list(arg[2])) and not isinstance(arg[2], str):
+                    raise KeyError("Cannot index duplicate labels.")
+                return self.create(
+                    self.data.__getitem__((*arg[:-1], self._labels_to_ix(arg[2]))),
+                    labels=arg[2]
+                )
+            else:
+                raise KeyError(f"Cannot slice the Channel Index, use Indexes. {arg} provided")
+        else:
+            raise KeyError(f"Too many indexes. {len(arg)} provided.")
+
+    def __setitem__(self, *args, **kwargs):
+        self.data.__setitem__(*args, **kwargs)
+
     def size(self) -> int:
         """ Returns the number of pixels, Height * Width. """
         return self.data.size
@@ -203,9 +235,18 @@ class Frame2D(_Frame2DLoader,
         return self.data.shape
 
     @property
+    def channels(self) -> List:
+        """ Returns the channels as a list """
+        return list(self.labels.keys())
+
+    @property
     def dtype(self):
         """ Returns the dtype representation. """
         return self.data.dtype
+
+    def astype(self, new_type) -> 'Frame2D':
+        self.data = self.data.astype(new_type)
+        return self
 
     def height(self) -> int:
         return self.shape[0]

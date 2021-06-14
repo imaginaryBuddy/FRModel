@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NumPy Integration &mdash; frmodel 0.0.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Video" href="video2D.html" />
+    <link rel="prev" title="Frame Plotting" href="frame_plot.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="D2.html"> 2D Classes</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="frame2D.html">Frame2D</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="frame_partition.html">Partition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel.html">Channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_channel_glcm.html">GLCM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_plot.html">Plotting</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NumPy Slicing</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#get-slicing">Get Slicing</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#ellipsis">Ellipsis</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#step-size">Step Size</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#slicing">Slicing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame2D.html#module-frmodel.base.D2.frame2D">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="video2D.html">Video2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kmeans2D.html">KMeans2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#data-representation">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../D3/cloud3D.html"> 3D Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+          <li><a href="D2.html">2D Classes</a> &raquo;</li>
+        
+          <li><a href="frame2D.html">Frame</a> &raquo;</li>
+        
+      <li>NumPy Integration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/frmodel/base/D2/frame_numpy.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="numpy-integration">
+<h1>NumPy Integration<a class="headerlink" href="#numpy-integration" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Frame2D</span></code> uses a NumPy array to store data. The array can be accessed with <code class="docutils literal notranslate"><span class="pre">.data</span></code>.</p>
+<div class="section" id="get-slicing">
+<h2>Get Slicing<a class="headerlink" href="#get-slicing" title="Permalink to this headline">¶</a></h2>
+<p>For <code class="docutils literal notranslate"><span class="pre">&gt;=0.0.6</span></code></p>
+<p>Note that this is only for <strong>get</strong>, that is, you can’t set frames via this interface yet.</p>
+<p>This slicing uses the same method as NumPy, for example, <code class="docutils literal notranslate"><span class="pre">ar[0,1]</span></code>, <code class="docutils literal notranslate"><span class="pre">ar[0:40,20:30]</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
+<span class="n">sliced_frame</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">:</span><span class="mi">300</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>However, note that to get the channel dimension, you have to specify with its appropriate enums/strings.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
+<span class="n">sliced_frame</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">RED</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can also specify multiple channels, just no duplicates.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
+<span class="n">sliced_frame</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span> <span class="p">[</span><span class="n">frame</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">GREEN</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="section" id="ellipsis">
+<h3>Ellipsis<a class="headerlink" href="#ellipsis" title="Permalink to this headline">¶</a></h3>
+<p>Similar to NumPy, you can specify an Ellipsis to auto fill XY slicing.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
+<span class="n">sliced_frame_1</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">frame</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">RED</span><span class="p">]</span>
+<span class="n">sliced_frame_2</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">RED</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">sliced_frame_1</span></code> and <code class="docutils literal notranslate"><span class="pre">sliced_frame_2</span></code> are equivalent.</p>
+</div>
+<div class="section" id="step-size">
+<h3>Step Size<a class="headerlink" href="#step-size" title="Permalink to this headline">¶</a></h3>
+<p>You can also specify a Step Size</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
+<span class="n">sliced_frame</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[::</span><span class="mi">2</span><span class="p">,</span> <span class="p">::</span><span class="mi">2</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">RED</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This will then half the size of each dimension.</p>
+</div>
+<div class="section" id="slicing">
+<h3>Slicing<a class="headerlink" href="#slicing" title="Permalink to this headline">¶</a></h3>
+<p>If you are using a <code class="docutils literal notranslate"><span class="pre">slice</span></code> object, you can supply it directly</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">Frame2D</span><span class="o">.</span><span class="n">from_image</span><span class="p">(</span><span class="s2">&quot;path/to/file.jpg&quot;</span><span class="p">)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">sliced_frame</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">RED</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="video2D.html" class="btn btn-neutral float-right" title="Video" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="frame_plot.html" class="btn btn-neutral float-left" title="Frame Plotting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Eve-ning (John Chang)
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

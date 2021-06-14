@@ -5,18 +5,30 @@ from typing import TYPE_CHECKING, Tuple, Iterable
 import numpy as np
 from skimage.color import rgb2hsv
 
-from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
+from frmodel.base.D2.frame._frame_channel_fast_glcm import _Frame2DChannelFastGLCM
+# from frmodel.base.D2.frame._frame_channel_glcm import _Frame2DChannelGLCM
+from frmodel.base.D2.frame._frame_channel_spec import _Frame2DChannelSpec
 
 if TYPE_CHECKING:
     from frmodel.base.D2.frame2D import Frame2D
 
 
-class _Frame2DChannel(_Frame2DChannelGLCM):
+class _Frame2DChannel(_Frame2DChannelFastGLCM, _Frame2DChannelSpec):
+
+    def _r(self: 'Frame2D'):
+        """ Short forms for easy calling, not recommended to use outside of class scope """
+        return self.data_chn(self.CHN.RED).data
+    def _g(self: 'Frame2D'):
+        """ Short forms for easy calling, not recommended to use outside of class scope """
+        return self.data_chn(self.CHN.GREEN).data
+    def _b(self: 'Frame2D'):
+        """ Short forms for easy calling, not recommended to use outside of class scope """
+        return self.data_chn(self.CHN.BLUE).data
 
     def get_all_chns(self: 'Frame2D',
                      self_: bool = False,
                      exc_chns: Iterable[Frame2D.CHN] = None,
-                     glcm: _Frame2DChannel.GLCM = None) -> _Frame2DChannel:
+                     glcm: _Frame2DChannel.GLCM = None) -> 'Frame2D':
         """ Gets all channels, excludes any in exc_chns.
 
         Use get_chns to get selected ones
@@ -46,7 +58,7 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
     def get_chns(self: 'Frame2D',
                  self_: bool = True,
                  chns: Iterable[Frame2D.CHN] = None,
-                 glcm: _Frame2DChannel.GLCM = None) -> _Frame2DChannel:
+                 glcm: _Frame2DChannel.GLCM = None) -> 'Frame2D':
         """ Gets selected channels
 
         Use get_all_chns to get all but selected ones
@@ -71,13 +83,25 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                           self._get_chn_size(chns)])
 
         _chn_mapping: dict = {
-            self.CHN.XY:    self.get_xy,
-            self.CHN.HSV:   self.get_hsv,
-            self.CHN.EX_G:  self.get_ex_g,
-            self.CHN.EX_GR: self.get_ex_gr,
-            self.CHN.MEX_G: self.get_mex_g,
-            self.CHN.NDI:   self.get_ndi,
-            self.CHN.VEG:   self.get_ex_g
+            self.CHN.XY     : self.get_xy,
+            self.CHN.HSV    : self.get_hsv,
+            self.CHN.EX_G   : self.get_ex_g,
+            self.CHN.EX_GR  : self.get_ex_gr,
+            self.CHN.MEX_G  : self.get_mex_g,
+            self.CHN.NDI    : self.get_ndi,
+            self.CHN.VEG    : self.get_ex_g,
+
+            self.CHN.NDVI   : self.get_ndvi,
+            self.CHN.BNDVI  : self.get_bndvi,
+            self.CHN.GNDVI  : self.get_gndvi,
+            self.CHN.GARI   : self.get_gari,
+            self.CHN.GLI    : self.get_gli,
+            self.CHN.GBNDVI : self.get_gbndvi,
+            self.CHN.GRNDVI : self.get_grndvi,
+            self.CHN.NDRE   : self.get_ndre,
+            self.CHN.LCI    : self.get_lci,
+            self.CHN.MSAVI  : self.get_msavi,
+            self.CHN.OSAVI  : self.get_osavi,
         }
 
         it = 0
@@ -90,18 +114,21 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
         for chn in chns:
             length = len(chn) if isinstance(chn, Tuple) else 1
             try:
-                data[..., it:it+length] = _chn_mapping[chn]()
+                try:
+                    # The case where the channel is already calculated
+                    data[..., it:it+length] = self.data_chn(chn).data
+                except KeyError:
+                    # The case where the channel is missing
+                    data[..., it:it+length] = _chn_mapping[chn]()
                 labels.append(chn)
             except KeyError:
                 if chn in (self.CHN.X, self.CHN.Y):
-                    KeyError(f"You cannot get {chn} separately from XY, call with CHN.HSV")
+                    raise KeyError(f"You cannot get {chn} separately from XY, call with CHN.HSV")
                 elif chn in self.CHN.HSV:
-                    KeyError(f"You cannot get {chn} separately from HSV, call with CHN.HSV")
-                elif chn in (*self.CHN.RGB, self.CHN.RGB):
-                    KeyError(f"You cannot get {chn}, these are bases value and cannot be directly calculated")
+                    raise KeyError(f"You cannot get {chn} separately from HSV, call with CHN.HSV")
                 else:
-                    KeyError(f"Failed to find channel {chn}, I recommend to use CONSTS.CHN to get the correct"
-                             f"strings to call")
+                    raise KeyError(f"Failed to find channel {chn}, I recommend to use CONSTS.CHN to get the correct"
+                                   f"strings to call")
             it += length
 
         frame: 'Frame2D' = self.create(data=data, labels=labels)
@@ -111,8 +138,12 @@ class _Frame2DChannel(_Frame2DChannelGLCM):
                 # Cannot convolute a 0 set. We'll still entertain get_glcm only.
                 frame = self.create(*self.get_glcm(glcm))
             else:
-                frame = frame.convolute(radius=glcm.radius).append(*self.get_glcm(glcm))
+                frame = frame.astype(np.float)
+                frame = frame.crop_glcm(glcm.radius)\
+                    .append(*self.get_glcm(glcm))
 
+        frame.data = np.ma.array(frame.data,
+                                 mask=np.repeat(frame.nanmask()[..., np.newaxis], frame.shape[-1]))
         return frame
 
     def get_hsv(self: 'Frame2D') -> np.ndarray:

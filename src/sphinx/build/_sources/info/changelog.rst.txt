@@ -3,6 +3,18 @@ ChangeLog
 #########
 
 -----
+0.0.6
+-----
+
+- Add Support for Spectral Channels
+- Add Support to load Spectral TIFF files
+- Implement Meaningless Segmentation
+- Restructure Partitioning to use ``view_as_windows`` and ``view_as_blocks``.
+- Implement NumPy Get Slicing
+- Fix issue with ``Frame2D`` functions not type hinting return correctly
+- Implement Discrete Scaling
+
+-----
 0.0.5
 -----
 

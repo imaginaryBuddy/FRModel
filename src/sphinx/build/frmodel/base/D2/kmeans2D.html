@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frame KMeans &mdash; frmodel 0.0.5 documentation</title>
+  <title>Frame KMeans &mdash; frmodel 0.0.6 documentation</title>
   
 
   
@@ -24,8 +24,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -36,6 +34,7 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Cloud" href="../D3/cloud3D.html" />
     <link rel="prev" title="Video" href="video2D.html" /> 
 </head>
 
@@ -108,6 +107,7 @@
 <li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../D3/cloud3D.html"> 3D Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
 </ul>
 </li>
@@ -331,12 +331,12 @@ this is because <code class="docutils literal notranslate"><span class="pre">KME
 <span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.kmeans2D" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="frmodel.base.D2.kmeans2D.KMeans2D">
-<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.kmeans2D.</code><code class="sig-name descname">KMeans2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span><span class="p">:</span> <span class="n"><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a></span></em>, <em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">sklearn.cluster._kmeans.KMeans</span></em>, <em class="sig-param"><span class="n">fit_to</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D.CHN" title="frmodel.base.D2.frame2D.Frame2D.CHN">frmodel.base.D2.frame2D.Frame2D.CHN</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame_1dmask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>numpy.ndarray<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scaler</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">frmodel.base.D2.kmeans2D.</span></code><code class="sig-name descname"><span class="pre">KMeans2D</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D"><span class="pre">frmodel.base.D2.frame2D.Frame2D</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">sklearn.cluster._kmeans.KMeans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_to</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D.CHN" title="frmodel.base.D2.frame2D.Frame2D.CHN"><span class="pre">frmodel.base.D2.frame2D.Frame2D.CHN</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_1dmask</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A KMeans2D object separate from Frame2D as proposed, to avoid cluttering</p>
 <dl class="py method">
 <dt id="frmodel.base.D2.kmeans2D.KMeans2D.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span><span class="p">:</span> <span class="n"><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a></span></em>, <em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">sklearn.cluster._kmeans.KMeans</span></em>, <em class="sig-param"><span class="n">fit_to</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D.CHN" title="frmodel.base.D2.frame2D.Frame2D.CHN">frmodel.base.D2.frame2D.Frame2D.CHN</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame_1dmask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>numpy.ndarray<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scaler</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D"><span class="pre">frmodel.base.D2.frame2D.Frame2D</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">sklearn.cluster._kmeans.KMeans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_to</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D.CHN" title="frmodel.base.D2.frame2D.Frame2D.CHN"><span class="pre">frmodel.base.D2.frame2D.Frame2D.CHN</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_1dmask</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a KMeans Object from current data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -355,7 +355,7 @@ this is because <code class="docutils literal notranslate"><span class="pre">KME
 
 <dl class="py method">
 <dt id="frmodel.base.D2.kmeans2D.KMeans2D.as_frame">
-<code class="sig-name descname">as_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D">frmodel.base.D2.frame2D.Frame2D</a><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D.as_frame" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_frame</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D"><span class="pre">frmodel.base.D2.frame2D.Frame2D</span></a><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D.as_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts current model into Frame2D based on labels. Places label at the end of channel dimension</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -366,7 +366,7 @@ this is because <code class="docutils literal notranslate"><span class="pre">KME
 
 <dl class="py method">
 <dt id="frmodel.base.D2.kmeans2D.KMeans2D.frame_masked">
-<code class="sig-name descname">frame_masked</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">with_xy</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D.frame_masked" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">frame_masked</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">with_xy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.kmeans2D.KMeans2D.frame_masked" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the masked frame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -391,6 +391,8 @@ this is because <code class="docutils literal notranslate"><span class="pre">KME
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../D3/cloud3D.html" class="btn btn-neutral float-right" title="Cloud" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
       
         <a href="video2D.html" class="btn btn-neutral float-left" title="Video" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
@@ -401,7 +403,7 @@ this is because <code class="docutils literal notranslate"><span class="pre">KME
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Eve-ning
+        &copy; Copyright 2021, Eve-ning (John Chang)
 
     </p>
   </div>

@@ -1,0 +1,10 @@
+README.md
+c_setup.py
+cython-build/src/frmodel/base/D2/frame/_cy_corr.c
+cython-build/src/frmodel/base/D2/frame/_cy_entropy.c
+cython-build/src/frmodel/base/D2/frame/_cy_fast_glcm.c
+cython-build/src/frmodel/base/D2/frame/_cy_glcm.c
+frmodel.egg-info/PKG-INFO
+frmodel.egg-info/SOURCES.txt
+frmodel.egg-info/dependency_links.txt
+frmodel.egg-info/top_level.txt

@@ -1,0 +1,437 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cloud &mdash; frmodel 0.0.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Cloud To Frame Conversion" href="cloud_to_frame.html" />
+    <link rel="prev" title="Frame KMeans" href="../D2/kmeans2D.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> frmodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">Information</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../base.html">Base</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../D2/D2.html"> 2D Classes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"> 3D Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cloud_to_frame.html"> Frame Conversion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intuition">Intuition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-frmodel.base.D3.cloud3D">Module Info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">frmodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../base.html">Base Classes</a> &raquo;</li>
+        
+      <li>Cloud</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/frmodel/base/D3/cloud3D.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cloud">
+<h1>Cloud<a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cloud_to_frame.html"> Frame Conversion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_to_frame.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_to_frame.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_to_frame.html#interpolations">Interpolations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_to_frame.html#module-frmodel.base.D3.cloud._cloud_frame">Module Info</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="intuition">
+<h2>Intuition<a class="headerlink" href="#intuition" title="Permalink to this headline">¶</a></h2>
+<p>Cloud3D is <strong>just</strong> a additive wrapper for a laspy File object.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>We can load a cloud from a LAS like so.
+We can then index the np.ndarray using <code class="docutils literal notranslate"><span class="pre">.data</span></code>. Cloud3D will query the laspy object for its XYZRGB channels to form
+a tabular np.ndarray.</p>
+<p><em>Note that most classes have a data property to grab the underlying data representation.</em></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="o">=</span> <span class="n">Cloud3D</span><span class="o">.</span><span class="n">from_las</span><span class="p">(</span><span class="s2">&quot;../rsc/las/chestnut_0/cloud.las&quot;</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>d is represented as a simple X, Y, Z, R, G, B tabular format.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>x0</p></td>
+<td><p>y0</p></td>
+<td><p>z0</p></td>
+<td><p>r0</p></td>
+<td><p>g0</p></td>
+<td><p>b0</p></td>
+</tr>
+<tr class="row-even"><td><p>x1</p></td>
+<td><p>y1</p></td>
+<td><p>z1</p></td>
+<td><p>r1</p></td>
+<td><p>g1</p></td>
+<td><p>b1</p></td>
+</tr>
+<tr class="row-odd"><td><p>x2</p></td>
+<td><p>y2</p></td>
+<td><p>z2</p></td>
+<td><p>r2</p></td>
+<td><p>g2</p></td>
+<td><p>b2</p></td>
+</tr>
+</tbody>
+</table>
+<p>and so on…</p>
+</div>
+<div class="section" id="module-frmodel.base.D3.cloud3D">
+<span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D3.cloud3D" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">frmodel.base.D3.cloud3D.</span></code><code class="sig-name descname"><span class="pre">Cloud3D</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">File</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloud_to_frame.html#frmodel.base.D3.cloud._cloud_frame._Cloud3DFrame" title="frmodel.base.D3.cloud._cloud_frame._Cloud3DFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D3.cloud._cloud_frame._Cloud3DFrame</span></code></a></p>
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D._inv_transform_data">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_inv_transform_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">laspy.file.File</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D._inv_transform_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms data suitable for writing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D._inv_transform_rgb">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_inv_transform_rgb</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rgb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D._inv_transform_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse Transforms RGB according to the header information</p>
+<p>This transforms RGB into 0 - 65535, intended for writing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D._inv_transform_xyz">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_inv_transform_xyz</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xyz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">laspy.file.File</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D._inv_transform_xyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse Transforms XYZ according to the header information</p>
+<p>This inverse transforms XYZ according to header, intended for writing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D._read_xml">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_read_xml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xml_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D._read_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads XML and returns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>xml_path</strong> – Path to XML metadata</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Latitude, Longitude, Origin X, Y, Z respectively</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D._transform_data">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_transform_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">laspy.file.File</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D._transform_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms data suitable for usage, from LAS format</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D._transform_rgb">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_transform_rgb</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rgb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D._transform_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms RGB according to the header information</p>
+<p>This transforms RGB into 0 - 255</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D._transform_xyz">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_transform_xyz</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xyz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">laspy.file.File</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D._transform_xyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms XYZ according to the header information</p>
+<p>This transforms XYZ into a workable, intended format for usage.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D.data">
+<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the data as a NumPy Array</p>
+<p>Returns as a ‘X’, ‘Y’, ‘Z’, ‘Red’, ‘Green’, ‘Blue’ column array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample_size</strong> – The number of points to randomly pick.
+Integer if specifying number of points
+Float if specifying proportion of points</p></li>
+<li><p><strong>transformed</strong> – If the points should be adjusted based on the las header data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>NumPy Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D.df">
+<code class="sig-name descname"><span class="pre">df</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D.df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the data as a Pandas DataFrame</p>
+<p>Columns returned are ‘X’, ‘Y’, ‘Z’, ‘Red’, ‘Green’, ‘Blue’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample_size</strong> – The number of points to randomly pick.
+Integer if specifying number of points
+Float if specifying proportion of points</p></li>
+<li><p><strong>transformed</strong> – If the points should be adjusted based on the las header data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D.from_las">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_las</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">las_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D3.cloud3D.Cloud3D" title="frmodel.base.D3.cloud3D.Cloud3D"><span class="pre">frmodel.base.D3.cloud3D.Cloud3D</span></a><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D.from_las" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a Cloud3D from a LAS file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>las_path</strong> – Path to a las file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Cloud3D instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D.interp_sig_clamp">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">interp_sig_clamp</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D.interp_sig_clamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to clamp the RGB values based on the following formula</p>
+<p>a / { 1 + exp [ - ( x - a / 2 ) / b ] }</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Input</p></li>
+<li><p><strong>alpha</strong> – Amplitude, makes clamping from [0, a]</p></li>
+<li><p><strong>beta</strong> – Bend factor.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D.to_frame">
+<code class="sig-name descname"><span class="pre">to_frame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">frmodel.base.consts.CONSTS.INTERP3D</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'nearest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clamp_cubic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="../D2/frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D"><span class="pre">frmodel.base.D2.frame2D.Frame2D</span></a><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D.to_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the Cloud3D into a Frame2D</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample_size</strong> – The number of random points to use for interpolation</p></li>
+<li><p><strong>transformed</strong> – Whether to shift axis based on header information</p></li>
+<li><p><strong>width</strong> – Width of resulting image</p></li>
+<li><p><strong>height</strong> – Height of resulting image</p></li>
+<li><p><strong>method</strong> – Method of interpolation, use CONSTS.INTERP3D for various methods</p></li>
+<li><p><strong>clamp_cubic</strong> – Whether to clamp the cubic RGB output or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Frame2D with Z, R, G, B columns</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D3.cloud3D.Cloud3D.write_las">
+<code class="sig-name descname"><span class="pre">write_las</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt_header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">laspy.file.File</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D.write_las" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the current points in a las format</p>
+<p>Header used will be the same as the one provided during loading otherwise given.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloud_to_frame.html" class="btn btn-neutral float-right" title="Cloud To Frame Conversion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../D2/kmeans2D.html" class="btn btn-neutral float-left" title="Frame KMeans" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Eve-ning (John Chang)
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

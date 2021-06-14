@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frame Partitioning &mdash; frmodel 0.0.5 documentation</title>
+  <title>Frame Partitioning &mdash; frmodel 0.0.6 documentation</title>
   
 
   
@@ -24,8 +24,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -110,6 +108,7 @@
 <li class="toctree-l3"><a class="reference internal" href="D2.html#loading">Loading</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../D3/cloud3D.html"> 3D Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../base.html#purpose">Purpose</a></li>
 </ul>
 </li>
@@ -225,11 +224,11 @@ we can specify to either <code class="docutils literal notranslate"><span class=
 <span id="module-info"></span><h2>Module Info<a class="headerlink" href="#module-frmodel.base.D2.frame._frame_partition" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition">
-<em class="property">class </em><code class="sig-prename descclassname">frmodel.base.D2.frame._frame_partition.</code><code class="sig-name descname">_Frame2DPartition</code><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">frmodel.base.D2.frame._frame_partition.</span></code><code class="sig-name descname"><span class="pre">_Frame2DPartition</span></code><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide">
-<code class="sig-name descname">slide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span></em>, <em class="sig-param"><span class="n">stride</span></em>, <em class="sig-param"><span class="n">axis_cut</span><span class="p">:</span> <span class="n">frmodel.base.consts.CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">frmodel.base.D2.frame._frame_partition._Frame2DPartition</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">slide</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_cut</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">frmodel.base.consts.CONSTS.AXIS</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide" title="Permalink to this definition">¶</a></dt>
 <dd><p>Slides a window along an axis and grabs that window as a new Frame2D</p>
 <p>This operation is slower due to looping but allows for overlapping windows</p>
 <p>If the window meets the edge, it will be dropped.</p>
@@ -249,7 +248,7 @@ we can specify to either <code class="docutils literal notranslate"><span class=
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide_xy">
-<code class="sig-name descname">slide_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">frmodel.base.D2.frame._frame_partition._Frame2DPartition</a><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide_xy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">slide_xy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.slide_xy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Short hand for sliding by both axes.</p>
 <p>Slides by X first, then Y.</p>
 <p>E.g.:</p>
@@ -277,7 +276,7 @@ we can specify to either <code class="docutils literal notranslate"><span class=
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.split">
-<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">axis_cut</span><span class="p">:</span> <span class="n">CONSTS.AXIS</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">_Frame2DPartition</a><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.split" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">split</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_cut</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">CONSTS.AXIS</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">SplitMethod</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Splits the current Frame into windows of specified size.</p>
 <p>This operation is much faster but cannot have overlapping windows</p>
 <dl class="field-list simple">
@@ -296,7 +295,7 @@ we can specify to either <code class="docutils literal notranslate"><span class=
 
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.split_xy">
-<code class="sig-name descname">split_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">by</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">SplitMethod</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition" title="frmodel.base.D2.frame._frame_partition._Frame2DPartition">_Frame2DPartition</a><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.split_xy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">split_xy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">SplitMethod</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.split_xy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Short hand for splitting by both axes.</p>
 <p>Splits by X first, then Y.</p>
 <p>E.g.:</p>
@@ -318,6 +317,74 @@ we can specify to either <code class="docutils literal notranslate"><span class=
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>List of List of Frame2D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.view_blocks">
+<code class="sig-name descname"><span class="pre">view_blocks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.view_blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partitions the image into blocks using striding</p>
+<p>Note that the height and width must be a divisor.</p>
+<p>The dims are [RowBlock, ColBlock, Row, Col, Channels]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>height</strong> – Height of expected block, must be int divisor of original height</p></li>
+<li><p><strong>width</strong> – Width of expected block, must be int divisor of original width</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.view_blocks_as_frames">
+<code class="sig-name descname"><span class="pre">view_blocks_as_frames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.view_blocks_as_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partitions the image into blocks using striding</p>
+<p>Note that the height and width must be a divisor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>height</strong> – Height of expected block, must be int divisor of original height</p></li>
+<li><p><strong>width</strong> – Width of expected block, must be int divisor of original width</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.view_windows">
+<code class="sig-name descname"><span class="pre">view_windows</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.view_windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partitions the image into windows using striding</p>
+<p>Note that the parameters must cleanly divide the image else it’ll be cropped</p>
+<p>E.g. 200 x 200 cannot be 100 Step 3 x 100 Step 7</p>
+<p>The dims are [RowBlock, ColBlock, Row, Col, Channels]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>height</strong> – Height of expected window</p></li>
+<li><p><strong>width</strong> – Width of expected window</p></li>
+<li><p><strong>height_step</strong> – Step of height window</p></li>
+<li><p><strong>width_step</strong> – Step of width window</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame._frame_partition._Frame2DPartition.view_windows_as_frames">
+<code class="sig-name descname"><span class="pre">view_windows_as_frames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Frame2D</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#frmodel.base.D2.frame._frame_partition._Frame2DPartition.view_windows_as_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partitions the image into windows using striding</p>
+<p>Note that the parameters must cleanly divide the image else it’ll be cropped</p>
+<p>E.g. 200 x 200 cannot be 100 Step 3 x 100 Step 7</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>height</strong> – Height of expected window</p></li>
+<li><p><strong>width</strong> – Width of expected window</p></li>
+<li><p><strong>height_step</strong> – Step of height window</p></li>
+<li><p><strong>width_step</strong> – Step of width window</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -347,7 +414,7 @@ we can specify to either <code class="docutils literal notranslate"><span class=
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Eve-ning
+        &copy; Copyright 2021, Eve-ning (John Chang)
 
     </p>
   </div>

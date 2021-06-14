@@ -83,19 +83,64 @@ However, it's not recommended as it's prone to capitalization errors and typos.
 +--------------+------------------------------------------------------+--------+
 | NDVI         | Normalized Difference Vegetation Index Channel       | 1      |
 +--------------+------------------------------------------------------+--------+
+| BNDVI        | Blue Normalized Difference Vegetation Index Channel  | 1      |
++--------------+------------------------------------------------------+--------+
 | GNDVI        | Green Normalized Difference Vegetation Index Channel | 1      |
 +--------------+------------------------------------------------------+--------+
-| OSAVI        | Optimized Soil Adjusted Vegetation Index Channel     | 1      |
+| GARO         | Green Atmospherically Resistant Vegetation Index     | 1      |
++--------------+------------------------------------------------------+--------+
+| GLI          | Green Leaf Index                                     | 1      |
++--------------+------------------------------------------------------+--------+
+| GBNDVI       | Green Blue NDVI                                      | 1      |
++--------------+------------------------------------------------------+--------+
+| GRNDVI       | Green Red NDVI                                       | 1      |
 +--------------+------------------------------------------------------+--------+
 | NDRE         | Normalized Difference Red Edge Channel               | 1      |
 +--------------+------------------------------------------------------+--------+
-| LCI          | Leaf Chrolophyll Index Channel                       | 1      |
+| LCI          | Leaf Chlorophyll Index Channel                       | 1      |
++--------------+------------------------------------------------------+--------+
+| MSAVI        | Modified Soil Adjusted Vegetation Index Channel      | 1      |
++--------------+------------------------------------------------------+--------+
+| OSAVI        | Optimized Soil Adjusted Vegetation Index Channel     | 1      |
 +--------------+------------------------------------------------------+--------+
 
 Note that ``get_all_chns`` and ``get_chns`` gets all channels above.
 
 The difference between those 2 is that, with ``get_all_chns`` you exclude channels you don't need,
 depending on your choices, one may be more succinct than the other.
+
+=======
+Slicing
+=======
+*New in 0.0.6*
+
+You can now slice like NumPy for the dimensions
+.. code-block:: python
+
+    f: Frame2D
+    f[..., f.CHN.RED]
+    f[0:100, 200:300, f.CHN.RGB]
+
+==============
+Retriving GLCM
+==============
+
+For GLCM, you need to specify its texture and the channel
+
+.. code-block:: python
+
+    f: Frame2D
+    f[..., f.CHN.GLCM.COR(f.CHN.RED)]
+
+========
+Formulas
+========
+
+Below, we list all formulas that are used to calculate each index.
+
+R: Red Wide, G: Green Wide, B: Blue Wide.
+
+r: Red Narrow, g: Green Narrow, b: Blue Narrow, e: Red Edge, n: Near Infared
 
 ====
 GLCM
@@ -163,7 +208,107 @@ Vegetative Index, defined as
 
 .. math::
 
-    \frac{g}{r^{a} * b^{1-a}}
+    \frac{G}{R^{a} * B^{1-a}}
+
+====
+NDVI
+====
+
+Normalized Difference Vegetation Index
+
+.. math::
+    \frac{n - r}{n + r}
+
+=====
+BNDVI
+=====
+
+Blue Normalized Difference Vegetation Index
+
+.. math::
+    \frac{n - b}{n + b}
+
+=====
+GNDVI
+=====
+
+Green Normalized Difference Vegetation Index
+
+.. math::
+    \frac{n - g}{n + g}
+
+====
+GARI
+====
+
+Green Atmospherically Resistant Vegetation Index
+
+.. math::
+    \frac{n - g + b - r}{n - g - b + r}
+
+===
+GLI
+===
+
+Green Leaf Index
+
+.. math::
+    \frac{2 * g - r - b}{2 * g + r + b}
+
+======
+GBNDVI
+======
+
+Green Blue Normalized Difference Vegetation Index
+
+.. math::
+    \frac{n - b}{n + b}
+
+======
+GRNDVI
+======
+
+Green Red Normalized Difference Vegetation Index
+
+.. math::
+    \frac{n - g}{n + g}
+
+====
+NDRE
+====
+
+Normalized Difference Red Edge
+
+.. math::
+    \frac{n - e}{n + e}
+
+===
+LCI
+===
+
+Leaf Chlorophyll Index
+
+.. math::
+    \frac{n - e}{n + r}
+
+=====
+MSAVI
+=====
+
+Modified Soil Adjusted Vegetation Index
+
+.. math::
+    X = (2n + 1) \\
+    (X - \sqrt{X^2 - 8 (n - r)}) / 2
+
+=====
+OSAVI
+=====
+
+Optimized Soil Adjusted Vegetation Index
+
+.. math::
+    \frac{n - r}{n + r + 0.16}
 
 ===========
 Module Info
