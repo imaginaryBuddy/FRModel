@@ -6,33 +6,48 @@ Cloud To Frame Conversion
 Motivation
 ==========
 
+We would like to have a "Height channel" in our ``Frame2D``. This can likely
+improve our meaningless segmentation/supervised learning. This gives a robust
+Canopy Height Estimation on the 2D plane.
+
+Note that this is still an estimation as we have to interpolate points.
+
+-------------------
+Matching Dimensions
+-------------------
+
+For our 3D data, we use `.las`, 2D using a geo-referenced `.tiff`.
+
+These 2 formats contains enough information for us to detect the correct
+latitude longitude position on earth.
+
+Using `osgeo` to decode `.tiff`, we can get the lat-long ranges, this gives us
+a rectangular bound in which we would want the height data. The area mapped for
+2D and 3D are different. Hence it's important to make this distinction.
+
+Using `laspy` to decode `.las`, we can get the UTM data, I'll refrain from
+describing it here since I'm not well versed in geo-referencing, it's a
+miracle I made it work anyways.
+
+By converting UTM to lat-long using the package `utm`, I can thus fit it onto
+the 2D data.
+
 -------------
 Interpolation
 -------------
 
 Note that since Cloud3D X and Y doesn't always fall on integer X, Y values,
-it's not possible to directly map Cloud3D onto Frame2D by removing the Z Axis.
+it's not possible to directly map Cloud3D onto Frame2D, thus we estimate the
+values at every integer through interpolation.
 
-Instead, we need to estimate the values at every integer through interpolation.
+In this project, we do receive the spectral bands from a 2D image, hence there
+is no need for interpolation of the RGB bands in the `.las`.
 
-Note that R, G, B are also interpolated, hence values may be invalid on certain
-interpolations.
+The interpolation used is the `scipy.interpolate.CloughTocher2DInterpolator`.
 
--------
-Scaling
--------
-
-It is also important to determine the size of the Frame2D, note that Cloud3D
-usually uses units differently from Frame2D. As an example, a pixel in Frame2D
-can represent 300 units in Cloud3D.
-
---------
-Sampling
---------
-
-Interpolation may be slow with large amount of samples, and it may be inaccurate
-with low amount of it. A balance must be struck to find the appropriate value
-for interpolation.
+Usually the cloud points is in the millions, and interpolation may be slow
+with large amount of samples; it may be inaccurate with low amount of it.
+A balance must be struck to find the appropriate value for interpolation.
 
 =======
 Example
@@ -42,36 +57,15 @@ Here we demonstrate a simple Cloud to Frame conversion with the Cubic Interpolat
 
 .. code-block:: python
 
-    c = Cloud3D.from_las("path/to/file.las")
-    f = c.to_frame(10000, height=1000, method=CONSTS.INTERP3D.CUBIC)
+    c = Cloud3D.from_las("path/to/las.las")
+    f = c.to_frame(geotiff_path="path/to/geotiff.tif",
+                   shape=(a, b),
+                   samples=samples)
 
-We limit the points to sample to 10,000 and the height to 1000.
+This grabs the `.las` and maps it to the `.tif` lat long provided.
 
-Note that the return Frame2D has R, G, B, Z as the channels. Where Z is the height.
-
-==============
-Interpolations
-==============
-
-Interpolation is done using ``scipy.interpolate.griddata``.
-
-Currently, it only supports Nearest, Linear and Cubic. To access these interpolation for the ``method`` argument, use
-``CONSTS.INTERP3D``.
-
---------------
-Cubic Clamping
---------------
-
-Cubic interpolation is prone to producing erroneous outliers due to overfitting. There is a default formula to clamp
-all RGB results to [0, 255]
-
-.. math::
-
-    \frac{a}{ 1 + e^{[ - ( x - \alpha / 2 ) / \beta ]} }\\
-    \alpha = \text{Upper Bound}\\
-    \beta = \text{Curve Bend}
-
-Alpha is 255, Beta is 50 by default.
+The shape defines the resolution and the samples defines how many random points
+to take for interpolation.
 
 ===========
 Module Info

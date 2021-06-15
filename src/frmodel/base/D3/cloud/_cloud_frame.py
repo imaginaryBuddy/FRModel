@@ -4,10 +4,8 @@ from typing import TYPE_CHECKING
 import gdal
 import numpy as np
 import utm
-from scipy import ndimage
-from scipy.interpolate import griddata, CloughTocher2DInterpolator
+from scipy.interpolate import CloughTocher2DInterpolator
 
-from frmodel.base import CONSTS
 from frmodel.base.D2 import Frame2D
 
 if TYPE_CHECKING:

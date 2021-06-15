@@ -17,6 +17,7 @@ ChangeLog
 - Implement GLCM Mean, Variance Texture
 - Reimplement GLCM ASM inplace of Entropy
 - Restructure GLCM for Cythonize
+- Implement mapping ``Cloud3D.to_frame`` to the `.tif` files.
 
 -----
 0.0.5

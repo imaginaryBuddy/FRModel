@@ -88,6 +88,8 @@
 <li class="toctree-l4"><a class="reference internal" href="frame_partition.html">Partition</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Channel</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#getting-channels">Getting Channels</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#slicing">Slicing</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#retriving-glcm">Retriving GLCM</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#formulas">Formulas</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#glcm">GLCM</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#xy">XY</a></li>
@@ -114,6 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="frame_channel_glcm.html">GLCM</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame_scaling.html">Scaling</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame_plot.html">Plotting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frame_numpy.html">NumPy Slicing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame2D.html#intuition">Intuition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame2D.html#example">Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frame2D.html#module-frmodel.base.D2.frame2D">Module Info</a></li>
@@ -356,6 +359,25 @@ the latter method is not recommended as it’s verbose.</p>
 <p>The difference between those 2 is that, with <code class="docutils literal notranslate"><span class="pre">get_all_chns</span></code> you exclude channels you don’t need,
 depending on your choices, one may be more succinct than the other.</p>
 </div>
+<div class="section" id="slicing">
+<h2>Slicing<a class="headerlink" href="#slicing" title="Permalink to this headline">¶</a></h2>
+<p><em>New in 0.0.6</em></p>
+<p>You can now slice like NumPy for the dimensions
+.. code-block:: python</p>
+<blockquote>
+<div><p>f: Frame2D
+f[…, f.CHN.RED]
+f[0:100, 200:300, f.CHN.RGB]</p>
+</div></blockquote>
+</div>
+<div class="section" id="retriving-glcm">
+<h2>Retriving GLCM<a class="headerlink" href="#retriving-glcm" title="Permalink to this headline">¶</a></h2>
+<p>For GLCM, you need to specify its texture and the channel</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">:</span> <span class="n">Frame2D</span>
+<span class="n">f</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">GLCM</span><span class="o">.</span><span class="n">COR</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">CHN</span><span class="o">.</span><span class="n">RED</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="formulas">
 <h2>Formulas<a class="headerlink" href="#formulas" title="Permalink to this headline">¶</a></h2>
 <p>Below, we list all formulas that are used to calculate each index.</p>
@@ -476,7 +498,7 @@ depending on your choices, one may be more succinct than the other.</p>
 <dl class="py class">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">frmodel.base.D2.frame._frame_channel.</span></code><code class="sig-name descname"><span class="pre">_Frame2DChannel</span></code><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="frame_channel_glcm.html#frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM" title="frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM"><code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_channel_glcm._Frame2DChannelGLCM</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_channel_spec._Frame2DChannelSpec</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_channel_fast_glcm._Frame2DChannelFastGLCM</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">frmodel.base.D2.frame._frame_channel_spec._Frame2DChannelSpec</span></code></p>
 <dl class="py method">
 <dt id="frmodel.base.D2.frame._frame_channel._Frame2DChannel._b">
 <code class="sig-name descname"><span class="pre">_b</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame._frame_channel._Frame2DChannel._b" title="Permalink to this definition">¶</a></dt>
