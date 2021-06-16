@@ -166,7 +166,6 @@
 <li class="toctree-l1"><a class="reference internal" href="cloud_to_frame.html"> Frame Conversion</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cloud_to_frame.html#motivation">Motivation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloud_to_frame.html#example">Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloud_to_frame.html#interpolations">Interpolations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloud_to_frame.html#module-frmodel.base.D3.cloud._cloud_frame">Module Info</a></li>
 </ul>
 </li>
@@ -337,38 +336,20 @@ Float if specifying proportion of points</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="frmodel.base.D3.cloud3D.Cloud3D.interp_sig_clamp">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">interp_sig_clamp</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D.interp_sig_clamp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used to clamp the RGB values based on the following formula</p>
-<p>a / { 1 + exp [ - ( x - a / 2 ) / b ] }</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – Input</p></li>
-<li><p><strong>alpha</strong> – Amplitude, makes clamping from [0, a]</p></li>
-<li><p><strong>beta</strong> – Bend factor.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="frmodel.base.D3.cloud3D.Cloud3D.to_frame">
-<code class="sig-name descname"><span class="pre">to_frame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">frmodel.base.consts.CONSTS.INTERP3D</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'nearest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clamp_cubic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="../D2/frame2D.html#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D"><span class="pre">frmodel.base.D2.frame2D.Frame2D</span></a><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D.to_frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts the Cloud3D into a Frame2D</p>
+<code class="sig-name descname"><span class="pre">to_frame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geotiff_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D3.cloud3D.Cloud3D.to_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts this Cloud3D into a 2D Frame</p>
+<p>This algorithm uses geotiff metadata to fit the Cloud data onto it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sample_size</strong> – The number of random points to use for interpolation</p></li>
-<li><p><strong>transformed</strong> – Whether to shift axis based on header information</p></li>
-<li><p><strong>width</strong> – Width of resulting image</p></li>
-<li><p><strong>height</strong> – Height of resulting image</p></li>
-<li><p><strong>method</strong> – Method of interpolation, use CONSTS.INTERP3D for various methods</p></li>
-<li><p><strong>clamp_cubic</strong> – Whether to clamp the cubic RGB output or not</p></li>
+<li><p><strong>geotiff_path</strong> – A Geo-referencable geotiff path</p></li>
+<li><p><strong>shape</strong> – The expected shape, this is usually specified by the Frame2D.from_image_spec</p></li>
+<li><p><strong>samples</strong> – The number of cloud samples to randomly sample for interpolation.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A Frame2D with Z, R, G, B columns</p>
+<dd class="field-even"><p></p>
 </dd>
 </dl>
 </dd></dl>

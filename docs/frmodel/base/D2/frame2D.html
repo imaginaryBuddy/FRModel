@@ -236,7 +236,7 @@ We can then grab the np.ndarray using <code class="docutils literal notranslate"
 
 <dl class="py class">
 <dt id="frmodel.base.D2.frame2D.Frame2D.GLCM">
-<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">GLCM</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">2</span></em>, <em class="sig-param"><span class="pre">bins:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></em>, <em class="sig-param"><span class="pre">channels:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.GLCM" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">GLCM</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">2</span></em>, <em class="sig-param"><span class="pre">bins:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></em>, <em class="sig-param"><span class="pre">scale_on_bands:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></em>, <em class="sig-param"><span class="pre">channels:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">channel_maxs:</span> <span class="pre">List[float]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">channel_mins:</span> <span class="pre">List[float]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.GLCM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This holds all GLCM parameters to pass into get_glcm</p>
 <p>Note that contrast, correlation, asm takes arguments similarly to how get_chns work.</p>
@@ -244,7 +244,7 @@ We can then grab the np.ndarray using <code class="docutils literal notranslate"
 <p>e.g. contrast=[f.CHN.HSV]</p>
 <dl class="py method">
 <dt id="frmodel.base.D2.frame2D.Frame2D.GLCM.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">2</span></em>, <em class="sig-param"><span class="pre">bins:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></em>, <em class="sig-param"><span class="pre">channels:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.GLCM.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">by:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></em>, <em class="sig-param"><span class="pre">radius:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">2</span></em>, <em class="sig-param"><span class="pre">bins:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></em>, <em class="sig-param"><span class="pre">scale_on_bands:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></em>, <em class="sig-param"><span class="pre">channels:</span> <span class="pre">List[frmodel.base.consts.CONSTS.CHN]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">channel_maxs:</span> <span class="pre">List[float]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">channel_mins:</span> <span class="pre">List[float]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.GLCM.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -749,6 +749,25 @@ to flattening and the shape is preserved.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="frmodel.base.D2.frame2D.Frame2D.scale_values_independent">
+<code class="sig-name descname"><span class="pre">scale_values_independent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D"><span class="pre">Frame2D</span></a><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.scale_values_independent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Min Max Scales each channel to another range</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>from_min</strong> – The minimum of each channel, if none, data minimum will be used</p></li>
+<li><p><strong>from_max</strong> – The maximum of each channel, if none, data maximum will be used</p></li>
+<li><p><strong>to_min</strong> – The minimum to scale to (default 0)</p></li>
+<li><p><strong>to_max</strong> – The maximum to scale to (default 255)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self, the data will be modified internally regardless</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="frmodel.base.D2.frame2D.Frame2D.score">
 <code class="sig-name descname"><span class="pre">score</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">score_frame</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#frmodel.base.D2.frame2D.Frame2D" title="frmodel.base.D2.frame2D.Frame2D"><span class="pre">Frame2D</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_ix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glcm_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.score" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scores the current frame kmeans with a scoring image</p>
@@ -955,6 +974,12 @@ distinct flatten, where every RGB value will be labelled distinctly.</p>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="frmodel.base.D2.frame2D.Frame2D.channels">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">channels</span></code><a class="headerlink" href="#frmodel.base.D2.frame2D.Frame2D.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the channels as a list</p>
 </dd></dl>
 
 <dl class="py method">

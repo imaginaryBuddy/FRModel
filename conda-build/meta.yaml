@@ -1,6 +1,6 @@
 package:
   name: "frmodel"
-  version: "0.0.4"
+  version: "0.0.6"
 
 source:
   path: ../src
@@ -19,6 +19,7 @@ requirements:
     - scikit-image
     - scikit-learn
     - tqdm
+    - utm
   run:
     - pillow
     - opencv
@@ -29,6 +30,7 @@ requirements:
     - scikit-image
     - scikit-learn
     - tqdm
+    - utm
 
 
 about:
