@@ -6,7 +6,12 @@ This project is under the **Nanyang Technological University** (NTU) **Undergrad
 
 # Install
 
-It is recommended to fork for the latest updates, conda installation will not be updated unless explicitly requested
+**It is recommended to fork for the latest updates, conda installation will not be updated unless explicitly requested**
+
+`conda version 0.0.6`
+```
+conda install -c eve-ning frmodel 
+```
 
 To build the Cython files, you need to run the one-liner `c_setup.bat`, if not using Windows, please run `c_setup.py`.
 
@@ -26,6 +31,7 @@ scipy
 scikit-image
 scikit-learn
 osgeo
+utm
 ```
 
 # License
