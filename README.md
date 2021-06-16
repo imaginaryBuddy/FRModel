@@ -6,7 +6,7 @@ This project is under the **Nanyang Technological University** (NTU) **Undergrad
 
 # Install
 
-**It is recommended to fork for the latest updates, conda installation will not be updated unless explicitly requested**
+**It is recommended to fork for the latest updates**. The conda package will not be maintained.
 
 To build the Cython files, you need to run the one-liner `c_setup.bat`, if not using Windows, please run `c_setup.py`.
 
