@@ -2309,9 +2309,7 @@ static const char __pyx_k_np[] = "np";
 static const char __pyx_k_asm[] = "asm";
 static const char __pyx_k_c_c[] = "c_c";
 static const char __pyx_k_c_r[] = "c_r";
-static const char __pyx_k_i_f[] = "i_f";
 static const char __pyx_k_i_v[] = "i_v";
-static const char __pyx_k_j_f[] = "j_f";
 static const char __pyx_k_j_v[] = "j_v";
 static const char __pyx_k_max[] = "max";
 static const char __pyx_k_new[] = "__new__";
@@ -2538,14 +2536,12 @@ static PyObject *__pyx_n_s_glcm_v;
 static PyObject *__pyx_n_s_glcm_val;
 static PyObject *__pyx_kp_s_got_differing_extents_in_dimensi;
 static PyObject *__pyx_n_s_i;
-static PyObject *__pyx_n_s_i_f;
 static PyObject *__pyx_n_s_i_v;
 static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_j;
-static PyObject *__pyx_n_s_j_f;
 static PyObject *__pyx_n_s_j_v;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_max;
@@ -2809,10 +2805,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   short __pyx_v_c_c;
   unsigned char __pyx_v_channels;
   char __pyx_v_ch;
-  char __pyx_v_i;
-  char __pyx_v_j;
-  CYTHON_UNUSED float __pyx_v_i_f;
-  CYTHON_UNUSED float __pyx_v_j_f;
+  short __pyx_v_i;
+  short __pyx_v_j;
   float __pyx_v_glcm_val;
   float __pyx_v_mean_i_val;
   float __pyx_v_mean_j_val;
@@ -2877,16 +2871,15 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   Py_ssize_t __pyx_t_30;
   Py_ssize_t __pyx_t_31;
   Py_ssize_t __pyx_t_32;
-  char __pyx_t_33;
+  short __pyx_t_33;
   char __pyx_t_34;
-  char __pyx_t_35;
-  char __pyx_t_36;
-  char __pyx_t_37;
-  unsigned char __pyx_t_38;
+  short __pyx_t_35;
+  short __pyx_t_36;
+  unsigned char __pyx_t_37;
+  int __pyx_t_38;
   int __pyx_t_39;
-  int __pyx_t_40;
-  float __pyx_t_41;
-  double __pyx_t_42;
+  float __pyx_t_40;
+  double __pyx_t_41;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3255,7 +3248,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  * 
  *     cdef unsigned char channels = <char>windows_i.shape[4]             # <<<<<<<<<<<<<<
  *     cdef char ch = 0
- *     cdef char i = 0
+ *     cdef short i = 0
  */
   __pyx_v_channels = ((char)(__pyx_v_windows_i->dimensions[4]));
 
@@ -3263,48 +3256,30 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  * 
  *     cdef unsigned char channels = <char>windows_i.shape[4]
  *     cdef char ch = 0             # <<<<<<<<<<<<<<
- *     cdef char i = 0
- *     cdef char j = 0
+ *     cdef short i = 0
+ *     cdef short j = 0
  */
   __pyx_v_ch = 0;
 
   /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":62
  *     cdef unsigned char channels = <char>windows_i.shape[4]
  *     cdef char ch = 0
- *     cdef char i = 0             # <<<<<<<<<<<<<<
- *     cdef char j = 0
- *     cdef float i_f = 0.0
+ *     cdef short i = 0             # <<<<<<<<<<<<<<
+ *     cdef short j = 0
+ * 
  */
   __pyx_v_i = 0;
 
   /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":63
  *     cdef char ch = 0
- *     cdef char i = 0
- *     cdef char j = 0             # <<<<<<<<<<<<<<
- *     cdef float i_f = 0.0
- *     cdef float j_f = 0.0
- */
-  __pyx_v_j = 0;
-
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":64
- *     cdef char i = 0
- *     cdef char j = 0
- *     cdef float i_f = 0.0             # <<<<<<<<<<<<<<
- *     cdef float j_f = 0.0
- * 
- */
-  __pyx_v_i_f = 0.0;
-
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":65
- *     cdef char j = 0
- *     cdef float i_f = 0.0
- *     cdef float j_f = 0.0             # <<<<<<<<<<<<<<
+ *     cdef short i = 0
+ *     cdef short j = 0             # <<<<<<<<<<<<<<
  * 
  *     # Vals are just temporary variables so as to facilitate clean code.
  */
-  __pyx_v_j_f = 0.0;
+  __pyx_v_j = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":68
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":66
  * 
  *     # Vals are just temporary variables so as to facilitate clean code.
  *     cdef float glcm_val   = 0.0             # <<<<<<<<<<<<<<
@@ -3313,7 +3288,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  */
   __pyx_v_glcm_val = 0.0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":69
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":67
  *     # Vals are just temporary variables so as to facilitate clean code.
  *     cdef float glcm_val   = 0.0
  *     cdef float mean_i_val = 0.0             # <<<<<<<<<<<<<<
@@ -3322,7 +3297,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  */
   __pyx_v_mean_i_val = 0.0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":70
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":68
  *     cdef float glcm_val   = 0.0
  *     cdef float mean_i_val = 0.0
  *     cdef float mean_j_val = 0.0             # <<<<<<<<<<<<<<
@@ -3331,7 +3306,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  */
   __pyx_v_mean_j_val = 0.0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":71
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":69
  *     cdef float mean_i_val = 0.0
  *     cdef float mean_j_val = 0.0
  *     cdef float var_i_val  = 0.0             # <<<<<<<<<<<<<<
@@ -3340,7 +3315,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  */
   __pyx_v_var_i_val = 0.0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":72
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":70
  *     cdef float mean_j_val = 0.0
  *     cdef float var_i_val  = 0.0
  *     cdef float var_j_val  = 0.0             # <<<<<<<<<<<<<<
@@ -3349,19 +3324,19 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  */
   __pyx_v_var_j_val = 0.0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":77
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":75
  *     # We do this instead of a user input because it's cheap and it reduces the required amount of
  *     # windows to the minimal.
  *     cdef char glcm_max_value = np.max([windows_i, windows_j]) + 1             # <<<<<<<<<<<<<<
  * 
  *     glcm        = np.zeros([glcm_max_value, glcm_max_value,
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_max); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_max); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_windows_i));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_windows_i));
@@ -3382,55 +3357,55 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_4 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_7, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1);
   __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_t_4, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_t_4, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_8 = __Pyx_PyInt_As_char(__pyx_t_5); if (unlikely((__pyx_t_8 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_As_char(__pyx_t_5); if (unlikely((__pyx_t_8 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_glcm_max_value = __pyx_t_8;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":79
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":77
  *     cdef char glcm_max_value = np.max([windows_i, windows_j]) + 1
  * 
  *     glcm        = np.zeros([glcm_max_value, glcm_max_value,             # <<<<<<<<<<<<<<
  *                             window_rows, window_cols, channels], dtype=np.uint8)
  *     contrast    = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_glcm_max_value); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_glcm_max_value); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_glcm_max_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_glcm_max_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":80
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":78
  * 
  *     glcm        = np.zeros([glcm_max_value, glcm_max_value,
  *                             window_rows, window_cols, channels], dtype=np.uint8)             # <<<<<<<<<<<<<<
  *     contrast    = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     correlation = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":79
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":77
  *     cdef char glcm_max_value = np.max([windows_i, windows_j]) + 1
  * 
  *     glcm        = np.zeros([glcm_max_value, glcm_max_value,             # <<<<<<<<<<<<<<
  *                             window_rows, window_cols, channels], dtype=np.uint8)
  *     contrast    = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __pyx_t_11 = PyList_New(5); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_11 = PyList_New(5); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_5);
   PyList_SET_ITEM(__pyx_t_11, 0, __pyx_t_5);
@@ -3447,37 +3422,37 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_9 = 0;
   __pyx_t_10 = 0;
-  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_11);
   PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_11);
   __pyx_t_11 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":80
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":78
  * 
  *     glcm        = np.zeros([glcm_max_value, glcm_max_value,
  *                             window_rows, window_cols, channels], dtype=np.uint8)             # <<<<<<<<<<<<<<
  *     contrast    = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     correlation = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_uint8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_uint8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":79
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":77
  *     cdef char glcm_max_value = np.max([windows_i, windows_j]) + 1
  * 
  *     glcm        = np.zeros([glcm_max_value, glcm_max_value,             # <<<<<<<<<<<<<<
  *                             window_rows, window_cols, channels], dtype=np.uint8)
  *     contrast    = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -3485,25 +3460,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_glcm = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":81
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":79
  *     glcm        = np.zeros([glcm_max_value, glcm_max_value,
  *                             window_rows, window_cols, channels], dtype=np.uint8)
  *     contrast    = np.zeros([window_rows, window_cols, channels], dtype=np.float32)             # <<<<<<<<<<<<<<
  *     correlation = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     asm         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_10 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_7);
   PyList_SET_ITEM(__pyx_t_9, 0, __pyx_t_7);
@@ -3514,21 +3489,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_10 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_9);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_9);
   __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3536,25 +3511,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_contrast = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":82
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":80
  *                             window_rows, window_cols, channels], dtype=np.uint8)
  *     contrast    = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     correlation = np.zeros([window_rows, window_cols, channels], dtype=np.float32)             # <<<<<<<<<<<<<<
  *     asm         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     mean        = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_11 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_10 = PyList_New(3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_10 = PyList_New(3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_7);
   PyList_SET_ITEM(__pyx_t_10, 0, __pyx_t_7);
@@ -3565,21 +3540,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_4 = 0;
   __pyx_t_11 = 0;
-  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_10);
   PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_10);
   __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_11, __pyx_t_10); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_11, __pyx_t_10); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -3587,25 +3562,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_correlation = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":83
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":81
  *     contrast    = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     correlation = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     asm         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)             # <<<<<<<<<<<<<<
  *     mean        = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     mean_i      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_11 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_9 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_4 = PyList_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_7);
   PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_7);
@@ -3616,21 +3591,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_11 = 0;
   __pyx_t_9 = 0;
-  __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -3638,25 +3613,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_asm = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":84
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":82
  *     correlation = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     asm         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     mean        = np.zeros([window_rows, window_cols, channels], dtype=np.float32)             # <<<<<<<<<<<<<<
  *     mean_i      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     mean_j      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = PyList_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_11 = PyList_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_7);
   PyList_SET_ITEM(__pyx_t_11, 0, __pyx_t_7);
@@ -3667,21 +3642,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_9 = 0;
   __pyx_t_10 = 0;
-  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_11);
   PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_11);
   __pyx_t_11 = 0;
-  __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -3689,25 +3664,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_mean = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":85
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":83
  *     asm         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     mean        = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     mean_i      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)             # <<<<<<<<<<<<<<
  *     mean_j      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     var         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_10 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_7);
   PyList_SET_ITEM(__pyx_t_9, 0, __pyx_t_7);
@@ -3718,21 +3693,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_10 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_9);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_9);
   __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3740,25 +3715,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_mean_i = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":86
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":84
  *     mean        = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     mean_i      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     mean_j      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)             # <<<<<<<<<<<<<<
  *     var         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     var_i       = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_11 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_10 = PyList_New(3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_10 = PyList_New(3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_7);
   PyList_SET_ITEM(__pyx_t_10, 0, __pyx_t_7);
@@ -3769,21 +3744,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_4 = 0;
   __pyx_t_11 = 0;
-  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_10);
   PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_10);
   __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_11, __pyx_t_10); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_11, __pyx_t_10); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -3791,25 +3766,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_mean_j = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":87
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":85
  *     mean_i      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     mean_j      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     var         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)             # <<<<<<<<<<<<<<
  *     var_i       = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     var_j       = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_11 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_9 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_4 = PyList_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_7);
   PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_7);
@@ -3820,21 +3795,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_11 = 0;
   __pyx_t_9 = 0;
-  __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -3842,25 +3817,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_var = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":88
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":86
  *     mean_j      = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     var         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     var_i       = np.zeros([window_rows, window_cols, channels], dtype=np.float32)             # <<<<<<<<<<<<<<
  *     var_j       = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = PyList_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_11 = PyList_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_7);
   PyList_SET_ITEM(__pyx_t_11, 0, __pyx_t_7);
@@ -3871,21 +3846,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_9 = 0;
   __pyx_t_10 = 0;
-  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_11);
   PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_11);
   __pyx_t_11 = 0;
-  __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -3893,25 +3868,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_var_i = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":89
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":87
  *     var         = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     var_i       = np.zeros([window_rows, window_cols, channels], dtype=np.float32)
  *     var_j       = np.zeros([window_rows, window_cols, channels], dtype=np.float32)             # <<<<<<<<<<<<<<
  * 
  *     # We declare all of the required Views here.
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_10 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_cols); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_char(__pyx_v_channels); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_7);
   PyList_SET_ITEM(__pyx_t_9, 0, __pyx_t_7);
@@ -3922,21 +3897,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_t_7 = 0;
   __pyx_t_10 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_9);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_9);
   __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3944,153 +3919,153 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   __pyx_v_var_j = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":96
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":94
  *     # To Clarify, GLCM uses these as Dimensions
  *     # i, j, wi_r, wi_c, ch
  *     cdef unsigned char  [:, :, :, :, :] glcm_v        = glcm             # <<<<<<<<<<<<<<
  *     cdef float          [:, :, :]       contrast_v    = contrast
  *     cdef float          [:, :, :]       correlation_v = correlation
  */
-  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dsdsdsdsds_unsigned_char(__pyx_v_glcm, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dsdsdsdsds_unsigned_char(__pyx_v_glcm, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 94, __pyx_L1_error)
   __pyx_v_glcm_v = __pyx_t_12;
   __pyx_t_12.memview = NULL;
   __pyx_t_12.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":97
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":95
  *     # i, j, wi_r, wi_c, ch
  *     cdef unsigned char  [:, :, :, :, :] glcm_v        = glcm
  *     cdef float          [:, :, :]       contrast_v    = contrast             # <<<<<<<<<<<<<<
  *     cdef float          [:, :, :]       correlation_v = correlation
  *     cdef float          [:, :, :]       asm_v         = asm
  */
-  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_contrast, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_contrast, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 95, __pyx_L1_error)
   __pyx_v_contrast_v = __pyx_t_13;
   __pyx_t_13.memview = NULL;
   __pyx_t_13.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":98
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":96
  *     cdef unsigned char  [:, :, :, :, :] glcm_v        = glcm
  *     cdef float          [:, :, :]       contrast_v    = contrast
  *     cdef float          [:, :, :]       correlation_v = correlation             # <<<<<<<<<<<<<<
  *     cdef float          [:, :, :]       asm_v         = asm
  *     cdef float          [:, :, :]       mean_v        = mean
  */
-  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_correlation, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_correlation, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 96, __pyx_L1_error)
   __pyx_v_correlation_v = __pyx_t_13;
   __pyx_t_13.memview = NULL;
   __pyx_t_13.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":99
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":97
  *     cdef float          [:, :, :]       contrast_v    = contrast
  *     cdef float          [:, :, :]       correlation_v = correlation
  *     cdef float          [:, :, :]       asm_v         = asm             # <<<<<<<<<<<<<<
  *     cdef float          [:, :, :]       mean_v        = mean
  *     cdef float          [:, :, :]       mean_i_v      = mean_i
  */
-  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_asm, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_asm, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 97, __pyx_L1_error)
   __pyx_v_asm_v = __pyx_t_13;
   __pyx_t_13.memview = NULL;
   __pyx_t_13.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":100
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":98
  *     cdef float          [:, :, :]       correlation_v = correlation
  *     cdef float          [:, :, :]       asm_v         = asm
  *     cdef float          [:, :, :]       mean_v        = mean             # <<<<<<<<<<<<<<
  *     cdef float          [:, :, :]       mean_i_v      = mean_i
  *     cdef float          [:, :, :]       mean_j_v      = mean_j
  */
-  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_mean, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_mean, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 98, __pyx_L1_error)
   __pyx_v_mean_v = __pyx_t_13;
   __pyx_t_13.memview = NULL;
   __pyx_t_13.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":101
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":99
  *     cdef float          [:, :, :]       asm_v         = asm
  *     cdef float          [:, :, :]       mean_v        = mean
  *     cdef float          [:, :, :]       mean_i_v      = mean_i             # <<<<<<<<<<<<<<
  *     cdef float          [:, :, :]       mean_j_v      = mean_j
  *     cdef float          [:, :, :]       var_v         = var
  */
-  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_mean_i, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_mean_i, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 99, __pyx_L1_error)
   __pyx_v_mean_i_v = __pyx_t_13;
   __pyx_t_13.memview = NULL;
   __pyx_t_13.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":102
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":100
  *     cdef float          [:, :, :]       mean_v        = mean
  *     cdef float          [:, :, :]       mean_i_v      = mean_i
  *     cdef float          [:, :, :]       mean_j_v      = mean_j             # <<<<<<<<<<<<<<
  *     cdef float          [:, :, :]       var_v         = var
  *     cdef float          [:, :, :]       var_i_v       = var_i
  */
-  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_mean_j, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_mean_j, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 100, __pyx_L1_error)
   __pyx_v_mean_j_v = __pyx_t_13;
   __pyx_t_13.memview = NULL;
   __pyx_t_13.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":103
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":101
  *     cdef float          [:, :, :]       mean_i_v      = mean_i
  *     cdef float          [:, :, :]       mean_j_v      = mean_j
  *     cdef float          [:, :, :]       var_v         = var             # <<<<<<<<<<<<<<
  *     cdef float          [:, :, :]       var_i_v       = var_i
  *     cdef float          [:, :, :]       var_j_v       = var_j
  */
-  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_var, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_var, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 101, __pyx_L1_error)
   __pyx_v_var_v = __pyx_t_13;
   __pyx_t_13.memview = NULL;
   __pyx_t_13.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":104
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":102
  *     cdef float          [:, :, :]       mean_j_v      = mean_j
  *     cdef float          [:, :, :]       var_v         = var
  *     cdef float          [:, :, :]       var_i_v       = var_i             # <<<<<<<<<<<<<<
  *     cdef float          [:, :, :]       var_j_v       = var_j
  * 
  */
-  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_var_i, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_var_i, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 102, __pyx_L1_error)
   __pyx_v_var_i_v = __pyx_t_13;
   __pyx_t_13.memview = NULL;
   __pyx_t_13.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":105
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":103
  *     cdef float          [:, :, :]       var_v         = var
  *     cdef float          [:, :, :]       var_i_v       = var_i
  *     cdef float          [:, :, :]       var_j_v       = var_j             # <<<<<<<<<<<<<<
  * 
  *     # ------------------------
  */
-  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_var_j, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_float(__pyx_v_var_j, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 103, __pyx_L1_error)
   __pyx_v_var_j_v = __pyx_t_13;
   __pyx_t_13.memview = NULL;
   __pyx_t_13.data = NULL;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":116
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":114
  *     # prange will not work if there are any Python objects within
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,             # <<<<<<<<<<<<<<
  *                      desc="GLCM Construction Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_11 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_disable, __pyx_t_11) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_disable, __pyx_t_11) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_desc, __pyx_kp_s_GLCM_Construction_Pass) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
-  __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_9, __pyx_t_4); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 116, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_desc, __pyx_kp_s_GLCM_Construction_Pass) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_9, __pyx_t_4); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -4099,9 +4074,9 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
     __pyx_t_4 = __pyx_t_11; __Pyx_INCREF(__pyx_t_4); __pyx_t_2 = 0;
     __pyx_t_14 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_14 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_14 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 114, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   for (;;) {
@@ -4109,17 +4084,17 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
       if (likely(PyList_CheckExact(__pyx_t_4))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_11 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_11); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 116, __pyx_L1_error)
+        __pyx_t_11 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_11); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 114, __pyx_L1_error)
         #else
-        __pyx_t_11 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 116, __pyx_L1_error)
+        __pyx_t_11 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 114, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_11 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_11); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 116, __pyx_L1_error)
+        __pyx_t_11 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_2); __Pyx_INCREF(__pyx_t_11); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 114, __pyx_L1_error)
         #else
-        __pyx_t_11 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 116, __pyx_L1_error)
+        __pyx_t_11 = PySequence_ITEM(__pyx_t_4, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 114, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
         #endif
       }
@@ -4129,17 +4104,17 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 116, __pyx_L1_error)
+          else __PYX_ERR(0, 114, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_11);
     }
-    __pyx_t_15 = __Pyx_PyInt_As_short(__pyx_t_11); if (unlikely((__pyx_t_15 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyInt_As_short(__pyx_t_11); if (unlikely((__pyx_t_15 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_v_wi_r = __pyx_t_15;
 
-    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":118
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":116
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,
  *                      desc="GLCM Construction Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -4179,10 +4154,10 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                               __pyx_v_c_c = ((short)0xbad0bad0);
                               __pyx_v_c_r = ((short)0xbad0bad0);
                               __pyx_v_ch = ((char)'?');
-                              __pyx_v_i = ((char)'?');
-                              __pyx_v_j = ((char)'?');
+                              __pyx_v_i = ((short)0xbad0bad0);
+                              __pyx_v_j = ((short)0xbad0bad0);
 
-                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":119
+                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":117
  *                      desc="GLCM Construction Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  *             for ch in prange(channels, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -4208,15 +4183,15 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                   /* Initialize private variables to invalid values */
                                                   __pyx_v_c_c = ((short)0xbad0bad0);
                                                   __pyx_v_c_r = ((short)0xbad0bad0);
-                                                  __pyx_v_i = ((char)'?');
-                                                  __pyx_v_j = ((char)'?');
+                                                  __pyx_v_i = ((short)0xbad0bad0);
+                                                  __pyx_v_j = ((short)0xbad0bad0);
 
-                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":120
+                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":118
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  *             for ch in prange(channels, schedule='dynamic'):
  *                 for c_r in prange(cell_rows, schedule='dynamic'):             # <<<<<<<<<<<<<<
  *                     for c_c in prange(cell_cols, schedule='dynamic'):
- *                         i = <char>i_v[wi_r, wi_c, c_r, c_c, ch]
+ *                         i = <short>i_v[wi_r, wi_c, c_r, c_c, ch]
  */
                                                   __pyx_t_22 = __pyx_v_cell_rows;
                                                   if ((1 == 0)) abort();
@@ -4236,15 +4211,15 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                       __pyx_v_c_r = (short)(0 + 1 * __pyx_t_23);
                                                                       /* Initialize private variables to invalid values */
                                                                       __pyx_v_c_c = ((short)0xbad0bad0);
-                                                                      __pyx_v_i = ((char)'?');
-                                                                      __pyx_v_j = ((char)'?');
+                                                                      __pyx_v_i = ((short)0xbad0bad0);
+                                                                      __pyx_v_j = ((short)0xbad0bad0);
 
-                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":121
+                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":119
  *             for ch in prange(channels, schedule='dynamic'):
  *                 for c_r in prange(cell_rows, schedule='dynamic'):
  *                     for c_c in prange(cell_cols, schedule='dynamic'):             # <<<<<<<<<<<<<<
- *                         i = <char>i_v[wi_r, wi_c, c_r, c_c, ch]
- *                         j = <char>j_v[wi_r, wi_c, c_r, c_c, ch]
+ *                         i = <short>i_v[wi_r, wi_c, c_r, c_c, ch]
+ *                         j = <short>j_v[wi_r, wi_c, c_r, c_c, ch]
  */
                                                                       __pyx_t_25 = __pyx_v_cell_cols;
                                                                       if ((1 == 0)) abort();
@@ -4263,14 +4238,14 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                       {
                                                                                           __pyx_v_c_c = (short)(0 + 1 * __pyx_t_26);
                                                                                           /* Initialize private variables to invalid values */
-                                                                                          __pyx_v_i = ((char)'?');
-                                                                                          __pyx_v_j = ((char)'?');
+                                                                                          __pyx_v_i = ((short)0xbad0bad0);
+                                                                                          __pyx_v_j = ((short)0xbad0bad0);
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":122
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":120
  *                 for c_r in prange(cell_rows, schedule='dynamic'):
  *                     for c_c in prange(cell_cols, schedule='dynamic'):
- *                         i = <char>i_v[wi_r, wi_c, c_r, c_c, ch]             # <<<<<<<<<<<<<<
- *                         j = <char>j_v[wi_r, wi_c, c_r, c_c, ch]
+ *                         i = <short>i_v[wi_r, wi_c, c_r, c_c, ch]             # <<<<<<<<<<<<<<
+ *                         j = <short>j_v[wi_r, wi_c, c_r, c_c, ch]
  *                         glcm_v[i, j, wi_r, wi_c, ch] += 1
  */
                                                                                           __pyx_t_28 = __pyx_v_wi_r;
@@ -4278,28 +4253,28 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                           __pyx_t_30 = __pyx_v_c_r;
                                                                                           __pyx_t_31 = __pyx_v_c_c;
                                                                                           __pyx_t_32 = __pyx_v_ch;
-                                                                                          __pyx_v_i = ((char)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glcm_DTYPE_t8 *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_i_v.data + __pyx_t_28 * __pyx_v_i_v.strides[0]) ) + __pyx_t_29 * __pyx_v_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_i_v.strides[2]) ) + __pyx_t_31 * __pyx_v_i_v.strides[3]) ) + __pyx_t_32 * __pyx_v_i_v.strides[4]) ))));
+                                                                                          __pyx_v_i = ((short)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glcm_DTYPE_t8 *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_i_v.data + __pyx_t_28 * __pyx_v_i_v.strides[0]) ) + __pyx_t_29 * __pyx_v_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_i_v.strides[2]) ) + __pyx_t_31 * __pyx_v_i_v.strides[3]) ) + __pyx_t_32 * __pyx_v_i_v.strides[4]) ))));
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":123
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":121
  *                     for c_c in prange(cell_cols, schedule='dynamic'):
- *                         i = <char>i_v[wi_r, wi_c, c_r, c_c, ch]
- *                         j = <char>j_v[wi_r, wi_c, c_r, c_c, ch]             # <<<<<<<<<<<<<<
+ *                         i = <short>i_v[wi_r, wi_c, c_r, c_c, ch]
+ *                         j = <short>j_v[wi_r, wi_c, c_r, c_c, ch]             # <<<<<<<<<<<<<<
  *                         glcm_v[i, j, wi_r, wi_c, ch] += 1
- * 
+ *                         glcm_v[j, i, wi_r, wi_c, ch] += 1
  */
                                                                                           __pyx_t_32 = __pyx_v_wi_r;
                                                                                           __pyx_t_31 = __pyx_v_wi_c;
                                                                                           __pyx_t_30 = __pyx_v_c_r;
                                                                                           __pyx_t_29 = __pyx_v_c_c;
                                                                                           __pyx_t_28 = __pyx_v_ch;
-                                                                                          __pyx_v_j = ((char)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glcm_DTYPE_t8 *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_j_v.data + __pyx_t_32 * __pyx_v_j_v.strides[0]) ) + __pyx_t_31 * __pyx_v_j_v.strides[1]) ) + __pyx_t_30 * __pyx_v_j_v.strides[2]) ) + __pyx_t_29 * __pyx_v_j_v.strides[3]) ) + __pyx_t_28 * __pyx_v_j_v.strides[4]) ))));
+                                                                                          __pyx_v_j = ((short)(*((__pyx_t_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glcm_DTYPE_t8 *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_j_v.data + __pyx_t_32 * __pyx_v_j_v.strides[0]) ) + __pyx_t_31 * __pyx_v_j_v.strides[1]) ) + __pyx_t_30 * __pyx_v_j_v.strides[2]) ) + __pyx_t_29 * __pyx_v_j_v.strides[3]) ) + __pyx_t_28 * __pyx_v_j_v.strides[4]) ))));
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":124
- *                         i = <char>i_v[wi_r, wi_c, c_r, c_c, ch]
- *                         j = <char>j_v[wi_r, wi_c, c_r, c_c, ch]
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":122
+ *                         i = <short>i_v[wi_r, wi_c, c_r, c_c, ch]
+ *                         j = <short>j_v[wi_r, wi_c, c_r, c_c, ch]
  *                         glcm_v[i, j, wi_r, wi_c, ch] += 1             # <<<<<<<<<<<<<<
+ *                         glcm_v[j, i, wi_r, wi_c, ch] += 1
  * 
- *     # ------------------------
  */
                                                                                           __pyx_t_28 = __pyx_v_i;
                                                                                           __pyx_t_29 = __pyx_v_j;
@@ -4307,6 +4282,20 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                           __pyx_t_31 = __pyx_v_wi_c;
                                                                                           __pyx_t_32 = __pyx_v_ch;
                                                                                           *((unsigned char *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_glcm_v.data + __pyx_t_28 * __pyx_v_glcm_v.strides[0]) ) + __pyx_t_29 * __pyx_v_glcm_v.strides[1]) ) + __pyx_t_30 * __pyx_v_glcm_v.strides[2]) ) + __pyx_t_31 * __pyx_v_glcm_v.strides[3]) ) + __pyx_t_32 * __pyx_v_glcm_v.strides[4]) )) += 1;
+
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":123
+ *                         j = <short>j_v[wi_r, wi_c, c_r, c_c, ch]
+ *                         glcm_v[i, j, wi_r, wi_c, ch] += 1
+ *                         glcm_v[j, i, wi_r, wi_c, ch] += 1             # <<<<<<<<<<<<<<
+ * 
+ *     # ------------------------
+ */
+                                                                                          __pyx_t_32 = __pyx_v_j;
+                                                                                          __pyx_t_31 = __pyx_v_i;
+                                                                                          __pyx_t_30 = __pyx_v_wi_r;
+                                                                                          __pyx_t_29 = __pyx_v_wi_c;
+                                                                                          __pyx_t_28 = __pyx_v_ch;
+                                                                                          *((unsigned char *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_glcm_v.data + __pyx_t_32 * __pyx_v_glcm_v.strides[0]) ) + __pyx_t_31 * __pyx_v_glcm_v.strides[1]) ) + __pyx_t_30 * __pyx_v_glcm_v.strides[2]) ) + __pyx_t_29 * __pyx_v_glcm_v.strides[3]) ) + __pyx_t_28 * __pyx_v_glcm_v.strides[4]) )) += 1;
                                                                                       }
                                                                                   }
                                                                               }
@@ -4335,7 +4324,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
           #endif
         }
 
-        /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":118
+        /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":116
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,
  *                      desc="GLCM Construction Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -4354,7 +4343,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
         }
     }
 
-    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":116
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":114
  *     # prange will not work if there are any Python objects within
  *     # So the options are exclusive, but verbose is more important
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,             # <<<<<<<<<<<<<<
@@ -4364,33 +4353,33 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":134
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":133
  *     # multiple passes for Corr to be done.
  * 
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,             # <<<<<<<<<<<<<<
  *                      desc="GLCM Contrast, ASM, Mean Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_11 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_11); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_11); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_9);
   PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9);
   __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_7 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_disable, __pyx_t_7) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_disable, __pyx_t_7) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_desc, __pyx_kp_s_GLCM_Contrast_ASM_Mean_Pass) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_desc, __pyx_kp_s_GLCM_Contrast_ASM_Mean_Pass) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -4399,9 +4388,9 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
     __pyx_t_9 = __pyx_t_7; __Pyx_INCREF(__pyx_t_9); __pyx_t_2 = 0;
     __pyx_t_14 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_9 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_9 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 133, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_14 = Py_TYPE(__pyx_t_9)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_14 = Py_TYPE(__pyx_t_9)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 133, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   for (;;) {
@@ -4409,17 +4398,17 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
       if (likely(PyList_CheckExact(__pyx_t_9))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_9)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 134, __pyx_L1_error)
+        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_9, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_9, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 133, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_9)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_9, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 134, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_9, __pyx_t_2); __Pyx_INCREF(__pyx_t_7); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_9, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_9, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 133, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       }
@@ -4429,17 +4418,17 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 134, __pyx_L1_error)
+          else __PYX_ERR(0, 133, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_7);
     }
-    __pyx_t_15 = __Pyx_PyInt_As_short(__pyx_t_7); if (unlikely((__pyx_t_15 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyInt_As_short(__pyx_t_7); if (unlikely((__pyx_t_15 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 133, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_wi_r = __pyx_t_15;
 
-    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":136
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":135
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,
  *                      desc="GLCM Contrast, ASM, Mean Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -4458,8 +4447,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
           {
               char __pyx_parallel_temp0 = ((char)'?');
               float __pyx_parallel_temp1 = ((float)__PYX_NAN());
-              char __pyx_parallel_temp2 = ((char)'?');
-              char __pyx_parallel_temp3 = ((char)'?');
+              short __pyx_parallel_temp2 = ((short)0xbad0bad0);
+              short __pyx_parallel_temp3 = ((short)0xbad0bad0);
               short __pyx_parallel_temp4 = ((short)0xbad0bad0);
               const char *__pyx_parallel_filename = NULL; int __pyx_parallel_lineno = 0, __pyx_parallel_clineno = 0;
               PyObject *__pyx_parallel_exc_type = NULL, *__pyx_parallel_exc_value = NULL, *__pyx_parallel_exc_tb = NULL;
@@ -4475,7 +4464,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
               if (__pyx_t_16 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_19, __pyx_t_20, __pyx_t_21, __pyx_t_28, __pyx_t_29, __pyx_t_30, __pyx_t_31, __pyx_t_32, __pyx_t_33, __pyx_t_34, __pyx_t_35, __pyx_t_36, __pyx_t_37, __pyx_t_38, __pyx_t_39, __pyx_t_8) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
+                  #pragma omp parallel private(__pyx_t_15, __pyx_t_19, __pyx_t_20, __pyx_t_21, __pyx_t_28, __pyx_t_29, __pyx_t_30, __pyx_t_31, __pyx_t_32, __pyx_t_33, __pyx_t_34, __pyx_t_35, __pyx_t_36, __pyx_t_37, __pyx_t_38, __pyx_t_8) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
@@ -4494,10 +4483,10 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                               /* Initialize private variables to invalid values */
                               __pyx_v_ch = ((char)'?');
                               __pyx_v_glcm_val = ((float)__PYX_NAN());
-                              __pyx_v_i = ((char)'?');
-                              __pyx_v_j = ((char)'?');
+                              __pyx_v_i = ((short)0xbad0bad0);
+                              __pyx_v_j = ((short)0xbad0bad0);
 
-                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":137
+                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":136
  *                      desc="GLCM Contrast, ASM, Mean Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  *             for ch in prange(channels, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -4509,8 +4498,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                               {
                                   char __pyx_parallel_temp0 = ((char)'?');
                                   float __pyx_parallel_temp1 = ((float)__PYX_NAN());
-                                  char __pyx_parallel_temp2 = ((char)'?');
-                                  char __pyx_parallel_temp3 = ((char)'?');
+                                  short __pyx_parallel_temp2 = ((short)0xbad0bad0);
+                                  short __pyx_parallel_temp3 = ((short)0xbad0bad0);
                                   const char *__pyx_parallel_filename = NULL; int __pyx_parallel_lineno = 0, __pyx_parallel_clineno = 0;
                                   PyObject *__pyx_parallel_exc_type = NULL, *__pyx_parallel_exc_value = NULL, *__pyx_parallel_exc_tb = NULL;
                                   int __pyx_parallel_why;
@@ -4537,10 +4526,10 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                   __pyx_v_ch = (char)(0 + 1 * __pyx_t_20);
                                                   /* Initialize private variables to invalid values */
                                                   __pyx_v_glcm_val = ((float)__PYX_NAN());
-                                                  __pyx_v_i = ((char)'?');
-                                                  __pyx_v_j = ((char)'?');
+                                                  __pyx_v_i = ((short)0xbad0bad0);
+                                                  __pyx_v_j = ((short)0xbad0bad0);
 
-                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":138
+                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":137
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  *             for ch in prange(channels, schedule='dynamic'):
  *                 for i in prange(glcm_max_value, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -4551,14 +4540,14 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                   if ((1 == 0)) abort();
                                                   {
                                                       float __pyx_parallel_temp0 = ((float)__PYX_NAN());
-                                                      char __pyx_parallel_temp1 = ((char)'?');
-                                                      char __pyx_parallel_temp2 = ((char)'?');
+                                                      short __pyx_parallel_temp1 = ((short)0xbad0bad0);
+                                                      short __pyx_parallel_temp2 = ((short)0xbad0bad0);
                                                       const char *__pyx_parallel_filename = NULL; int __pyx_parallel_lineno = 0, __pyx_parallel_clineno = 0;
                                                       PyObject *__pyx_parallel_exc_type = NULL, *__pyx_parallel_exc_value = NULL, *__pyx_parallel_exc_tb = NULL;
                                                       int __pyx_parallel_why;
                                                       __pyx_parallel_why = 0;
-                                                      __pyx_t_34 = (__pyx_t_8 - 0 + 1 - 1/abs(1)) / 1;
-                                                      if (__pyx_t_34 > 0)
+                                                      __pyx_t_33 = (__pyx_t_8 - 0 + 1 - 1/abs(1)) / 1;
+                                                      if (__pyx_t_33 > 0)
                                                       {
                                                           #if 0
                                                           #pragma omp parallel
@@ -4573,32 +4562,32 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                               #if 0
                                                               #pragma omp for lastprivate(__pyx_v_glcm_val) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_j) schedule(dynamic)
                                                               #endif /* _OPENMP */
-                                                              for (__pyx_t_33 = 0; __pyx_t_33 < __pyx_t_34; __pyx_t_33++){
+                                                              for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_33; __pyx_t_15++){
                                                                   if (__pyx_parallel_why < 2)
                                                                   {
-                                                                      __pyx_v_i = (char)(0 + 1 * __pyx_t_33);
+                                                                      __pyx_v_i = (short)(0 + 1 * __pyx_t_15);
                                                                       /* Initialize private variables to invalid values */
                                                                       __pyx_v_glcm_val = ((float)__PYX_NAN());
-                                                                      __pyx_v_j = ((char)'?');
+                                                                      __pyx_v_j = ((short)0xbad0bad0);
 
-                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":139
+                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":138
  *             for ch in prange(channels, schedule='dynamic'):
  *                 for i in prange(glcm_max_value, schedule='dynamic'):
  *                     for j in prange(glcm_max_value, schedule='dynamic'):             # <<<<<<<<<<<<<<
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  *                         if glcm_val != 0:
  */
-                                                                      __pyx_t_35 = __pyx_v_glcm_max_value;
+                                                                      __pyx_t_34 = __pyx_v_glcm_max_value;
                                                                       if ((1 == 0)) abort();
                                                                       {
                                                                           float __pyx_parallel_temp0 = ((float)__PYX_NAN());
-                                                                          char __pyx_parallel_temp1 = ((char)'?');
+                                                                          short __pyx_parallel_temp1 = ((short)0xbad0bad0);
                                                                           const char *__pyx_parallel_filename = NULL; int __pyx_parallel_lineno = 0, __pyx_parallel_clineno = 0;
                                                                           PyObject *__pyx_parallel_exc_type = NULL, *__pyx_parallel_exc_value = NULL, *__pyx_parallel_exc_tb = NULL;
                                                                           int __pyx_parallel_why;
                                                                           __pyx_parallel_why = 0;
-                                                                          __pyx_t_37 = (__pyx_t_35 - 0 + 1 - 1/abs(1)) / 1;
-                                                                          if (__pyx_t_37 > 0)
+                                                                          __pyx_t_36 = (__pyx_t_34 - 0 + 1 - 1/abs(1)) / 1;
+                                                                          if (__pyx_t_36 > 0)
                                                                           {
                                                                               #if 0
                                                                               #pragma omp parallel
@@ -4613,26 +4602,26 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                   #if 0
                                                                                   #pragma omp for lastprivate(__pyx_v_glcm_val) firstprivate(__pyx_v_j) lastprivate(__pyx_v_j) schedule(dynamic)
                                                                                   #endif /* _OPENMP */
-                                                                                  for (__pyx_t_36 = 0; __pyx_t_36 < __pyx_t_37; __pyx_t_36++){
+                                                                                  for (__pyx_t_35 = 0; __pyx_t_35 < __pyx_t_36; __pyx_t_35++){
                                                                                       if (__pyx_parallel_why < 2)
                                                                                       {
-                                                                                          __pyx_v_j = (char)(0 + 1 * __pyx_t_36);
+                                                                                          __pyx_v_j = (short)(0 + 1 * __pyx_t_35);
                                                                                           /* Initialize private variables to invalid values */
                                                                                           __pyx_v_glcm_val = ((float)__PYX_NAN());
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":140
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":139
  *                 for i in prange(glcm_max_value, schedule='dynamic'):
  *                     for j in prange(glcm_max_value, schedule='dynamic'):
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value             # <<<<<<<<<<<<<<
  *                         if glcm_val != 0:
- *                             # i_f = <float>i
+ *                             contrast_v [wi_r, wi_c, ch] += glcm_val * ((i - j) ** 2)
  */
-                                                                                          __pyx_t_32 = __pyx_v_i;
-                                                                                          __pyx_t_31 = __pyx_v_j;
+                                                                                          __pyx_t_28 = __pyx_v_i;
+                                                                                          __pyx_t_29 = __pyx_v_j;
                                                                                           __pyx_t_30 = __pyx_v_wi_r;
-                                                                                          __pyx_t_29 = __pyx_v_wi_c;
-                                                                                          __pyx_t_28 = __pyx_v_ch;
-                                                                                          __pyx_t_38 = (*((unsigned char *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_glcm_v.data + __pyx_t_32 * __pyx_v_glcm_v.strides[0]) ) + __pyx_t_31 * __pyx_v_glcm_v.strides[1]) ) + __pyx_t_30 * __pyx_v_glcm_v.strides[2]) ) + __pyx_t_29 * __pyx_v_glcm_v.strides[3]) ) + __pyx_t_28 * __pyx_v_glcm_v.strides[4]) )));
+                                                                                          __pyx_t_31 = __pyx_v_wi_c;
+                                                                                          __pyx_t_32 = __pyx_v_ch;
+                                                                                          __pyx_t_37 = (*((unsigned char *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_glcm_v.data + __pyx_t_28 * __pyx_v_glcm_v.strides[0]) ) + __pyx_t_29 * __pyx_v_glcm_v.strides[1]) ) + __pyx_t_30 * __pyx_v_glcm_v.strides[2]) ) + __pyx_t_31 * __pyx_v_glcm_v.strides[3]) ) + __pyx_t_32 * __pyx_v_glcm_v.strides[4]) )));
                                                                                           if (unlikely(__pyx_v_glcm_max_value == 0)) {
                                                                                             #ifdef WITH_THREAD
                                                                                             PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
@@ -4641,9 +4630,9 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                             #ifdef WITH_THREAD
                                                                                             __Pyx_PyGILState_Release(__pyx_gilstate_save);
                                                                                             #endif
-                                                                                            __PYX_ERR(0, 140, __pyx_L55_error)
+                                                                                            __PYX_ERR(0, 139, __pyx_L55_error)
                                                                                           }
-                                                                                          else if (sizeof(int) == sizeof(long) && (!(((char)-1) > 0)) && unlikely(__pyx_v_glcm_max_value == (char)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_t_38))) {
+                                                                                          else if (sizeof(int) == sizeof(long) && (!(((char)-1) > 0)) && unlikely(__pyx_v_glcm_max_value == (char)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_t_37))) {
                                                                                             #ifdef WITH_THREAD
                                                                                             PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
                                                                                             #endif
@@ -4651,57 +4640,57 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                             #ifdef WITH_THREAD
                                                                                             __Pyx_PyGILState_Release(__pyx_gilstate_save);
                                                                                             #endif
-                                                                                            __PYX_ERR(0, 140, __pyx_L55_error)
+                                                                                            __PYX_ERR(0, 139, __pyx_L55_error)
                                                                                           }
-                                                                                          __pyx_v_glcm_val = __Pyx_div_int(__pyx_t_38, __pyx_v_glcm_max_value);
+                                                                                          __pyx_v_glcm_val = __Pyx_div_int(__pyx_t_37, __pyx_v_glcm_max_value);
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":141
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":140
  *                     for j in prange(glcm_max_value, schedule='dynamic'):
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  *                         if glcm_val != 0:             # <<<<<<<<<<<<<<
- *                             # i_f = <float>i
- *                             # j_f = <float>j
+ *                             contrast_v [wi_r, wi_c, ch] += glcm_val * ((i - j) ** 2)
+ *                             asm_v      [wi_r, wi_c, ch] += glcm_val ** 2
  */
-                                                                                          __pyx_t_39 = ((__pyx_v_glcm_val != 0.0) != 0);
-                                                                                          if (__pyx_t_39) {
+                                                                                          __pyx_t_38 = ((__pyx_v_glcm_val != 0.0) != 0);
+                                                                                          if (__pyx_t_38) {
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":144
- *                             # i_f = <float>i
- *                             # j_f = <float>j
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":141
+ *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
+ *                         if glcm_val != 0:
  *                             contrast_v [wi_r, wi_c, ch] += glcm_val * ((i - j) ** 2)             # <<<<<<<<<<<<<<
  *                             asm_v      [wi_r, wi_c, ch] += glcm_val ** 2
  *                             mean_i_v   [wi_r, wi_c, ch] += glcm_val * i
  */
-                                                                                            __pyx_t_28 = __pyx_v_wi_r;
-                                                                                            __pyx_t_29 = __pyx_v_wi_c;
+                                                                                            __pyx_t_32 = __pyx_v_wi_r;
+                                                                                            __pyx_t_31 = __pyx_v_wi_c;
                                                                                             __pyx_t_30 = __pyx_v_ch;
-                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_contrast_v.data + __pyx_t_28 * __pyx_v_contrast_v.strides[0]) ) + __pyx_t_29 * __pyx_v_contrast_v.strides[1]) ) + __pyx_t_30 * __pyx_v_contrast_v.strides[2]) )) += (__pyx_v_glcm_val * __Pyx_pow_long(((long)(__pyx_v_i - __pyx_v_j)), 2));
+                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_contrast_v.data + __pyx_t_32 * __pyx_v_contrast_v.strides[0]) ) + __pyx_t_31 * __pyx_v_contrast_v.strides[1]) ) + __pyx_t_30 * __pyx_v_contrast_v.strides[2]) )) += (__pyx_v_glcm_val * __Pyx_pow_long(((long)(__pyx_v_i - __pyx_v_j)), 2));
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":145
- *                             # j_f = <float>j
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":142
+ *                         if glcm_val != 0:
  *                             contrast_v [wi_r, wi_c, ch] += glcm_val * ((i - j) ** 2)
  *                             asm_v      [wi_r, wi_c, ch] += glcm_val ** 2             # <<<<<<<<<<<<<<
  *                             mean_i_v   [wi_r, wi_c, ch] += glcm_val * i
  *                             mean_j_v   [wi_r, wi_c, ch] += glcm_val * j
  */
                                                                                             __pyx_t_30 = __pyx_v_wi_r;
-                                                                                            __pyx_t_29 = __pyx_v_wi_c;
-                                                                                            __pyx_t_28 = __pyx_v_ch;
-                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_asm_v.data + __pyx_t_30 * __pyx_v_asm_v.strides[0]) ) + __pyx_t_29 * __pyx_v_asm_v.strides[1]) ) + __pyx_t_28 * __pyx_v_asm_v.strides[2]) )) += powf(__pyx_v_glcm_val, 2.0);
+                                                                                            __pyx_t_31 = __pyx_v_wi_c;
+                                                                                            __pyx_t_32 = __pyx_v_ch;
+                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_asm_v.data + __pyx_t_30 * __pyx_v_asm_v.strides[0]) ) + __pyx_t_31 * __pyx_v_asm_v.strides[1]) ) + __pyx_t_32 * __pyx_v_asm_v.strides[2]) )) += powf(__pyx_v_glcm_val, 2.0);
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":146
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":143
  *                             contrast_v [wi_r, wi_c, ch] += glcm_val * ((i - j) ** 2)
  *                             asm_v      [wi_r, wi_c, ch] += glcm_val ** 2
  *                             mean_i_v   [wi_r, wi_c, ch] += glcm_val * i             # <<<<<<<<<<<<<<
  *                             mean_j_v   [wi_r, wi_c, ch] += glcm_val * j
  * 
  */
-                                                                                            __pyx_t_28 = __pyx_v_wi_r;
-                                                                                            __pyx_t_29 = __pyx_v_wi_c;
+                                                                                            __pyx_t_32 = __pyx_v_wi_r;
+                                                                                            __pyx_t_31 = __pyx_v_wi_c;
                                                                                             __pyx_t_30 = __pyx_v_ch;
-                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_i_v.data + __pyx_t_28 * __pyx_v_mean_i_v.strides[0]) ) + __pyx_t_29 * __pyx_v_mean_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_mean_i_v.strides[2]) )) += (__pyx_v_glcm_val * __pyx_v_i);
+                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_i_v.data + __pyx_t_32 * __pyx_v_mean_i_v.strides[0]) ) + __pyx_t_31 * __pyx_v_mean_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_mean_i_v.strides[2]) )) += (__pyx_v_glcm_val * __pyx_v_i);
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":147
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":144
  *                             asm_v      [wi_r, wi_c, ch] += glcm_val ** 2
  *                             mean_i_v   [wi_r, wi_c, ch] += glcm_val * i
  *                             mean_j_v   [wi_r, wi_c, ch] += glcm_val * j             # <<<<<<<<<<<<<<
@@ -4709,16 +4698,16 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  *     # ------------------------
  */
                                                                                             __pyx_t_30 = __pyx_v_wi_r;
-                                                                                            __pyx_t_29 = __pyx_v_wi_c;
-                                                                                            __pyx_t_28 = __pyx_v_ch;
-                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_j_v.data + __pyx_t_30 * __pyx_v_mean_j_v.strides[0]) ) + __pyx_t_29 * __pyx_v_mean_j_v.strides[1]) ) + __pyx_t_28 * __pyx_v_mean_j_v.strides[2]) )) += (__pyx_v_glcm_val * __pyx_v_j);
+                                                                                            __pyx_t_31 = __pyx_v_wi_c;
+                                                                                            __pyx_t_32 = __pyx_v_ch;
+                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_j_v.data + __pyx_t_30 * __pyx_v_mean_j_v.strides[0]) ) + __pyx_t_31 * __pyx_v_mean_j_v.strides[1]) ) + __pyx_t_32 * __pyx_v_mean_j_v.strides[2]) )) += (__pyx_v_glcm_val * __pyx_v_j);
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":141
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":140
  *                     for j in prange(glcm_max_value, schedule='dynamic'):
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  *                         if glcm_val != 0:             # <<<<<<<<<<<<<<
- *                             # i_f = <float>i
- *                             # j_f = <float>j
+ *                             contrast_v [wi_r, wi_c, ch] += glcm_val * ((i - j) ** 2)
+ *                             asm_v      [wi_r, wi_c, ch] += glcm_val ** 2
  */
                                                                                           }
                                                                                           goto __pyx_L59;
@@ -5038,7 +5027,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
           #endif
         }
 
-        /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":136
+        /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":135
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,
  *                      desc="GLCM Contrast, ASM, Mean Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -5064,7 +5053,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
         }
     }
 
-    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":134
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":133
  *     # multiple passes for Corr to be done.
  * 
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,             # <<<<<<<<<<<<<<
@@ -5074,33 +5063,33 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":154
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":151
  *     # Only VARIANCE is done here.
  * 
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,             # <<<<<<<<<<<<<<
  *                      desc="GLCM Variance Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_11 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_7); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_7); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_11);
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_11);
   __pyx_t_11 = 0;
-  __pyx_t_11 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_4 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_disable, __pyx_t_4) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_disable, __pyx_t_4) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_desc, __pyx_kp_s_GLCM_Variance_Pass) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_7, __pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_desc, __pyx_kp_s_GLCM_Variance_Pass) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_7, __pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -5109,9 +5098,9 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
     __pyx_t_11 = __pyx_t_4; __Pyx_INCREF(__pyx_t_11); __pyx_t_2 = 0;
     __pyx_t_14 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_11 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 154, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_11 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 151, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_14 = Py_TYPE(__pyx_t_11)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 154, __pyx_L1_error)
+    __pyx_t_14 = Py_TYPE(__pyx_t_11)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 151, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (;;) {
@@ -5119,17 +5108,17 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
       if (likely(PyList_CheckExact(__pyx_t_11))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_11)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_11, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 154, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_11, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 151, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_11, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_11, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_11)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_11, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 154, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_11, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 151, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_11, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_11, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -5139,17 +5128,17 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 154, __pyx_L1_error)
+          else __PYX_ERR(0, 151, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_4);
     }
-    __pyx_t_15 = __Pyx_PyInt_As_short(__pyx_t_4); if (unlikely((__pyx_t_15 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 154, __pyx_L1_error)
+    __pyx_t_33 = __Pyx_PyInt_As_short(__pyx_t_4); if (unlikely((__pyx_t_33 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 151, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_v_wi_r = __pyx_t_15;
+    __pyx_v_wi_r = __pyx_t_33;
 
-    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":156
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":153
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,
  *                      desc="GLCM Variance Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -5168,8 +5157,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
           {
               char __pyx_parallel_temp0 = ((char)'?');
               float __pyx_parallel_temp1 = ((float)__PYX_NAN());
-              char __pyx_parallel_temp2 = ((char)'?');
-              char __pyx_parallel_temp3 = ((char)'?');
+              short __pyx_parallel_temp2 = ((short)0xbad0bad0);
+              short __pyx_parallel_temp3 = ((short)0xbad0bad0);
               float __pyx_parallel_temp4 = ((float)__PYX_NAN());
               float __pyx_parallel_temp5 = ((float)__PYX_NAN());
               short __pyx_parallel_temp6 = ((short)0xbad0bad0);
@@ -5187,7 +5176,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
               if (__pyx_t_18 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_19, __pyx_t_20, __pyx_t_21, __pyx_t_28, __pyx_t_29, __pyx_t_30, __pyx_t_31, __pyx_t_32, __pyx_t_33, __pyx_t_34, __pyx_t_35, __pyx_t_36, __pyx_t_37, __pyx_t_38, __pyx_t_39, __pyx_t_8) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
+                  #pragma omp parallel private(__pyx_t_15, __pyx_t_19, __pyx_t_20, __pyx_t_21, __pyx_t_28, __pyx_t_29, __pyx_t_30, __pyx_t_31, __pyx_t_32, __pyx_t_33, __pyx_t_34, __pyx_t_35, __pyx_t_36, __pyx_t_37, __pyx_t_38, __pyx_t_8) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
@@ -5206,12 +5195,12 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                               /* Initialize private variables to invalid values */
                               __pyx_v_ch = ((char)'?');
                               __pyx_v_glcm_val = ((float)__PYX_NAN());
-                              __pyx_v_i = ((char)'?');
-                              __pyx_v_j = ((char)'?');
+                              __pyx_v_i = ((short)0xbad0bad0);
+                              __pyx_v_j = ((short)0xbad0bad0);
                               __pyx_v_mean_i_val = ((float)__PYX_NAN());
                               __pyx_v_mean_j_val = ((float)__PYX_NAN());
 
-                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":157
+                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":154
  *                      desc="GLCM Variance Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  *             for ch in prange(channels, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -5223,8 +5212,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                               {
                                   char __pyx_parallel_temp0 = ((char)'?');
                                   float __pyx_parallel_temp1 = ((float)__PYX_NAN());
-                                  char __pyx_parallel_temp2 = ((char)'?');
-                                  char __pyx_parallel_temp3 = ((char)'?');
+                                  short __pyx_parallel_temp2 = ((short)0xbad0bad0);
+                                  short __pyx_parallel_temp3 = ((short)0xbad0bad0);
                                   float __pyx_parallel_temp4 = ((float)__PYX_NAN());
                                   float __pyx_parallel_temp5 = ((float)__PYX_NAN());
                                   const char *__pyx_parallel_filename = NULL; int __pyx_parallel_lineno = 0, __pyx_parallel_clineno = 0;
@@ -5253,32 +5242,32 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                   __pyx_v_ch = (char)(0 + 1 * __pyx_t_20);
                                                   /* Initialize private variables to invalid values */
                                                   __pyx_v_glcm_val = ((float)__PYX_NAN());
-                                                  __pyx_v_i = ((char)'?');
-                                                  __pyx_v_j = ((char)'?');
+                                                  __pyx_v_i = ((short)0xbad0bad0);
+                                                  __pyx_v_j = ((short)0xbad0bad0);
                                                   __pyx_v_mean_i_val = ((float)__PYX_NAN());
                                                   __pyx_v_mean_j_val = ((float)__PYX_NAN());
 
-                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":158
+                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":155
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  *             for ch in prange(channels, schedule='dynamic'):
  *                 for i in prange(glcm_max_value, schedule='dynamic'):             # <<<<<<<<<<<<<<
  *                     for j in prange(glcm_max_value, schedule='dynamic'):
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  */
-                                                  __pyx_t_34 = __pyx_v_glcm_max_value;
+                                                  __pyx_t_8 = __pyx_v_glcm_max_value;
                                                   if ((1 == 0)) abort();
                                                   {
                                                       float __pyx_parallel_temp0 = ((float)__PYX_NAN());
-                                                      char __pyx_parallel_temp1 = ((char)'?');
-                                                      char __pyx_parallel_temp2 = ((char)'?');
+                                                      short __pyx_parallel_temp1 = ((short)0xbad0bad0);
+                                                      short __pyx_parallel_temp2 = ((short)0xbad0bad0);
                                                       float __pyx_parallel_temp3 = ((float)__PYX_NAN());
                                                       float __pyx_parallel_temp4 = ((float)__PYX_NAN());
                                                       const char *__pyx_parallel_filename = NULL; int __pyx_parallel_lineno = 0, __pyx_parallel_clineno = 0;
                                                       PyObject *__pyx_parallel_exc_type = NULL, *__pyx_parallel_exc_value = NULL, *__pyx_parallel_exc_tb = NULL;
                                                       int __pyx_parallel_why;
                                                       __pyx_parallel_why = 0;
-                                                      __pyx_t_8 = (__pyx_t_34 - 0 + 1 - 1/abs(1)) / 1;
-                                                      if (__pyx_t_8 > 0)
+                                                      __pyx_t_15 = (__pyx_t_8 - 0 + 1 - 1/abs(1)) / 1;
+                                                      if (__pyx_t_15 > 0)
                                                       {
                                                           #if 0
                                                           #pragma omp parallel
@@ -5293,35 +5282,35 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                               #if 0
                                                               #pragma omp for lastprivate(__pyx_v_glcm_val) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_j) lastprivate(__pyx_v_mean_i_val) lastprivate(__pyx_v_mean_j_val) schedule(dynamic)
                                                               #endif /* _OPENMP */
-                                                              for (__pyx_t_33 = 0; __pyx_t_33 < __pyx_t_8; __pyx_t_33++){
+                                                              for (__pyx_t_33 = 0; __pyx_t_33 < __pyx_t_15; __pyx_t_33++){
                                                                   if (__pyx_parallel_why < 2)
                                                                   {
-                                                                      __pyx_v_i = (char)(0 + 1 * __pyx_t_33);
+                                                                      __pyx_v_i = (short)(0 + 1 * __pyx_t_33);
                                                                       /* Initialize private variables to invalid values */
                                                                       __pyx_v_glcm_val = ((float)__PYX_NAN());
-                                                                      __pyx_v_j = ((char)'?');
+                                                                      __pyx_v_j = ((short)0xbad0bad0);
                                                                       __pyx_v_mean_i_val = ((float)__PYX_NAN());
                                                                       __pyx_v_mean_j_val = ((float)__PYX_NAN());
 
-                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":159
+                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":156
  *             for ch in prange(channels, schedule='dynamic'):
  *                 for i in prange(glcm_max_value, schedule='dynamic'):
  *                     for j in prange(glcm_max_value, schedule='dynamic'):             # <<<<<<<<<<<<<<
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]
  */
-                                                                      __pyx_t_37 = __pyx_v_glcm_max_value;
+                                                                      __pyx_t_34 = __pyx_v_glcm_max_value;
                                                                       if ((1 == 0)) abort();
                                                                       {
                                                                           float __pyx_parallel_temp0 = ((float)__PYX_NAN());
-                                                                          char __pyx_parallel_temp1 = ((char)'?');
+                                                                          short __pyx_parallel_temp1 = ((short)0xbad0bad0);
                                                                           float __pyx_parallel_temp2 = ((float)__PYX_NAN());
                                                                           float __pyx_parallel_temp3 = ((float)__PYX_NAN());
                                                                           const char *__pyx_parallel_filename = NULL; int __pyx_parallel_lineno = 0, __pyx_parallel_clineno = 0;
                                                                           PyObject *__pyx_parallel_exc_type = NULL, *__pyx_parallel_exc_value = NULL, *__pyx_parallel_exc_tb = NULL;
                                                                           int __pyx_parallel_why;
                                                                           __pyx_parallel_why = 0;
-                                                                          __pyx_t_35 = (__pyx_t_37 - 0 + 1 - 1/abs(1)) / 1;
+                                                                          __pyx_t_35 = (__pyx_t_34 - 0 + 1 - 1/abs(1)) / 1;
                                                                           if (__pyx_t_35 > 0)
                                                                           {
                                                                               #if 0
@@ -5340,25 +5329,25 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                   for (__pyx_t_36 = 0; __pyx_t_36 < __pyx_t_35; __pyx_t_36++){
                                                                                       if (__pyx_parallel_why < 2)
                                                                                       {
-                                                                                          __pyx_v_j = (char)(0 + 1 * __pyx_t_36);
+                                                                                          __pyx_v_j = (short)(0 + 1 * __pyx_t_36);
                                                                                           /* Initialize private variables to invalid values */
                                                                                           __pyx_v_glcm_val = ((float)__PYX_NAN());
                                                                                           __pyx_v_mean_i_val = ((float)__PYX_NAN());
                                                                                           __pyx_v_mean_j_val = ((float)__PYX_NAN());
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":160
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":157
  *                 for i in prange(glcm_max_value, schedule='dynamic'):
  *                     for j in prange(glcm_max_value, schedule='dynamic'):
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value             # <<<<<<<<<<<<<<
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]
  */
-                                                                                          __pyx_t_28 = __pyx_v_i;
-                                                                                          __pyx_t_29 = __pyx_v_j;
+                                                                                          __pyx_t_32 = __pyx_v_i;
+                                                                                          __pyx_t_31 = __pyx_v_j;
                                                                                           __pyx_t_30 = __pyx_v_wi_r;
-                                                                                          __pyx_t_31 = __pyx_v_wi_c;
-                                                                                          __pyx_t_32 = __pyx_v_ch;
-                                                                                          __pyx_t_38 = (*((unsigned char *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_glcm_v.data + __pyx_t_28 * __pyx_v_glcm_v.strides[0]) ) + __pyx_t_29 * __pyx_v_glcm_v.strides[1]) ) + __pyx_t_30 * __pyx_v_glcm_v.strides[2]) ) + __pyx_t_31 * __pyx_v_glcm_v.strides[3]) ) + __pyx_t_32 * __pyx_v_glcm_v.strides[4]) )));
+                                                                                          __pyx_t_29 = __pyx_v_wi_c;
+                                                                                          __pyx_t_28 = __pyx_v_ch;
+                                                                                          __pyx_t_37 = (*((unsigned char *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_glcm_v.data + __pyx_t_32 * __pyx_v_glcm_v.strides[0]) ) + __pyx_t_31 * __pyx_v_glcm_v.strides[1]) ) + __pyx_t_30 * __pyx_v_glcm_v.strides[2]) ) + __pyx_t_29 * __pyx_v_glcm_v.strides[3]) ) + __pyx_t_28 * __pyx_v_glcm_v.strides[4]) )));
                                                                                           if (unlikely(__pyx_v_glcm_max_value == 0)) {
                                                                                             #ifdef WITH_THREAD
                                                                                             PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
@@ -5367,9 +5356,9 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                             #ifdef WITH_THREAD
                                                                                             __Pyx_PyGILState_Release(__pyx_gilstate_save);
                                                                                             #endif
-                                                                                            __PYX_ERR(0, 160, __pyx_L87_error)
+                                                                                            __PYX_ERR(0, 157, __pyx_L87_error)
                                                                                           }
-                                                                                          else if (sizeof(int) == sizeof(long) && (!(((char)-1) > 0)) && unlikely(__pyx_v_glcm_max_value == (char)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_t_38))) {
+                                                                                          else if (sizeof(int) == sizeof(long) && (!(((char)-1) > 0)) && unlikely(__pyx_v_glcm_max_value == (char)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_t_37))) {
                                                                                             #ifdef WITH_THREAD
                                                                                             PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
                                                                                             #endif
@@ -5377,23 +5366,23 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                             #ifdef WITH_THREAD
                                                                                             __Pyx_PyGILState_Release(__pyx_gilstate_save);
                                                                                             #endif
-                                                                                            __PYX_ERR(0, 160, __pyx_L87_error)
+                                                                                            __PYX_ERR(0, 157, __pyx_L87_error)
                                                                                           }
-                                                                                          __pyx_v_glcm_val = __Pyx_div_int(__pyx_t_38, __pyx_v_glcm_max_value);
+                                                                                          __pyx_v_glcm_val = __Pyx_div_int(__pyx_t_37, __pyx_v_glcm_max_value);
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":161
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":158
  *                     for j in prange(glcm_max_value, schedule='dynamic'):
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]             # <<<<<<<<<<<<<<
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]
  *                         if glcm_val != 0:
  */
-                                                                                          __pyx_t_32 = __pyx_v_wi_r;
-                                                                                          __pyx_t_31 = __pyx_v_wi_c;
+                                                                                          __pyx_t_28 = __pyx_v_wi_r;
+                                                                                          __pyx_t_29 = __pyx_v_wi_c;
                                                                                           __pyx_t_30 = __pyx_v_ch;
-                                                                                          __pyx_v_mean_i_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_i_v.data + __pyx_t_32 * __pyx_v_mean_i_v.strides[0]) ) + __pyx_t_31 * __pyx_v_mean_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_mean_i_v.strides[2]) )));
+                                                                                          __pyx_v_mean_i_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_i_v.data + __pyx_t_28 * __pyx_v_mean_i_v.strides[0]) ) + __pyx_t_29 * __pyx_v_mean_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_mean_i_v.strides[2]) )));
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":162
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":159
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]             # <<<<<<<<<<<<<<
@@ -5401,33 +5390,33 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  *                             var_i_v[wi_r, wi_c, ch] += glcm_val * (i - mean_i_val) ** 2
  */
                                                                                           __pyx_t_30 = __pyx_v_wi_r;
-                                                                                          __pyx_t_31 = __pyx_v_wi_c;
-                                                                                          __pyx_t_32 = __pyx_v_ch;
-                                                                                          __pyx_v_mean_j_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_j_v.data + __pyx_t_30 * __pyx_v_mean_j_v.strides[0]) ) + __pyx_t_31 * __pyx_v_mean_j_v.strides[1]) ) + __pyx_t_32 * __pyx_v_mean_j_v.strides[2]) )));
+                                                                                          __pyx_t_29 = __pyx_v_wi_c;
+                                                                                          __pyx_t_28 = __pyx_v_ch;
+                                                                                          __pyx_v_mean_j_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_j_v.data + __pyx_t_30 * __pyx_v_mean_j_v.strides[0]) ) + __pyx_t_29 * __pyx_v_mean_j_v.strides[1]) ) + __pyx_t_28 * __pyx_v_mean_j_v.strides[2]) )));
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":163
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":160
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]
  *                         if glcm_val != 0:             # <<<<<<<<<<<<<<
  *                             var_i_v[wi_r, wi_c, ch] += glcm_val * (i - mean_i_val) ** 2
  *                             var_j_v[wi_r, wi_c, ch] += glcm_val * (j - mean_j_val) ** 2
  */
-                                                                                          __pyx_t_39 = ((__pyx_v_glcm_val != 0.0) != 0);
-                                                                                          if (__pyx_t_39) {
+                                                                                          __pyx_t_38 = ((__pyx_v_glcm_val != 0.0) != 0);
+                                                                                          if (__pyx_t_38) {
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":164
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":161
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]
  *                         if glcm_val != 0:
  *                             var_i_v[wi_r, wi_c, ch] += glcm_val * (i - mean_i_val) ** 2             # <<<<<<<<<<<<<<
  *                             var_j_v[wi_r, wi_c, ch] += glcm_val * (j - mean_j_val) ** 2
  * 
  */
-                                                                                            __pyx_t_32 = __pyx_v_wi_r;
-                                                                                            __pyx_t_31 = __pyx_v_wi_c;
+                                                                                            __pyx_t_28 = __pyx_v_wi_r;
+                                                                                            __pyx_t_29 = __pyx_v_wi_c;
                                                                                             __pyx_t_30 = __pyx_v_ch;
-                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_i_v.data + __pyx_t_32 * __pyx_v_var_i_v.strides[0]) ) + __pyx_t_31 * __pyx_v_var_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_var_i_v.strides[2]) )) += (__pyx_v_glcm_val * powf((__pyx_v_i - __pyx_v_mean_i_val), 2.0));
+                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_i_v.data + __pyx_t_28 * __pyx_v_var_i_v.strides[0]) ) + __pyx_t_29 * __pyx_v_var_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_var_i_v.strides[2]) )) += (__pyx_v_glcm_val * powf((__pyx_v_i - __pyx_v_mean_i_val), 2.0));
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":165
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":162
  *                         if glcm_val != 0:
  *                             var_i_v[wi_r, wi_c, ch] += glcm_val * (i - mean_i_val) ** 2
  *                             var_j_v[wi_r, wi_c, ch] += glcm_val * (j - mean_j_val) ** 2             # <<<<<<<<<<<<<<
@@ -5435,11 +5424,11 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  *     # ---------------------------
  */
                                                                                             __pyx_t_30 = __pyx_v_wi_r;
-                                                                                            __pyx_t_31 = __pyx_v_wi_c;
-                                                                                            __pyx_t_32 = __pyx_v_ch;
-                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_j_v.data + __pyx_t_30 * __pyx_v_var_j_v.strides[0]) ) + __pyx_t_31 * __pyx_v_var_j_v.strides[1]) ) + __pyx_t_32 * __pyx_v_var_j_v.strides[2]) )) += (__pyx_v_glcm_val * powf((__pyx_v_j - __pyx_v_mean_j_val), 2.0));
+                                                                                            __pyx_t_29 = __pyx_v_wi_c;
+                                                                                            __pyx_t_28 = __pyx_v_ch;
+                                                                                            *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_j_v.data + __pyx_t_30 * __pyx_v_var_j_v.strides[0]) ) + __pyx_t_29 * __pyx_v_var_j_v.strides[1]) ) + __pyx_t_28 * __pyx_v_var_j_v.strides[2]) )) += (__pyx_v_glcm_val * powf((__pyx_v_j - __pyx_v_mean_j_val), 2.0));
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":163
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":160
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]
  *                         if glcm_val != 0:             # <<<<<<<<<<<<<<
@@ -5780,7 +5769,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
           #endif
         }
 
-        /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":156
+        /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":153
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,
  *                      desc="GLCM Variance Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -5806,7 +5795,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
         }
     }
 
-    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":154
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":151
  *     # Only VARIANCE is done here.
  * 
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,             # <<<<<<<<<<<<<<
@@ -5816,33 +5805,33 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   }
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":172
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":169
  *     # Mean and Variance are also features we want, so we just merge them by averaging
  * 
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,             # <<<<<<<<<<<<<<
  *                      desc="GLCM Correlation, Mean, Variance Merge Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_short(__pyx_v_window_rows); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_7);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7);
   __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyBool_FromLong((!(__pyx_v_verbose != 0))); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_disable, __pyx_t_9) < 0) __PYX_ERR(0, 172, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_disable, __pyx_t_9) < 0) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_desc, __pyx_kp_s_GLCM_Correlation_Mean_Variance_M) < 0) __PYX_ERR(0, 172, __pyx_L1_error)
-  __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 172, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_desc, __pyx_kp_s_GLCM_Correlation_Mean_Variance_M) < 0) __PYX_ERR(0, 169, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -5851,9 +5840,9 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
     __pyx_t_7 = __pyx_t_9; __Pyx_INCREF(__pyx_t_7); __pyx_t_2 = 0;
     __pyx_t_14 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_14 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 172, __pyx_L1_error)
+    __pyx_t_14 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 169, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   for (;;) {
@@ -5861,17 +5850,17 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
       if (likely(PyList_CheckExact(__pyx_t_7))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_9 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_9); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 172, __pyx_L1_error)
+        __pyx_t_9 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_9); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 169, __pyx_L1_error)
         #else
-        __pyx_t_9 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 172, __pyx_L1_error)
+        __pyx_t_9 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 169, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_9); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 172, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_2); __Pyx_INCREF(__pyx_t_9); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 169, __pyx_L1_error)
         #else
-        __pyx_t_9 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 172, __pyx_L1_error)
+        __pyx_t_9 = PySequence_ITEM(__pyx_t_7, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 169, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         #endif
       }
@@ -5881,17 +5870,17 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 172, __pyx_L1_error)
+          else __PYX_ERR(0, 169, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_9);
     }
-    __pyx_t_15 = __Pyx_PyInt_As_short(__pyx_t_9); if (unlikely((__pyx_t_15 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 172, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyInt_As_short(__pyx_t_9); if (unlikely((__pyx_t_15 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_v_wi_r = __pyx_t_15;
 
-    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":174
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":171
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,
  *                      desc="GLCM Correlation, Mean, Variance Merge Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -5910,8 +5899,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
           {
               char __pyx_parallel_temp0 = ((char)'?');
               float __pyx_parallel_temp1 = ((float)__PYX_NAN());
-              char __pyx_parallel_temp2 = ((char)'?');
-              char __pyx_parallel_temp3 = ((char)'?');
+              short __pyx_parallel_temp2 = ((short)0xbad0bad0);
+              short __pyx_parallel_temp3 = ((short)0xbad0bad0);
               float __pyx_parallel_temp4 = ((float)__PYX_NAN());
               float __pyx_parallel_temp5 = ((float)__PYX_NAN());
               float __pyx_parallel_temp6 = ((float)__PYX_NAN());
@@ -5931,7 +5920,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
               if (__pyx_t_16 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_19, __pyx_t_20, __pyx_t_21, __pyx_t_28, __pyx_t_29, __pyx_t_30, __pyx_t_31, __pyx_t_32, __pyx_t_33, __pyx_t_34, __pyx_t_35, __pyx_t_36, __pyx_t_37, __pyx_t_38, __pyx_t_39, __pyx_t_40, __pyx_t_41, __pyx_t_42, __pyx_t_8) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
+                  #pragma omp parallel private(__pyx_t_15, __pyx_t_19, __pyx_t_20, __pyx_t_21, __pyx_t_28, __pyx_t_29, __pyx_t_30, __pyx_t_31, __pyx_t_32, __pyx_t_33, __pyx_t_34, __pyx_t_35, __pyx_t_36, __pyx_t_37, __pyx_t_38, __pyx_t_39, __pyx_t_40, __pyx_t_41, __pyx_t_8) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
@@ -5950,14 +5939,14 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                               /* Initialize private variables to invalid values */
                               __pyx_v_ch = ((char)'?');
                               __pyx_v_glcm_val = ((float)__PYX_NAN());
-                              __pyx_v_i = ((char)'?');
-                              __pyx_v_j = ((char)'?');
+                              __pyx_v_i = ((short)0xbad0bad0);
+                              __pyx_v_j = ((short)0xbad0bad0);
                               __pyx_v_mean_i_val = ((float)__PYX_NAN());
                               __pyx_v_mean_j_val = ((float)__PYX_NAN());
                               __pyx_v_var_i_val = ((float)__PYX_NAN());
                               __pyx_v_var_j_val = ((float)__PYX_NAN());
 
-                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":175
+                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":172
  *                      desc="GLCM Correlation, Mean, Variance Merge Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  *             for ch in prange(channels,              schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -5969,8 +5958,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                               {
                                   char __pyx_parallel_temp0 = ((char)'?');
                                   float __pyx_parallel_temp1 = ((float)__PYX_NAN());
-                                  char __pyx_parallel_temp2 = ((char)'?');
-                                  char __pyx_parallel_temp3 = ((char)'?');
+                                  short __pyx_parallel_temp2 = ((short)0xbad0bad0);
+                                  short __pyx_parallel_temp3 = ((short)0xbad0bad0);
                                   float __pyx_parallel_temp4 = ((float)__PYX_NAN());
                                   float __pyx_parallel_temp5 = ((float)__PYX_NAN());
                                   float __pyx_parallel_temp6 = ((float)__PYX_NAN());
@@ -6001,14 +5990,14 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                   __pyx_v_ch = (char)(0 + 1 * __pyx_t_20);
                                                   /* Initialize private variables to invalid values */
                                                   __pyx_v_glcm_val = ((float)__PYX_NAN());
-                                                  __pyx_v_i = ((char)'?');
-                                                  __pyx_v_j = ((char)'?');
+                                                  __pyx_v_i = ((short)0xbad0bad0);
+                                                  __pyx_v_j = ((short)0xbad0bad0);
                                                   __pyx_v_mean_i_val = ((float)__PYX_NAN());
                                                   __pyx_v_mean_j_val = ((float)__PYX_NAN());
                                                   __pyx_v_var_i_val = ((float)__PYX_NAN());
                                                   __pyx_v_var_j_val = ((float)__PYX_NAN());
 
-                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":176
+                                                  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":173
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):
  *             for ch in prange(channels,              schedule='dynamic'):
  *                 for i in prange(glcm_max_value,     schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -6019,8 +6008,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                   if ((1 == 0)) abort();
                                                   {
                                                       float __pyx_parallel_temp0 = ((float)__PYX_NAN());
-                                                      char __pyx_parallel_temp1 = ((char)'?');
-                                                      char __pyx_parallel_temp2 = ((char)'?');
+                                                      short __pyx_parallel_temp1 = ((short)0xbad0bad0);
+                                                      short __pyx_parallel_temp2 = ((short)0xbad0bad0);
                                                       float __pyx_parallel_temp3 = ((float)__PYX_NAN());
                                                       float __pyx_parallel_temp4 = ((float)__PYX_NAN());
                                                       float __pyx_parallel_temp5 = ((float)__PYX_NAN());
@@ -6029,8 +6018,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                       PyObject *__pyx_parallel_exc_type = NULL, *__pyx_parallel_exc_value = NULL, *__pyx_parallel_exc_tb = NULL;
                                                       int __pyx_parallel_why;
                                                       __pyx_parallel_why = 0;
-                                                      __pyx_t_34 = (__pyx_t_8 - 0 + 1 - 1/abs(1)) / 1;
-                                                      if (__pyx_t_34 > 0)
+                                                      __pyx_t_33 = (__pyx_t_8 - 0 + 1 - 1/abs(1)) / 1;
+                                                      if (__pyx_t_33 > 0)
                                                       {
                                                           #if 0
                                                           #pragma omp parallel
@@ -6045,30 +6034,30 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                               #if 0
                                                               #pragma omp for lastprivate(__pyx_v_glcm_val) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_j) lastprivate(__pyx_v_mean_i_val) lastprivate(__pyx_v_mean_j_val) lastprivate(__pyx_v_var_i_val) lastprivate(__pyx_v_var_j_val) schedule(dynamic)
                                                               #endif /* _OPENMP */
-                                                              for (__pyx_t_33 = 0; __pyx_t_33 < __pyx_t_34; __pyx_t_33++){
+                                                              for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_33; __pyx_t_15++){
                                                                   if (__pyx_parallel_why < 2)
                                                                   {
-                                                                      __pyx_v_i = (char)(0 + 1 * __pyx_t_33);
+                                                                      __pyx_v_i = (short)(0 + 1 * __pyx_t_15);
                                                                       /* Initialize private variables to invalid values */
                                                                       __pyx_v_glcm_val = ((float)__PYX_NAN());
-                                                                      __pyx_v_j = ((char)'?');
+                                                                      __pyx_v_j = ((short)0xbad0bad0);
                                                                       __pyx_v_mean_i_val = ((float)__PYX_NAN());
                                                                       __pyx_v_mean_j_val = ((float)__PYX_NAN());
                                                                       __pyx_v_var_i_val = ((float)__PYX_NAN());
                                                                       __pyx_v_var_j_val = ((float)__PYX_NAN());
 
-                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":177
+                                                                      /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":174
  *             for ch in prange(channels,              schedule='dynamic'):
  *                 for i in prange(glcm_max_value,     schedule='dynamic'):
  *                     for j in prange(glcm_max_value, schedule='dynamic'):             # <<<<<<<<<<<<<<
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]
  */
-                                                                      __pyx_t_35 = __pyx_v_glcm_max_value;
+                                                                      __pyx_t_34 = __pyx_v_glcm_max_value;
                                                                       if ((1 == 0)) abort();
                                                                       {
                                                                           float __pyx_parallel_temp0 = ((float)__PYX_NAN());
-                                                                          char __pyx_parallel_temp1 = ((char)'?');
+                                                                          short __pyx_parallel_temp1 = ((short)0xbad0bad0);
                                                                           float __pyx_parallel_temp2 = ((float)__PYX_NAN());
                                                                           float __pyx_parallel_temp3 = ((float)__PYX_NAN());
                                                                           float __pyx_parallel_temp4 = ((float)__PYX_NAN());
@@ -6077,8 +6066,8 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                           PyObject *__pyx_parallel_exc_type = NULL, *__pyx_parallel_exc_value = NULL, *__pyx_parallel_exc_tb = NULL;
                                                                           int __pyx_parallel_why;
                                                                           __pyx_parallel_why = 0;
-                                                                          __pyx_t_37 = (__pyx_t_35 - 0 + 1 - 1/abs(1)) / 1;
-                                                                          if (__pyx_t_37 > 0)
+                                                                          __pyx_t_36 = (__pyx_t_34 - 0 + 1 - 1/abs(1)) / 1;
+                                                                          if (__pyx_t_36 > 0)
                                                                           {
                                                                               #if 0
                                                                               #pragma omp parallel
@@ -6093,10 +6082,10 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                   #if 0
                                                                                   #pragma omp for lastprivate(__pyx_v_glcm_val) firstprivate(__pyx_v_j) lastprivate(__pyx_v_j) lastprivate(__pyx_v_mean_i_val) lastprivate(__pyx_v_mean_j_val) lastprivate(__pyx_v_var_i_val) lastprivate(__pyx_v_var_j_val) schedule(dynamic)
                                                                                   #endif /* _OPENMP */
-                                                                                  for (__pyx_t_36 = 0; __pyx_t_36 < __pyx_t_37; __pyx_t_36++){
+                                                                                  for (__pyx_t_35 = 0; __pyx_t_35 < __pyx_t_36; __pyx_t_35++){
                                                                                       if (__pyx_parallel_why < 2)
                                                                                       {
-                                                                                          __pyx_v_j = (char)(0 + 1 * __pyx_t_36);
+                                                                                          __pyx_v_j = (short)(0 + 1 * __pyx_t_35);
                                                                                           /* Initialize private variables to invalid values */
                                                                                           __pyx_v_glcm_val = ((float)__PYX_NAN());
                                                                                           __pyx_v_mean_i_val = ((float)__PYX_NAN());
@@ -6104,19 +6093,19 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                           __pyx_v_var_i_val = ((float)__PYX_NAN());
                                                                                           __pyx_v_var_j_val = ((float)__PYX_NAN());
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":178
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":175
  *                 for i in prange(glcm_max_value,     schedule='dynamic'):
  *                     for j in prange(glcm_max_value, schedule='dynamic'):
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value             # <<<<<<<<<<<<<<
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]
  */
-                                                                                          __pyx_t_32 = __pyx_v_i;
-                                                                                          __pyx_t_31 = __pyx_v_j;
+                                                                                          __pyx_t_28 = __pyx_v_i;
+                                                                                          __pyx_t_29 = __pyx_v_j;
                                                                                           __pyx_t_30 = __pyx_v_wi_r;
-                                                                                          __pyx_t_29 = __pyx_v_wi_c;
-                                                                                          __pyx_t_28 = __pyx_v_ch;
-                                                                                          __pyx_t_38 = (*((unsigned char *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_glcm_v.data + __pyx_t_32 * __pyx_v_glcm_v.strides[0]) ) + __pyx_t_31 * __pyx_v_glcm_v.strides[1]) ) + __pyx_t_30 * __pyx_v_glcm_v.strides[2]) ) + __pyx_t_29 * __pyx_v_glcm_v.strides[3]) ) + __pyx_t_28 * __pyx_v_glcm_v.strides[4]) )));
+                                                                                          __pyx_t_31 = __pyx_v_wi_c;
+                                                                                          __pyx_t_32 = __pyx_v_ch;
+                                                                                          __pyx_t_37 = (*((unsigned char *) ( /* dim=4 */ (( /* dim=3 */ (( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_glcm_v.data + __pyx_t_28 * __pyx_v_glcm_v.strides[0]) ) + __pyx_t_29 * __pyx_v_glcm_v.strides[1]) ) + __pyx_t_30 * __pyx_v_glcm_v.strides[2]) ) + __pyx_t_31 * __pyx_v_glcm_v.strides[3]) ) + __pyx_t_32 * __pyx_v_glcm_v.strides[4]) )));
                                                                                           if (unlikely(__pyx_v_glcm_max_value == 0)) {
                                                                                             #ifdef WITH_THREAD
                                                                                             PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
@@ -6125,9 +6114,9 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                             #ifdef WITH_THREAD
                                                                                             __Pyx_PyGILState_Release(__pyx_gilstate_save);
                                                                                             #endif
-                                                                                            __PYX_ERR(0, 178, __pyx_L119_error)
+                                                                                            __PYX_ERR(0, 175, __pyx_L119_error)
                                                                                           }
-                                                                                          else if (sizeof(int) == sizeof(long) && (!(((char)-1) > 0)) && unlikely(__pyx_v_glcm_max_value == (char)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_t_38))) {
+                                                                                          else if (sizeof(int) == sizeof(long) && (!(((char)-1) > 0)) && unlikely(__pyx_v_glcm_max_value == (char)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_t_37))) {
                                                                                             #ifdef WITH_THREAD
                                                                                             PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
                                                                                             #endif
@@ -6135,23 +6124,23 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                             #ifdef WITH_THREAD
                                                                                             __Pyx_PyGILState_Release(__pyx_gilstate_save);
                                                                                             #endif
-                                                                                            __PYX_ERR(0, 178, __pyx_L119_error)
+                                                                                            __PYX_ERR(0, 175, __pyx_L119_error)
                                                                                           }
-                                                                                          __pyx_v_glcm_val = __Pyx_div_int(__pyx_t_38, __pyx_v_glcm_max_value);
+                                                                                          __pyx_v_glcm_val = __Pyx_div_int(__pyx_t_37, __pyx_v_glcm_max_value);
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":179
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":176
  *                     for j in prange(glcm_max_value, schedule='dynamic'):
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]             # <<<<<<<<<<<<<<
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]
  *                         var_i_val  = var_i_v[wi_r, wi_c, ch]
  */
-                                                                                          __pyx_t_28 = __pyx_v_wi_r;
-                                                                                          __pyx_t_29 = __pyx_v_wi_c;
+                                                                                          __pyx_t_32 = __pyx_v_wi_r;
+                                                                                          __pyx_t_31 = __pyx_v_wi_c;
                                                                                           __pyx_t_30 = __pyx_v_ch;
-                                                                                          __pyx_v_mean_i_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_i_v.data + __pyx_t_28 * __pyx_v_mean_i_v.strides[0]) ) + __pyx_t_29 * __pyx_v_mean_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_mean_i_v.strides[2]) )));
+                                                                                          __pyx_v_mean_i_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_i_v.data + __pyx_t_32 * __pyx_v_mean_i_v.strides[0]) ) + __pyx_t_31 * __pyx_v_mean_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_mean_i_v.strides[2]) )));
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":180
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":177
  *                         glcm_val = glcm_v[i, j, wi_r, wi_c, ch] / glcm_max_value
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]             # <<<<<<<<<<<<<<
@@ -6159,23 +6148,23 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  *                         var_j_val  = var_j_v[wi_r, wi_c, ch]
  */
                                                                                           __pyx_t_30 = __pyx_v_wi_r;
-                                                                                          __pyx_t_29 = __pyx_v_wi_c;
-                                                                                          __pyx_t_28 = __pyx_v_ch;
-                                                                                          __pyx_v_mean_j_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_j_v.data + __pyx_t_30 * __pyx_v_mean_j_v.strides[0]) ) + __pyx_t_29 * __pyx_v_mean_j_v.strides[1]) ) + __pyx_t_28 * __pyx_v_mean_j_v.strides[2]) )));
+                                                                                          __pyx_t_31 = __pyx_v_wi_c;
+                                                                                          __pyx_t_32 = __pyx_v_ch;
+                                                                                          __pyx_v_mean_j_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_j_v.data + __pyx_t_30 * __pyx_v_mean_j_v.strides[0]) ) + __pyx_t_31 * __pyx_v_mean_j_v.strides[1]) ) + __pyx_t_32 * __pyx_v_mean_j_v.strides[2]) )));
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":181
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":178
  *                         mean_i_val = mean_i_v[wi_r, wi_c, ch]
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]
  *                         var_i_val  = var_i_v[wi_r, wi_c, ch]             # <<<<<<<<<<<<<<
  *                         var_j_val  = var_j_v[wi_r, wi_c, ch]
  *                         if glcm_val != 0:
  */
-                                                                                          __pyx_t_28 = __pyx_v_wi_r;
-                                                                                          __pyx_t_29 = __pyx_v_wi_c;
+                                                                                          __pyx_t_32 = __pyx_v_wi_r;
+                                                                                          __pyx_t_31 = __pyx_v_wi_c;
                                                                                           __pyx_t_30 = __pyx_v_ch;
-                                                                                          __pyx_v_var_i_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_i_v.data + __pyx_t_28 * __pyx_v_var_i_v.strides[0]) ) + __pyx_t_29 * __pyx_v_var_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_var_i_v.strides[2]) )));
+                                                                                          __pyx_v_var_i_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_i_v.data + __pyx_t_32 * __pyx_v_var_i_v.strides[0]) ) + __pyx_t_31 * __pyx_v_var_i_v.strides[1]) ) + __pyx_t_30 * __pyx_v_var_i_v.strides[2]) )));
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":182
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":179
  *                         mean_j_val = mean_j_v[wi_r, wi_c, ch]
  *                         var_i_val  = var_i_v[wi_r, wi_c, ch]
  *                         var_j_val  = var_j_v[wi_r, wi_c, ch]             # <<<<<<<<<<<<<<
@@ -6183,64 +6172,64 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  *                             if var_i_val != 0 and var_j_val != 0:
  */
                                                                                           __pyx_t_30 = __pyx_v_wi_r;
-                                                                                          __pyx_t_29 = __pyx_v_wi_c;
-                                                                                          __pyx_t_28 = __pyx_v_ch;
-                                                                                          __pyx_v_var_j_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_j_v.data + __pyx_t_30 * __pyx_v_var_j_v.strides[0]) ) + __pyx_t_29 * __pyx_v_var_j_v.strides[1]) ) + __pyx_t_28 * __pyx_v_var_j_v.strides[2]) )));
+                                                                                          __pyx_t_31 = __pyx_v_wi_c;
+                                                                                          __pyx_t_32 = __pyx_v_ch;
+                                                                                          __pyx_v_var_j_val = (*((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_j_v.data + __pyx_t_30 * __pyx_v_var_j_v.strides[0]) ) + __pyx_t_31 * __pyx_v_var_j_v.strides[1]) ) + __pyx_t_32 * __pyx_v_var_j_v.strides[2]) )));
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":183
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":180
  *                         var_i_val  = var_i_v[wi_r, wi_c, ch]
  *                         var_j_val  = var_j_v[wi_r, wi_c, ch]
  *                         if glcm_val != 0:             # <<<<<<<<<<<<<<
  *                             if var_i_val != 0 and var_j_val != 0:
  *                                 correlation_v[wi_r, wi_c, ch] += glcm_val * (
  */
-                                                                                          __pyx_t_39 = ((__pyx_v_glcm_val != 0.0) != 0);
-                                                                                          if (__pyx_t_39) {
+                                                                                          __pyx_t_38 = ((__pyx_v_glcm_val != 0.0) != 0);
+                                                                                          if (__pyx_t_38) {
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":184
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":181
  *                         var_j_val  = var_j_v[wi_r, wi_c, ch]
  *                         if glcm_val != 0:
  *                             if var_i_val != 0 and var_j_val != 0:             # <<<<<<<<<<<<<<
  *                                 correlation_v[wi_r, wi_c, ch] += glcm_val * (
  *                                     (i - mean_i_val) * (j - mean_j_val) /
  */
-                                                                                            __pyx_t_40 = ((__pyx_v_var_i_val != 0.0) != 0);
-                                                                                            if (__pyx_t_40) {
+                                                                                            __pyx_t_39 = ((__pyx_v_var_i_val != 0.0) != 0);
+                                                                                            if (__pyx_t_39) {
                                                                                             } else {
-                                                                                              __pyx_t_39 = __pyx_t_40;
+                                                                                              __pyx_t_38 = __pyx_t_39;
                                                                                               goto __pyx_L123_bool_binop_done;
                                                                                             }
-                                                                                            __pyx_t_40 = ((__pyx_v_var_j_val != 0.0) != 0);
-                                                                                            __pyx_t_39 = __pyx_t_40;
+                                                                                            __pyx_t_39 = ((__pyx_v_var_j_val != 0.0) != 0);
+                                                                                            __pyx_t_38 = __pyx_t_39;
                                                                                             __pyx_L123_bool_binop_done:;
-                                                                                            if (__pyx_t_39) {
+                                                                                            if (__pyx_t_38) {
 
-                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":186
+                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":183
  *                             if var_i_val != 0 and var_j_val != 0:
  *                                 correlation_v[wi_r, wi_c, ch] += glcm_val * (
  *                                     (i - mean_i_val) * (j - mean_j_val) /             # <<<<<<<<<<<<<<
  *                                     sqrt(var_i_val * var_j_val)
  *                                 )
  */
-                                                                                              __pyx_t_41 = ((__pyx_v_i - __pyx_v_mean_i_val) * (__pyx_v_j - __pyx_v_mean_j_val));
+                                                                                              __pyx_t_40 = ((__pyx_v_i - __pyx_v_mean_i_val) * (__pyx_v_j - __pyx_v_mean_j_val));
 
-                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":187
+                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":184
  *                                 correlation_v[wi_r, wi_c, ch] += glcm_val * (
  *                                     (i - mean_i_val) * (j - mean_j_val) /
  *                                     sqrt(var_i_val * var_j_val)             # <<<<<<<<<<<<<<
  *                                 )
  *                         mean_v[wi_r, wi_c, ch] = (mean_i_val + mean_j_val) / 2
  */
-                                                                                              __pyx_t_42 = sqrt((__pyx_v_var_i_val * __pyx_v_var_j_val));
+                                                                                              __pyx_t_41 = sqrt((__pyx_v_var_i_val * __pyx_v_var_j_val));
 
-                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":186
+                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":183
  *                             if var_i_val != 0 and var_j_val != 0:
  *                                 correlation_v[wi_r, wi_c, ch] += glcm_val * (
  *                                     (i - mean_i_val) * (j - mean_j_val) /             # <<<<<<<<<<<<<<
  *                                     sqrt(var_i_val * var_j_val)
  *                                 )
  */
-                                                                                              if (unlikely(__pyx_t_42 == 0)) {
+                                                                                              if (unlikely(__pyx_t_41 == 0)) {
                                                                                                 #ifdef WITH_THREAD
                                                                                                 PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
                                                                                                 #endif
@@ -6248,22 +6237,22 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
                                                                                                 #ifdef WITH_THREAD
                                                                                                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                                                                                                 #endif
-                                                                                                __PYX_ERR(0, 186, __pyx_L119_error)
+                                                                                                __PYX_ERR(0, 183, __pyx_L119_error)
                                                                                               }
 
-                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":185
+                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":182
  *                         if glcm_val != 0:
  *                             if var_i_val != 0 and var_j_val != 0:
  *                                 correlation_v[wi_r, wi_c, ch] += glcm_val * (             # <<<<<<<<<<<<<<
  *                                     (i - mean_i_val) * (j - mean_j_val) /
  *                                     sqrt(var_i_val * var_j_val)
  */
-                                                                                              __pyx_t_28 = __pyx_v_wi_r;
-                                                                                              __pyx_t_29 = __pyx_v_wi_c;
+                                                                                              __pyx_t_32 = __pyx_v_wi_r;
+                                                                                              __pyx_t_31 = __pyx_v_wi_c;
                                                                                               __pyx_t_30 = __pyx_v_ch;
-                                                                                              *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_correlation_v.data + __pyx_t_28 * __pyx_v_correlation_v.strides[0]) ) + __pyx_t_29 * __pyx_v_correlation_v.strides[1]) ) + __pyx_t_30 * __pyx_v_correlation_v.strides[2]) )) += (__pyx_v_glcm_val * (__pyx_t_41 / __pyx_t_42));
+                                                                                              *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_correlation_v.data + __pyx_t_32 * __pyx_v_correlation_v.strides[0]) ) + __pyx_t_31 * __pyx_v_correlation_v.strides[1]) ) + __pyx_t_30 * __pyx_v_correlation_v.strides[2]) )) += (__pyx_v_glcm_val * (__pyx_t_40 / __pyx_t_41));
 
-                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":184
+                                                                                              /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":181
  *                         var_j_val  = var_j_v[wi_r, wi_c, ch]
  *                         if glcm_val != 0:
  *                             if var_i_val != 0 and var_j_val != 0:             # <<<<<<<<<<<<<<
@@ -6272,7 +6261,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  */
                                                                                             }
 
-                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":183
+                                                                                            /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":180
  *                         var_i_val  = var_i_v[wi_r, wi_c, ch]
  *                         var_j_val  = var_j_v[wi_r, wi_c, ch]
  *                         if glcm_val != 0:             # <<<<<<<<<<<<<<
@@ -6281,7 +6270,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  */
                                                                                           }
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":189
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":186
  *                                     sqrt(var_i_val * var_j_val)
  *                                 )
  *                         mean_v[wi_r, wi_c, ch] = (mean_i_val + mean_j_val) / 2             # <<<<<<<<<<<<<<
@@ -6289,21 +6278,21 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  * 
  */
                                                                                           __pyx_t_30 = __pyx_v_wi_r;
-                                                                                          __pyx_t_29 = __pyx_v_wi_c;
-                                                                                          __pyx_t_28 = __pyx_v_ch;
-                                                                                          *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_v.data + __pyx_t_30 * __pyx_v_mean_v.strides[0]) ) + __pyx_t_29 * __pyx_v_mean_v.strides[1]) ) + __pyx_t_28 * __pyx_v_mean_v.strides[2]) )) = ((__pyx_v_mean_i_val + __pyx_v_mean_j_val) / 2.0);
+                                                                                          __pyx_t_31 = __pyx_v_wi_c;
+                                                                                          __pyx_t_32 = __pyx_v_ch;
+                                                                                          *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_mean_v.data + __pyx_t_30 * __pyx_v_mean_v.strides[0]) ) + __pyx_t_31 * __pyx_v_mean_v.strides[1]) ) + __pyx_t_32 * __pyx_v_mean_v.strides[2]) )) = ((__pyx_v_mean_i_val + __pyx_v_mean_j_val) / 2.0);
 
-                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":190
+                                                                                          /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":187
  *                                 )
  *                         mean_v[wi_r, wi_c, ch] = (mean_i_val + mean_j_val) / 2
  *                         var_v[wi_r, wi_c, ch]  = (var_i_val + var_j_val) / 2             # <<<<<<<<<<<<<<
  * 
  *     return contrast, correlation, asm, mean, var
  */
-                                                                                          __pyx_t_28 = __pyx_v_wi_r;
-                                                                                          __pyx_t_29 = __pyx_v_wi_c;
+                                                                                          __pyx_t_32 = __pyx_v_wi_r;
+                                                                                          __pyx_t_31 = __pyx_v_wi_c;
                                                                                           __pyx_t_30 = __pyx_v_ch;
-                                                                                          *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_v.data + __pyx_t_28 * __pyx_v_var_v.strides[0]) ) + __pyx_t_29 * __pyx_v_var_v.strides[1]) ) + __pyx_t_30 * __pyx_v_var_v.strides[2]) )) = ((__pyx_v_var_i_val + __pyx_v_var_j_val) / 2.0);
+                                                                                          *((float *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_var_v.data + __pyx_t_32 * __pyx_v_var_v.strides[0]) ) + __pyx_t_31 * __pyx_v_var_v.strides[1]) ) + __pyx_t_30 * __pyx_v_var_v.strides[2]) )) = ((__pyx_v_var_i_val + __pyx_v_var_j_val) / 2.0);
                                                                                           goto __pyx_L126;
                                                                                           __pyx_L119_error:;
                                                                                           {
@@ -6653,7 +6642,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
           #endif
         }
 
-        /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":174
+        /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":171
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,
  *                      desc="GLCM Correlation, Mean, Variance Merge Pass"):
  *         for wi_c in prange(window_cols, nogil=True, schedule='dynamic'):             # <<<<<<<<<<<<<<
@@ -6679,7 +6668,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
         }
     }
 
-    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":172
+    /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":169
  *     # Mean and Variance are also features we want, so we just merge them by averaging
  * 
  *     for wi_r in tqdm(range(window_rows), disable=not verbose,             # <<<<<<<<<<<<<<
@@ -6689,7 +6678,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":192
+  /* "FRModel/src/frmodel/base/D2/frame/_cy_fast_glcm.pyx":189
  *                         var_v[wi_r, wi_c, ch]  = (var_i_val + var_j_val) / 2
  * 
  *     return contrast, correlation, asm, mean, var             # <<<<<<<<<<<<<<
@@ -6697,7 +6686,7 @@ static PyObject *__pyx_pf_7FRModel_3src_7frmodel_4base_2D2_5frame_13_cy_fast_glc
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_7 = PyTuple_New(5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 192, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 189, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_v_contrast);
   __Pyx_GIVEREF(__pyx_v_contrast);
@@ -22230,14 +22219,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_glcm_val, __pyx_k_glcm_val, sizeof(__pyx_k_glcm_val), 0, 0, 1, 1},
   {&__pyx_kp_s_got_differing_extents_in_dimensi, __pyx_k_got_differing_extents_in_dimensi, sizeof(__pyx_k_got_differing_extents_in_dimensi), 0, 0, 1, 0},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
-  {&__pyx_n_s_i_f, __pyx_k_i_f, sizeof(__pyx_k_i_f), 0, 0, 1, 1},
   {&__pyx_n_s_i_v, __pyx_k_i_v, sizeof(__pyx_k_i_v), 0, 0, 1, 1},
   {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_itemsize, __pyx_k_itemsize, sizeof(__pyx_k_itemsize), 0, 0, 1, 1},
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_j, __pyx_k_j, sizeof(__pyx_k_j), 0, 0, 1, 1},
-  {&__pyx_n_s_j_f, __pyx_k_j_f, sizeof(__pyx_k_j_f), 0, 0, 1, 1},
   {&__pyx_n_s_j_v, __pyx_k_j_v, sizeof(__pyx_k_j_v), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_max, __pyx_k_max, sizeof(__pyx_k_max), 0, 0, 1, 1},
@@ -22315,7 +22302,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 114, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 777, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 781, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 959, __pyx_L1_error)
@@ -22588,10 +22575,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *                  np.ndarray[DTYPE_t8, ndim=5] windows_j,
  *                  bint verbose):
  */
-  __pyx_tuple__25 = PyTuple_Pack(45, __pyx_n_s_windows_i, __pyx_n_s_windows_j, __pyx_n_s_verbose, __pyx_n_s_i_v, __pyx_n_s_j_v, __pyx_n_s_window_rows, __pyx_n_s_window_cols, __pyx_n_s_wi_r, __pyx_n_s_wi_c, __pyx_n_s_cell_rows, __pyx_n_s_cell_cols, __pyx_n_s_c_r, __pyx_n_s_c_c, __pyx_n_s_channels, __pyx_n_s_ch, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_i_f, __pyx_n_s_j_f, __pyx_n_s_glcm_val, __pyx_n_s_mean_i_val, __pyx_n_s_mean_j_val, __pyx_n_s_var_i_val, __pyx_n_s_var_j_val, __pyx_n_s_glcm_max_value, __pyx_n_s_glcm, __pyx_n_s_contrast, __pyx_n_s_correlation, __pyx_n_s_asm, __pyx_n_s_mean, __pyx_n_s_mean_i, __pyx_n_s_mean_j, __pyx_n_s_var, __pyx_n_s_var_i, __pyx_n_s_var_j, __pyx_n_s_glcm_v, __pyx_n_s_contrast_v, __pyx_n_s_correlation_v, __pyx_n_s_asm_v, __pyx_n_s_mean_v, __pyx_n_s_mean_i_v, __pyx_n_s_mean_j_v, __pyx_n_s_var_v, __pyx_n_s_var_i_v, __pyx_n_s_var_j_v); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(43, __pyx_n_s_windows_i, __pyx_n_s_windows_j, __pyx_n_s_verbose, __pyx_n_s_i_v, __pyx_n_s_j_v, __pyx_n_s_window_rows, __pyx_n_s_window_cols, __pyx_n_s_wi_r, __pyx_n_s_wi_c, __pyx_n_s_cell_rows, __pyx_n_s_cell_cols, __pyx_n_s_c_r, __pyx_n_s_c_c, __pyx_n_s_channels, __pyx_n_s_ch, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_glcm_val, __pyx_n_s_mean_i_val, __pyx_n_s_mean_j_val, __pyx_n_s_var_i_val, __pyx_n_s_var_j_val, __pyx_n_s_glcm_max_value, __pyx_n_s_glcm, __pyx_n_s_contrast, __pyx_n_s_correlation, __pyx_n_s_asm, __pyx_n_s_mean, __pyx_n_s_mean_i, __pyx_n_s_mean_j, __pyx_n_s_var, __pyx_n_s_var_i, __pyx_n_s_var_j, __pyx_n_s_glcm_v, __pyx_n_s_contrast_v, __pyx_n_s_correlation_v, __pyx_n_s_asm_v, __pyx_n_s_mean_v, __pyx_n_s_mean_i_v, __pyx_n_s_mean_j_v, __pyx_n_s_var_v, __pyx_n_s_var_i_v, __pyx_n_s_var_j_v); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(3, 0, 45, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_frmodel_base_D2_frame__cy_fa, __pyx_n_s_cy_fast_glcm, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(3, 0, 43, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_frmodel_base_D2_frame__cy_fa, __pyx_n_s_cy_fast_glcm, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 15, __pyx_L1_error)
 
   /* "View.MemoryView":286
  *         return self.name

@@ -142,8 +142,8 @@ class _Frame2DChannel(_Frame2DChannelFastGLCM, _Frame2DChannelSpec):
                 frame = frame.crop_glcm(glcm.radius)\
                     .append(*self.get_glcm(glcm))
 
-        frame.data = np.ma.array(frame.data,
-                                 mask=np.repeat(frame.nanmask()[..., np.newaxis], frame.shape[-1]))
+        frame._data = np.ma.array(frame.data,
+                                  mask=np.repeat(frame.nanmask()[..., np.newaxis], frame.shape[-1]))
         return frame
 
     def get_hsv(self: 'Frame2D') -> np.ndarray:

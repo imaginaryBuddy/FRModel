@@ -120,6 +120,7 @@ def cy_fast_glcm(np.ndarray[DTYPE_t8, ndim=5] windows_i,
                         i = <short>i_v[wi_r, wi_c, c_r, c_c, ch]
                         j = <short>j_v[wi_r, wi_c, c_r, c_c, ch]
                         glcm_v[i, j, wi_r, wi_c, ch] += 1
+                        glcm_v[j, i, wi_r, wi_c, ch] += 1
 
     # ------------------------
     # CONTRAST, ASM, MEAN
