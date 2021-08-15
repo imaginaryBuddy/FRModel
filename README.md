@@ -34,3 +34,19 @@ utm
 Licensed under the **Mozilla Public License 2.0**
 
 https://github.com/Eve-ning/FRModel/blob/master/LICENSE
+
+# Citation
+
+If you have used or referenced any of the code in the repository,
+please kindly cite
+
+```
+@misc{frmodel,
+  author = {John Chang},
+  title = {FRModel: Forest Recovery Modelling},
+  year = {2020},
+  publisher = {GitHub},
+  journal = {GitHub Repository},
+  howpublished = {\url{https://github.com/Eve-ning/FRModel}},
+}
+```
