@@ -8,25 +8,33 @@ This project is under the **Nanyang Technological University** (NTU) **Undergrad
 
 **It is recommended to fork for the latest updates**. The conda package will not be maintained.
 
-To build the Cython files, you need to run the one-liner `c_setup.bat`, if not using Windows, please run `c_setup.py`.
+To build the Cython files, you need to run the one-liner `c_setup.bat`.
 
-# Required Packages
-
-Packages should be automatically downloaded. If not downloaded, here are the required packages.
-
-**Python >= 3.7**
-
+Follow the following installation steps if not on Windows
+```bash
+$ python c_setup.py build_ext --inplace
+$ cd src && pip install .
 ```
-pillow
-opencv
-pandas
-numpy
-python
-scipy
-scikit-image
-scikit-learn
-osgeo
-utm
+
+Test the installation by running the following command in your Python shell
+```
+import frmodel
+```
+
+No errors should pop up.
+
+# Dependencies
+
+The following repository requires `GDAL`. Refer to the following website for more information for the installation of `GDAL`: https://gdal.org/download.html
+
+For Mac OS > 10, you may run `brew install GDAL` to install the package.
+
+## Python Packages
+
+Run the following script in the main directory to install the required Python packages
+
+```bash
+pip install -r requirements.txt
 ```
 
 # License

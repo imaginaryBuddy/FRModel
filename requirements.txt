@@ -1,0 +1,12 @@
+plotly
+pillow
+opencv-python
+pandas
+numpy
+scipy
+scikit-image
+scikit-learn
+utm
+GDAL
+Cython
+seaborn
